@@ -115,6 +115,7 @@ _deps
 .idea/*
 !.idea/misc.xml
 !.idea/runConfigurations/
+!.idea/inspectionProfiles/
 
 
 

@@ -1,0 +1,12 @@
+// suppress all unused functions errors in all files
+unusedFunction
+
+// suppress the annoying system include messages
+missingIncludeSystem
+
+// suppress ome obvious folders
+*:CMakeFiles
+*:_deps
+*:extern/*
+*:libs/*
+
