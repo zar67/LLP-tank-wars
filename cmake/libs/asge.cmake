@@ -23,7 +23,7 @@
 message( "##### ASGE SETUP #####")
 add_library(ASGE UNKNOWN IMPORTED)
 set(ASGE_VERSION "2.0.0-alpha")
-set(ASGE_VERSION_EXTRA "+f9d36d91")
+set(ASGE_VERSION_EXTRA "+2")
 set(ASGE_BASEURL "https://github.com/HuxyUK/ASGE/releases/download/v${ASGE_VERSION}")
 
 if(NOT ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug"))

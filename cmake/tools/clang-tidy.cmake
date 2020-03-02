@@ -1,28 +1,34 @@
-find_program(CLANG_TIDY
-        NAMES clang-tidy)
+if(${CMAKE_CXX_PLATFORM_ID} STREQUAL "MinGW")
+    set(CMAKE_CXX_USE_RESPONSE_FILE_FOR_INCLUDES OFF)
+endif()
 
-message(${CLANG_TIDY})
-set(CMAKE_CXX_CLANG_TIDY clang-tidy)
+find_program(CLANG_TIDY
+    NAMES clang-tidy-10 clang-tidy-9 clang-tidy-8 clang-tidy
+    HINTS ${CMAKE_SOURCE_DIR}/tools/*/${PLATFORM}/ )
+
+list(
+    APPEND CLANG_TIDY
+    "-quiet"
+    "-p=${CMAKE_BINARY_DIR}" )
+
+set(CMAKE_CXX_CLANG_TIDY ${CLANG_TIDY})
 
 #file(GLOB_RECURSE
 #        ALL_CXX_SOURCE_FILES
 #        *.[chi]pp *.[chi]xx *.cc *.hh *.ii *.[CHI]
 #        )
 
-#
-#message(${ALL_CXX_SOURCE_FILES})
-#
 ## Adding clang-tidy target if executable is found
 ##find_program(CLANG_TIDY "clang-tidy")
 #if(CLANG_TIDY)
 #    add_custom_target(
 #            clang-tidy
 #            COMMAND ${CLANG_TIDY}
-#            ${ALL_CXX_SOURCE_FILES}
-#            -config='${CMAKE_SOURCE_DIR/.clang-tidy}'
-#            --
-#            -std=c++11
-#            ${INCLUDE_DIRECTORIES}
+#            "${CMAKE_SOURCE_DIR}/source/components/GCNetServer.cpp"
+           # "-extra-arg=-I${CMAKE_SOURCE_DIR}/include/gamelib"
+           # "-extra-arg=-isystem${CMAKE_BINARY_DIR}/_deps/asge-src/include"
+           # "-extra-arg=-isystem${CMAKE_BINARY_DIR}/_deps/netlib-src/Headers"
+            #"-extra-arg=-isystem${CMAKE_BINARY_DIR}/_deps/netlib-src/Headers/NetLib/Windows"
 #    )
 #endif()
 

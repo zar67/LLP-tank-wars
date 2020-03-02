@@ -30,7 +30,7 @@ Game::~Game()
 /// @see KeyEvent
 void Game::keyHandler(ASGE::SharedEventData data)
 {
-  auto key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
+  const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
 
   if (key->key == ASGE::KEYS::KEY_ESCAPE)
   {
