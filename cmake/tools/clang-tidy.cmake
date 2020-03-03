@@ -4,7 +4,9 @@ endif()
 
 find_program(CLANG_TIDY
     NAMES clang-tidy-10 clang-tidy-9 clang-tidy-8 clang-tidy
-    HINTS ${CMAKE_SOURCE_DIR}/tools/*/${PLATFORM}/ )
+    HINTS ${CMAKE_SOURCE_DIR}/tools/*/${PLATFORM}/)
+
+message-
 
 list(
     APPEND CLANG_TIDY
