@@ -3,7 +3,7 @@ Checks:            '*,readability-identifier-naming,
                     -android-*,-fuchsia-*,-google-*,-llvm-*,-objc-*,-zircon-*,
                     -clang-analyzer-alpha.*,-modernize-use-trailing-return-type,
                     -hicpp-special-member-functions, -readability-redundant-access-specifiers,
-                    -cppcoreguidelines-avoid-magic-numbers, llvm-namespace-comment'
+                    -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-bounds-pointer-arithmetic, llvm-namespace-comment'
 
 WarningsAsErrors:  '*,-readability-magic-numbers,-misc-unused-parameters,'
 HeaderFilterRegex: '.*'
