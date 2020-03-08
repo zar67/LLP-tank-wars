@@ -6,7 +6,7 @@ Checks:            '*,readability-identifier-naming,
                     -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-bounds-pointer-arithmetic, llvm-namespace-comment'
 
 WarningsAsErrors:  '*,-readability-magic-numbers,-misc-unused-parameters,'
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: '^.*(gamelib|apps).*(.hpp|.h)'
 AnalyzeTemporaryDtors: true
 FormatStyle:     file
 User:            lintbot
