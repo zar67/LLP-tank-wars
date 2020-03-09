@@ -6,6 +6,7 @@
 #define NETGAME_GCNETCLIENT_HPP
 #include "GameComponent.hpp"
 #include <NetLib/ClientConnection.h>
+
 class GCNetClient : public GameComponent
 {
  public:
@@ -16,8 +17,13 @@ class GCNetClient : public GameComponent
   GCNetClient(const GCNetClient&) = delete;
   GCNetClient& operator=(const GCNetClient&) = delete;
 
+  void input();
+  void endTurn();
+
  private:
   netlib::ClientConnection client;
+
+  std::vector<std::vector<char>> actions;
 };
 
 #endif // NETGAME_GCNETCLIENT_HPP
