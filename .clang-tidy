@@ -7,7 +7,6 @@ Checks:            '*,readability-identifier-naming,
 
 WarningsAsErrors:  '*,-readability-magic-numbers,-misc-unused-parameters,'
 HeaderFilterRegex: '^.*(gamelib|apps).*(.hpp|.h)'
-
 AnalyzeTemporaryDtors: true
 FormatStyle:     file
 User:            lintbot
