@@ -39,34 +39,11 @@ void GCNetClient::update(double dt)
     all_events.pop();
   }
 
-  // EXAMPLE MOVE MESSAGE TO SERVER
-  std::string test =
-    std::to_string(static_cast<int>(GCNetServer::MessageType::MOVE)) + ":" +
-    std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
-    std::to_string(2) + "," + std::to_string(5);
-  std::vector<char> message;
-  std::copy(test.begin(), test.end(), std::back_inserter(message));
-  actions.push_back(message);
+  if (!client.IsRunning())
+  {
+    exiting = true;
+  }
 
-  // EXAMPLE ATTACK MESSAGE TO SERVER
-  std::string test2 =
-    std::to_string(static_cast<int>(GCNetServer::MessageType::ATTACK)) + ":" +
-    std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
-    std::to_string(10);
-  std::vector<char> message2;
-  std::copy(test2.begin(), test2.end(), std::back_inserter(message2));
-  actions.push_back(message2);
-
-  // EXAMPLE BUY MESSAGE TO SERVER
-  std::string test3 =
-    std::to_string(static_cast<int>(GCNetServer::MessageType::BUY)) + ":" +
-    std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
-    std::to_string(2) + "," + std::to_string(5);
-  std::vector<char> message3;
-  std::copy(test3.begin(), test3.end(), std::back_inserter(message3));
-  actions.push_back(message3);
-
-  endTurn();
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
@@ -77,10 +54,58 @@ GCNetClient::~GCNetClient()
 
 void GCNetClient::input()
 {
-  std::string input;
-  std::getline(std::cin, input);
-  input = std::to_string(client.GetUID()) + ": " + input;
-  client.SendMessageToServer(input.c_str(), static_cast<int>(input.size()) + 1);
+  while (!exiting)
+  {
+    std::string input;
+    std::getline(std::cin, input);
+
+    if (input == "#move")
+    {
+      // EXAMPLE MOVE MESSAGE TO SERVER
+      Logging::log("MOVE\n");
+      std::string test =
+        std::to_string(static_cast<int>(GCNetServer::MessageType::MOVE)) + ":" +
+        std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
+        std::to_string(2) + "," + std::to_string(5);
+      std::vector<char> message;
+      std::copy(test.begin(), test.end(), std::back_inserter(message));
+      actions.push_back(message);
+    }
+    else if (input == "#attack")
+    {
+      // EXAMPLE ATTACK MESSAGE TO SERVER
+      Logging::log("ATTACK\n");
+      std::string test2 =
+        std::to_string(static_cast<int>(GCNetServer::MessageType::ATTACK)) +
+        ":" + std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
+        std::to_string(10);
+      std::vector<char> message2;
+      std::copy(test2.begin(), test2.end(), std::back_inserter(message2));
+      actions.push_back(message2);
+    }
+    else if (input == "#buy")
+    {
+      // EXAMPLE BUY MESSAGE TO SERVER
+      Logging::log("BUY\n");
+      std::string test3 =
+        std::to_string(static_cast<int>(GCNetServer::MessageType::BUY)) + ":" +
+        std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
+        std::to_string(2) + "," + std::to_string(5);
+      std::vector<char> message3;
+      std::copy(test3.begin(), test3.end(), std::back_inserter(message3));
+      actions.push_back(message3);
+    }
+    else if (input == "#endturn")
+    {
+      endTurn();
+    }
+    else
+    {
+      std::string new_input = std::to_string(client.GetUID()) + ": " + input;
+      client.SendMessageToServer(
+        new_input.c_str(), static_cast<int>(new_input.size()) + 1);
+    }
+  }
 }
 
 void GCNetClient::endTurn()
