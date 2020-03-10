@@ -1,3 +1,6 @@
+include(CheckPIESupported)
+check_pie_supported()
+
 if ( CMAKE_COMPILER_IS_GNUCC )
     list(APPEND BUILD_FLAGS_FOR_CXX
             "-Wall" "-Wextra" "-Wshadow" "-Wnon-virtual-dtor"
