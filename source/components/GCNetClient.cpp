@@ -116,3 +116,33 @@ void GCNetClient::endTurn()
   }
   actions.clear();
 }
+
+void GCNetClient::encodeData(Instructions _instruction, Types _data)
+{
+  std::string string_message =
+    "(" + std::to_string(static_cast<int>(_instruction));
+  std::vector<char> message;
+  switch (_instruction)
+  {
+    case Instructions::MOVE:
+      string_message += ":" + std::to_string(_data.move.x_pos) + "," +
+                        std::to_string(_data.move.y_pos) + ")";
+      break;
+    case Instructions::ATTACK:
+      string_message += ":" + std::to_string(_data.attack.attacker_id) + "," +
+                        std::to_string(_data.attack.enenmy_id),
+        ",", std::to_string(_data.attack.damage) + ")";
+      break;
+    case Instructions::BUY:
+      string_message += ":" + std::to_string(_data.buy.item_id) + "," +
+                        std::to_string(_data.buy.cost) + ")";
+      string_message += "(" +
+                        std::to_string(static_cast<int>(Instructions::MOVE)) +
+                        std::to_string(_data.move.x_pos) + "," +
+                        std::to_string(_data.move.y_pos) + ")";
+      break;
+  }
+  std::copy(
+    string_message.begin(), string_message.end(), std::back_inserter(message));
+  client.SendMessageToServer(message);
+}

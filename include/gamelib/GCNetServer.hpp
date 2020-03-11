@@ -19,6 +19,7 @@ class GCNetServer : public GameComponent
     NEXT_PLAYER_TURN   = 3
   };
 
+  // include DataStates
   enum class MessageType
   {
     MOVE   = 1,
