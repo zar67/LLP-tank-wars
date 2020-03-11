@@ -32,7 +32,7 @@ GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
 
   if (open_shop.pressed())
   {
-    if (shop.getActive())
+    if (shop_active)
     {
       closeShop();
     }
@@ -52,17 +52,21 @@ void GameScreen::render(ASGE::Renderer* renderer, const int& currency)
     "Currency: " + std::to_string(currency), 300, 35, ASGE::COLOURS::WHITE);
 
   open_shop.render(renderer);
-  shop.render(renderer);
+
+  if (shop_active)
+  {
+    shop.render(renderer);
+  }
 }
 
 void GameScreen::openShop()
 {
-  shop.setActive(true);
+  shop_active = true;
   open_shop.changeText("Close Shop");
 }
 
 void GameScreen::closeShop()
 {
-  shop.setActive(false);
+  shop_active = false;
   open_shop.changeText("Open Shop");
 }

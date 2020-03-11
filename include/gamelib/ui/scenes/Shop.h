@@ -25,14 +25,9 @@ class Shop
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
   void render(ASGE::Renderer* renderer);
 
-  void setActive(bool value);
-  bool getActive();
-
  private:
   ASGE::Text shop_title;
   std::vector<Button*> units = {};
-
-  bool shop_active = false;
 };
 
 #endif // MYNETGAME_SHOP_H

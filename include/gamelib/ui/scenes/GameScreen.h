@@ -29,6 +29,8 @@ class GameScreen
  private:
   Shop shop;
   Button open_shop;
+
+  bool shop_active = false;
 };
 
 #endif // MYNETGAME_GAMESCREEN_H

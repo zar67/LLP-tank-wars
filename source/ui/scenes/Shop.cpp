@@ -69,11 +69,6 @@ bool Shop::init(
 
 UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
 {
-  if (!shop_active)
-  {
-    return UIElement::MenuItem::NONE;
-  }
-
   int index = 0;
   for (Button* button : units)
   {
@@ -113,23 +108,10 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
 
 void Shop::render(ASGE::Renderer* renderer)
 {
-  if (shop_active)
+  renderer->renderText(shop_title);
+
+  for (Button* button : units)
   {
-    renderer->renderText(shop_title);
-
-    for (Button* button : units)
-    {
-      button->render(renderer);
-    }
+    button->render(renderer);
   }
-}
-
-void Shop::setActive(bool value)
-{
-  shop_active = value;
-}
-
-bool Shop::getActive()
-{
-  return shop_active;
 }
