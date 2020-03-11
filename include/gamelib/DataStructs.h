@@ -7,8 +7,9 @@
 
 struct Move
 {
-  int x_pos = 0;
-  int y_pos = 0;
+  int unit_id = 0;
+  int x_pos   = 0;
+  int y_pos   = 0;
 };
 
 struct Attack
@@ -21,7 +22,6 @@ struct Attack
 struct Buy
 {
   int item_id = -1;
-  int cost    = 0;
   Move pos;
 };
 

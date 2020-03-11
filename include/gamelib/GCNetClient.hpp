@@ -27,7 +27,6 @@ class GCNetClient : public GameComponent
  private:
   netlib::ClientConnection client;
   std::atomic_bool exiting = false;
-
   std::vector<std::vector<char>> actions;
 };
 

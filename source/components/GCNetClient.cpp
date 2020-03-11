@@ -54,6 +54,7 @@ GCNetClient::~GCNetClient()
 
 void GCNetClient::input()
 {
+  Types type;
   while (!exiting)
   {
     std::string input;
@@ -62,38 +63,24 @@ void GCNetClient::input()
     if (input == "#move")
     {
       // EXAMPLE MOVE MESSAGE TO SERVER
-      Logging::log("MOVE\n");
-      std::string test =
-        std::to_string(static_cast<int>(GCNetServer::MessageType::MOVE)) + ":" +
-        std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
-        std::to_string(2) + "," + std::to_string(5);
-      std::vector<char> message;
-      std::copy(test.begin(), test.end(), std::back_inserter(message));
-      actions.push_back(message);
+      type.move.unit_id = 1;
+      type.move.x_pos   = 10;
+      type.move.y_pos   = 8;
+      encodeData(Instructions::MOVE, type);
     }
     else if (input == "#attack")
     {
-      // EXAMPLE ATTACK MESSAGE TO SERVER
-      Logging::log("ATTACK\n");
-      std::string test2 =
-        std::to_string(static_cast<int>(GCNetServer::MessageType::ATTACK)) +
-        ":" + std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
-        std::to_string(10);
-      std::vector<char> message2;
-      std::copy(test2.begin(), test2.end(), std::back_inserter(message2));
-      actions.push_back(message2);
+      type.attack.attacker_id = 1;
+      type.attack.enenmy_id   = 4;
+      type.attack.damage      = 26;
+      encodeData(Instructions::ATTACK, type);
     }
     else if (input == "#buy")
     {
-      // EXAMPLE BUY MESSAGE TO SERVER
-      Logging::log("BUY\n");
-      std::string test3 =
-        std::to_string(static_cast<int>(GCNetServer::MessageType::BUY)) + ":" +
-        std::to_string(client.GetUID()) + "," + std::to_string(0) + "," +
-        std::to_string(2) + "," + std::to_string(5);
-      std::vector<char> message3;
-      std::copy(test3.begin(), test3.end(), std::back_inserter(message3));
-      actions.push_back(message3);
+      type.buy.item_id   = 12;
+      type.buy.pos.x_pos = 14;
+      type.buy.pos.y_pos = 55;
+      encodeData(Instructions::BUY, type);
     }
     else if (input == "#endturn")
     {
@@ -119,30 +106,27 @@ void GCNetClient::endTurn()
 
 void GCNetClient::encodeData(Instructions _instruction, Types _data)
 {
-  std::string string_message =
-    "(" + std::to_string(static_cast<int>(_instruction));
+  std::string string_message = std::to_string(static_cast<int>(_instruction));
   std::vector<char> message;
   switch (_instruction)
   {
     case Instructions::MOVE:
-      string_message += ":" + std::to_string(_data.move.x_pos) + "," +
-                        std::to_string(_data.move.y_pos) + ")";
+      string_message += ":" + std::to_string(_data.move.unit_id) + "," +
+                        std::to_string(_data.move.x_pos) + "," +
+                        std::to_string(_data.move.y_pos);
       break;
     case Instructions::ATTACK:
       string_message += ":" + std::to_string(_data.attack.attacker_id) + "," +
-                        std::to_string(_data.attack.enenmy_id),
-        ",", std::to_string(_data.attack.damage) + ")";
+                        std::to_string(_data.attack.enenmy_id) + "," +
+                        std::to_string(_data.attack.damage);
       break;
     case Instructions::BUY:
       string_message += ":" + std::to_string(_data.buy.item_id) + "," +
-                        std::to_string(_data.buy.cost) + ")";
-      string_message += "(" +
-                        std::to_string(static_cast<int>(Instructions::MOVE)) +
-                        std::to_string(_data.move.x_pos) + "," +
-                        std::to_string(_data.move.y_pos) + ")";
+                        std::to_string(_data.buy.pos.x_pos) + "," +
+                        std::to_string(_data.buy.pos.y_pos);
       break;
   }
   std::copy(
     string_message.begin(), string_message.end(), std::back_inserter(message));
-  client.SendMessageToServer(message);
+  actions.push_back(message);
 }
