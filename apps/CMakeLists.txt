@@ -56,6 +56,10 @@ add_executable(
         ASGEGame/ASGEGame.hpp
         ASGEGame/ASGEGame.cpp)
 
+set(GAMEDATA_FOLDER "apps/data")
+set(ITCHIO_UESR "")
+include(tools/itch.io)
+
 ## hide console unless debug build ##
 if (NOT CMAKE_BUILD_TYPE STREQUAL "Release" AND WIN32)
     target_compile_options(${GAME} PRIVATE -mwindows)

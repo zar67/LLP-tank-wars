@@ -1,12 +1,14 @@
 // suppress all unused functions errors in all files
 unusedFunction
+noExplicitConstructor
 
 // suppress the annoying system include messages
 missingIncludeSystem
 
 // suppress ome obvious folders
 *:CMakeFiles
-*:_deps
-*:extern/*
+*:*_deps/*
+*:*extern/*
 *:libs/*
+
 
