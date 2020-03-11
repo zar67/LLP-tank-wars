@@ -3,9 +3,14 @@ Checks:            '*,readability-identifier-naming,
                     -android-*,-fuchsia-*,-google-*,-llvm-*,-objc-*,-zircon-*,
                     -clang-analyzer-alpha.*,-modernize-use-trailing-return-type,
                     -hicpp-special-member-functions, -readability-redundant-access-specifiers,
-                    -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-bounds-pointer-arithmetic, llvm-namespace-comment'
+                    -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+                    -readability-convert-member-functions-to-static,-cppcoreguidelines-pro-bounds-constant-array-index,
+                    -cppcoreguidelines-owning-memory, llvm-namespace-comment'
 
-WarningsAsErrors:  '*,-readability-magic-numbers,-misc-unused-parameters,'
+WarningsAsErrors:  '*,
+                    -readability-magic-numbers,-misc-unused-parameters,
+                    -cppcoreguidelines-pro-bounds-constant-array-index'
+
 HeaderFilterRegex: '^.*(gamelib|apps).*(.hpp|.h)'
 AnalyzeTemporaryDtors: true
 FormatStyle:     file
@@ -37,13 +42,16 @@ CheckOptions:
   - { key: readability-identifier-naming.VariableCase,                           value: lower_case  }
   - { key: readability-identifier-naming.GlobalConstantCase,                     value: UPPER_CASE  }
 
+  - key:    misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value:  '1'
 
 # CHANGELOG
 # DISABLED
 # -hicpp-special-member-functions: CREATING A NON-DEFAULT DESTRUCTOR DOES NOT MEAN A CLASS NEEDS CUSTOM EVERYTHING
 # -readability-redundant-access-specifiers: ALLOW MULTIPLE USE OF PUBLIC/PRIVATE IN HEADERS
 # -cppcoreguidelines-avoid-magic-numbers: DUPLICATE OF READABILITY
-
+#  misc-non-private-member-variables-in-classes; IGNORE ALL PUBLIC DATA CLASSES
 # WARNING ONLY
 # -readability-magic-numbers: SHOULDN'T USE THEM, BUT LETS NOT CRY OVER IT TOO BADLY
 # -misc-unused-parameters: YEAH, BUT HERE WE ARE!
+
