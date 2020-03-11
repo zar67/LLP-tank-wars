@@ -1,5 +1,7 @@
-include(CheckPIESupported)
-check_pie_supported()
+if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.14.0)
+    include(CheckPIESupported)
+    check_pie_supported()
+endif()
 
 if ( CMAKE_COMPILER_IS_GNUCC )
     list(APPEND BUILD_FLAGS_FOR_CXX
