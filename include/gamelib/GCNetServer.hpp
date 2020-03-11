@@ -10,6 +10,24 @@
 class GCNetServer : public GameComponent
 {
  public:
+  enum class ServerState
+  {
+    NONE               = -1,
+    START_GAME         = 0,
+    WAITING_FOR_PLAYER = 1,
+    UPDATING           = 2,
+    NEXT_PLAYER_TURN   = 3
+  };
+
+  // include DataStates
+  enum class MessageType
+  {
+    MOVE   = 1,
+    ATTACK = 2,
+    BUY    = 3
+  };
+
+ public:
   GCNetServer();
   ~GCNetServer() final = default;
   void update(double dt) override;
@@ -17,8 +35,13 @@ class GCNetServer : public GameComponent
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
 
+  void playerEndTurn();
+  static void decodeMessage(const std::vector<char>& message);
+
  private:
   netlib::ServerConnection server;
+
+  ServerState server_state = ServerState::NONE;
 };
 
 #endif // NETGAME_GCNETSERVER_HPP
