@@ -9,6 +9,7 @@
 #include <gamelib/GCNetClient.hpp>
 #include <gamelib/GCNetServer.hpp>
 #include <gamelib/GameComponent.hpp>
+#include <gamelib/ui/Button.h>
 #include <vector>
 
 class Game : public ASGE::OGLGame
@@ -21,12 +22,25 @@ class Game : public ASGE::OGLGame
   Game& operator=(const Game&) = delete;
 
   void keyHandler(ASGE::SharedEventData data);
+  void moveHandler(ASGE::SharedEventData data);
+  void clickHandler(ASGE::SharedEventData data);
+
   void update(const ASGE::GameTime& us) override;
   void render() override;
 
  private:
+  bool loadFont();
+  int font_index = 0;
+
+  ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);
+  bool mouse_click        = false;
+
+  Button button;
+
   std::vector<std::unique_ptr<GameComponent>> game_components;
-  int key_callback_id = -1; /**< Key Input Callback ID. */
+  int key_callback_id   = -1; /**< Key Input Callback ID. */
+  int move_callback_id  = -1; /**< Key Input Callback ID. */
+  int click_callback_id = -1; /**< Key Input Callback ID. */
 };
 
 #endif // NETGAME_ASGEGAME_HPP

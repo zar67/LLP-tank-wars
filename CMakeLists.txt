@@ -45,10 +45,6 @@ else()
     set(BUILD_SHARED_LIBS true)
 endif()
 
-## itch.io: enables deployment targets ##
-set(ITCHIO_USER     "")
-include(tools/itch.io)
-
 ## the game library and executable projects ##
 add_subdirectory(source)
 add_subdirectory(apps)

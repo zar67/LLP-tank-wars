@@ -26,7 +26,7 @@ class Button : public UIElement
   Button& operator=(const Button& button); // Copy Assignment Operator
 
   bool init(
-    ASGE::Renderer* renderer, const std::string& normal_texture,
+    ASGE::Renderer* renderer, int font_index, const std::string& normal_texture,
     const std::string& pressed_texture, const std::string& button_text,
     float x_pos, float y_pos, float width, float height);
   void update(const ASGE::Point2D& cursor_pos, bool click);
@@ -41,11 +41,12 @@ class Button : public UIElement
  private:
   ASGE::Sprite* normal_sprite  = nullptr;
   ASGE::Sprite* pressed_sprite = nullptr;
-  std::string text             = "";
+  ASGE::Text text;
 
-  ASGE::Point2D text_pos;
   ButtonState previous_state = NONE;
   ButtonState state          = NONE;
+
+  const float BASE_OPACITY = 0.6F;
 };
 
 #endif // MYNETGAME_BUTTON_H

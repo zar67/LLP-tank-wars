@@ -18,7 +18,9 @@ add_library(
         ${LIB_NAME} ${HEADER_LIST}
         ## add your CPP files here ##
         components/GCNetClient.cpp
-        components/GCNetServer.cpp)
+        components/GCNetServer.cpp
+        ui/UIElement.cpp
+        ui/Button.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)

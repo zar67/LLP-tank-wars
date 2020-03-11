@@ -3,6 +3,7 @@
 //
 
 #include "ui/Button.h"
+#include <Engine/Logger.hpp>
 #include <Engine/Renderer.h>
 
 Button::~Button()
@@ -29,15 +30,19 @@ Button& Button::operator=(const Button& button)
 }
 
 bool Button::init(
-  ASGE::Renderer* renderer, const std::string& normal_texture,
+  ASGE::Renderer* renderer, int font_index, const std::string& normal_texture,
   const std::string& pressed_texture, const std::string& button_text,
   float x_pos, float y_pos, float width, float height)
 {
-  text = button_text;
-
   normal_sprite = renderer->createRawSprite();
   if (!setupSprite(
-        *normal_sprite, normal_texture, x_pos, y_pos, width, height, 0.6F))
+        *normal_sprite,
+        normal_texture,
+        x_pos,
+        y_pos,
+        width,
+        height,
+        BASE_OPACITY))
   {
     return false;
   }
@@ -49,8 +54,18 @@ bool Button::init(
     return false;
   }
 
-  text_pos.x = x_pos + (width / 2) - (static_cast<float>(text.length()) * 6);
-  text_pos.y = y_pos + (height / 2) + 5;
+  int center_x = static_cast<int>(x_pos + (width / 2)) -
+                 (renderer->getFont(font_index).pxWide(button_text) / 2);
+  int center_y = static_cast<int>(y_pos + (height / 2)) +
+                 (renderer->getFont(font_index).line_height / 4);
+  text = ASGE::Text(
+    renderer->getFont(font_index),
+    button_text,
+    center_x,
+    center_y,
+    ASGE::COLOURS::BLACK);
+  text.setOpacity(BASE_OPACITY);
+  text.setZOrder(1);
 
   return true;
 }
@@ -67,13 +82,15 @@ void Button::update(const ASGE::Point2D& cursor_pos, bool click)
     else
     {
       state = ButtonState::HOVER;
+      text.setOpacity(1.0F);
       normal_sprite->opacity(1.0F);
     }
   }
   else
   {
     state = ButtonState::NONE;
-    normal_sprite->opacity(0.6F);
+    text.setOpacity(BASE_OPACITY);
+    normal_sprite->opacity(BASE_OPACITY);
   }
 }
 
@@ -88,7 +105,7 @@ void Button::render(ASGE::Renderer* renderer)
     renderer->renderSprite(*normal_sprite);
   }
 
-  // renderer->renderText(text, text_pos.x, text_pos.y, ASGE::COLOURS::BLACK);
+  renderer->renderText(text);
 }
 
 ASGE::Sprite* Button::getSprite()

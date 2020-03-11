@@ -1,4 +1,6 @@
 #include "ASGEGame.hpp"
+#include <Engine/FileIO.h>
+#include <Engine/Logger.hpp>
 
 /// Initialises the game.
 /// Setup your game and initialise the core components.
@@ -8,8 +10,30 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   key_callback_id =
     inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
 
+  move_callback_id =
+    inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
+
+  click_callback_id =
+    inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
+
   game_components.emplace_back(std::make_unique<GCNetServer>());
   game_components.emplace_back(std::make_unique<GCNetClient>());
+
+  if (!loadFont())
+  {
+    Logging::log("*** FONT NOT LOADED ***\n");
+  }
+
+  button.init(
+    renderer.get(),
+    font_index,
+    "data/button.png",
+    "data/button_pressed.png",
+    "Start",
+    300,
+    300,
+    140,
+    40);
 
   inputs->use_threads = true;
   toggleFPS();
@@ -38,6 +62,21 @@ void Game::keyHandler(ASGE::SharedEventData data)
   }
 }
 
+void Game::moveHandler(ASGE::SharedEventData data)
+{
+  const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.get());
+
+  mouse_pos.x = static_cast<float>(move->xpos);
+  mouse_pos.y = static_cast<float>(move->ypos);
+}
+
+void Game::clickHandler(ASGE::SharedEventData data)
+{
+  const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.get());
+
+  mouse_click = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+}
+
 /// Updates your game and all it's components.
 /// @param us
 void Game::update(const ASGE::GameTime& us)
@@ -46,7 +85,41 @@ void Game::update(const ASGE::GameTime& us)
   {
     gc->update(us.deltaInSecs());
   }
+
+  button.update(mouse_pos, mouse_click);
 }
 
 /// Render your game and its scenes here.
-void Game::render() {}
+void Game::render()
+{
+  renderer->setFont(font_index);
+  button.render(renderer.get());
+}
+
+bool Game::loadFont()
+{
+  using File = ASGE::FILEIO::File;
+  File file  = File();
+  if (file.open("data/kenvector_future.ttf", ASGE::FILEIO::File::IOMode::READ))
+  {
+    // the file is open, but we need to read the contents of it into memory
+    // we will use an IOBuffer for this, it will store the binary data read
+    using Buffer  = ASGE::FILEIO::IOBuffer;
+    Buffer buffer = file.read();
+
+    Logging::log(std::to_string(buffer.length) + "\n");
+    // if we have data, load the font
+    if (buffer.length != 0)
+    {
+      font_index = renderer->loadFontFromMem(
+        "Kenney", buffer.as_unsigned_char(), buffer.length, 32);
+      file.close();
+      return true;
+    }
+
+    file.close();
+    return false;
+  }
+
+  return false;
+}
