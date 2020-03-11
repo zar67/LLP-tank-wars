@@ -23,7 +23,7 @@ class Shop
     ASGE::Renderer* renderer, int font_index, int game_width,
     const std::vector<std::string>& unit_types);
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
-  void render(ASGE::Renderer* renderer, const int& currency);
+  void render(ASGE::Renderer* renderer);
 
   void setActive(bool value);
   bool getActive();

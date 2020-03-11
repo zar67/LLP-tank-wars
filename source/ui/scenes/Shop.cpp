@@ -32,13 +32,16 @@ bool Shop::init(
   ASGE::Renderer* renderer, int font_index, int game_width,
   const std::vector<std::string>& unit_types)
 {
-  shop_title = ASGE::Text(
-    renderer->getFont(font_index),
+  shop_title = UIElement::setupText(
+    renderer,
+    font_index,
     "Shop",
-    20 + (static_cast<int>(unit_types.size()) * 60 - 10) / 2,
-    55,
-    ASGE::COLOURS::BLACK);
-  shop_title.setZOrder(1);
+    20 + (static_cast<float>(unit_types.size() * 60 - 10) / 2),
+    75,
+    true,
+    false,
+    ASGE::COLOURS::BLACK,
+    1);
 
   int count = 0;
   for (const std::string& texture : unit_types)
@@ -49,7 +52,7 @@ bool Shop::init(
           font_index,
           texture,
           texture,
-          "Unit",
+          "",
           20 + static_cast<float>(60 * count),
           90,
           50,
@@ -108,11 +111,8 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
   return UIElement::MenuItem::NONE;
 }
 
-void Shop::render(ASGE::Renderer* renderer, const int& currency)
+void Shop::render(ASGE::Renderer* renderer)
 {
-  renderer->renderText(
-    "Currency: " + std::to_string(currency), 175, 35, ASGE::COLOURS::WHITE);
-
   if (shop_active)
   {
     renderer->renderText(shop_title);

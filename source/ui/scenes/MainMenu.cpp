@@ -24,7 +24,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
         "data/button.png",
         "data/button_pressed.png",
         "Start",
-        static_cast<float>(game_width) / 2 - 50,
+        static_cast<float>(game_width) / 2 - 70,
         280,
         140,
         40))
@@ -38,7 +38,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button.png",
     "data/button_pressed.png",
     "Exit",
-    static_cast<float>(game_width) / 2 - 50,
+    static_cast<float>(game_width) / 2 - 70,
     360,
     140,
     40);

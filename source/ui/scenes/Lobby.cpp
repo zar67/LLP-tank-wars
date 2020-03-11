@@ -48,9 +48,9 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button.png",
     "data/button_pressed.png",
     "Start Game",
-    static_cast<float>(game_width) / 2 - 65,
+    static_cast<float>(game_width) / 2 - 150,
     420,
-    200,
+    300,
     40);
 }
 

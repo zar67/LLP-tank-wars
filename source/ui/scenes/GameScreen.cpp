@@ -21,7 +21,7 @@ bool GameScreen::init(
     "Open Shop",
     15,
     15,
-    150,
+    250,
     30);
 }
 
@@ -48,9 +48,11 @@ GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
 void GameScreen::render(ASGE::Renderer* renderer, const int& currency)
 {
   renderer->renderText("GAME", 300, 300, ASGE::COLOURS::WHITE);
+  renderer->renderText(
+    "Currency: " + std::to_string(currency), 300, 35, ASGE::COLOURS::WHITE);
 
   open_shop.render(renderer);
-  shop.render(renderer, currency);
+  shop.render(renderer);
 }
 
 void GameScreen::openShop()
