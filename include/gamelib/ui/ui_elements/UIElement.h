@@ -5,7 +5,9 @@
 #ifndef MYNETGAME_UIELEMENT_H
 #define MYNETGAME_UIELEMENT_H
 
+#include <Engine/Colours.h>
 #include <Engine/Sprite.h>
+#include <Engine/Text.hpp>
 
 class UIElement
 {
@@ -32,8 +34,10 @@ class UIElement
   static bool setupSprite(
     ASGE::Sprite& sprite, const std::string& texture, float x_pos, float y_pos,
     float width, float height, float opacity = 1);
-
- private:
+  static ASGE::Text setupText(
+    ASGE::Renderer* renderer, int font_index, const std::string& text,
+    float x_pos, float y_pos, bool center_x, bool center_y, ASGE::Colour colour,
+    short z_order, float scale = 1);
 };
 
 #endif // MYNETGAME_UIELEMENT_H

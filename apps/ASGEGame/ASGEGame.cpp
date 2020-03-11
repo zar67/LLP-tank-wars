@@ -24,16 +24,14 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     Logging::log("*** FONT NOT LOADED ***\n");
   }
 
-  button.init(
-    renderer.get(),
-    font_index,
-    "data/button.png",
-    "data/button_pressed.png",
-    "Start",
-    300,
-    300,
-    140,
-    40);
+  if (!scene_manager.init(
+        renderer.get(),
+        font_index,
+        settings.window_width,
+        settings.window_height))
+  {
+    Logging::log("*** SCENE MANAGER NOT LOADED ***\n");
+  }
 
   inputs->use_threads = true;
   toggleFPS();
@@ -86,14 +84,39 @@ void Game::update(const ASGE::GameTime& us)
     gc->update(us.deltaInSecs());
   }
 
-  button.update(mouse_pos, mouse_click);
+  UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click);
+
+  if (item == UIElement::MenuItem::EXIT_GAME)
+  {
+    signalExit();
+  }
+  else if (item == UIElement::MenuItem::BUY_UNIT_0)
+  {
+    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    std::cout << "BUY UNIT 0" << std::endl;
+  }
+  else if (item == UIElement::MenuItem::BUY_UNIT_1)
+  {
+    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    std::cout << "BUY UNIT 1" << std::endl;
+  }
+  else if (item == UIElement::MenuItem::BUY_UNIT_2)
+  {
+    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    std::cout << "BUY UNIT 2" << std::endl;
+  }
+  else if (item == UIElement::MenuItem::BUY_UNIT_3)
+  {
+    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    std::cout << "BUY UNIT 3" << std::endl;
+  }
 }
 
 /// Render your game and its scenes here.
 void Game::render()
 {
   renderer->setFont(font_index);
-  button.render(renderer.get());
+  scene_manager.render(renderer.get());
 }
 
 bool Game::loadFont()

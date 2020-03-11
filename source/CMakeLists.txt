@@ -19,8 +19,13 @@ add_library(
         ## add your CPP files here ##
         components/GCNetClient.cpp
         components/GCNetServer.cpp
-        ui/UIElement.cpp
-        ui/Button.cpp)
+        ui/ui_elements/UIElement.cpp
+        ui/ui_elements/Button.cpp
+        ui/scenes/MainMenu.cpp
+        ui/scenes/Lobby.cpp
+        ui/scenes/GameScreen.cpp
+        ui/scenes/Shop.cpp
+        ui/SceneManager.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)

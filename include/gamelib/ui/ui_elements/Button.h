@@ -6,6 +6,7 @@
 #define MYNETGAME_BUTTON_H
 
 #include "UIElement.h"
+#include <Engine/Renderer.h>
 #include <Engine/Text.hpp>
 
 class Button : public UIElement
@@ -33,6 +34,7 @@ class Button : public UIElement
   void render(ASGE::Renderer* renderer);
 
   ASGE::Sprite* getSprite();
+  void changeText(std::string new_text);
 
   bool pressed();
   bool held();

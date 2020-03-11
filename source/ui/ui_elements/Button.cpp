@@ -2,9 +2,8 @@
 // Created by z2-rowbotham on 11/03/2020.
 //
 
-#include "ui/Button.h"
+#include "ui/ui_elements/Button.h"
 #include <Engine/Logger.hpp>
-#include <Engine/Renderer.h>
 
 Button::~Button()
 {
@@ -111,6 +110,15 @@ void Button::render(ASGE::Renderer* renderer)
 ASGE::Sprite* Button::getSprite()
 {
   return normal_sprite;
+}
+
+void Button::changeText(std::string new_text)
+{
+  text.setString(new_text);
+
+  float center_x = (normal_sprite->xPos() + (normal_sprite->width() / 2)) -
+                   (text.getWidth() / 2);
+  text.setPositionX(center_x);
 }
 
 bool Button::pressed()
