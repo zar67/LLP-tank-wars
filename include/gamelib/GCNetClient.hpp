@@ -4,9 +4,9 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
-#include "DataStates.h"
-#include "DataStructs.h"
 #include "GameComponent.hpp"
+#include "gamedata/DataStates.h"
+#include "gamedata/DataStructs.h"
 
 #include <NetLib/ClientConnection.h>
 

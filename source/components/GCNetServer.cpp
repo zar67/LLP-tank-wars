@@ -7,7 +7,7 @@
 #include <iostream>
 #include <thread>
 
-#include "DataStates.h"
+#include "gamedata/DataStates.h"
 
 GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
 {
