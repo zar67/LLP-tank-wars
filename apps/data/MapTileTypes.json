@@ -1,0 +1,147 @@
+{
+  "terrain_count": "13",
+  "mix_count": "8",
+  "grass": [
+    {
+      "name": "g_BL",
+      "directory": "tileGrass_roadCornerLL.png"
+    },
+    {
+      "name": "g_BR",
+      "directory": "tileGrass_roadCornerLR.png"
+    },
+    {
+      "name": "g_UL",
+      "directory": "tileGrass_roadCornerUL.png"
+    },
+    {
+      "name": "g_UR",
+      "directory": "tileGrass_roadCornerUR.png"
+    },
+    {
+      "name": "g_CROSS",
+      "directory": "tileGrass_roadCrossing.png"
+    },
+    {
+      "name": "g_ROUNDCROSS",
+      "directory": "tileGrass_roadCrossingRound.png"
+    },
+    {
+      "name": "g_HORIZONTAL",
+      "directory": "tileGrass_roadEast.png"
+    },
+    {
+      "name": "g_VERTICAL",
+      "directory": "tileGrass_roadNorth.png"
+    },
+    {
+      "name": "g_ULB",
+      "directory": "tileGrass_roadSplitE.png"
+    },
+    {
+      "name": "g_LUR",
+      "directory": "tileGrass_roadSplitN.png"
+    },
+    {
+      "name": "g_LRB",
+      "directory": "tileGrass_roadSplitS.png"
+    },
+    {
+      "name": "g_LUB",
+      "directory": "tileGrass_roadSplitW.png"
+    },
+    {
+      "name": "g",
+      "directory": "tileGrass.png"
+    }
+
+  ],
+  "sand": [
+    {
+      "name": "s_BL",
+      "directory": "tileSand_roadCornerLL.png"
+    },
+    {
+      "name": "s_BR",
+      "directory": "tileSand_roadCornerLR.png"
+    },
+    {
+      "name": "s_UL",
+      "directory": "tileSand_roadCornerUL.png"
+    },
+    {
+      "name": "s_UR",
+      "directory": "tileSand_roadCornerUR.png"
+    },
+    {
+      "name": "s_CROSS",
+      "directory": "tileSand_roadCrossing.png"
+    },
+    {
+      "name": "s_ROUNDCROSS",
+      "directory": "tileSand_roadCrossingRound.png"
+    },
+    {
+      "name": "s_HORIZONTAL",
+      "directory": "tileSand_roadEast.png"
+    },
+    {
+      "name": "s_VERTICAL",
+      "directory": "tileSand_roadNorth.png"
+    },
+    {
+      "name": "s_ULB",
+      "directory": "tileSand_roadSplitE.png"
+    },
+    {
+      "name": "s_LUR",
+      "directory": "tileSand_roadSplitN.png"
+    },
+    {
+      "name": "s_LRB",
+      "directory": "tileSand_roadSplitS.png"
+    },
+    {
+      "name": "s_LUB",
+      "directory": "tileSand_roadSplitW.png"
+    },
+    {
+      "name": "s",
+      "directory": "tileSand.png"
+    }
+  ],
+  "mix": [
+    {
+      "name": "g_HORIZONTAlROAD_s",
+      "directory": "tileGrass_roadTransitionE.png"
+    },
+    {
+      "name": "s_VERTICALROAD_g",
+      "directory": "tileGrass_roadTransitionN.png"
+    },
+    {
+      "name": "g_VERTICALROAD_s",
+      "directory": "tileGrass_roadTransitionS.png"
+    },
+    {
+      "name": "S_HORIZONTAlROAD_g",
+      "directory": "tileGrass_roadTransitionW.png"
+    },
+    {
+      "name": "g_HORIZONTAl_s",
+      "directory": "tileGrass_transitionE.png"
+    },
+    {
+      "name": "s_VERTICAL_g",
+      "directory": "tileGrass_transitionN.png"
+    },
+    {
+      "name": "g_VERTICAL_s",
+      "directory": "tileGrass_transitionS.png"
+    },
+    {
+      "name": "S_HORIZONTAl_g",
+      "directory": "tileGrass_transitionW.png"
+    }
+  ]
+}

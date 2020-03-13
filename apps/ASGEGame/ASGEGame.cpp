@@ -35,6 +35,8 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 
   inputs->use_threads = true;
   toggleFPS();
+
+  map.init(renderer.get());
 }
 
 /// Destroys the game.

@@ -25,7 +25,7 @@ add_library(
         ui/scenes/Lobby.cpp
         ui/scenes/GameScreen.cpp
         ui/scenes/Shop.cpp
-        ui/SceneManager.cpp)
+        ui/SceneManager.cpp Map.cpp ../include/gamelib/Map.h)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)
@@ -63,7 +63,7 @@ endif()
 
 ## enable json support if enabled ##
 if (ENABLE_JSON)
-    add_dependencies(${LIB_NAME}jsonlib)
+    add_dependencies(${LIB_NAME} jsonlib)
     target_link_libraries(${LIB_NAME} PUBLIC jsonlib)
 endif()
 
