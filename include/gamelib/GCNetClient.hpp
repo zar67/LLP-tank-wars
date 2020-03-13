@@ -16,7 +16,7 @@ class GCNetClient : public GameComponent
   GCNetClient();
   ~GCNetClient() override;
 
-  void connectToIP(const std::string& ip);
+  bool connectToIP(const std::string& ip);
   void update(double dt) override;
 
   GCNetClient(const GCNetClient&) = delete;

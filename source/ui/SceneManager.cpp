@@ -83,11 +83,6 @@ UIElement::MenuItem SceneManager::update(
       screen_open = Screens::JOIN_SCREEN;
       break;
     }
-    case UIElement::MenuItem::OPEN_LOBBY:
-    {
-      screen_open = Screens::LOBBY;
-      break;
-    }
     case UIElement::MenuItem::START_GAME:
     {
       screen_open = Screens::GAME;
@@ -139,17 +134,22 @@ bool SceneManager::inMenu()
   return false;
 }
 
-void SceneManager::openShop()
+MainMenu* SceneManager::mainMenu()
 {
-  game_screen.openShop();
+  return &main_menu;
 }
 
-void SceneManager::closeShop()
+JoinScreen* SceneManager::joinScreen()
 {
-  game_screen.closeShop();
+  return &join_screen;
 }
 
-std::string SceneManager::getJoinIP()
+Lobby* SceneManager::lobbyScreen()
 {
-  return join_screen.getIP();
+  return &lobby;
+}
+
+GameScreen* SceneManager::gameScreen()
+{
+  return &game_screen;
 }

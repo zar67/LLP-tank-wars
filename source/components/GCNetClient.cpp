@@ -12,9 +12,9 @@ GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
   // client.ConnectToIP("164.11.76.100", 32488);
 }
 
-void GCNetClient::connectToIP(const std::string& ip)
+bool GCNetClient::connectToIP(const std::string& ip)
 {
-  client.ConnectToIP(ip, 32488);
+  return client.ConnectToIP(ip, 32488);
 }
 
 void GCNetClient::update(double dt)

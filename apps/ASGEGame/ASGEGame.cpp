@@ -101,31 +101,41 @@ void Game::update(const ASGE::GameTime& us)
     server->startServer();
     client->connectToIP("localHost");
   }
-  else if (item == UIElement::MenuItem::OPEN_LOBBY)
+  else if (item == UIElement::MenuItem::CONNECT_TO_IP)
   {
-    std::string id = scene_manager.getJoinIP();
-    client->connectToIP(id);
+    if (client->connectToIP(scene_manager.joinScreen()->getIP()))
+    {
+      scene_manager.screenOpen(SceneManager::Screens::LOBBY);
+    }
+    else
+    {
+      scene_manager.joinScreen()->displayConnectionError();
+    }
   }
-  /*else if (item == UIElement::MenuItem::BUY_UNIT_0)
+  else if (item == UIElement::MenuItem::BUY_UNIT_0)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
+                                             // AND PLACE UNIT
     std::cout << "BUY UNIT 0" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_1)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
+                                             // AND PLACE UNIT
     std::cout << "BUY UNIT 1" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_2)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
+                                             // AND PLACE UNIT
     std::cout << "BUY UNIT 2" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_3)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
+                                             // AND PLACE UNIT
     std::cout << "BUY UNIT 3" << std::endl;
-  }*/
+  }
 }
 
 /// Render your game and its scenes here.

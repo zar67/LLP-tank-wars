@@ -36,10 +36,10 @@ class SceneManager
   void screenOpen(Screens screen);
   bool inMenu();
 
-  void openShop();
-  void closeShop();
-
-  std::string getJoinIP();
+  MainMenu* mainMenu();
+  JoinScreen* joinScreen();
+  Lobby* lobbyScreen();
+  GameScreen* gameScreen();
 
  private:
   MainMenu main_menu     = MainMenu();

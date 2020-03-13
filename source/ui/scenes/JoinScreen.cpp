@@ -31,6 +31,17 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index, int game_width)
     return false;
   }
 
+  error_message = UIElement::setupText(
+    renderer,
+    font_index,
+    "Could Not Connect To IP",
+    static_cast<float>(game_width) / 2,
+    350,
+    true,
+    false,
+    ASGE::COLOURS::RED,
+    1);
+
   return start_game.init(
     renderer,
     font_index,
@@ -38,7 +49,7 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button_pressed.png",
     "Join",
     static_cast<float>(game_width) / 2 - 125,
-    440,
+    500,
     250,
     40);
 }
@@ -51,7 +62,7 @@ UIElement::MenuItem JoinScreen::update(
 
   if (start_game.pressed())
   {
-    return UIElement::MenuItem::OPEN_LOBBY;
+    return UIElement::MenuItem::CONNECT_TO_IP;
   }
 
   return UIElement::MenuItem::NONE;
@@ -62,6 +73,16 @@ void JoinScreen::render(ASGE::Renderer* renderer)
   renderer->renderText(title);
   text_box.render(renderer);
   start_game.render(renderer);
+
+  if (display_error)
+  {
+    renderer->renderText(error_message);
+  }
+}
+
+void JoinScreen::displayConnectionError()
+{
+  display_error = true;
 }
 
 std::string JoinScreen::getIP()

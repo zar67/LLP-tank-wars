@@ -21,12 +21,16 @@ class JoinScreen
   update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
   void render(ASGE::Renderer* renderer);
 
+  void displayConnectionError();
   std::string getIP();
 
  private:
   ASGE::Text title;
   TextBox text_box;
+  ASGE::Text error_message;
   Button start_game;
+
+  bool display_error = false;
 };
 
 #endif // MYNETGAME_JOINSCREEN_H
