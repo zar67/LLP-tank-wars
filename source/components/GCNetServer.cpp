@@ -83,8 +83,8 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
       float y_pos = std::stof(data[2]);
 
       Logging::log(
-        "MESSAGE RECEIVED: MOVE (PLAYER ID: "
-        ", UNIT ID:" +
+        "MESSAGE RECEIVED: MOVE ("
+        "UNIT ID:" +
         std::to_string(unit_id) + ", X_POS: " + std::to_string(x_pos) +
         ", Y_POS: " + std::to_string(y_pos) + ")\n");
 
@@ -92,14 +92,13 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     }
     case Instructions::ATTACK:
     {
-      // ATTACK: PLAYER_ID, UNIT_ID, DAMAGE
       int attacker_id = std::stoi(data[0]);
-      int unit_id     = std::stoi(data[2]);
-      int damage      = std::stoi(data[3]);
+      int unit_id     = std::stoi(data[1]);
+      int damage      = std::stoi(data[2]);
 
       Logging::log(
         "MESSAGE RECEIVED: ATTACK (PLAYER ID: "
-        ", Attacker_ID" +
+        "ATTTACKER_ID: " +
         std::to_string(attacker_id) + ", UNIT_ID: " + std::to_string(unit_id) +
         ", DAMAGE: " + std::to_string(damage) + "\n");
 
@@ -107,15 +106,13 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     }
     case Instructions::BUY:
     {
-      // BUY: PLAYER_ID, UNIT_TYPE, X_POS, Y_POS
-      ///   int player_id = std::stoi(data[0]);
       int unit_to_buy = std::stoi(data[0]);
       float x_pos     = std::stof(data[1]);
       float y_pos     = std::stof(data[2]);
 
       Logging::log(
-        "MESSAGE RECEIVED: BUY (PLAYER ID: "
-        ", UNIT_TYPE: " +
+        "MESSAGE RECEIVED: BUY ("
+        "UNIT_TYPE: " +
         std::to_string(unit_to_buy) + ", X_POS: " + std::to_string(x_pos) +
         ", Y_POS: " + std::to_string(y_pos) + "\n");
 
