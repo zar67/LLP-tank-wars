@@ -4,13 +4,13 @@
 
 #include "ui/scenes/MainMenu.h"
 
-bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
+bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
 {
   menu_title = UIElement::setupText(
     renderer,
     font_index,
     "Main Menu",
-    static_cast<float>(game_width) / 2,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2,
     150,
     true,
     false,
@@ -24,7 +24,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
         "data/button.png",
         "data/button_pressed.png",
         "Host",
-        static_cast<float>(game_width) / 2 - 70,
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
         280,
         140,
         40))
@@ -38,7 +38,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
         "data/button.png",
         "data/button_pressed.png",
         "Join",
-        static_cast<float>(game_width) / 2 - 70,
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
         360,
         140,
         40))
@@ -52,7 +52,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button.png",
     "data/button_pressed.png",
     "Exit",
-    static_cast<float>(game_width) / 2 - 70,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
     440,
     140,
     40);

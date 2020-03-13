@@ -4,19 +4,19 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 {
-  if (!main_menu.init(renderer, font_index, game_width))
+  if (!main_menu.init(renderer, font_index))
   {
     return false;
   }
 
-  if (!join_screen.init(renderer, font_index, game_width))
+  if (!join_screen.init(renderer, font_index))
   {
     return false;
   }
 
-  if (!lobby.init(renderer, font_index, game_width))
+  if (!lobby.init(renderer, font_index))
   {
     return false;
   }
@@ -24,7 +24,6 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width
   if (!game_screen.init(
         renderer,
         font_index,
-        game_width,
         std::vector<std::string>{ "data/text_box.png",
                                   "data/text_box.png",
                                   "data/text_box.png",
@@ -33,9 +32,9 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width
     return false;
   }
 
-  lobby.addPlayer(renderer, game_width);
-  lobby.addPlayer(renderer, game_width);
-  lobby.addPlayer(renderer, game_width);
+  lobby.addPlayer(renderer);
+  lobby.addPlayer(renderer);
+  lobby.addPlayer(renderer);
 
   return true;
 }

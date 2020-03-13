@@ -4,13 +4,13 @@
 
 #include "ui/scenes/JoinScreen.h"
 
-bool JoinScreen::init(ASGE::Renderer* renderer, int font_index, int game_width)
+bool JoinScreen::init(ASGE::Renderer* renderer, int font_index)
 {
   title = UIElement::setupText(
     renderer,
     font_index,
     "Enter IP To Connet To: ",
-    static_cast<float>(game_width) / 2,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2,
     150,
     true,
     false,
@@ -23,7 +23,7 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index, int game_width)
         "data/text_box.png",
         "data/button.png",
         "",
-        static_cast<float>(game_width) / 2 - 200,
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 200,
         240,
         400,
         50))
@@ -35,7 +35,7 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index, int game_width)
     renderer,
     font_index,
     "Could Not Connect To IP",
-    static_cast<float>(game_width) / 2,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2,
     350,
     true,
     false,
@@ -48,7 +48,7 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button.png",
     "data/button_pressed.png",
     "Join",
-    static_cast<float>(game_width) / 2 - 125,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 125,
     500,
     250,
     40);

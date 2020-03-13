@@ -5,10 +5,10 @@
 #include "ui/scenes/GameScreen.h"
 
 bool GameScreen::init(
-  ASGE::Renderer* renderer, int font_index, int game_width,
+  ASGE::Renderer* renderer, int font_index,
   const std::vector<std::string>& unit_types)
 {
-  if (!shop.init(renderer, font_index, game_width, unit_types))
+  if (!shop.init(renderer, font_index, unit_types))
   {
     return false;
   }

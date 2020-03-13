@@ -29,7 +29,7 @@ Shop& Shop::operator=(const Shop& shop)
 }
 
 bool Shop::init(
-  ASGE::Renderer* renderer, int font_index, int game_width,
+  ASGE::Renderer* renderer, int font_index,
   const std::vector<std::string>& unit_types)
 {
   shop_title = UIElement::setupText(

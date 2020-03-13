@@ -24,7 +24,7 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     Logging::log("*** FONT NOT LOADED ***\n");
   }
 
-  if (!scene_manager.init(renderer.get(), font_index, settings.window_width))
+  if (!scene_manager.init(renderer.get(), font_index))
   {
     Logging::log("*** SCENE MANAGER NOT LOADED ***\n");
   }

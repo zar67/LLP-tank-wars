@@ -16,7 +16,7 @@ class JoinScreen
   JoinScreen()  = default;
   ~JoinScreen() = default;
 
-  bool init(ASGE::Renderer* renderer, int font_index, int game_width);
+  bool init(ASGE::Renderer* renderer, int font_index);
   UIElement::MenuItem
   update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
   void render(ASGE::Renderer* renderer);

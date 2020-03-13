@@ -28,13 +28,13 @@ Lobby& Lobby::operator=(const Lobby& lobby)
   return *this;
 }
 
-bool Lobby::init(ASGE::Renderer* renderer, int font_index, int game_width)
+bool Lobby::init(ASGE::Renderer* renderer, int font_index)
 {
   lobby_title = UIElement::setupText(
     renderer,
     font_index,
     "Lobby",
-    static_cast<float>(game_width) / 2,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2,
     150,
     true,
     false,
@@ -48,7 +48,7 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button.png",
     "data/button_pressed.png",
     "Start Game",
-    static_cast<float>(game_width) / 2 - 150,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
     420,
     300,
     40);
@@ -78,16 +78,17 @@ void Lobby::render(ASGE::Renderer* renderer)
   start_game.render(renderer);
 }
 
-bool Lobby::addPlayer(ASGE::Renderer* renderer, int game_width)
+bool Lobby::addPlayer(ASGE::Renderer* renderer)
 {
   int x_pos = 0;
   if (player_number == 0)
   {
-    x_pos = game_width / 2 - 25;
+    x_pos = ASGE::SETTINGS.window_width / 2 - 25;
   }
   else
   {
-    x_pos = game_width / 2 - ((60 * (player_number + 1) - 10) / 2);
+    x_pos =
+      ASGE::SETTINGS.window_width / 2 - ((60 * (player_number + 1) - 10) / 2);
   }
 
   ASGE::Sprite* sprite = renderer->createRawSprite();

@@ -19,18 +19,19 @@ class Lobby
   Lobby(const Lobby& lobby){};          // Copy Constructor
   Lobby& operator=(const Lobby& lobby); // Copy Assignment Operator
 
-  bool init(ASGE::Renderer* renderer, int font_index, int game_width);
+  bool init(ASGE::Renderer* renderer, int font_index);
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
   void render(ASGE::Renderer* renderer);
 
-  bool addPlayer(ASGE::Renderer* renderer, int game_width);
+  bool addPlayer(ASGE::Renderer* renderer);
 
  private:
   ASGE::Text lobby_title                  = ASGE::Text();
   std::vector<ASGE::Sprite*> player_icons = {};
   Button start_game                       = Button();
 
-  int player_number = 0;
+  int player_icons_center = 0;
+  int player_number       = 0;
 };
 
 #endif // MYNETGAME_LOBBY_H
