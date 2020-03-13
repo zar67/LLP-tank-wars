@@ -84,7 +84,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
       Logging::log(
         "MESSAGE RECEIVED: MOVE ("
-        "UNIT ID:" +
+        "UNIT ID: " +
         std::to_string(unit_id) + ", X_POS: " + std::to_string(x_pos) +
         ", Y_POS: " + std::to_string(y_pos) + ")\n");
 
@@ -97,7 +97,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
       int damage      = std::stoi(data[2]);
 
       Logging::log(
-        "MESSAGE RECEIVED: ATTACK (PLAYER ID: "
+        "MESSAGE RECEIVED: ATTACK ("
         "ATTTACKER_ID: " +
         std::to_string(attacker_id) + ", UNIT_ID: " + std::to_string(unit_id) +
         ", DAMAGE: " + std::to_string(damage) + "\n");

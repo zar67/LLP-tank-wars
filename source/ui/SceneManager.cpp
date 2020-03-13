@@ -4,8 +4,7 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(
-  ASGE::Renderer* renderer, int font_index, int game_width, int game_height)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width)
 {
   if (!main_menu.init(renderer, font_index, game_width))
   {

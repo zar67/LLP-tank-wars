@@ -25,8 +25,7 @@ class SceneManager
   SceneManager()  = default;
   ~SceneManager() = default;
 
-  bool init(
-    ASGE::Renderer* renderer, int font_index, int game_width, int game_height);
+  bool init(ASGE::Renderer* renderer, int font_index, int game_width);
 
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
   void render(ASGE::Renderer* renderer);
