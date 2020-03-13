@@ -6,6 +6,7 @@
 #define MYNETGAME_SCENEMANAGER_H
 
 #include "scenes/GameScreen.h"
+#include "scenes/JoinScreen.h"
 #include "scenes/Lobby.h"
 #include "scenes/MainMenu.h"
 #include "ui_elements/UIElement.h"
@@ -16,9 +17,10 @@ class SceneManager
  public:
   enum class Screens
   {
-    MAIN_MENU = 0,
-    LOBBY     = 1,
-    GAME      = 2
+    MAIN_MENU   = 0,
+    JOIN_SCREEN = 1,
+    LOBBY       = 2,
+    GAME        = 3
   };
 
  public:
@@ -27,7 +29,8 @@ class SceneManager
 
   bool init(ASGE::Renderer* renderer, int font_index, int game_width);
 
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
+  UIElement::MenuItem
+  update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
   void render(ASGE::Renderer* renderer);
 
   void screenOpen(Screens screen);
@@ -36,8 +39,11 @@ class SceneManager
   void openShop();
   void closeShop();
 
+  std::string getJoinIP();
+
  private:
   MainMenu main_menu     = MainMenu();
+  JoinScreen join_screen = JoinScreen();
   Lobby lobby            = Lobby();
   GameScreen game_screen = GameScreen();
 

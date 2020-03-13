@@ -25,7 +25,9 @@ add_library(
         ui/scenes/Lobby.cpp
         ui/scenes/GameScreen.cpp
         ui/scenes/Shop.cpp
-        ui/SceneManager.cpp)
+        ui/SceneManager.cpp
+        ui/scenes/JoinScreen.cpp
+        ui/ui_elements/TextBox.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)

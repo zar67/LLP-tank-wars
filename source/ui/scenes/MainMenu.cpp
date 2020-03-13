@@ -18,14 +18,28 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
     1,
     1.5F);
 
-  if (!start_game.init(
+  if (!host_game.init(
         renderer,
         font_index,
         "data/button.png",
         "data/button_pressed.png",
-        "Start",
+        "Host",
         static_cast<float>(game_width) / 2 - 70,
         280,
+        140,
+        40))
+  {
+    return false;
+  }
+
+  if (!join_game.init(
+        renderer,
+        font_index,
+        "data/button.png",
+        "data/button_pressed.png",
+        "Join",
+        static_cast<float>(game_width) / 2 - 70,
+        360,
         140,
         40))
   {
@@ -39,7 +53,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
     "data/button_pressed.png",
     "Exit",
     static_cast<float>(game_width) / 2 - 70,
-    360,
+    440,
     140,
     40);
 }
@@ -47,12 +61,18 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index, int game_width)
 UIElement::MenuItem
 MainMenu::update(const ASGE::Point2D& cursor_pos, bool click)
 {
-  start_game.update(cursor_pos, click);
+  host_game.update(cursor_pos, click);
+  join_game.update(cursor_pos, click);
   exit_game.update(cursor_pos, click);
 
-  if (start_game.pressed())
+  if (host_game.pressed())
   {
-    return UIElement::MenuItem::OPEN_LOBBY;
+    return UIElement::MenuItem::HOST_GAME;
+  }
+
+  if (join_game.pressed())
+  {
+    return UIElement::MenuItem::JOIN_SCREEN;
   }
 
   if (exit_game.pressed())
@@ -66,6 +86,7 @@ MainMenu::update(const ASGE::Point2D& cursor_pos, bool click)
 void MainMenu::render(ASGE::Renderer* renderer)
 {
   renderer->renderText(menu_title);
-  start_game.render(renderer);
+  host_game.render(renderer);
+  join_game.render(renderer);
   exit_game.render(renderer);
 }

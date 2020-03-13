@@ -11,7 +11,17 @@
 
 GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
 {
+  // server.Start(32488);
+}
+
+void GCNetServer::startServer()
+{
   server.Start(32488);
+}
+
+std::string GCNetServer::getIP()
+{
+  return server.GetClientInfo(1).ipv4;
 }
 
 void GCNetServer::update(double dt)

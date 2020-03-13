@@ -10,7 +10,6 @@ enum class Instructions
   MOVE   = 1,
   ATTACK = 2,
   BUY    = 3
-
 };
 
 #endif // MYNETGAME_DATASTATES_H

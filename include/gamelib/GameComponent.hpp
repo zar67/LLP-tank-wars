@@ -5,6 +5,8 @@
 #ifndef NETGAME_GAMECOMPONENT_HPP
 #define NETGAME_GAMECOMPONENT_HPP
 
+#include <string>
+
 class GameComponent
 {
  public:

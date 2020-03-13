@@ -16,8 +16,8 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   click_callback_id =
     inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
 
-  game_components.emplace_back(std::make_unique<GCNetServer>());
-  game_components.emplace_back(std::make_unique<GCNetClient>());
+  server = std::make_unique<GCNetServer>();
+  client = std::make_unique<GCNetClient>();
 
   if (!loadFont())
   {
@@ -54,6 +54,16 @@ void Game::keyHandler(ASGE::SharedEventData data)
   {
     signalExit();
   }
+
+  if (key->action == ASGE::KEYS::KEY_PRESSED)
+  {
+    key_pressed = true;
+    key_value   = key->key;
+  }
+  else if (key->action == ASGE::KEYS::KEY_RELEASED)
+  {
+    key_pressed = false;
+  }
 }
 
 void Game::moveHandler(ASGE::SharedEventData data)
@@ -75,18 +85,28 @@ void Game::clickHandler(ASGE::SharedEventData data)
 /// @param us
 void Game::update(const ASGE::GameTime& us)
 {
-  for (auto& gc : game_components)
-  {
-    gc->update(us.deltaInSecs());
-  }
+  server->update(us.deltaInSecs());
+  client->update(us.deltaInSecs());
 
-  UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click);
+  UIElement::MenuItem item =
+    scene_manager.update(mouse_pos, mouse_click, key_pressed, key_value);
+  key_pressed = false;
 
   if (item == UIElement::MenuItem::EXIT_GAME)
   {
     signalExit();
   }
-  else if (item == UIElement::MenuItem::BUY_UNIT_0)
+  else if (item == UIElement::MenuItem::HOST_GAME)
+  {
+    server->startServer();
+    client->connectToIP("localHost");
+  }
+  else if (item == UIElement::MenuItem::OPEN_LOBBY)
+  {
+    std::string id = scene_manager.getJoinIP();
+    client->connectToIP(id);
+  }
+  /*else if (item == UIElement::MenuItem::BUY_UNIT_0)
   {
     scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
     std::cout << "BUY UNIT 0" << std::endl;
@@ -105,7 +125,7 @@ void Game::update(const ASGE::GameTime& us)
   {
     scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
     std::cout << "BUY UNIT 3" << std::endl;
-  }
+  }*/
 }
 
 /// Render your game and its scenes here.

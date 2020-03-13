@@ -21,7 +21,8 @@ class MainMenu
 
  private:
   ASGE::Text menu_title;
-  Button start_game;
+  Button host_game;
+  Button join_game;
   Button exit_game;
 };
 

@@ -34,12 +34,16 @@ class Game : public ASGE::OGLGame
   bool loadFont();
   int font_index = 0;
 
-  std::vector<std::unique_ptr<GameComponent>> game_components = {};
+  std::unique_ptr<GCNetServer> server;
+  std::unique_ptr<GCNetClient> client;
+
   SceneManager scene_manager;
 
   // TEMPORARY INPUT STUFF WILL MOVE TO OWN THREAD / CLASS
   ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);
   bool mouse_click        = false;
+  bool key_pressed        = false;
+  int key_value           = 0;
 
   int key_callback_id   = -1; /**< Key Input Callback ID. */
   int move_callback_id  = -1; /**< Key Input Callback ID. */

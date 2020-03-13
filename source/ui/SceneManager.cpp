@@ -11,6 +11,11 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width
     return false;
   }
 
+  if (!join_screen.init(renderer, font_index, game_width))
+  {
+    return false;
+  }
+
   if (!lobby.init(renderer, font_index, game_width))
   {
     return false;
@@ -35,8 +40,8 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width
   return true;
 }
 
-UIElement::MenuItem
-SceneManager::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem SceneManager::update(
+  const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key)
 {
   UIElement::MenuItem item;
   switch (screen_open)
@@ -44,6 +49,11 @@ SceneManager::update(const ASGE::Point2D& cursor_pos, bool click)
     case Screens::MAIN_MENU:
     {
       item = main_menu.update(cursor_pos, click);
+      break;
+    }
+    case Screens::JOIN_SCREEN:
+    {
+      item = join_screen.update(cursor_pos, click, key_pressed, key);
       break;
     }
     case Screens::LOBBY:
@@ -63,6 +73,16 @@ SceneManager::update(const ASGE::Point2D& cursor_pos, bool click)
 
   switch (item)
   {
+    case UIElement::MenuItem::HOST_GAME:
+    {
+      screen_open = Screens::LOBBY;
+      break;
+    }
+    case UIElement::MenuItem::JOIN_SCREEN:
+    {
+      screen_open = Screens::JOIN_SCREEN;
+      break;
+    }
     case UIElement::MenuItem::OPEN_LOBBY:
     {
       screen_open = Screens::LOBBY;
@@ -89,6 +109,11 @@ void SceneManager::render(ASGE::Renderer* renderer)
     case Screens::MAIN_MENU:
     {
       main_menu.render(renderer);
+      break;
+    }
+    case Screens::JOIN_SCREEN:
+    {
+      join_screen.render(renderer);
       break;
     }
     case Screens::LOBBY:
@@ -122,4 +147,9 @@ void SceneManager::openShop()
 void SceneManager::closeShop()
 {
   game_screen.closeShop();
+}
+
+std::string SceneManager::getJoinIP()
+{
+  return join_screen.getIP();
 }

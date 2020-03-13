@@ -8,8 +8,15 @@
 #include <thread>
 GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 {
-  client.ConnectToIP("localhost", 32488);
+  // client.ConnectToIP("localhost", 32488);
+  // client.ConnectToIP("164.11.76.100", 32488);
 }
+
+void GCNetClient::connectToIP(const std::string& ip)
+{
+  client.ConnectToIP(ip, 32488);
+}
+
 void GCNetClient::update(double dt)
 {
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
@@ -39,10 +46,7 @@ void GCNetClient::update(double dt)
     all_events.pop();
   }
 
-  if (!client.IsRunning())
-  {
-    exiting = true;
-  }
+  exiting = !client.IsRunning();
 
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
@@ -92,6 +96,8 @@ void GCNetClient::input()
       client.SendMessageToServer(
         new_input.c_str(), static_cast<int>(new_input.size()) + 1);
     }
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 }
 

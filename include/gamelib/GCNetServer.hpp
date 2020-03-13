@@ -30,6 +30,9 @@ class GCNetServer : public GameComponent
  public:
   GCNetServer();
   ~GCNetServer() final = default;
+
+  void startServer();
+  std::string getIP();
   void update(double dt) override;
 
   GCNetServer(const GCNetServer&) = delete;

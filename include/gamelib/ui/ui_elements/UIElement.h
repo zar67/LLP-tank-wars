@@ -14,12 +14,12 @@ class UIElement
  public:
   enum class MenuItem
   {
-    NONE       = -1,
-    OPEN_LOBBY = 1,
-    EXIT_GAME  = 2,
-    START_GAME = 3,
-    OPEN_SHOP  = 4,
-    HIDE_SHOP  = 5,
+    NONE        = -1,
+    HOST_GAME   = 1,
+    JOIN_SCREEN = 2,
+    OPEN_LOBBY  = 3,
+    EXIT_GAME   = 4,
+    START_GAME  = 5,
     BUY_UNIT_0,
     BUY_UNIT_1,
     BUY_UNIT_2,
