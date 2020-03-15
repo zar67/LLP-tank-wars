@@ -6,6 +6,7 @@
 #define MYNETGAME_TEXTBOX_H
 
 #include "UIElement.h"
+
 #include <Engine/Renderer.h>
 
 class TextBox : public UIElement
@@ -14,13 +15,19 @@ class TextBox : public UIElement
   TextBox() = default;
   ~TextBox() override;
 
-  TextBox(const TextBox& text){};          // Copy Constructor
-  TextBox& operator=(const TextBox& text); // Copy Assignment Operator
+  TextBox(const TextBox& text){};           // Copy Constructor
+  TextBox& operator=(const TextBox& text);  // Copy Assignment Operator
 
   bool init(
-    ASGE::Renderer* renderer, int font_index, const std::string& normal_texture,
-    const std::string& active_texture, const std::string& default_text,
-    float x_pos, float y_pos, float width, float height);
+    ASGE::Renderer* renderer,
+    int font_index,
+    const std::string& normal_texture,
+    const std::string& active_texture,
+    const std::string& default_text,
+    float x_pos,
+    float y_pos,
+    float width,
+    float height);
   void update(ASGE::Point2D cursor_pos, bool click, bool key_press, int key);
   void render(ASGE::Renderer* renderer);
 
@@ -35,6 +42,8 @@ class TextBox : public UIElement
   ASGE::Text text;
 
   bool active = false;
+
+  const float BORDER_AMOUNT = 5;
 };
 
-#endif // MYNETGAME_TEXTBOX_H
+#endif  // MYNETGAME_TEXTBOX_H

@@ -4,12 +4,11 @@
 
 #include "ui/scenes/Lobby.h"
 
+#include <Engine/Logger.hpp>
+
 Lobby::~Lobby()
 {
-  for (ASGE::Sprite* sprite : player_icons)
-  {
-    delete sprite;
-  }
+  for (ASGE::Sprite* sprite : player_icons) { delete sprite; }
   player_icons.clear();
 }
 
@@ -17,10 +16,7 @@ Lobby& Lobby::operator=(const Lobby& lobby)
 {
   if (&lobby != this)
   {
-    for (ASGE::Sprite* sprite : player_icons)
-    {
-      delete sprite;
-    }
+    for (ASGE::Sprite* sprite : player_icons) { delete sprite; }
     player_icons.clear();
     player_icons = lobby.player_icons;
   }
@@ -58,7 +54,7 @@ UIElement::MenuItem Lobby::update(const ASGE::Point2D& cursor_pos, bool click)
 {
   start_game.update(cursor_pos, click);
 
-  if (start_game.pressed() && player_number > 0)
+  if (start_game.pressed() && !player_icons.empty())
   {
     return UIElement::MenuItem::START_GAME;
   }
@@ -70,35 +66,35 @@ void Lobby::render(ASGE::Renderer* renderer)
 {
   renderer->renderText(lobby_title);
 
-  for (ASGE::Sprite* sprite : player_icons)
-  {
-    renderer->renderSprite(*sprite);
-  }
+  for (ASGE::Sprite* sprite : player_icons) { renderer->renderSprite(*sprite); }
 
   start_game.render(renderer);
 }
 
-bool Lobby::addPlayer(ASGE::Renderer* renderer)
+void Lobby::addPlayer(ASGE::Renderer* renderer)
 {
   int x_pos = 0;
-  if (player_number == 0)
+  if (player_icons.empty())
   {
     x_pos = ASGE::SETTINGS.window_width / 2 - 25;
   }
   else
   {
     x_pos =
-      ASGE::SETTINGS.window_width / 2 - ((60 * (player_number + 1) - 10) / 2);
+      ASGE::SETTINGS.window_width / 2 - ((60 * static_cast<int>(player_icons.size()) - 10) / 2);
   }
 
   ASGE::Sprite* sprite = renderer->createRawSprite();
-  if (!UIElement::setupSprite(
-        *sprite, "data/text_box.png", static_cast<float>(x_pos), 220, 50, 50))
+  if (!sprite->loadTexture("data/text_box.png"))
   {
-    return false;
+    Logging::log("*** COULDN'T ADD PLAYER ***");
   }
 
-  player_number += 1;
+  sprite->width(50);
+  sprite->height(50);
+  sprite->xPos(static_cast<float>(x_pos));
+  sprite->yPos(220);
+
   player_icons.push_back(sprite);
 
   int count = 0;
@@ -107,4 +103,9 @@ bool Lobby::addPlayer(ASGE::Renderer* renderer)
     icon->xPos(static_cast<float>(x_pos + (60 * count)));
     count += 1;
   }
+}
+
+void Lobby::removePlayer(int id)
+{
+  player_icons.erase(player_icons.begin() + id);
 }

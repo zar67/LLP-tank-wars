@@ -1,4 +1,5 @@
 #include "ASGEGame.hpp"
+
 #include <Engine/FileIO.h>
 #include <Engine/Logger.hpp>
 
@@ -7,14 +8,11 @@
 /// @param settings
 Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 {
-  key_callback_id =
-    inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
+  key_callback_id = inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
 
-  move_callback_id =
-    inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
+  move_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
 
-  click_callback_id =
-    inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
+  click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
 
   server = std::make_unique<GCNetServer>();
   client = std::make_unique<GCNetClient>();
@@ -88,9 +86,8 @@ void Game::update(const ASGE::GameTime& us)
   server->update(us.deltaInSecs());
   client->update(us.deltaInSecs());
 
-  UIElement::MenuItem item =
-    scene_manager.update(mouse_pos, mouse_click, key_pressed, key_value);
-  key_pressed = false;
+  UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click, key_pressed, key_value);
+  key_pressed              = false;
 
   if (item == UIElement::MenuItem::EXIT_GAME)
   {
@@ -98,7 +95,6 @@ void Game::update(const ASGE::GameTime& us)
   }
   else if (item == UIElement::MenuItem::HOST_GAME)
   {
-    server->startServer();
     client->connectToIP("localHost");
   }
   else if (item == UIElement::MenuItem::CONNECT_TO_IP)
@@ -114,26 +110,26 @@ void Game::update(const ASGE::GameTime& us)
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_0)
   {
-    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
-                                             // AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+                                              // AND PLACE UNIT
     std::cout << "BUY UNIT 0" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_1)
   {
-    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
-                                             // AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+                                              // AND PLACE UNIT
     std::cout << "BUY UNIT 1" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_2)
   {
-    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
-                                             // AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+                                              // AND PLACE UNIT
     std::cout << "BUY UNIT 2" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_3)
   {
-    scene_manager.gameScreen()->closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP
-                                             // AND PLACE UNIT
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+                                              // AND PLACE UNIT
     std::cout << "BUY UNIT 3" << std::endl;
   }
 }
@@ -160,8 +156,8 @@ bool Game::loadFont()
     // if we have data, load the font
     if (buffer.length != 0)
     {
-      font_index = renderer->loadFontFromMem(
-        "Kenney", buffer.as_unsigned_char(), buffer.length, 32);
+      font_index =
+        renderer->loadFontFromMem("Kenney", buffer.as_unsigned_char(), buffer.length, 32);
       file.close();
       return true;
     }

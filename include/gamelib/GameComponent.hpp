@@ -5,6 +5,10 @@
 #ifndef NETGAME_GAMECOMPONENT_HPP
 #define NETGAME_GAMECOMPONENT_HPP
 
+#include "ui/SceneManager.h"
+
+#include <NetLib/NetworkEvent.h>
+#include <queue>
 #include <string>
 
 class GameComponent
@@ -32,4 +36,4 @@ class GameComponent
   ID id = ID::INVALID_COMPONENT_ID;
 };
 
-#endif // NETGAME_GAMECOMPONENT_HPP
+#endif  // NETGAME_GAMECOMPONENT_HPP

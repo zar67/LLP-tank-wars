@@ -3,6 +3,7 @@
 //
 
 #include "ui/ui_elements/TextBox.h"
+
 #include <Engine/Keys.h>
 
 TextBox::~TextBox()
@@ -29,18 +30,23 @@ TextBox& TextBox::operator=(const TextBox& text)
 }
 
 bool TextBox::init(
-  ASGE::Renderer* renderer, int font_index, const std::string& normal_texture,
-  const std::string& active_texture, const std::string& default_text,
-  float x_pos, float y_pos, float width, float height)
+  ASGE::Renderer* renderer,
+  int font_index,
+  const std::string& normal_texture,
+  const std::string& active_texture,
+  const std::string& default_text,
+  float x_pos,
+  float y_pos,
+  float width,
+  float height)
 {
   float center_y =
-    y_pos + (height / 2) +
-    (static_cast<float>(renderer->getFont(font_index).line_height) / 4);
+    y_pos + (height / 2) + (static_cast<float>(renderer->getFont(font_index).line_height) / 4);
   text = setupText(
     renderer,
     font_index,
     default_text,
-    x_pos + 5,
+    x_pos + BORDER_AMOUNT,
     center_y,
     false,
     true,
@@ -57,14 +63,13 @@ bool TextBox::init(
   return setupSprite(
     *active_sprite,
     active_texture,
-    x_pos - 5,
-    y_pos - 5,
-    width + 10,
-    height + 10);
+    x_pos - BORDER_AMOUNT,
+    y_pos - BORDER_AMOUNT,
+    width + (BORDER_AMOUNT * 2),
+    height + (BORDER_AMOUNT * 2));
 }
 
-void TextBox::update(
-  ASGE::Point2D cursor_pos, bool click, bool key_press, int key)
+void TextBox::update(ASGE::Point2D cursor_pos, bool click, bool key_press, int key)
 {
   if (click)
   {

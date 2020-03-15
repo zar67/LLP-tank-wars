@@ -3,6 +3,7 @@
 //
 
 #include "GCNetClient.hpp"
+
 #include <Engine/Logger.hpp>
 #include <GCNetServer.hpp>
 #include <thread>
@@ -25,29 +26,28 @@ void GCNetClient::update(double dt)
     netlib::NetworkEvent& event = all_events.front();
     switch (event.eventType)
     {
-      case netlib::NetworkEvent::EventType::ON_CONNECT:
-      {
-        Logging::log("Connected to the server!\n");
-        std::thread tr(&GCNetClient::input, this);
-        tr.detach();
-        break;
-      }
-      case netlib::NetworkEvent::EventType::ON_DISCONNECT:
-      {
-        Logging::log("Disconnected from server! Shutting down...\n");
-        break;
-      }
-      case netlib::NetworkEvent::EventType::MESSAGE:
-      {
-        Logging::log(event.data.data());
-        break;
-      }
+    case netlib::NetworkEvent::EventType::ON_CONNECT:
+    {
+      Logging::log("Connected to the server!\n");
+      std::thread tr(&GCNetClient::input, this);
+      tr.detach();
+      break;
+    }
+    case netlib::NetworkEvent::EventType::ON_DISCONNECT:
+    {
+      Logging::log("Disconnected from server! Shutting down...\n");
+      break;
+    }
+    case netlib::NetworkEvent::EventType::MESSAGE:
+    {
+      Logging::log(event.data.data());
+      break;
+    }
     }
     all_events.pop();
   }
 
   exiting = !client.IsRunning();
-
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
@@ -58,7 +58,7 @@ GCNetClient::~GCNetClient()
 
 void GCNetClient::input()
 {
-  Types type;
+  ActionTypes type;
   while (!exiting)
   {
     std::string input;
@@ -93,8 +93,7 @@ void GCNetClient::input()
     else
     {
       std::string new_input = std::to_string(client.GetUID()) + ": " + input;
-      client.SendMessageToServer(
-        new_input.c_str(), static_cast<int>(new_input.size()) + 1);
+      client.SendMessageToServer(new_input.c_str(), static_cast<int>(new_input.size()) + 1);
     }
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -103,36 +102,30 @@ void GCNetClient::input()
 
 void GCNetClient::endTurn()
 {
-  for (const auto& action : actions)
-  {
-    client.SendMessageToServer(action);
-  }
+  for (const auto& action : actions) { client.SendMessageToServer(action); }
   actions.clear();
 }
 
-void GCNetClient::encodeData(Instructions _instruction, Types _data)
+void GCNetClient::encodeData(Instructions instruction, ActionTypes data)
 {
-  std::string string_message = std::to_string(static_cast<int>(_instruction));
+  std::string string_message = std::to_string(static_cast<int>(instruction));
   std::vector<char> message;
-  switch (_instruction)
+  switch (instruction)
   {
-    case Instructions::MOVE:
-      string_message += ":" + std::to_string(_data.move.unit_id) + "," +
-                        std::to_string(_data.move.x_pos) + "," +
-                        std::to_string(_data.move.y_pos);
-      break;
-    case Instructions::ATTACK:
-      string_message += ":" + std::to_string(_data.attack.attacker_id) + "," +
-                        std::to_string(_data.attack.enenmy_id) + "," +
-                        std::to_string(_data.attack.damage);
-      break;
-    case Instructions::BUY:
-      string_message += ":" + std::to_string(_data.buy.item_id) + "," +
-                        std::to_string(_data.buy.pos.x_pos) + "," +
-                        std::to_string(_data.buy.pos.y_pos);
-      break;
+  case Instructions::MOVE:
+    string_message += ":" + std::to_string(data.move.unit_id) + "," +
+                      std::to_string(data.move.x_pos) + "," + std::to_string(data.move.y_pos);
+    break;
+  case Instructions::ATTACK:
+    string_message += ":" + std::to_string(data.attack.attacker_id) + "," +
+                      std::to_string(data.attack.enenmy_id) + "," +
+                      std::to_string(data.attack.damage);
+    break;
+  case Instructions::BUY:
+    string_message += ":" + std::to_string(data.buy.item_id) + "," +
+                      std::to_string(data.buy.pos.x_pos) + "," + std::to_string(data.buy.pos.y_pos);
+    break;
   }
-  std::copy(
-    string_message.begin(), string_message.end(), std::back_inserter(message));
+  std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
   actions.push_back(message);
 }

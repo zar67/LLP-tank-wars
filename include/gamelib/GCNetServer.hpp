@@ -6,6 +6,7 @@
 #define NETGAME_GCNETSERVER_HPP
 
 #include "GameComponent.hpp"
+
 #include <NetLib/ServerConnection.h>
 class GCNetServer : public GameComponent
 {
@@ -31,7 +32,6 @@ class GCNetServer : public GameComponent
   GCNetServer();
   ~GCNetServer() final = default;
 
-  void startServer();
   std::string getIP();
   void update(double dt) override;
 
@@ -47,4 +47,4 @@ class GCNetServer : public GameComponent
   ServerState server_state = ServerState::NONE;
 };
 
-#endif // NETGAME_GCNETSERVER_HPP
+#endif  // NETGAME_GCNETSERVER_HPP

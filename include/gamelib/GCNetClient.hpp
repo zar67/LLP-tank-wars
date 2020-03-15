@@ -4,9 +4,9 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
-#include "DataStates.h"
-#include "DataStructs.h"
+#include "ActionStructs.h"
 #include "GameComponent.hpp"
+#include "MessageTypes.h"
 
 #include <NetLib/ClientConnection.h>
 
@@ -24,7 +24,7 @@ class GCNetClient : public GameComponent
 
   void input();
   void endTurn();
-  void encodeData(Instructions _instruction, Types _data);
+  void encodeData(Instructions instruction, ActionTypes data);
 
  private:
   netlib::ClientConnection client;
@@ -32,4 +32,4 @@ class GCNetClient : public GameComponent
   std::vector<std::vector<char>> actions;
 };
 
-#endif // NETGAME_GCNETCLIENT_HPP
+#endif  // NETGAME_GCNETCLIENT_HPP

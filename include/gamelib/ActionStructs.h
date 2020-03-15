@@ -2,8 +2,8 @@
 // Created by l4-neale on 11/03/2020.
 //
 
-#ifndef MYNETGAME_DATASTRUCTS_H
-#define MYNETGAME_DATASTRUCTS_H
+#ifndef MYNETGAME_ACTIONSTRUCTS_H
+#define MYNETGAME_ACTIONSTRUCTS_H
 
 struct Move
 {
@@ -25,11 +25,11 @@ struct Buy
   Move pos;
 };
 
-struct Types
+struct ActionTypes
 {
   Move move;
   Attack attack;
   Buy buy;
 };
 
-#endif // MYNETGAME_DATASTRUCTS_H
+#endif  // MYNETGAME_ACTIONSTRUCTS_H
