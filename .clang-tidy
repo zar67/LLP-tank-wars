@@ -5,11 +5,13 @@ Checks:            '*,readability-identifier-naming,
                     -hicpp-special-member-functions, -readability-redundant-access-specifiers,
                     -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-bounds-pointer-arithmetic,
                     -readability-convert-member-functions-to-static,-cppcoreguidelines-pro-bounds-constant-array-index,
-                    -cppcoreguidelines-owning-memory, -hicpp-signed-bitwise, llvm-namespace-comment'
+                    -cppcoreguidelines-owning-memory, -hicpp-signed-bitwise, 
+                    -misc-non-private-member-variables-in-classes,llvm-namespace-comment'
 
 WarningsAsErrors:  '*,
                     -readability-magic-numbers,-misc-unused-parameters,
-                    -cppcoreguidelines-pro-bounds-constant-array-index'
+                    -cppcoreguidelines-pro-bounds-constant-array-index,
+                    -clang-analyzer-deadcode.DeadStores'
 
 HeaderFilterRegex: '^.*(gamelib|apps).*(.hpp|.h)'
 AnalyzeTemporaryDtors: true
@@ -57,5 +59,6 @@ CheckOptions:
 # WARNING ONLY
 # -readability-magic-numbers: SHOULDN'T USE THEM, BUT LETS NOT CRY OVER IT TOO BADLY
 # -misc-unused-parameters: YEAH, BUT HERE WE ARE!
+
 
 
