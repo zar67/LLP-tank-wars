@@ -32,12 +32,24 @@ class UIElement
 
   static bool isInside(const ASGE::Point2D& point, ASGE::Sprite* sprite);
   static bool setupSprite(
-    ASGE::Sprite& sprite, const std::string& texture, float x_pos, float y_pos,
-    float width, float height, float opacity = 1);
+    ASGE::Sprite& sprite,
+    const std::string& texture,
+    float x_pos,
+    float y_pos,
+    float width,
+    float height,
+    float opacity = 1);
   static ASGE::Text setupText(
-    ASGE::Renderer* renderer, int font_index, const std::string& text,
-    float x_pos, float y_pos, bool center_x, bool center_y, ASGE::Colour colour,
-    short z_order, float scale = 1);
+    ASGE::Renderer* renderer,
+    int font_index,
+    const std::string& text,
+    float x_pos,
+    float y_pos,
+    bool center_x,
+    bool center_y,
+    ASGE::Colour colour,
+    short z_order,
+    float scale);
 };
 
-#endif // MYNETGAME_UIELEMENT_H
+#endif  // MYNETGAME_UIELEMENT_H

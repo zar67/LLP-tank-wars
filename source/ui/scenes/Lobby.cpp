@@ -83,11 +83,6 @@ void Lobby::setPlayerNumber(int number)
   { player_icons[i]->xPos(x_pos + (static_cast<float>(i * 60))); }
 }
 
-int Lobby::getPlayerNumber()
-{
-  return player_number;
-}
-
 void Lobby::addPlayer(ASGE::Renderer* renderer)
 {
   ASGE::Sprite* sprite = renderer->createRawSprite();

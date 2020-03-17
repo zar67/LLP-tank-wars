@@ -8,6 +8,7 @@
 #include "../ui_elements/Button.h"
 #include "../ui_elements/TextBox.h"
 #include "../ui_elements/UIElement.h"
+
 #include <Engine/Renderer.h>
 
 class JoinScreen
@@ -33,4 +34,4 @@ class JoinScreen
   bool display_error = false;
 };
 
-#endif // MYNETGAME_JOINSCREEN_H
+#endif  // MYNETGAME_JOINSCREEN_H

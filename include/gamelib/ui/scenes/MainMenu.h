@@ -7,6 +7,7 @@
 
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
+
 #include <Engine/Renderer.h>
 
 class MainMenu
@@ -26,4 +27,4 @@ class MainMenu
   Button exit_game;
 };
 
-#endif // MYNETGAME_MAINMENU_H
+#endif  // MYNETGAME_MAINMENU_H

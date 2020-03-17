@@ -25,7 +25,6 @@ class Lobby
   void render(ASGE::Renderer* renderer);
 
   void setPlayerNumber(int number);
-  int getPlayerNumber();
 
  private:
   void addPlayer(ASGE::Renderer* renderer);
