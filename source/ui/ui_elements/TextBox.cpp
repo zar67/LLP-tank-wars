@@ -115,8 +115,3 @@ std::string TextBox::getText()
 {
   return text.getString();
 }
-
-bool TextBox::getActive()
-{
-  return active;
-}

@@ -34,7 +34,6 @@ class TextBox : public UIElement
   void keyHandler(int key);
 
   std::string getText();
-  bool getActive();
 
  private:
   ASGE::Sprite* normal_sprite = nullptr;
