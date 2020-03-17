@@ -99,9 +99,7 @@ void Game::update(const ASGE::GameTime& us)
   }
   else if (item == UIElement::MenuItem::CONNECT_TO_IP)
   {
-    if (
-      scene_manager.lobbyScreen()->getPlayerNumber() < 4 &&
-      client->connectToIP(scene_manager.joinScreen()->getIP()))
+    if (client->connectToIP(scene_manager.joinScreen()->getIP()))
     {
       scene_manager.screenOpen(SceneManager::Screens::LOBBY);
     }

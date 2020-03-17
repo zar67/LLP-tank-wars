@@ -49,7 +49,7 @@ class UIElement
     bool center_y,
     ASGE::Colour colour,
     short z_order,
-    float scale);
+    float scale = 1);
 };
 
 #endif  // MYNETGAME_UIELEMENT_H
