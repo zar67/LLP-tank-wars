@@ -5,7 +5,8 @@
 #include "ui/scenes/GameScreen.h"
 
 bool GameScreen::init(
-  ASGE::Renderer* renderer, int font_index,
+  ASGE::Renderer* renderer,
+  int font_index,
   const std::vector<std::string>& unit_types)
 {
   if (!shop.init(renderer, font_index, unit_types))
@@ -14,19 +15,10 @@ bool GameScreen::init(
   }
 
   return open_shop.init(
-    renderer,
-    font_index,
-    "data/button.png",
-    "data/button_pressed.png",
-    "Open Shop",
-    15,
-    15,
-    250,
-    30);
+    renderer, font_index, "data/button.png", "data/button_pressed.png", "Open Shop", 15, 15, 250, 30);
 }
 
-UIElement::MenuItem
-GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
 {
   open_shop.update(cursor_pos, click);
 
@@ -48,8 +40,7 @@ GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
 void GameScreen::render(ASGE::Renderer* renderer, const int& currency)
 {
   renderer->renderText("GAME", 300, 300, ASGE::COLOURS::WHITE);
-  renderer->renderText(
-    "Currency: " + std::to_string(currency), 300, 35, ASGE::COLOURS::WHITE);
+  renderer->renderText("Currency: " + std::to_string(currency), 300, 35, ASGE::COLOURS::WHITE);
 
   open_shop.render(renderer);
 

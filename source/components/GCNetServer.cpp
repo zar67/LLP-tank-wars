@@ -20,7 +20,7 @@ std::string GCNetServer::getIP()
   return server.GetClientInfo(1).ipv4;
 }
 
-void GCNetServer::update(double dt)
+void GCNetServer::update(double dt, SceneManager* scene_manager)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();
   while (!all_events.empty())
@@ -31,6 +31,8 @@ void GCNetServer::update(double dt)
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       netlib::ClientInfo info = server.GetClientInfo(event.senderId);
+      server.SendMessageToAll(
+        encodeMessage(ServerMessages::PLAYER_NUM_CHANGED, server.GetAllClients().size()));
       Logging::log(
         "New client " + info.name + " connected on ip: " + info.ipv4 + " - ID:[" +
         std::to_string(info.uid) + "]\n");
@@ -39,6 +41,8 @@ void GCNetServer::update(double dt)
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
     {
       Logging::log("Client " + std::to_string(event.senderId) + " has disconnected.\n");
+      server.SendMessageToAll(
+        encodeMessage(ServerMessages::PLAYER_NUM_CHANGED, server.GetAllClients().size()));
       break;
     }
     case netlib::NetworkEvent::EventType::MESSAGE:
@@ -60,7 +64,7 @@ void GCNetServer::playerEndTurn()
 void GCNetServer::decodeMessage(const std::vector<char>& message)
 {
   // MESSAGE FORMAT: TYPE:DATA,DATA,DATA
-  auto type = static_cast<Instructions>(message[0] - '0');
+  auto type = static_cast<PlayerActions>(message[0] - '0');
   std::vector<std::string> data;
 
   std::string current;
@@ -80,7 +84,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
   switch (type)
   {
-  case Instructions::MOVE:
+  case PlayerActions::MOVE:
   {
     int unit_id = std::stoi(data[0]);
     float x_pos = std::stof(data[1]);
@@ -94,7 +98,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
     break;
   }
-  case Instructions::ATTACK:
+  case PlayerActions::ATTACK:
   {
     int attacker_id = std::stoi(data[0]);
     int unit_id     = std::stoi(data[1]);
@@ -108,7 +112,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
     break;
   }
-  case Instructions::BUY:
+  case PlayerActions::BUY:
   {
     int unit_to_buy = std::stoi(data[0]);
     float x_pos     = std::stof(data[1]);
@@ -123,4 +127,15 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     break;
   }
   }
+}
+
+std::vector<char> GCNetServer::encodeMessage(ServerMessages message, int data)
+{
+  std::string string_message = std::to_string(static_cast<int>(message));
+  std::vector<char> char_message;
+
+  string_message += ":" + std::to_string(data);
+
+  std::copy(string_message.begin(), string_message.end(), std::back_inserter(char_message));
+  return char_message;
 }

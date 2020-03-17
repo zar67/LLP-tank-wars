@@ -3,6 +3,7 @@
 //
 
 #include "ui/ui_elements/Button.h"
+
 #include <Engine/Logger.hpp>
 
 Button::~Button()
@@ -29,40 +30,34 @@ Button& Button::operator=(const Button& button)
 }
 
 bool Button::init(
-  ASGE::Renderer* renderer, int font_index, const std::string& normal_texture,
-  const std::string& pressed_texture, const std::string& button_text,
-  float x_pos, float y_pos, float width, float height)
+  ASGE::Renderer* renderer,
+  int font_index,
+  const std::string& normal_texture,
+  const std::string& pressed_texture,
+  const std::string& button_text,
+  float x_pos,
+  float y_pos,
+  float width,
+  float height)
 {
   normal_sprite = renderer->createRawSprite();
-  if (!setupSprite(
-        *normal_sprite,
-        normal_texture,
-        x_pos,
-        y_pos,
-        width,
-        height,
-        BASE_OPACITY))
+  if (!setupSprite(*normal_sprite, normal_texture, x_pos, y_pos, width, height, BASE_OPACITY))
   {
     return false;
   }
 
   pressed_sprite = renderer->createRawSprite();
-  if (!setupSprite(
-        *pressed_sprite, pressed_texture, x_pos, y_pos, width, height))
+  if (!setupSprite(*pressed_sprite, pressed_texture, x_pos, y_pos, width, height))
   {
     return false;
   }
 
-  int center_x = static_cast<int>(x_pos + (width / 2)) -
-                 (renderer->getFont(font_index).pxWide(button_text) / 2);
-  int center_y = static_cast<int>(y_pos + (height / 2)) +
-                 (renderer->getFont(font_index).line_height / 4);
+  int center_x =
+    static_cast<int>(x_pos + (width / 2)) - (renderer->getFont(font_index).pxWide(button_text) / 2);
+  int center_y =
+    static_cast<int>(y_pos + (height / 2)) + (renderer->getFont(font_index).line_height / 4);
   text = ASGE::Text(
-    renderer->getFont(font_index),
-    button_text,
-    center_x,
-    center_y,
-    ASGE::COLOURS::BLACK);
+    renderer->getFont(font_index), button_text, center_x, center_y, ASGE::COLOURS::BLACK);
   text.setOpacity(BASE_OPACITY);
   text.setZOrder(1);
 
@@ -116,8 +111,7 @@ void Button::changeText(std::string new_text)
 {
   text.setString(new_text);
 
-  float center_x = (normal_sprite->xPos() + (normal_sprite->width() / 2)) -
-                   (text.getWidth() / 2);
+  float center_x = (normal_sprite->xPos() + (normal_sprite->width() / 2)) - (text.getWidth() / 2);
   text.setPositionX(center_x);
 }
 

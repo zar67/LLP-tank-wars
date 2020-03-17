@@ -6,10 +6,7 @@
 
 Shop::~Shop()
 {
-  for (Button* button : units)
-  {
-    delete button;
-  }
+  for (Button* button : units) { delete button; }
   units.clear();
 }
 
@@ -17,10 +14,7 @@ Shop& Shop::operator=(const Shop& shop)
 {
   if (&shop != this)
   {
-    for (Button* button : units)
-    {
-      delete button;
-    }
+    for (Button* button : units) { delete button; }
     units.clear();
     units = shop.units;
   }
@@ -28,9 +22,7 @@ Shop& Shop::operator=(const Shop& shop)
   return *this;
 }
 
-bool Shop::init(
-  ASGE::Renderer* renderer, int font_index,
-  const std::vector<std::string>& unit_types)
+bool Shop::init(ASGE::Renderer* renderer, int font_index, const std::vector<std::string>& unit_types)
 {
   shop_title = UIElement::setupText(
     renderer,
@@ -82,24 +74,23 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
 
     switch (index)
     {
-      case 0:
-      {
-        return UIElement::MenuItem::BUY_UNIT_0;
-      }
-      case 1:
-      {
-        return UIElement::MenuItem::BUY_UNIT_1;
-      }
-      case 2:
-      {
-        return UIElement::MenuItem::BUY_UNIT_2;
-      }
-      case 3:
-      {
-        return UIElement::MenuItem::BUY_UNIT_3;
-      }
-      default:
-        break;
+    case 0:
+    {
+      return UIElement::MenuItem::BUY_UNIT_0;
+    }
+    case 1:
+    {
+      return UIElement::MenuItem::BUY_UNIT_1;
+    }
+    case 2:
+    {
+      return UIElement::MenuItem::BUY_UNIT_2;
+    }
+    case 3:
+    {
+      return UIElement::MenuItem::BUY_UNIT_3;
+    }
+    default: break;
     }
   }
 
@@ -110,8 +101,5 @@ void Shop::render(ASGE::Renderer* renderer)
 {
   renderer->renderText(shop_title);
 
-  for (Button* button : units)
-  {
-    button->render(renderer);
-  }
+  for (Button* button : units) { button->render(renderer); }
 }

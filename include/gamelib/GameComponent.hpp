@@ -24,8 +24,8 @@ class GameComponent
 
  public:
   explicit GameComponent(ID id) : id(id){};
-  virtual ~GameComponent()       = default;
-  virtual void update(double dt) = 0;
+  virtual ~GameComponent()                                    = default;
+  virtual void update(double dt, SceneManager* scene_manager) = 0;
 
   GameComponent(const GameComponent&) = default;
   GameComponent(GameComponent&&)      = default;

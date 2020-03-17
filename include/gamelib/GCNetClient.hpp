@@ -17,14 +17,14 @@ class GCNetClient : public GameComponent
   ~GCNetClient() override;
 
   bool connectToIP(const std::string& ip);
-  void update(double dt) override;
+  void update(double dt, SceneManager* scene_manager) override;
 
   GCNetClient(const GCNetClient&) = delete;
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   void input();
   void endTurn();
-  void encodeData(Instructions instruction, ActionTypes data);
+  void encodeData(PlayerActions instruction, ActionTypes data);
 
  private:
   netlib::ClientConnection client;

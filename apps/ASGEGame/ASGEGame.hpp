@@ -50,4 +50,4 @@ class Game : public ASGE::OGLGame
   int click_callback_id = -1; /**< Key Input Callback ID. */
 };
 
-#endif // NETGAME_ASGEGAME_HPP
+#endif  // NETGAME_ASGEGAME_HPP

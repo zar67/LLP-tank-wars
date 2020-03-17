@@ -83,8 +83,8 @@ void Game::clickHandler(ASGE::SharedEventData data)
 /// @param us
 void Game::update(const ASGE::GameTime& us)
 {
-  server->update(us.deltaInSecs());
-  client->update(us.deltaInSecs());
+  server->update(us.deltaInSecs(), &scene_manager);
+  client->update(us.deltaInSecs(), &scene_manager);
 
   UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click, key_pressed, key_value);
   key_pressed              = false;
@@ -99,7 +99,9 @@ void Game::update(const ASGE::GameTime& us)
   }
   else if (item == UIElement::MenuItem::CONNECT_TO_IP)
   {
-    if (client->connectToIP(scene_manager.joinScreen()->getIP()))
+    if (
+      scene_manager.lobbyScreen()->getPlayerNumber() < 4 &&
+      client->connectToIP(scene_manager.joinScreen()->getIP()))
     {
       scene_manager.screenOpen(SceneManager::Screens::LOBBY);
     }
@@ -152,7 +154,6 @@ bool Game::loadFont()
     using Buffer  = ASGE::FILEIO::IOBuffer;
     Buffer buffer = file.read();
 
-    Logging::log(std::to_string(buffer.length) + "\n");
     // if we have data, load the font
     if (buffer.length != 0)
     {

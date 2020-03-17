@@ -10,6 +10,7 @@
 #include "scenes/Lobby.h"
 #include "scenes/MainMenu.h"
 #include "ui_elements/UIElement.h"
+
 #include <Engine/Renderer.h>
 
 class SceneManager
@@ -48,8 +49,8 @@ class SceneManager
   GameScreen game_screen = GameScreen();
 
   Screens screen_open = Screens::MAIN_MENU;
-  int currency = 100; // TEMP VARIABLE TO TEST UI, SHOULD MOVE TO PLAYER CLASS
-                      // WHEN MADE
+  const int currency  = 100;  // TEMP VARIABLE TO TEST UI, SHOULD MOVE TO PLAYER CLASS
+                              // WHEN MADE
 };
 
-#endif // MYNETGAME_SCENEMANAGER_H
+#endif  // MYNETGAME_SCENEMANAGER_H

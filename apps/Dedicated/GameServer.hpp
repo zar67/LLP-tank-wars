@@ -17,4 +17,4 @@ class DedicatedServer
   GCNetServer server;
 };
 
-#endif // NETGAME_DEDICATEDGAMESERVER_HPP
+#endif  // NETGAME_DEDICATEDGAMESERVER_HPP

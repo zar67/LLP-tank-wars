@@ -24,13 +24,17 @@ class Lobby
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
   void render(ASGE::Renderer* renderer);
 
-  void addPlayer(ASGE::Renderer* renderer);
-  void removePlayer(int id);
+  void setPlayerNumber(int number);
+  int getPlayerNumber();
 
  private:
+  void addPlayer(ASGE::Renderer* renderer);
+
   ASGE::Text lobby_title                  = ASGE::Text();
   std::vector<ASGE::Sprite*> player_icons = {};
   Button start_game                       = Button();
+
+  int player_number = 0;
 };
 
 #endif  // MYNETGAME_LOBBY_H

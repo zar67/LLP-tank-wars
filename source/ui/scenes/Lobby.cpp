@@ -38,6 +38,8 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
     1,
     1.5F);
 
+  for (int i = 0; i < 4; i++) { addPlayer(renderer); }
+
   return start_game.init(
     renderer,
     font_index,
@@ -66,24 +68,28 @@ void Lobby::render(ASGE::Renderer* renderer)
 {
   renderer->renderText(lobby_title);
 
-  for (ASGE::Sprite* sprite : player_icons) { renderer->renderSprite(*sprite); }
+  for (int i = 0; i < player_number; i++) { renderer->renderSprite(*player_icons[i]); }
 
   start_game.render(renderer);
 }
 
+void Lobby::setPlayerNumber(int number)
+{
+  player_number = number;
+  float x_pos   = static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 25 -
+                ((static_cast<float>(player_number) - 1) * 30);
+
+  for (int i = 0; i < player_number; i++)
+  { player_icons[i]->xPos(x_pos + (static_cast<float>(i * 60))); }
+}
+
+int Lobby::getPlayerNumber()
+{
+  return player_number;
+}
+
 void Lobby::addPlayer(ASGE::Renderer* renderer)
 {
-  int x_pos = 0;
-  if (player_icons.empty())
-  {
-    x_pos = ASGE::SETTINGS.window_width / 2 - 25;
-  }
-  else
-  {
-    x_pos =
-      ASGE::SETTINGS.window_width / 2 - ((60 * static_cast<int>(player_icons.size()) - 10) / 2);
-  }
-
   ASGE::Sprite* sprite = renderer->createRawSprite();
   if (!sprite->loadTexture("data/text_box.png"))
   {
@@ -92,20 +98,8 @@ void Lobby::addPlayer(ASGE::Renderer* renderer)
 
   sprite->width(50);
   sprite->height(50);
-  sprite->xPos(static_cast<float>(x_pos));
+  sprite->xPos(0);
   sprite->yPos(220);
 
   player_icons.push_back(sprite);
-
-  int count = 0;
-  for (ASGE::Sprite* icon : player_icons)
-  {
-    icon->xPos(static_cast<float>(x_pos + (60 * count)));
-    count += 1;
-  }
-}
-
-void Lobby::removePlayer(int id)
-{
-  player_icons.erase(player_icons.begin() + id);
 }

@@ -6,8 +6,10 @@
 #define NETGAME_GCNETSERVER_HPP
 
 #include "GameComponent.hpp"
+#include "MessageTypes.h"
 
 #include <NetLib/ServerConnection.h>
+
 class GCNetServer : public GameComponent
 {
  public:
@@ -33,13 +35,14 @@ class GCNetServer : public GameComponent
   ~GCNetServer() final = default;
 
   std::string getIP();
-  void update(double dt) override;
+  void update(double dt, SceneManager* scene_manager) override;
 
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
 
   void playerEndTurn();
   static void decodeMessage(const std::vector<char>& message);
+  static std::vector<char> encodeMessage(ServerMessages message, int data);
 
  private:
   netlib::ServerConnection server;

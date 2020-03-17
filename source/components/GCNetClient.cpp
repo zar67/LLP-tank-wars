@@ -5,8 +5,8 @@
 #include "GCNetClient.hpp"
 
 #include <Engine/Logger.hpp>
-#include <GCNetServer.hpp>
 #include <thread>
+
 GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 {
   // client.ConnectToIP("localhost", 32488);
@@ -18,7 +18,7 @@ bool GCNetClient::connectToIP(const std::string& ip)
   return client.ConnectToIP(ip, 32488);
 }
 
-void GCNetClient::update(double dt)
+void GCNetClient::update(double dt, SceneManager* scene_manager)
 {
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
@@ -41,6 +41,14 @@ void GCNetClient::update(double dt)
     case netlib::NetworkEvent::EventType::MESSAGE:
     {
       Logging::log(event.data.data());
+
+      auto message = static_cast<ServerMessages>(static_cast<int>(event.data[0] - '0'));
+
+      if (message == ServerMessages::PLAYER_NUM_CHANGED)
+      {
+        scene_manager->lobbyScreen()->setPlayerNumber(static_cast<int>(event.data[2] - '0'));
+      }
+
       break;
     }
     }
@@ -70,21 +78,21 @@ void GCNetClient::input()
       type.move.unit_id = 1;
       type.move.x_pos   = 10;
       type.move.y_pos   = 8;
-      encodeData(Instructions::MOVE, type);
+      encodeData(PlayerActions::MOVE, type);
     }
     else if (input == "#attack")
     {
       type.attack.attacker_id = 1;
       type.attack.enenmy_id   = 4;
       type.attack.damage      = 26;
-      encodeData(Instructions::ATTACK, type);
+      encodeData(PlayerActions::ATTACK, type);
     }
     else if (input == "#buy")
     {
       type.buy.item_id   = 12;
       type.buy.pos.x_pos = 14;
       type.buy.pos.y_pos = 55;
-      encodeData(Instructions::BUY, type);
+      encodeData(PlayerActions::BUY, type);
     }
     else if (input == "#endturn")
     {
@@ -106,22 +114,22 @@ void GCNetClient::endTurn()
   actions.clear();
 }
 
-void GCNetClient::encodeData(Instructions instruction, ActionTypes data)
+void GCNetClient::encodeData(PlayerActions instruction, ActionTypes data)
 {
   std::string string_message = std::to_string(static_cast<int>(instruction));
   std::vector<char> message;
   switch (instruction)
   {
-  case Instructions::MOVE:
+  case PlayerActions::MOVE:
     string_message += ":" + std::to_string(data.move.unit_id) + "," +
                       std::to_string(data.move.x_pos) + "," + std::to_string(data.move.y_pos);
     break;
-  case Instructions::ATTACK:
+  case PlayerActions::ATTACK:
     string_message += ":" + std::to_string(data.attack.attacker_id) + "," +
                       std::to_string(data.attack.enenmy_id) + "," +
                       std::to_string(data.attack.damage);
     break;
-  case Instructions::BUY:
+  case PlayerActions::BUY:
     string_message += ":" + std::to_string(data.buy.item_id) + "," +
                       std::to_string(data.buy.pos.x_pos) + "," + std::to_string(data.buy.pos.y_pos);
     break;

@@ -5,7 +5,7 @@
 #ifndef MYNETGAME_MESSAGETYPES_H
 #define MYNETGAME_MESSAGETYPES_H
 
-enum class Instructions
+enum class PlayerActions
 {
   MOVE   = 1,
   ATTACK = 2,
@@ -14,7 +14,7 @@ enum class Instructions
 
 enum class ServerMessages
 {
-  PLAYER_CONNECTED    = 1,
-  PLAYER_DISCONNECTED = 2
+  PLAYER_NUM_CHANGED = 1
 };
+
 #endif  // MYNETGAME_MESSAGETYPES_H

@@ -58,8 +58,7 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
     40);
 }
 
-UIElement::MenuItem
-MainMenu::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem MainMenu::update(const ASGE::Point2D& cursor_pos, bool click)
 {
   host_game.update(cursor_pos, click);
   join_game.update(cursor_pos, click);
