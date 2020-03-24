@@ -142,3 +142,8 @@ bool Map::checkTileName(const std::vector<TileData>& _tiles, const std::string& 
   }
   return false;
 }
+
+std::vector<TileData> Map::getMap()
+{
+  return map;
+}

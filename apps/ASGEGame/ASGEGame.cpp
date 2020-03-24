@@ -110,8 +110,7 @@ void Game::update(const ASGE::GameTime& us)
 void Game::render()
 {
   renderer->setFont(font_index);
-  scene_manager.render(renderer.get());
-  map.renderMap(renderer.get());
+  scene_manager.render(renderer.get(), map.getMap());
 }
 
 bool Game::loadFont()

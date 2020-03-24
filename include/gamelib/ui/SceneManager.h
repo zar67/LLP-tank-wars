@@ -5,10 +5,12 @@
 #ifndef MYNETGAME_SCENEMANAGER_H
 #define MYNETGAME_SCENEMANAGER_H
 
+#include "../TileData.h"
 #include "scenes/GameScreen.h"
 #include "scenes/Lobby.h"
 #include "scenes/MainMenu.h"
 #include "ui_elements/UIElement.h"
+
 #include <Engine/Renderer.h>
 
 class SceneManager
@@ -25,11 +27,10 @@ class SceneManager
   SceneManager()  = default;
   ~SceneManager() = default;
 
-  bool init(
-    ASGE::Renderer* renderer, int font_index, int game_width, int game_height);
+  bool init(ASGE::Renderer* renderer, int font_index, int game_width, int game_height);
 
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
-  void render(ASGE::Renderer* renderer);
+  void render(ASGE::Renderer* renderer, const std::vector<TileData>& _tileData);
 
   void screenOpen(Screens screen);
   bool inMenu();
@@ -43,8 +44,8 @@ class SceneManager
   GameScreen game_screen = GameScreen();
 
   Screens screen_open = Screens::MAIN_MENU;
-  int currency = 100; // TEMP VARIABLE TO TEST UI, SHOULD MOVE TO PLAYER CLASS
-                      // WHEN MADE
+  int currency        = 100;  // TEMP VARIABLE TO TEST UI, SHOULD MOVE TO PLAYER CLASS
+                              // WHEN MADE
 };
 
-#endif // MYNETGAME_SCENEMANAGER_H
+#endif  // MYNETGAME_SCENEMANAGER_H
