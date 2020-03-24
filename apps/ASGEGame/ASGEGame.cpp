@@ -31,7 +31,7 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   toggleFPS();
 
   map.init(renderer.get(), settings.window_width, settings.window_height);
-  map.generateMap();
+  map.generateMap(renderer.get());
 }
 
 /// Destroys the game.

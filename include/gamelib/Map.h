@@ -17,7 +17,7 @@ class Map
   ~Map() = default;
 
   void init(ASGE::Renderer* renderer, int screen_width, int screen_height);
-  void generateMap();
+  void generateMap(ASGE::Renderer* renderer);
 
   void renderMap(ASGE::Renderer* renderer);
 
@@ -26,7 +26,7 @@ class Map
 
   int screen_width  = 0;
   int screen_height = 0;
-  int tiles_wide    = 50;
+  int tiles_wide    = 40;
   int tiles_high    = 20;
   int tile_width    = 0;
   int tile_height   = 0;

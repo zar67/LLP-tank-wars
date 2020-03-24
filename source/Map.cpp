@@ -41,15 +41,19 @@ void Map::readJSON(const std::string& _directory, ASGE::Renderer* renderer)
     {
       TileData tile_data_grass;
       tile_data_grass.name = json_file["grass"][i]["name"].get<std::string>();
-      ASGE::Sprite* g      = renderer->createRawSprite();
-      std::string dir      = g->loadTexture(json_file["grass"][i]["directory"].get<std::string>());
-      tile_data_grass.sprite = g;
+      tile_data_grass.directory =
+        "data/sprites/" + json_file["grass"][i]["directory"].get<std::string>();
+      tile_data_grass.sprite = renderer->createRawSprite();
+      tile_data_grass.sprite->loadTexture(_directory);
       grass.push_back(tile_data_grass);
-
+      if (tile_data_grass.name == "g")
+      {
+        std::string s = "et";
+      }
       TileData tile_data_sand;
       tile_data_sand.name = json_file["sand"][i]["name"].get<std::string>();
       ASGE::Sprite* s     = renderer->createRawSprite();
-      s->loadTexture(json_file["sand"][i]["directory"].get<std::string>());
+      s->loadTexture("data/sprites/" + json_file["sand"][i]["directory"].get<std::string>());
       tile_data_sand.sprite = s;
       sand.push_back(tile_data_sand);
     }
@@ -58,14 +62,14 @@ void Map::readJSON(const std::string& _directory, ASGE::Renderer* renderer)
       TileData tile_data_mix;
       tile_data_mix.name = json_file["mix"][j]["name"].get<std::string>();
       ASGE::Sprite* m    = renderer->createRawSprite();
-      m->loadTexture(json_file["mix"][j]["directory"].get<std::string>());
+      m->loadTexture("data/sprites/" + json_file["mix"][j]["directory"].get<std::string>());
       tile_data_mix.sprite = m;
       mix.push_back(tile_data_mix);
     }
   }
 }
 
-void Map::generateMap()
+void Map::generateMap(ASGE::Renderer* renderer)
 {
   map.clear();
   tile_width  = screen_width / tiles_wide;
@@ -73,7 +77,7 @@ void Map::generateMap()
   TileData grass_tile;
   for (auto& tile : grass)
   {
-    if (tile.name == "g")
+    if (tile.name == "g_LUB")
     {
       grass_tile = tile;
       break;
@@ -81,7 +85,18 @@ void Map::generateMap()
   }
   for (int i = 0; i < tiles_wide; ++i)
   {
-    for (int j = 0; j < tiles_high; ++j) { map.push_back(*(new TileData(grass_tile))); }
+    for (int j = 0; j < tiles_high; ++j)
+    {
+      TileData current_tile;
+      current_tile.sprite = renderer->createRawSprite();
+      current_tile.sprite->loadTexture(grass_tile.directory);
+      current_tile.sprite->xPos(static_cast<float>(i * tile_width));
+      current_tile.sprite->yPos(static_cast<float>(j * tile_height));
+      current_tile.sprite->width(static_cast<float>(tile_width));
+      current_tile.sprite->height(static_cast<float>(tile_height));
+
+      map.push_back(current_tile);
+    }
   }
 }
 
