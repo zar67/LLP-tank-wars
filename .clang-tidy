@@ -5,8 +5,8 @@ Checks:            '*,readability-identifier-naming,
                     -hicpp-special-member-functions, -readability-redundant-access-specifiers,
                     -cppcoreguidelines-avoid-magic-numbers, -cppcoreguidelines-pro-bounds-pointer-arithmetic,
                     -readability-convert-member-functions-to-static,-cppcoreguidelines-pro-bounds-constant-array-index,
-                    -cppcoreguidelines-owning-memory, -hicpp-signed-bitwise, 
-                    -misc-non-private-member-variables-in-classes,llvm-namespace-comment'
+                    -cppcoreguidelines-owning-memory, -hicpp-signed-bitwise, llvm-namespace-comment,
+                    -misc-non-private-member-variables-in-classes, -cppcoreguidelines-non-private-member-variables-in-classes'
 
 WarningsAsErrors:  '*,
                     -readability-magic-numbers,-misc-unused-parameters,
@@ -56,6 +56,7 @@ CheckOptions:
 # -cppcoreguidelines-owning-memory: ITS OKAY TO USE RAW POINTERS IMHO
 # -cppcoreguidelines-pro-bounds-constant-array-index: GSL::AT?? REALLY?
 # -hicpp-signed-bitwise: IGNORE THE SIGNED BITMAPPING ERRORS. THIS IS AN ANNOYING INTERPRETATION OF HIC++ STANDARD
+# -cppcoreguidelines-non-private-member-variables-in-classes: ALLOW PROTECTED MEMBERS
 # WARNING ONLY
 # -readability-magic-numbers: SHOULDN'T USE THEM, BUT LETS NOT CRY OVER IT TOO BADLY
 # -misc-unused-parameters: YEAH, BUT HERE WE ARE!
