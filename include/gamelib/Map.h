@@ -16,18 +16,19 @@ class Map
   Map()  = default;
   ~Map() = default;
 
-  void init(ASGE::Renderer* renderer, int screen_width, int screen_height);
+  void init(int screen_width, int screen_height);
   void generateMap(ASGE::Renderer* renderer);
 
   void renderMap(ASGE::Renderer* renderer);
 
  private:
-  void readJSON(const std::string& _directory, ASGE::Renderer* renderer);
+  void readJSON(const std::string& _directory);
+  void readLevelJson(const std::string& _directory);
 
   int screen_width  = 0;
   int screen_height = 0;
-  int tiles_wide    = 40;
-  int tiles_high    = 20;
+  int tiles_wide    = 0;
+  int tiles_high    = 0;
   int tile_width    = 0;
   int tile_height   = 0;
 

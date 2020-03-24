@@ -1,0 +1,24 @@
+{
+    "number_tiles_wide" : 3,
+    "number_tiles_high" : 2,
+    "TILES": [
+        {
+            "name" : "g"
+        },
+        {
+            "name" : "g_CROSS"
+        },
+        {
+            "name" : "g_CROSS"
+        },
+        {
+            "name" : "g_CROSS"
+        },
+        {
+            "name" : "g_CROSS"
+        },
+        {
+            "name" : "g_CROSS"
+        }
+    ]
+}

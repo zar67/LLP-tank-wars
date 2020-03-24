@@ -30,7 +30,7 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   inputs->use_threads = true;
   toggleFPS();
 
-  map.init(renderer.get(), settings.window_width, settings.window_height);
+  map.init(settings.window_width, settings.window_height);
   map.generateMap(renderer.get());
 }
 

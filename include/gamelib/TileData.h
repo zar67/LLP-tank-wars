@@ -14,8 +14,6 @@ struct TileData
   std::string directory = "";
   ASGE::Sprite* sprite  = nullptr;
   int travel_on         = 0;  // if road move faster, if you can travel on it speed = 0
-  float x_pos           = 0.0F;
-  float y_pos           = 0.0F;
 };
 
 #endif  // MYNETGAME_TILEDATA_H
