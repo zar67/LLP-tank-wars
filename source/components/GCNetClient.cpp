@@ -13,13 +13,14 @@ GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
   // client.ConnectToIP("164.11.76.100", 32488);
 }
 
-bool GCNetClient::connectToIP(const std::string& ip)
+GCNetClient::~GCNetClient()
 {
-  return client.ConnectToIP(ip, 32488);
+  client.Disconnect();
 }
 
 void GCNetClient::update(double dt, SceneManager* scene_manager)
 {
+  scene_manager->gameScreen()->setInTurn(in_turn);
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
   {
@@ -40,15 +41,7 @@ void GCNetClient::update(double dt, SceneManager* scene_manager)
     }
     case netlib::NetworkEvent::EventType::MESSAGE:
     {
-      Logging::log(event.data.data());
-
-      auto message = static_cast<ServerMessages>(static_cast<int>(event.data[0] - '0'));
-
-      if (message == ServerMessages::PLAYER_NUM_CHANGED)
-      {
-        scene_manager->lobbyScreen()->setPlayerNumber(static_cast<int>(event.data[2] - '0'));
-      }
-
+      decodeMessage(scene_manager, event.data);
       break;
     }
     }
@@ -59,9 +52,57 @@ void GCNetClient::update(double dt, SceneManager* scene_manager)
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
-GCNetClient::~GCNetClient()
+void GCNetClient::decodeMessage(SceneManager* scene_manager, const std::vector<char>& message)
 {
-  client.Disconnect();
+  auto type = static_cast<NetworkMessages>(message[0] - '0');
+
+  switch (type)
+  {
+  case (NetworkMessages::PLAYER_NUM_CHANGED):
+  {
+    scene_manager->lobbyScreen()->setPlayerNumber(static_cast<int>(message[2] - '0'));
+    break;
+  }
+  case (NetworkMessages::PLAYER_END_TURN):
+  {
+    endTurn();
+    break;
+  }
+  case (NetworkMessages::PLAYER_START_TURN):
+  {
+    in_turn = true;
+    break;
+  }
+  }
+}
+
+void GCNetClient::encodeAction(NetworkMessages instruction, ActionTypes data)
+{
+  std::string string_message = std::to_string(static_cast<int>(instruction));
+  std::vector<char> message;
+  switch (instruction)
+  {
+  case NetworkMessages::PLAYER_MOVE:
+    string_message += ":" + std::to_string(data.move.unit_id) + "," +
+                      std::to_string(data.move.x_pos) + "," + std::to_string(data.move.y_pos);
+    break;
+  case NetworkMessages::PLAYER_ATTACK:
+    string_message += ":" + std::to_string(data.attack.attacker_id) + "," +
+                      std::to_string(data.attack.enemy_id) + "," +
+                      std::to_string(data.attack.damage);
+    break;
+  case NetworkMessages::PLAYER_BUY:
+    string_message += ":" + std::to_string(data.buy.item_id) + "," +
+                      std::to_string(data.buy.pos.x_pos) + "," + std::to_string(data.buy.pos.y_pos);
+    break;
+  }
+  std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
+  actions.push_back(message);
+}
+
+bool GCNetClient::connectToIP(const std::string& ip)
+{
+  return client.ConnectToIP(ip, 32488);
 }
 
 void GCNetClient::input()
@@ -74,25 +115,25 @@ void GCNetClient::input()
 
     if (input == "#move")
     {
-      // EXAMPLE MOVE MESSAGE TO SERVER
+      // EXAMPLE PLAYER_MOVE MESSAGE TO SERVER
       type.move.unit_id = 1;
       type.move.x_pos   = 10;
       type.move.y_pos   = 8;
-      encodeData(PlayerActions::MOVE, type);
+      encodeAction(NetworkMessages::PLAYER_MOVE, type);
     }
     else if (input == "#attack")
     {
       type.attack.attacker_id = 1;
-      type.attack.enenmy_id   = 4;
+      type.attack.enemy_id    = 4;
       type.attack.damage      = 26;
-      encodeData(PlayerActions::ATTACK, type);
+      encodeAction(NetworkMessages::PLAYER_ATTACK, type);
     }
     else if (input == "#buy")
     {
       type.buy.item_id   = 12;
       type.buy.pos.x_pos = 14;
       type.buy.pos.y_pos = 55;
-      encodeData(PlayerActions::BUY, type);
+      encodeAction(NetworkMessages::PLAYER_BUY, type);
     }
     else if (input == "#endturn")
     {
@@ -110,30 +151,21 @@ void GCNetClient::input()
 
 void GCNetClient::endTurn()
 {
-  for (const auto& action : actions) { client.SendMessageToServer(action); }
-  actions.clear();
+  if (in_turn)
+  {
+    in_turn = false;
+    for (const auto& action : actions) { client.SendMessageToServer(action); }
+    actions.clear();
+
+    std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));
+    std::vector<char> message;
+    std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
+
+    client.SendMessageToServer(message);
+  }
 }
 
-void GCNetClient::encodeData(PlayerActions instruction, ActionTypes data)
+void GCNetClient::startTurn()
 {
-  std::string string_message = std::to_string(static_cast<int>(instruction));
-  std::vector<char> message;
-  switch (instruction)
-  {
-  case PlayerActions::MOVE:
-    string_message += ":" + std::to_string(data.move.unit_id) + "," +
-                      std::to_string(data.move.x_pos) + "," + std::to_string(data.move.y_pos);
-    break;
-  case PlayerActions::ATTACK:
-    string_message += ":" + std::to_string(data.attack.attacker_id) + "," +
-                      std::to_string(data.attack.enenmy_id) + "," +
-                      std::to_string(data.attack.damage);
-    break;
-  case PlayerActions::BUY:
-    string_message += ":" + std::to_string(data.buy.item_id) + "," +
-                      std::to_string(data.buy.pos.x_pos) + "," + std::to_string(data.buy.pos.y_pos);
-    break;
-  }
-  std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
-  actions.push_back(message);
+  in_turn = true;
 }

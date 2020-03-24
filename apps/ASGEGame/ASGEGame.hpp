@@ -22,7 +22,7 @@ class Game : public ASGE::OGLGame
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
 
-  // TEMPORARY INPUT STUFF WILL MOVE TO OWN THREAD / CLASS
+  // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS
   void keyHandler(ASGE::SharedEventData data);
   void moveHandler(ASGE::SharedEventData data);
   void clickHandler(ASGE::SharedEventData data);
@@ -39,7 +39,7 @@ class Game : public ASGE::OGLGame
 
   SceneManager scene_manager;
 
-  // TEMPORARY INPUT STUFF WILL MOVE TO OWN THREAD / CLASS
+  // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS
   ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);
   bool mouse_click        = false;
   bool key_pressed        = false;

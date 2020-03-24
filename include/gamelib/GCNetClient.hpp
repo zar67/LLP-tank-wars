@@ -16,20 +16,23 @@ class GCNetClient : public GameComponent
   GCNetClient();
   ~GCNetClient() override;
 
-  bool connectToIP(const std::string& ip);
   void update(double dt, SceneManager* scene_manager) override;
+  void decodeMessage(SceneManager* scene_manager, const std::vector<char>& message);
+  void encodeAction(NetworkMessages instruction, ActionTypes data);
 
   GCNetClient(const GCNetClient&) = delete;
   GCNetClient& operator=(const GCNetClient&) = delete;
 
+  bool connectToIP(const std::string& ip);
   void input();
   void endTurn();
-  void encodeData(PlayerActions instruction, ActionTypes data);
+  void startTurn();
 
  private:
   netlib::ClientConnection client;
   std::atomic_bool exiting = false;
   std::vector<std::vector<char>> actions;
+  bool in_turn = false;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

@@ -34,20 +34,21 @@ class GCNetServer : public GameComponent
   GCNetServer();
   ~GCNetServer() final = default;
 
-  std::string getIP();
   void update(double dt, SceneManager* scene_manager) override;
+  void decodeMessage(const std::vector<char>& message);
+  std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);
 
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
 
+  std::string getIP();
   void playerEndTurn();
-  static void decodeMessage(const std::vector<char>& message);
-  static std::vector<char> encodeMessage(ServerMessages message, int data);
 
  private:
   netlib::ServerConnection server;
 
   ServerState server_state = ServerState::NONE;
+  int current_turn_id      = 1;
 };
 
 #endif  // NETGAME_GCNETSERVER_HPP

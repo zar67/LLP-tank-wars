@@ -20,6 +20,7 @@ class UIElement
     CONNECT_TO_IP = 3,
     EXIT_GAME     = 4,
     START_GAME    = 5,
+    END_TURN      = 6,
     BUY_UNIT_0,
     BUY_UNIT_1,
     BUY_UNIT_2,

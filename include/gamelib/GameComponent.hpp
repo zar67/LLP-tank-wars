@@ -5,6 +5,7 @@
 #ifndef NETGAME_GAMECOMPONENT_HPP
 #define NETGAME_GAMECOMPONENT_HPP
 
+#include "MessageTypes.h"
 #include "ui/SceneManager.h"
 
 #include <NetLib/NetworkEvent.h>

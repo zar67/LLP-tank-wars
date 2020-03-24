@@ -89,15 +89,19 @@ void Game::update(const ASGE::GameTime& us)
   UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click, key_pressed, key_value);
   key_pressed              = false;
 
-  if (item == UIElement::MenuItem::EXIT_GAME)
+  switch (item)
+  {
+  case (UIElement::MenuItem::EXIT_GAME):
   {
     signalExit();
+    break;
   }
-  else if (item == UIElement::MenuItem::HOST_GAME)
+  case (UIElement::MenuItem::HOST_GAME):
   {
     client->connectToIP("localHost");
+    break;
   }
-  else if (item == UIElement::MenuItem::CONNECT_TO_IP)
+  case (UIElement::MenuItem::CONNECT_TO_IP):
   {
     if (client->connectToIP(scene_manager.joinScreen()->getIP()))
     {
@@ -107,30 +111,37 @@ void Game::update(const ASGE::GameTime& us)
     {
       scene_manager.joinScreen()->displayConnectionError();
     }
+    break;
   }
-  else if (item == UIElement::MenuItem::BUY_UNIT_0)
+  case (UIElement::MenuItem::END_TURN):
+  {
+    client->endTurn();
+    break;
+  }
+  case (UIElement::MenuItem::BUY_UNIT_0):
   {
     scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-                                              // AND PLACE UNIT
+    // AND PLACE UNIT
     std::cout << "BUY UNIT 0" << std::endl;
   }
-  else if (item == UIElement::MenuItem::BUY_UNIT_1)
+  case (UIElement::MenuItem::BUY_UNIT_1):
   {
     scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-                                              // AND PLACE UNIT
+    // AND PLACE UNIT
     std::cout << "BUY UNIT 1" << std::endl;
   }
-  else if (item == UIElement::MenuItem::BUY_UNIT_2)
+  case (UIElement::MenuItem::BUY_UNIT_2):
   {
     scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-                                              // AND PLACE UNIT
+    // AND PLACE UNIT
     std::cout << "BUY UNIT 2" << std::endl;
   }
-  else if (item == UIElement::MenuItem::BUY_UNIT_3)
+  case (UIElement::MenuItem::BUY_UNIT_3):
   {
     scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-                                              // AND PLACE UNIT
+    // AND PLACE UNIT
     std::cout << "BUY UNIT 3" << std::endl;
+  }
   }
 }
 

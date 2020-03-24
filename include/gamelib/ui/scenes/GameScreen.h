@@ -25,10 +25,14 @@ class GameScreen
   void openShop();
   void closeShop();
 
+  void setInTurn(bool value);
+
  private:
   Shop shop;
   Button open_shop;
+  Button end_turn;
 
+  bool in_turn     = false;
   bool shop_active = false;
 };
 

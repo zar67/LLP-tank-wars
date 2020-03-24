@@ -15,7 +15,7 @@ struct Move
 struct Attack
 {
   int attacker_id = -1;
-  int enenmy_id   = -1;
+  int enemy_id    = -1;
   int damage      = 0;
 };
 

@@ -15,11 +15,6 @@ GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
   server.Start(32488);
 }
 
-std::string GCNetServer::getIP()
-{
-  return server.GetClientInfo(1).ipv4;
-}
-
 void GCNetServer::update(double dt, SceneManager* scene_manager)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();
@@ -31,8 +26,14 @@ void GCNetServer::update(double dt, SceneManager* scene_manager)
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       netlib::ClientInfo info = server.GetClientInfo(event.senderId);
-      server.SendMessageToAll(
-        encodeMessage(ServerMessages::PLAYER_NUM_CHANGED, server.GetAllClients().size()));
+
+      if (server.GetAllClients().size() == 1)
+      {
+        server.SendMessageTo(encodeMessage(NetworkMessages::PLAYER_START_TURN, ""), 1);
+      }
+
+      server.SendMessageToAll(encodeMessage(
+        NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
       Logging::log(
         "New client " + info.name + " connected on ip: " + info.ipv4 + " - ID:[" +
         std::to_string(info.uid) + "]\n");
@@ -41,8 +42,8 @@ void GCNetServer::update(double dt, SceneManager* scene_manager)
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
     {
       Logging::log("Client " + std::to_string(event.senderId) + " has disconnected.\n");
-      server.SendMessageToAll(
-        encodeMessage(ServerMessages::PLAYER_NUM_CHANGED, server.GetAllClients().size()));
+      server.SendMessageToAll(encodeMessage(
+        NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
       break;
     }
     case netlib::NetworkEvent::EventType::MESSAGE:
@@ -56,15 +57,10 @@ void GCNetServer::update(double dt, SceneManager* scene_manager)
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
-void GCNetServer::playerEndTurn()
-{
-  server_state = ServerState::UPDATING;
-}
-
 void GCNetServer::decodeMessage(const std::vector<char>& message)
 {
   // MESSAGE FORMAT: TYPE:DATA,DATA,DATA
-  auto type = static_cast<PlayerActions>(message[0] - '0');
+  auto type = static_cast<NetworkMessages>(message[0] - '0');
   std::vector<std::string> data;
 
   std::string current;
@@ -84,35 +80,40 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
   switch (type)
   {
-  case PlayerActions::MOVE:
+  case NetworkMessages::PLAYER_END_TURN:
+  {
+    playerEndTurn();
+    break;
+  }
+  case NetworkMessages::PLAYER_MOVE:
   {
     int unit_id = std::stoi(data[0]);
     float x_pos = std::stof(data[1]);
     float y_pos = std::stof(data[2]);
 
     Logging::log(
-      "MESSAGE RECEIVED: MOVE ("
+      "MESSAGE RECEIVED: PLAYER_MOVE ("
       "UNIT ID: " +
       std::to_string(unit_id) + ", X_POS: " + std::to_string(x_pos) +
       ", Y_POS: " + std::to_string(y_pos) + ")\n");
 
     break;
   }
-  case PlayerActions::ATTACK:
+  case NetworkMessages::PLAYER_ATTACK:
   {
     int attacker_id = std::stoi(data[0]);
     int unit_id     = std::stoi(data[1]);
     int damage      = std::stoi(data[2]);
 
     Logging::log(
-      "MESSAGE RECEIVED: ATTACK ("
+      "MESSAGE RECEIVED: PLAYER_ATTACK ("
       "ATTTACKER_ID: " +
       std::to_string(attacker_id) + ", UNIT_ID: " + std::to_string(unit_id) +
       ", DAMAGE: " + std::to_string(damage) + "\n");
 
     break;
   }
-  case PlayerActions::BUY:
+  case NetworkMessages::PLAYER_BUY:
   {
     int unit_to_buy = std::stoi(data[0]);
     float x_pos     = std::stof(data[1]);
@@ -129,13 +130,27 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
   }
 }
 
-std::vector<char> GCNetServer::encodeMessage(ServerMessages message, int data)
+std::vector<char> GCNetServer::encodeMessage(NetworkMessages message, const std::string& data)
 {
   std::string string_message = std::to_string(static_cast<int>(message));
   std::vector<char> char_message;
 
-  string_message += ":" + std::to_string(data);
+  string_message += ":" + data;
 
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(char_message));
   return char_message;
+}
+
+std::string GCNetServer::getIP()
+{
+  return server.GetClientInfo(1).ipv4;
+}
+
+void GCNetServer::playerEndTurn()
+{
+  current_turn_id %= server.GetAllClients().size();
+  current_turn_id += 1;
+  server.SendMessageTo(encodeMessage(NetworkMessages::PLAYER_START_TURN, "0"), current_turn_id);
+
+  server_state = ServerState::UPDATING;
 }

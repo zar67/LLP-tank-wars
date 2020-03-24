@@ -49,7 +49,7 @@ class SceneManager
   GameScreen game_screen = GameScreen();
 
   Screens screen_open = Screens::MAIN_MENU;
-  const int currency  = 100;  // TEMP VARIABLE TO TEST UI, SHOULD MOVE TO PLAYER CLASS
+  const int currency  = 100;  // TEMP VARIABLE TO TEST UI, SHOULD PLAYER_MOVE TO PLAYER CLASS
                               // WHEN MADE
 };
 
