@@ -209,7 +209,6 @@ void GCNetClient::input()
 
     if (input == "#move")
     {
-      // EXAMPLE PLAYER_MOVE MESSAGE TO SERVER
       type.move.unit_id = 1;
       type.move.x_pos   = 10;
       type.move.y_pos   = 8;

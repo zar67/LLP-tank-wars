@@ -102,6 +102,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     float x_pos = std::stof(data[1]);
     float y_pos = std::stof(data[2]);
 
+    // TODO: Move The Unit
     Logging::log(
       "MESSAGE RECEIVED: PLAYER_MOVE ("
       "UNIT ID: " +
@@ -116,6 +117,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     int unit_id     = std::stoi(data[1]);
     int damage      = std::stoi(data[2]);
 
+    // TODO: Attack The Unit
     Logging::log(
       "MESSAGE RECEIVED: PLAYER_ATTACK ("
       "ATTTACKER_ID: " +
@@ -130,6 +132,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     float x_pos     = std::stof(data[1]);
     float y_pos     = std::stof(data[2]);
 
+    // TODO: Create The Unit
     Logging::log(
       "MESSAGE RECEIVED: BUY ("
       "UNIT_TYPE: " +
