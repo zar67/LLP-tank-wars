@@ -32,6 +32,7 @@ class Lobby
   ASGE::Text lobby_title                  = ASGE::Text();
   std::vector<ASGE::Sprite*> player_icons = {};
   Button start_game                       = Button();
+  Button back;
 
   int player_number = 0;
 };

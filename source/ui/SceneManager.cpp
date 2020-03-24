@@ -69,6 +69,11 @@ SceneManager::update(const ASGE::Point2D& cursor_pos, bool click, bool key_press
     screen_open = Screens::JOIN_SCREEN;
     break;
   }
+  case UIElement::MenuItem::BACK_TO_MENU:
+  {
+    screen_open = Screens::MAIN_MENU;
+    break;
+  }
   default:
   {
     break;

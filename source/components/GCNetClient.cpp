@@ -112,6 +112,11 @@ bool GCNetClient::connectToIP(const std::string& ip)
   return client.ConnectToIP(ip, 32488);
 }
 
+void GCNetClient::disconnect()
+{
+  client.Disconnect();
+}
+
 void GCNetClient::input()
 {
   ActionTypes type;

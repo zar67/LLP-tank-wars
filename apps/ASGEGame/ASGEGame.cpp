@@ -110,6 +110,11 @@ void Game::update(const ASGE::GameTime& us)
     client->connectToIP("localHost");
     break;
   }
+  case (UIElement::MenuItem::BACK_TO_MENU):
+  {
+    client->disconnect();
+    break;
+  }
   case (UIElement::MenuItem::CONNECT_TO_IP):
   {
     if (client->connectToIP(scene_manager.joinScreen()->getIP()))

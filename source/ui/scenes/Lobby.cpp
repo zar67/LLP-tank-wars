@@ -40,14 +40,28 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
 
   for (int i = 0; i < 4; i++) { addPlayer(renderer); }
 
-  return start_game.init(
+  if (!start_game.init(
+        renderer,
+        font_index,
+        "data/button.png",
+        "data/button_pressed.png",
+        "Start Game",
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
+        420,
+        300,
+        40))
+  {
+    return false;
+  }
+
+  return back.init(
     renderer,
     font_index,
     "data/button.png",
     "data/button_pressed.png",
-    "Start Game",
+    "Back",
     static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
-    420,
+    480,
     300,
     40);
 }
@@ -55,10 +69,16 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
 UIElement::MenuItem Lobby::update(const ASGE::Point2D& cursor_pos, bool click)
 {
   start_game.update(cursor_pos, click);
+  back.update(cursor_pos, click);
 
   if (start_game.pressed() && !player_icons.empty())
   {
     return UIElement::MenuItem::START_GAME;
+  }
+
+  if (back.pressed())
+  {
+    return UIElement::MenuItem::BACK_TO_MENU;
   }
 
   return UIElement::MenuItem::NONE;
@@ -71,6 +91,7 @@ void Lobby::render(ASGE::Renderer* renderer)
   for (int i = 0; i < player_number; i++) { renderer->renderSprite(*player_icons[i]); }
 
   start_game.render(renderer);
+  back.render(renderer);
 }
 
 void Lobby::setPlayerNumber(int number)

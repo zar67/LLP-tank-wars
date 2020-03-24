@@ -24,6 +24,7 @@ class GCNetClient : public GameComponent
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   bool connectToIP(const std::string& ip);
+  void disconnect();
   void input();
   void endTurn();
   void startTurn();
