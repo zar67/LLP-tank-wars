@@ -25,7 +25,14 @@ add_library(
         ui/scenes/Lobby.cpp
         ui/scenes/GameScreen.cpp
         ui/scenes/Shop.cpp
+
         ui/SceneManager.cpp Map.cpp ../include/gamelib/Map.h)
+
+        ui/SceneManager.cpp
+        components/TroopComponent.cpp
+        components/SpriteComponent.cpp
+        components/GameObject.cpp
+        components/DataComp.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)
