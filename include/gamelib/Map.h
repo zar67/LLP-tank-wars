@@ -24,6 +24,7 @@ class Map
  private:
   void readJSON(const std::string& _directory);
   void readLevelJson(const std::string& _directory);
+  bool checkTileName(const std::vector<TileData>& _tiles, const std::string& _name);
 
   int screen_width  = 0;
   int screen_height = 0;

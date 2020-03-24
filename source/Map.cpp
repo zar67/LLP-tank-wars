@@ -114,14 +114,27 @@ void Map::readLevelJson(const std::string& _directory)
     }
     for (auto& name : tile_names)
     {
-      for (auto& tile : grass)
+      if (checkTileName(grass, name) || checkTileName(sand, name) || checkTileName(mix, name))
       {
-        if (name == tile.name)
-        {
-          map.push_back(tile);
-        }
+        continue;
       }
     }
     file.close();
   }
+}
+
+bool Map::checkTileName(const std::vector<TileData>& _tiles, const std::string& _name)
+{
+  if (map.size() < tiles_high * tiles_wide)
+  {
+    for (auto& tile : _tiles)
+    {
+      if (_name == tile.name)
+      {
+        map.push_back(tile);
+        return true;
+      }
+    }
+  }
+  return false;
 }
