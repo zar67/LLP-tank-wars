@@ -45,7 +45,8 @@ class GCNetClient : public GameComponent
   bool can_start = false;
   bool in_turn   = false;
 
-  int currency = 0;
+  int currency = 100;
+  // TODO: std::vector<Unit>() units;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

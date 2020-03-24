@@ -280,11 +280,19 @@ void GCNetClient::startGame()
 
 void GCNetClient::buyUnit(int unit_id)
 {
-  if (currency >= 10)  // CHANGE TO UNIT AMOUNT
+  if (in_turn && currency >= 10)  // TODO: CHANGE TO UNIT AMOUNT
   {
+    currency -= 10;  // TODO: CHANGE TO UNIT AMOUNT
     scene_manager.gameScreen()->closeShop();
-    // APPEND NEW UNIT TO UNITS
-    // ADD BUY TO ACTIONS
+
+    // TODO: APPEND NEW UNIT TO UNITS
+
+    ActionTypes type;
+    type.buy.item_id   = 12;
+    type.buy.pos.x_pos = 14;
+    type.buy.pos.y_pos = 55;
+    encodeAction(NetworkMessages::PLAYER_BUY, type);
+
     Logging::log("BOUGHT UNIT " + std::to_string(unit_id));
   }
 }
