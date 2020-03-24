@@ -25,8 +25,12 @@ class GameComponent
 
  public:
   explicit GameComponent(ID id) : id(id){};
-  virtual ~GameComponent()                                    = default;
-  virtual void update(double dt, SceneManager* scene_manager) = 0;
+  virtual ~GameComponent() = default;
+
+  virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
+  virtual bool
+  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) = 0;
+  virtual void render(ASGE::Renderer* renderer){};
 
   GameComponent(const GameComponent&) = default;
   GameComponent(GameComponent&&)      = default;

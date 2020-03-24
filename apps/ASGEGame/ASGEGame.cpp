@@ -14,17 +14,20 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 
   click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
 
-  server = std::make_unique<GCNetServer>();
-  client = std::make_unique<GCNetClient>();
+  game_components.emplace_back(std::make_unique<GCNetServer>());
+  game_components.emplace_back(std::make_unique<GCNetClient>());
 
   if (!loadFont())
   {
     Logging::log("*** FONT NOT LOADED ***\n");
   }
 
-  if (!scene_manager.init(renderer.get(), font_index))
+  for (auto& gc : game_components)
   {
-    Logging::log("*** SCENE MANAGER NOT LOADED ***\n");
+    if (!gc->init(renderer.get(), font_index))
+    {
+      Logging::log("*** COMPONENT NOT LOADED ***");
+    }
   }
 
   inputs->use_threads = true;
@@ -83,87 +86,23 @@ void Game::clickHandler(ASGE::SharedEventData data)
 /// @param us
 void Game::update(const ASGE::GameTime& us)
 {
-  server->update(us.deltaInSecs(), &scene_manager);
-  client->update(us.deltaInSecs(), &scene_manager);
+  for (auto& gc : game_components)
+  {
+    if (gc->update(us.deltaInSecs(), mouse_pos, mouse_click, key_pressed, key_value))
+    {
+      signalExit();
+    }
+  }
 
-  UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click, key_pressed, key_value);
-  key_pressed              = false;
-
-  switch (item)
-  {
-  case (UIElement::MenuItem::START_GAME):
-  {
-    if (client->canStartGame())
-    {
-      scene_manager.screenOpen(SceneManager::Screens::GAME);
-      client->startGame();
-    }
-    break;
-  }
-  case (UIElement::MenuItem::EXIT_GAME):
-  {
-    signalExit();
-    break;
-  }
-  case (UIElement::MenuItem::HOST_GAME):
-  {
-    client->connectToIP("localHost");
-    break;
-  }
-  case (UIElement::MenuItem::BACK_TO_MENU):
-  {
-    client->disconnect();
-    break;
-  }
-  case (UIElement::MenuItem::CONNECT_TO_IP):
-  {
-    if (client->connectToIP(scene_manager.joinScreen()->getIP()))
-    {
-      scene_manager.screenOpen(SceneManager::Screens::LOBBY);
-    }
-    else
-    {
-      scene_manager.joinScreen()->displayConnectionError();
-    }
-    break;
-  }
-  case (UIElement::MenuItem::END_TURN):
-  {
-    client->endTurn();
-    break;
-  }
-  case (UIElement::MenuItem::BUY_UNIT_0):
-  {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 0" << std::endl;
-  }
-  case (UIElement::MenuItem::BUY_UNIT_1):
-  {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 1" << std::endl;
-  }
-  case (UIElement::MenuItem::BUY_UNIT_2):
-  {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 2" << std::endl;
-  }
-  case (UIElement::MenuItem::BUY_UNIT_3):
-  {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 3" << std::endl;
-  }
-  }
+  key_pressed = false;
 }
 
 /// Render your game and its scenes here.
 void Game::render()
 {
   renderer->setFont(font_index);
-  scene_manager.render(renderer.get());
+
+  for (auto& gc : game_components) { gc->render(renderer.get()); }
 }
 
 bool Game::loadFont()

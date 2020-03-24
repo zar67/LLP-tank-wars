@@ -15,7 +15,12 @@ GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
   server.Start(32488);
 }
 
-void GCNetServer::update(double dt, SceneManager* scene_manager)
+bool GCNetServer::update(
+  double dt,
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  bool key_pressed,
+  int key)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();
   while (!all_events.empty())
@@ -55,6 +60,7 @@ void GCNetServer::update(double dt, SceneManager* scene_manager)
     all_events.pop();
   }
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  return false;
 }
 
 void GCNetServer::decodeMessage(const std::vector<char>& message)

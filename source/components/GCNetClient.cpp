@@ -18,9 +18,23 @@ GCNetClient::~GCNetClient()
   client.Disconnect();
 }
 
-void GCNetClient::update(double dt, SceneManager* scene_manager)
+bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
-  scene_manager->gameScreen()->setInTurn(in_turn);
+  return scene_manager.init(renderer, font_index);
+}
+
+bool GCNetClient::update(
+  double dt,
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  bool key_pressed,
+  int key)
+{
+  if (updateUI(cursor_pos, click, key_pressed, key))
+  {
+    return true;
+  }
+
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
   {
@@ -41,7 +55,7 @@ void GCNetClient::update(double dt, SceneManager* scene_manager)
     }
     case netlib::NetworkEvent::EventType::MESSAGE:
     {
-      decodeMessage(scene_manager, event.data);
+      decodeMessage(event.data);
       break;
     }
     }
@@ -50,9 +64,91 @@ void GCNetClient::update(double dt, SceneManager* scene_manager)
 
   exiting = !client.IsRunning();
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  return false;
 }
 
-void GCNetClient::decodeMessage(SceneManager* scene_manager, const std::vector<char>& message)
+bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key)
+{
+  UIElement::MenuItem item = scene_manager.update(in_turn, cursor_pos, click, key_pressed, key);
+
+  switch (item)
+  {
+  case (UIElement::MenuItem::EXIT_GAME):
+  {
+    return true;
+  }
+  case (UIElement::MenuItem::START_GAME):
+  {
+    if (canStartGame())
+    {
+      scene_manager.screenOpen(SceneManager::Screens::GAME);
+      startGame();
+    }
+    break;
+  }
+
+  case (UIElement::MenuItem::HOST_GAME):
+  {
+    client.ConnectToIP("localHost", 32488);
+    break;
+  }
+  case (UIElement::MenuItem::BACK_TO_MENU):
+  {
+    client.Disconnect();
+    break;
+  }
+  case (UIElement::MenuItem::CONNECT_TO_IP):
+  {
+    if (client.ConnectToIP(scene_manager.joinScreen()->getIP(), 32488))
+    {
+      scene_manager.screenOpen(SceneManager::Screens::LOBBY);
+    }
+    else
+    {
+      scene_manager.joinScreen()->displayConnectionError();
+    }
+    break;
+  }
+  case (UIElement::MenuItem::END_TURN):
+  {
+    endTurn();
+    break;
+  }
+  case (UIElement::MenuItem::BUY_UNIT_0):
+  {
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+    // AND PLACE UNIT
+    std::cout << "BUY UNIT 0" << std::endl;
+  }
+  case (UIElement::MenuItem::BUY_UNIT_1):
+  {
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+    // AND PLACE UNIT
+    std::cout << "BUY UNIT 1" << std::endl;
+  }
+  case (UIElement::MenuItem::BUY_UNIT_2):
+  {
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+    // AND PLACE UNIT
+    std::cout << "BUY UNIT 2" << std::endl;
+  }
+  case (UIElement::MenuItem::BUY_UNIT_3):
+  {
+    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
+    // AND PLACE UNIT
+    std::cout << "BUY UNIT 3" << std::endl;
+  }
+  }
+
+  return false;
+}
+
+void GCNetClient::render(ASGE::Renderer* renderer)
+{
+  scene_manager.render(renderer, currency);
+}
+
+void GCNetClient::decodeMessage(const std::vector<char>& message)
 {
   auto type = static_cast<NetworkMessages>(message[0] - '0');
 
@@ -60,13 +156,13 @@ void GCNetClient::decodeMessage(SceneManager* scene_manager, const std::vector<c
   {
   case (NetworkMessages::START_GAME):
   {
-    scene_manager->screenOpen(SceneManager::Screens::GAME);
+    scene_manager.screenOpen(SceneManager::Screens::GAME);
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
   {
     int player_num = static_cast<int>(message[2] - '0');
-    scene_manager->lobbyScreen()->setPlayerNumber(player_num);
+    scene_manager.lobbyScreen()->setPlayerNumber(player_num);
     can_start = player_num >= 2;
     break;
   }
@@ -105,16 +201,6 @@ void GCNetClient::encodeAction(NetworkMessages instruction, ActionTypes data)
   }
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
   actions.push_back(message);
-}
-
-bool GCNetClient::connectToIP(const std::string& ip)
-{
-  return client.ConnectToIP(ip, 32488);
-}
-
-void GCNetClient::disconnect()
-{
-  client.Disconnect();
 }
 
 void GCNetClient::input()

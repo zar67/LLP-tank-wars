@@ -31,8 +31,8 @@ class SceneManager
   bool init(ASGE::Renderer* renderer, int font_index);
 
   UIElement::MenuItem
-  update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
-  void render(ASGE::Renderer* renderer);
+  update(bool in_turn, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
+  void render(ASGE::Renderer* renderer, int currency);
 
   void screenOpen(Screens screen);
   bool inMenu();
@@ -49,8 +49,6 @@ class SceneManager
   GameScreen game_screen = GameScreen();
 
   Screens screen_open = Screens::MAIN_MENU;
-  const int currency  = 100;  // TEMP VARIABLE TO TEST UI, SHOULD PLAYER_MOVE TO PLAYER CLASS
-                              // WHEN MADE
 };
 
 #endif  // MYNETGAME_SCENEMANAGER_H

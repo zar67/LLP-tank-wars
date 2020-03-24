@@ -28,9 +28,15 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
       "data/text_box.png", "data/text_box.png", "data/text_box.png", "data/text_box.png"});
 }
 
-UIElement::MenuItem
-SceneManager::update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key)
+UIElement::MenuItem SceneManager::update(
+  bool in_turn,
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  bool key_pressed,
+  int key)
 {
+  game_screen.setInTurn(in_turn);
+
   UIElement::MenuItem item;
   switch (screen_open)
   {
@@ -83,7 +89,7 @@ SceneManager::update(const ASGE::Point2D& cursor_pos, bool click, bool key_press
   return item;
 }
 
-void SceneManager::render(ASGE::Renderer* renderer)
+void SceneManager::render(ASGE::Renderer* renderer, int currency)
 {
   switch (screen_open)
   {

@@ -15,16 +15,18 @@ class GCNetClient : public GameComponent
  public:
   GCNetClient();
   ~GCNetClient() override;
-
-  void update(double dt, SceneManager* scene_manager) override;
-  void decodeMessage(SceneManager* scene_manager, const std::vector<char>& message);
-  void encodeAction(NetworkMessages instruction, ActionTypes data);
-
   GCNetClient(const GCNetClient&) = delete;
   GCNetClient& operator=(const GCNetClient&) = delete;
 
-  bool connectToIP(const std::string& ip);
-  void disconnect();
+  bool init(ASGE::Renderer* renderer, int font_index) override;
+  bool
+  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;
+  bool updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
+  void render(ASGE::Renderer* renderer) override;
+
+  void decodeMessage(const std::vector<char>& message);
+  void encodeAction(NetworkMessages instruction, ActionTypes data);
+
   void input();
   void endTurn();
   void startTurn();
@@ -34,10 +36,14 @@ class GCNetClient : public GameComponent
 
  private:
   netlib::ClientConnection client;
+  SceneManager scene_manager;
+
   std::atomic_bool exiting = false;
   std::vector<std::vector<char>> actions;
   bool can_start = false;
   bool in_turn   = false;
+
+  int currency = 0;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

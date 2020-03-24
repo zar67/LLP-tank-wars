@@ -32,14 +32,14 @@ class GCNetServer : public GameComponent
 
  public:
   GCNetServer();
-  ~GCNetServer() final = default;
-
-  void update(double dt, SceneManager* scene_manager) override;
-  void decodeMessage(const std::vector<char>& message);
-  std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);
-
+  ~GCNetServer() final            = default;
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
+
+  bool
+  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;
+  void decodeMessage(const std::vector<char>& message);
+  std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);
 
   std::string getIP();
   void playerEndTurn();
