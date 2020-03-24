@@ -116,27 +116,23 @@ bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key
   }
   case (UIElement::MenuItem::BUY_UNIT_0):
   {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 0" << std::endl;
+    buyUnit(0);
+    break;
   }
   case (UIElement::MenuItem::BUY_UNIT_1):
   {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 1" << std::endl;
+    buyUnit(1);
+    break;
   }
   case (UIElement::MenuItem::BUY_UNIT_2):
   {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 2" << std::endl;
+    buyUnit(2);
+    break;
   }
   case (UIElement::MenuItem::BUY_UNIT_3):
   {
-    scene_manager.gameScreen()->closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP
-    // AND PLACE UNIT
-    std::cout << "BUY UNIT 3" << std::endl;
+    buyUnit(3);
+    break;
   }
   }
 
@@ -280,4 +276,15 @@ void GCNetClient::startGame()
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
 
   client.SendMessageToServer(message);
+}
+
+void GCNetClient::buyUnit(int unit_id)
+{
+  if (currency >= 10)  // CHANGE TO UNIT AMOUNT
+  {
+    scene_manager.gameScreen()->closeShop();
+    // APPEND NEW UNIT TO UNITS
+    // ADD BUY TO ACTIONS
+    Logging::log("BOUGHT UNIT " + std::to_string(unit_id));
+  }
 }

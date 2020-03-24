@@ -34,6 +34,8 @@ class GCNetClient : public GameComponent
   bool canStartGame();
   void startGame();
 
+  void buyUnit(int unit_id);
+
  private:
   netlib::ClientConnection client;
   SceneManager scene_manager;
