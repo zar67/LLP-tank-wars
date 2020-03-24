@@ -91,6 +91,15 @@ void Game::update(const ASGE::GameTime& us)
 
   switch (item)
   {
+  case (UIElement::MenuItem::START_GAME):
+  {
+    if (client->canStartGame())
+    {
+      scene_manager.screenOpen(SceneManager::Screens::GAME);
+      client->startGame();
+    }
+    break;
+  }
   case (UIElement::MenuItem::EXIT_GAME):
   {
     signalExit();

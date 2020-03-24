@@ -58,9 +58,16 @@ void GCNetClient::decodeMessage(SceneManager* scene_manager, const std::vector<c
 
   switch (type)
   {
+  case (NetworkMessages::START_GAME):
+  {
+    scene_manager->screenOpen(SceneManager::Screens::GAME);
+    break;
+  }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
   {
-    scene_manager->lobbyScreen()->setPlayerNumber(static_cast<int>(message[2] - '0'));
+    int player_num = static_cast<int>(message[2] - '0');
+    scene_manager->lobbyScreen()->setPlayerNumber(player_num);
+    can_start = player_num >= 2;
     break;
   }
   case (NetworkMessages::PLAYER_END_TURN):
@@ -168,4 +175,18 @@ void GCNetClient::endTurn()
 void GCNetClient::startTurn()
 {
   in_turn = true;
+}
+
+bool GCNetClient::canStartGame()
+{
+  return can_start;
+}
+
+void GCNetClient::startGame()
+{
+  std::string string_message = std::to_string(static_cast<int>(NetworkMessages::START_GAME));
+  std::vector<char> message;
+  std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
+
+  client.SendMessageToServer(message);
 }

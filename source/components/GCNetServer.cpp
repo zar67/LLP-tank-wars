@@ -80,6 +80,11 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
   switch (type)
   {
+  case NetworkMessages::START_GAME:
+  {
+    server.SendMessageToAll(encodeMessage(NetworkMessages::START_GAME, ""));
+    break;
+  }
   case NetworkMessages::PLAYER_END_TURN:
   {
     playerEndTurn();

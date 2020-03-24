@@ -28,11 +28,15 @@ class GCNetClient : public GameComponent
   void endTurn();
   void startTurn();
 
+  bool canStartGame();
+  void startGame();
+
  private:
   netlib::ClientConnection client;
   std::atomic_bool exiting = false;
   std::vector<std::vector<char>> actions;
-  bool in_turn = false;
+  bool can_start = false;
+  bool in_turn   = false;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP
