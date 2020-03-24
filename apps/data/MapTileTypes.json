@@ -142,7 +142,7 @@
     },
     {
       "name": "s",
-      "directory": "tileSand.png",
+      "directory": "tileSand2.png",
       "movement_speed" : 1
     },    {
       "name": "s_largeTree",
@@ -173,7 +173,7 @@
       "movement_speed" : 1
     },
     {
-      "name": "S_HORIZONTAlROAD_g",
+      "name": "s_HORIZONTAlROAD_g",
       "directory": "tileGrass_roadTransitionW.png",
       "movement_speed" : 1
     },
@@ -193,7 +193,7 @@
       "movement_speed" : 1
     },
     {
-      "name": "S_HORIZONTAl_g",
+      "name": "s_HORIZONTAl_g",
       "directory": "tileGrass_transitionW.png",
       "movement_speed" : 1
     }
