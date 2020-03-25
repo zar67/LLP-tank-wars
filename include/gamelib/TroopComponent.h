@@ -16,7 +16,10 @@ class TroopComponent : GameObject
  public:
   // Default Troop component constructor.
   TroopComponent() = default;
-
+  TroopComponent(const TroopComponent& troopComponent){}; // Copy Constructor
+  TroopComponent& operator=(const TroopComponent& troopComponent); // Copy
+                                                                   // Assignment
+                                                                   // Operator
   // Constructor that creates a troop type and a sprite component.
   TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer);
 

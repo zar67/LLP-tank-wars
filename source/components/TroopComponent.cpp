@@ -71,3 +71,12 @@ TroopComponent::~TroopComponent()
   delete data;
   data = nullptr;
 }
+
+TroopComponent& TroopComponent::operator=(const TroopComponent& troopComponent)
+{
+  if (&troopComponent != this)
+  {
+    // add pointers in here
+  }
+  return *this;
+}
