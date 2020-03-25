@@ -90,6 +90,10 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
     {
       return UIElement::MenuItem::BUY_UNIT_3;
     }
+    case 4:
+    {
+      return UIElement::MenuItem::BUY_UNIT_4;
+    }
     default: break;
     }
   }

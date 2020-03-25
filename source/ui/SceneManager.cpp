@@ -24,8 +24,11 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   return game_screen.init(
     renderer,
     font_index,
-    std::vector<std::string>{
-      "data/text_box.png", "data/text_box.png", "data/text_box.png", "data/text_box.png"});
+    std::vector<std::string>{"data/sprites/troops/tank_blue.png",
+                             "data/sprites/troops/tank_dark.png",
+                             "data/sprites/troops/tank_green.png",
+                             "data/sprites/troops/tank_red.png",
+                             "data/sprites/troops/tank_sand.png"});
 }
 
 UIElement::MenuItem SceneManager::update(
@@ -91,6 +94,7 @@ UIElement::MenuItem SceneManager::update(
 
 void SceneManager::render(
   ASGE::Renderer* renderer,
+  const std::vector<Troop>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
@@ -119,6 +123,14 @@ void SceneManager::render(
       if (tile.sprite != nullptr)
       {
         renderer->renderSprite(*tile.sprite);
+      }
+    }
+
+    for (Troop troop : troops)
+    {
+      if (troop.getSpriteComponent()->getSprite() != nullptr)
+      {
+        renderer->renderSprite(*troop.getSpriteComponent()->getSprite());
       }
     }
     break;

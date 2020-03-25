@@ -6,6 +6,7 @@
 #define MYNETGAME_SCENEMANAGER_H
 
 #include "../TileData.h"
+#include "../Troop.h"
 #include "scenes/GameScreen.h"
 #include "scenes/JoinScreen.h"
 #include "scenes/Lobby.h"
@@ -33,7 +34,11 @@ class SceneManager
 
   UIElement::MenuItem
   update(bool in_turn, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
-  void render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data, int currency);
+  void render(
+    ASGE::Renderer* renderer,
+    const std::vector<Troop>& troops,
+    const std::vector<TileData>& tile_data,
+    int currency);
 
   void screenOpen(Screens screen);
   bool inMenu();

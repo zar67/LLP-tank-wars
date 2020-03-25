@@ -20,6 +20,8 @@ GCNetClient::~GCNetClient()
 
 bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
+  this->renderer = renderer;
+
   return scene_manager.init(renderer, font_index);
 }
 
@@ -116,22 +118,27 @@ bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key
   }
   case (UIElement::MenuItem::BUY_UNIT_0):
   {
-    buyUnit(0);
+    buyUnit(TroopTypes::TANK_BLUE);
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_1):
   {
-    buyUnit(1);
+    buyUnit(TroopTypes::TANK_DARK);
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_2):
   {
-    buyUnit(2);
+    buyUnit(TroopTypes::TANK_GREEN);
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_3):
   {
-    buyUnit(3);
+    buyUnit(TroopTypes::TANK_RED);
+    break;
+  }
+  case (UIElement::MenuItem::BUY_UNIT_4):
+  {
+    buyUnit(TroopTypes::TANK_SAND);
     break;
   }
   }
@@ -141,7 +148,7 @@ bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key
 
 void GCNetClient::render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data)
 {
-  scene_manager.render(renderer, tile_data, currency);
+  scene_manager.render(renderer, troops, tile_data, currency);
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)
@@ -191,7 +198,7 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
                       std::to_string(data.attack.damage);
     break;
   case NetworkMessages::PLAYER_BUY:
-    string_message += ":" + std::to_string(data.buy.item_id) + "," +
+    string_message += ":" + std::to_string(static_cast<int>(data.buy.item_id)) + "," +
                       std::to_string(data.buy.pos.x_pos) + "," + std::to_string(data.buy.pos.y_pos);
     break;
   }
@@ -223,7 +230,7 @@ void GCNetClient::input()
     }
     else if (input == "#buy")
     {
-      type.buy.item_id   = 12;
+      type.buy.item_id   = TroopTypes::TANK_RED;
       type.buy.pos.x_pos = 14;
       type.buy.pos.y_pos = 55;
       encodeAction(NetworkMessages::PLAYER_BUY, type);
@@ -272,19 +279,24 @@ void GCNetClient::startGame()
   client.SendMessageToServer(message);
 }
 
-void GCNetClient::buyUnit(int unit_id)
+void GCNetClient::buyUnit(TroopTypes unit_type)
 {
-  if (in_turn && currency >= 10)  // TODO: CHANGE TO UNIT AMOUNT
+  int x_pos = 500;
+  int y_pos = 500;
+
+  Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos);
+
+  if (in_turn && currency >= new_troop.getCost())
   {
-    currency -= 10;  // TODO: CHANGE TO UNIT AMOUNT
+    currency -= new_troop.getCost();
     scene_manager.gameScreen()->closeShop();
 
-    // TODO: APPEND NEW UNIT TO UNITS
+    troops.push_back(new_troop);
 
     Types type;
-    type.buy.item_id   = 12;
-    type.buy.pos.x_pos = 14;
-    type.buy.pos.y_pos = 55;
+    type.buy.item_id   = unit_type;
+    type.buy.pos.x_pos = x_pos;
+    type.buy.pos.y_pos = y_pos;
     encodeAction(NetworkMessages::PLAYER_BUY, type);
   }
 }

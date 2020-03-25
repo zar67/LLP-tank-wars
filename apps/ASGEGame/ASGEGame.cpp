@@ -112,7 +112,7 @@ bool Game::loadFont()
 {
   using File = ASGE::FILEIO::File;
   File file  = File();
-  if (file.open("data/kenvector_future.ttf", ASGE::FILEIO::File::IOMode::READ))
+  if (file.open("data/font/kenvector_future.ttf", ASGE::FILEIO::File::IOMode::READ))
   {
     // the file is open, but we need to read the contents of it into memory
     // we will use an IOBuffer for this, it will store the binary data read

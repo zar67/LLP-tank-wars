@@ -4,6 +4,7 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
+#include "../Troop.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
 #include "GameComponent.hpp"
@@ -33,9 +34,11 @@ class GCNetClient : public GameComponent
 
   void startGame();
 
-  void buyUnit(int unit_id);
+  void buyUnit(TroopTypes unit_type);
 
  private:
+  ASGE::Renderer* renderer = nullptr;
+
   netlib::ClientConnection client;
   SceneManager scene_manager;
 
@@ -45,7 +48,7 @@ class GCNetClient : public GameComponent
   bool in_turn   = false;
 
   int currency = 100;
-  // TODO: std::vector<Unit>() units;
+  std::vector<Troop> troops;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

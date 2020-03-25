@@ -25,7 +25,8 @@ class UIElement
     BUY_UNIT_0,
     BUY_UNIT_1,
     BUY_UNIT_2,
-    BUY_UNIT_3
+    BUY_UNIT_3,
+    BUY_UNIT_4
   };
 
  public:

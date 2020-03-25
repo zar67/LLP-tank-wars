@@ -130,15 +130,12 @@ void Map::readLevelJson(const std::string& _directory)
 
 bool Map::checkTileName(const std::vector<TileData>& _tiles, const std::string& _name)
 {
-  if (map.size() < tiles_high * tiles_wide)
+  for (auto& tile : _tiles)
   {
-    for (auto& tile : _tiles)
+    if (_name == tile.name)
     {
-      if (_name == tile.name)
-      {
-        map.push_back(tile);
-        return true;
-      }
+      map.push_back(tile);
+      return true;
     }
   }
   return false;

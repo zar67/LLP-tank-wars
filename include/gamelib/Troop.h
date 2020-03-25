@@ -2,31 +2,31 @@
 // Created by a2-lott on 13/03/2020.
 //
 
-#ifndef MYNETGAME_TROOPCOMPONENT_H
-#define MYNETGAME_TROOPCOMPONENT_H
+#ifndef MYNETGAME_TROOP_H
+#define MYNETGAME_TROOP_H
 
-#include "GameObject.h"
+#include "Map.h"
+#include "components/GameObject.h"
 #include "gamedata/DataComp.h"
-#include "map"
 
-#include <Engine/Logger.hpp>
+#include <Engine/Renderer.h>
 
-class TroopComponent : public GameObject
+class Troop : public GameObject
 {
  public:
   // Default Troop component constructor.
-  TroopComponent() = default;
-  ~TroopComponent();
-  TroopComponent(const TroopComponent& troopComponent);             // Copy Constructor
-  TroopComponent& operator=(const TroopComponent& troopComponent);  // Copy
-                                                                    // Assignment
-                                                                    // Operator
+  Troop() = default;
+  ~Troop();
+  Troop(const Troop& troopComponent);             // Copy Constructor
+  Troop& operator=(const Troop& troopComponent);  // Copy
+                                                  // Assignment
+                                                  // Operator
   // Constructor that creates a troop type and a sprite component.
-  TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer);
+  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer);
 
   // Constructor that creates a troop type and a sprite component and sets it's
   // position.
-  TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer, float x_pos, float y_pos);
+  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos);
 
   // returns current troop type.
   TroopTypes getTroopType();
@@ -54,4 +54,4 @@ class TroopComponent : public GameObject
   TroopTypes current_troop_type        = TroopTypes::TANK_BLUE;
 };
 
-#endif  // MYNETGAME_TROOPCOMPONENT_H
+#endif  // MYNETGAME_TROOP_H
