@@ -28,15 +28,20 @@ class DataComp
     int weapon_range         = 0;
     std::string texture_path = "";
 
-    TankDataStruct(int _h, int _d, int _c, int _m, int _w, std::string _t)
+    // suggest turning this into an init/startup function so you can pool the
+    // data struct - ask liam if unsure what i mean
+    TankDataStruct(int _h, int _d, int _c, int _m, int _w, std::string _t) :
+      texture_path(std::move(_t))
     {
       health       = _h;
       damage       = _d;
       cost         = _c;
       move_range   = _m;
       weapon_range = _w;
-      texture_path = _t;
     }
+    // somewhere you were trying to create a datastruct of this type using no
+    // parameters
+    TankDataStruct() = default;
   };
 
   TankDataStruct getTankData(TroopTypes _type);

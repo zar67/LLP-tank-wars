@@ -4,11 +4,11 @@
 
 #include "TroopComponent.h"
 
-TroopComponent::TroopComponent(TroopTypes typeToMake, ASGE::Renderer* renderer)
+TroopComponent::TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer)
 {
   data        = new DataComp();
-  troop_stats = data->getTankData(typeToMake);
-  setTroopType(typeToMake);
+  troop_stats = data->getTankData(type_to_make);
+  setTroopType(type_to_make);
   addSpriteComponent(
     renderer, data->getTankData(current_troop_type).texture_path);
 }
@@ -77,6 +77,13 @@ TroopComponent& TroopComponent::operator=(const TroopComponent& troopComponent)
   if (&troopComponent != this)
   {
     // add pointers in here
+    delete data;
+    this->data = troopComponent.data;
   }
   return *this;
+}
+
+TroopComponent::TroopComponent(const TroopComponent& troopComponent) :
+  GameObject(troopComponent)
+{
 }

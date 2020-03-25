@@ -11,12 +11,13 @@
 #include "gamedata/DataComp.h"
 #include <Engine/Logger.hpp>
 
-class TroopComponent : GameObject
+class TroopComponent : public GameObject
 {
  public:
   // Default Troop component constructor.
   TroopComponent() = default;
-  TroopComponent(const TroopComponent& troopComponent){}; // Copy Constructor
+  ~TroopComponent();
+  TroopComponent(const TroopComponent& troopComponent); // Copy Constructor
   TroopComponent& operator=(const TroopComponent& troopComponent); // Copy
                                                                    // Assignment
                                                                    // Operator
@@ -28,8 +29,6 @@ class TroopComponent : GameObject
   TroopComponent(
     TroopTypes type_to_make, ASGE::Renderer* renderer, float x_pos,
     float y_pos);
-
-  ~TroopComponent();
 
   // returns current troop type.
   TroopTypes getTroopType();
