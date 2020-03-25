@@ -31,7 +31,6 @@ class GCNetClient : public GameComponent
   void endTurn();
   void startTurn();
 
-  bool canStartGame();
   void startGame();
 
   void buyUnit(int unit_id);

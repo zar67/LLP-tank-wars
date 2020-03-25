@@ -79,7 +79,7 @@ bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key
   }
   case (UIElement::MenuItem::START_GAME):
   {
-    if (canStartGame())
+    if (can_start)
     {
       scene_manager.screenOpen(SceneManager::Screens::GAME);
       startGame();
@@ -261,11 +261,6 @@ void GCNetClient::endTurn()
 void GCNetClient::startTurn()
 {
   in_turn = true;
-}
-
-bool GCNetClient::canStartGame()
-{
-  return can_start;
 }
 
 void GCNetClient::startGame()
