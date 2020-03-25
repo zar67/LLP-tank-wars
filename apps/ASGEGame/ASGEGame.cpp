@@ -105,7 +105,7 @@ void Game::render()
 {
   renderer->setFont(font_index);
 
-  for (auto& gc : game_components) { gc->render(renderer.get(), map.getMap()); }
+  for (auto& gc : game_components) { gc->render(map.getMap()); }
 }
 
 bool Game::loadFont()

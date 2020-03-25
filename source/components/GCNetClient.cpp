@@ -21,7 +21,6 @@ GCNetClient::~GCNetClient()
 bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
   this->renderer = renderer;
-
   return scene_manager.init(renderer, font_index);
 }
 
@@ -146,7 +145,7 @@ bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key
   return false;
 }
 
-void GCNetClient::render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data)
+void GCNetClient::render(const std::vector<TileData>& tile_data)
 {
   scene_manager.render(renderer, troops, tile_data, currency);
 }

@@ -30,7 +30,7 @@ class GameComponent
   virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
   virtual bool
   update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) = 0;
-  virtual void render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data){};
+  virtual void render(const std::vector<TileData>& tile_data){};
 
   GameComponent(const GameComponent&) = default;
   GameComponent(GameComponent&&)      = default;

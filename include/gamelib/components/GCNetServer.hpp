@@ -28,6 +28,7 @@ class GCNetServer : public GameComponent
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
 
+  bool init(ASGE::Renderer* renderer, int font_index) override;
   bool
   update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;
   void decodeMessage(const std::vector<char>& message);
@@ -37,6 +38,7 @@ class GCNetServer : public GameComponent
   void playerEndTurn();
 
  private:
+  ASGE::Renderer* renderer = nullptr;
   netlib::ServerConnection server;
 
   ServerState server_state = ServerState::NONE;
