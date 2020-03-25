@@ -4,43 +4,50 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width, int game_height)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 {
-  if (!main_menu.init(renderer, font_index, game_width))
+  if (!main_menu.init(renderer, font_index))
   {
     return false;
   }
 
-  if (!lobby.init(renderer, font_index, game_width))
+  if (!join_screen.init(renderer, font_index))
   {
     return false;
   }
 
-  if (!game_screen.init(
-        renderer,
-        font_index,
-        game_width,
-        std::vector<std::string>{
-          "data/text_box.png", "data/text_box.png", "data/text_box.png", "data/text_box.png"}))
+  if (!lobby.init(renderer, font_index))
   {
     return false;
   }
 
-  lobby.addPlayer(renderer, game_width);
-  lobby.addPlayer(renderer, game_width);
-  lobby.addPlayer(renderer, game_width);
-
-  return true;
+  return game_screen.init(
+    renderer,
+    font_index,
+    std::vector<std::string>{
+      "data/text_box.png", "data/text_box.png", "data/text_box.png", "data/text_box.png"});
 }
 
-UIElement::MenuItem SceneManager::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem SceneManager::update(
+  bool in_turn,
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  bool key_pressed,
+  int key)
 {
+  game_screen.setInTurn(in_turn);
+
   UIElement::MenuItem item;
   switch (screen_open)
   {
   case Screens::MAIN_MENU:
   {
     item = main_menu.update(cursor_pos, click);
+    break;
+  }
+  case Screens::JOIN_SCREEN:
+  {
+    item = join_screen.update(cursor_pos, click, key_pressed, key);
     break;
   }
   case Screens::LOBBY:
@@ -58,14 +65,19 @@ UIElement::MenuItem SceneManager::update(const ASGE::Point2D& cursor_pos, bool c
 
   switch (item)
   {
-  case UIElement::MenuItem::OPEN_LOBBY:
+  case UIElement::MenuItem::HOST_GAME:
   {
     screen_open = Screens::LOBBY;
     break;
   }
-  case UIElement::MenuItem::START_GAME:
+  case UIElement::MenuItem::JOIN_SCREEN:
   {
-    screen_open = Screens::GAME;
+    screen_open = Screens::JOIN_SCREEN;
+    break;
+  }
+  case UIElement::MenuItem::BACK_TO_MENU:
+  {
+    screen_open = Screens::MAIN_MENU;
     break;
   }
   default:
@@ -77,13 +89,21 @@ UIElement::MenuItem SceneManager::update(const ASGE::Point2D& cursor_pos, bool c
   return item;
 }
 
-void SceneManager::render(ASGE::Renderer* renderer, const std::vector<TileData>& _tileData)
+void SceneManager::render(
+  ASGE::Renderer* renderer,
+  const std::vector<TileData>& tile_data,
+  int currency)
 {
   switch (screen_open)
   {
   case Screens::MAIN_MENU:
   {
     main_menu.render(renderer);
+    break;
+  }
+  case Screens::JOIN_SCREEN:
+  {
+    join_screen.render(renderer);
     break;
   }
   case Screens::LOBBY:
@@ -94,7 +114,7 @@ void SceneManager::render(ASGE::Renderer* renderer, const std::vector<TileData>&
   case Screens::GAME:
   {
     game_screen.render(renderer, currency);
-    for (auto& tile : _tileData)
+    for (auto& tile : tile_data)
     {
       if (tile.sprite != nullptr)
       {
@@ -116,12 +136,22 @@ bool SceneManager::inMenu()
   return false;
 }
 
-void SceneManager::openShop()
+MainMenu* SceneManager::mainMenu()
 {
-  game_screen.openShop();
+  return &main_menu;
 }
 
-void SceneManager::closeShop()
+JoinScreen* SceneManager::joinScreen()
 {
-  game_screen.closeShop();
+  return &join_screen;
+}
+
+Lobby* SceneManager::lobbyScreen()
+{
+  return &lobby;
+}
+
+GameScreen* SceneManager::gameScreen()
+{
+  return &game_screen;
 }

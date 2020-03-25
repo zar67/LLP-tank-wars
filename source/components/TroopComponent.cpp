@@ -2,26 +2,27 @@
 // Created by a2-lott on 13/03/2020.
 //
 
-#include "TroopComponent.h"
+#include "components/TroopComponent.h"
 
 TroopComponent::TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer)
 {
   data        = new DataComp();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
-  addSpriteComponent(
-    renderer, data->getTankData(current_troop_type).texture_path);
+  addSpriteComponent(renderer, data->getTankData(current_troop_type).texture_path);
 }
 
 TroopComponent::TroopComponent(
-  TroopTypes type_to_make, ASGE::Renderer* renderer, float x_pos, float y_pos)
+  TroopTypes type_to_make,
+  ASGE::Renderer* renderer,
+  float x_pos,
+  float y_pos)
 {
   data        = new DataComp();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
-  addSpriteComponent(
-    renderer, data->getTankData(current_troop_type).texture_path, x_pos, y_pos);
+  addSpriteComponent(renderer, data->getTankData(current_troop_type).texture_path, x_pos, y_pos);
 }
 
 void TroopComponent::setTroopType(TroopTypes new_type)
@@ -83,7 +84,4 @@ TroopComponent& TroopComponent::operator=(const TroopComponent& troopComponent)
   return *this;
 }
 
-TroopComponent::TroopComponent(const TroopComponent& troopComponent) :
-  GameObject(troopComponent)
-{
-}
+TroopComponent::TroopComponent(const TroopComponent& troopComponent) : GameObject(troopComponent) {}

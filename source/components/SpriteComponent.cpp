@@ -2,7 +2,8 @@
 // Created by a2-lott on 13/03/2020.
 //
 
-#include "../../include/gamelib/SpriteComponent.h"
+#include "components/SpriteComponent.h"
+
 #include <Engine/Renderer.h>
 
 SpriteComponent::~SpriteComponent()
@@ -10,8 +11,7 @@ SpriteComponent::~SpriteComponent()
   free();
 }
 
-bool SpriteComponent::loadSprite(
-  ASGE::Renderer* renderer, const std::string& texture_file_name)
+bool SpriteComponent::loadSprite(ASGE::Renderer* renderer, const std::string& texture_file_name)
 {
   free();
   sprite = renderer->createRawSprite();
@@ -38,8 +38,7 @@ ASGE::Sprite* SpriteComponent::getSprite()
   return sprite;
 }
 
-SpriteComponent&
-SpriteComponent::operator=(const SpriteComponent& spriteComponent)
+SpriteComponent& SpriteComponent::operator=(const SpriteComponent& spriteComponent)
 {
   if (&spriteComponent != this)
   {

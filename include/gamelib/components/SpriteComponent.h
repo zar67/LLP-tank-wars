@@ -15,8 +15,7 @@ class SpriteComponent
 
   SpriteComponent(const SpriteComponent& spriteComponent){};
   SpriteComponent& operator=(const SpriteComponent& spriteComponent);
-  bool
-  loadSprite(ASGE::Renderer* renderer, const std::string& texture_file_name);
+  bool loadSprite(ASGE::Renderer* renderer, const std::string& texture_file_name);
 
   ASGE::Sprite* getSprite();
 
@@ -25,4 +24,4 @@ class SpriteComponent
   ASGE::Sprite* sprite = nullptr;
 };
 
-#endif // MYNETGAME_SPRITECOMPONENT_H
+#endif  // MYNETGAME_SPRITECOMPONENT_H

@@ -5,6 +5,13 @@
 #ifndef NETGAME_GAMECOMPONENT_HPP
 #define NETGAME_GAMECOMPONENT_HPP
 
+#include "../gamedata/MessageTypes.h"
+#include "../ui/SceneManager.h"
+
+#include <NetLib/NetworkEvent.h>
+#include <queue>
+#include <string>
+
 class GameComponent
 {
  public:
@@ -18,8 +25,12 @@ class GameComponent
 
  public:
   explicit GameComponent(ID id) : id(id){};
-  virtual ~GameComponent()       = default;
-  virtual void update(double dt) = 0;
+  virtual ~GameComponent() = default;
+
+  virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
+  virtual bool
+  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) = 0;
+  virtual void render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data){};
 
   GameComponent(const GameComponent&) = default;
   GameComponent(GameComponent&&)      = default;
@@ -30,4 +41,4 @@ class GameComponent
   ID id = ID::INVALID_COMPONENT_ID;
 };
 
-#endif // NETGAME_GAMECOMPONENT_HPP
+#endif  // NETGAME_GAMECOMPONENT_HPP

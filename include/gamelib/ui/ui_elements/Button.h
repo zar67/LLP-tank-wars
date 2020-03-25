@@ -6,6 +6,7 @@
 #define MYNETGAME_BUTTON_H
 
 #include "UIElement.h"
+
 #include <Engine/Renderer.h>
 #include <Engine/Text.hpp>
 
@@ -23,13 +24,19 @@ class Button : public UIElement
   Button() = default;
   ~Button() override;
 
-  Button(const Button& button){};          // Copy Constructor
-  Button& operator=(const Button& button); // Copy Assignment Operator
+  Button(const Button& button){};           // Copy Constructor
+  Button& operator=(const Button& button);  // Copy Assignment Operator
 
   bool init(
-    ASGE::Renderer* renderer, int font_index, const std::string& normal_texture,
-    const std::string& pressed_texture, const std::string& button_text,
-    float x_pos, float y_pos, float width, float height);
+    ASGE::Renderer* renderer,
+    int font_index,
+    const std::string& normal_texture,
+    const std::string& pressed_texture,
+    const std::string& button_text,
+    float x_pos,
+    float y_pos,
+    float width,
+    float height);
   void update(const ASGE::Point2D& cursor_pos, bool click);
   void render(ASGE::Renderer* renderer);
 
@@ -51,4 +58,4 @@ class Button : public UIElement
   const float BASE_OPACITY = 0.6F;
 };
 
-#endif // MYNETGAME_BUTTON_H
+#endif  // MYNETGAME_BUTTON_H

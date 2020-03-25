@@ -4,12 +4,11 @@
 
 #include "ui/scenes/Lobby.h"
 
+#include <Engine/Logger.hpp>
+
 Lobby::~Lobby()
 {
-  for (ASGE::Sprite* sprite : player_icons)
-  {
-    delete sprite;
-  }
+  for (ASGE::Sprite* sprite : player_icons) { delete sprite; }
   player_icons.clear();
 }
 
@@ -17,10 +16,7 @@ Lobby& Lobby::operator=(const Lobby& lobby)
 {
   if (&lobby != this)
   {
-    for (ASGE::Sprite* sprite : player_icons)
-    {
-      delete sprite;
-    }
+    for (ASGE::Sprite* sprite : player_icons) { delete sprite; }
     player_icons.clear();
     player_icons = lobby.player_icons;
   }
@@ -28,13 +24,13 @@ Lobby& Lobby::operator=(const Lobby& lobby)
   return *this;
 }
 
-bool Lobby::init(ASGE::Renderer* renderer, int font_index, int game_width)
+bool Lobby::init(ASGE::Renderer* renderer, int font_index)
 {
   lobby_title = UIElement::setupText(
     renderer,
     font_index,
     "Lobby",
-    static_cast<float>(game_width) / 2,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2,
     150,
     true,
     false,
@@ -42,14 +38,30 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index, int game_width)
     1,
     1.5F);
 
-  return start_game.init(
+  for (int i = 0; i < 4; i++) { addPlayer(renderer); }
+
+  if (!start_game.init(
+        renderer,
+        font_index,
+        "data/button.png",
+        "data/button_pressed.png",
+        "Start Game",
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
+        420,
+        300,
+        40))
+  {
+    return false;
+  }
+
+  return back.init(
     renderer,
     font_index,
     "data/button.png",
     "data/button_pressed.png",
-    "Start Game",
-    static_cast<float>(game_width) / 2 - 150,
-    420,
+    "Back",
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
+    480,
     300,
     40);
 }
@@ -57,10 +69,16 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index, int game_width)
 UIElement::MenuItem Lobby::update(const ASGE::Point2D& cursor_pos, bool click)
 {
   start_game.update(cursor_pos, click);
+  back.update(cursor_pos, click);
 
-  if (start_game.pressed() && player_number > 0)
+  if (start_game.pressed() && !player_icons.empty())
   {
     return UIElement::MenuItem::START_GAME;
+  }
+
+  if (back.pressed())
+  {
+    return UIElement::MenuItem::BACK_TO_MENU;
   }
 
   return UIElement::MenuItem::NONE;
@@ -70,40 +88,34 @@ void Lobby::render(ASGE::Renderer* renderer)
 {
   renderer->renderText(lobby_title);
 
-  for (ASGE::Sprite* sprite : player_icons)
-  {
-    renderer->renderSprite(*sprite);
-  }
+  for (int i = 0; i < player_number; i++) { renderer->renderSprite(*player_icons[i]); }
 
   start_game.render(renderer);
+  back.render(renderer);
 }
 
-bool Lobby::addPlayer(ASGE::Renderer* renderer, int game_width)
+void Lobby::setPlayerNumber(int number)
 {
-  int x_pos = 0;
-  if (player_number == 0)
-  {
-    x_pos = game_width / 2 - 25;
-  }
-  else
-  {
-    x_pos = game_width / 2 - ((60 * (player_number + 1) - 10) / 2);
-  }
+  player_number = number;
+  float x_pos   = static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 25 -
+                ((static_cast<float>(player_number) - 1) * 30);
 
+  for (int i = 0; i < player_number; i++)
+  { player_icons[i]->xPos(x_pos + (static_cast<float>(i * 60))); }
+}
+
+void Lobby::addPlayer(ASGE::Renderer* renderer)
+{
   ASGE::Sprite* sprite = renderer->createRawSprite();
-  if (!UIElement::setupSprite(
-        *sprite, "data/text_box.png", static_cast<float>(x_pos), 220, 50, 50))
+  if (!sprite->loadTexture("data/text_box.png"))
   {
-    return false;
+    Logging::log("*** COULDN'T ADD PLAYER ***");
   }
 
-  player_number += 1;
+  sprite->width(50);
+  sprite->height(50);
+  sprite->xPos(0);
+  sprite->yPos(220);
+
   player_icons.push_back(sprite);
-
-  int count = 0;
-  for (ASGE::Sprite* icon : player_icons)
-  {
-    icon->xPos(static_cast<float>(x_pos + (60 * count)));
-    count += 1;
-  }
 }

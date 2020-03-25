@@ -15,7 +15,7 @@ struct Move
 struct Attack
 {
   int attacker_id = -1;
-  int enenmy_id   = -1;
+  int enemy_id    = -1;
   int damage      = 0;
 };
 
@@ -32,4 +32,4 @@ struct Types
   Buy buy;
 };
 
-#endif // MYNETGAME_DATASTRUCTS_H
+#endif  // MYNETGAME_DATASTRUCTS_H

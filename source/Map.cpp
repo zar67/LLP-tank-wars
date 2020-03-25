@@ -80,6 +80,7 @@ void Map::generateMap(ASGE::Renderer* renderer)
       current_tile.sprite->yPos(static_cast<float>(j * tile_height));
       current_tile.sprite->width(static_cast<float>(tile_width));
       current_tile.sprite->height(static_cast<float>(tile_height));
+      current_tile.sprite->setGlobalZOrder(-1);
     }
   }
 }

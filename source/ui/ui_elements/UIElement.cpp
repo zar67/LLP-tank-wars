@@ -3,6 +3,7 @@
 //
 
 #include "ui/ui_elements/UIElement.h"
+
 #include <Engine/Renderer.h>
 
 bool UIElement::isInside(const ASGE::Point2D& point, ASGE::Sprite* sprite)
@@ -14,8 +15,13 @@ bool UIElement::isInside(const ASGE::Point2D& point, ASGE::Sprite* sprite)
 }
 
 bool UIElement::setupSprite(
-  ASGE::Sprite& sprite, const std::string& texture, float x_pos, float y_pos,
-  float width, float height, float opacity)
+  ASGE::Sprite& sprite,
+  const std::string& texture,
+  float x_pos,
+  float y_pos,
+  float width,
+  float height,
+  float opacity)
 {
   if (!sprite.loadTexture(texture))
   {
@@ -32,9 +38,16 @@ bool UIElement::setupSprite(
 }
 
 ASGE::Text UIElement::setupText(
-  ASGE::Renderer* renderer, int font_index, const std::string& text,
-  float x_pos, float y_pos, bool center_x, bool center_y, ASGE::Colour colour,
-  short z_order, float scale)
+  ASGE::Renderer* renderer,
+  int font_index,
+  const std::string& text,
+  float x_pos,
+  float y_pos,
+  bool center_x,
+  bool center_y,
+  ASGE::Colour colour,
+  short z_order,
+  float scale)
 {
   ASGE::Text text_obj = ASGE::Text(renderer->getFont(font_index), text);
   text_obj.setColour(colour);

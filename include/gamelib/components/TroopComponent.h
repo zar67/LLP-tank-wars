@@ -6,9 +6,9 @@
 #define MYNETGAME_TROOPCOMPONENT_H
 
 #include "GameObject.h"
+#include "gamedata/DataComp.h"
 #include "map"
 
-#include "gamedata/DataComp.h"
 #include <Engine/Logger.hpp>
 
 class TroopComponent : public GameObject
@@ -17,18 +17,16 @@ class TroopComponent : public GameObject
   // Default Troop component constructor.
   TroopComponent() = default;
   ~TroopComponent();
-  TroopComponent(const TroopComponent& troopComponent); // Copy Constructor
-  TroopComponent& operator=(const TroopComponent& troopComponent); // Copy
-                                                                   // Assignment
-                                                                   // Operator
+  TroopComponent(const TroopComponent& troopComponent);             // Copy Constructor
+  TroopComponent& operator=(const TroopComponent& troopComponent);  // Copy
+                                                                    // Assignment
+                                                                    // Operator
   // Constructor that creates a troop type and a sprite component.
   TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer);
 
   // Constructor that creates a troop type and a sprite component and sets it's
   // position.
-  TroopComponent(
-    TroopTypes type_to_make, ASGE::Renderer* renderer, float x_pos,
-    float y_pos);
+  TroopComponent(TroopTypes type_to_make, ASGE::Renderer* renderer, float x_pos, float y_pos);
 
   // returns current troop type.
   TroopTypes getTroopType();
@@ -52,8 +50,8 @@ class TroopComponent : public GameObject
 
  private:
   DataComp* data                       = nullptr;
-  DataComp::TankDataStruct troop_stats = { 0, 0, 0, 0, 0, "" };
+  DataComp::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};
   TroopTypes current_troop_type        = TroopTypes::TANK_BLUE;
 };
 
-#endif // MYNETGAME_TROOPCOMPONENT_H
+#endif  // MYNETGAME_TROOPCOMPONENT_H

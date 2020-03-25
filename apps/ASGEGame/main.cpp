@@ -1,4 +1,5 @@
 #include "ASGEGame.hpp"
+
 #include <Engine/GameSettings.hpp>
 #include <Engine/Logger.hpp>
 

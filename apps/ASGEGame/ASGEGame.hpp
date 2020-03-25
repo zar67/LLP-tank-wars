@@ -5,15 +5,15 @@
 #ifndef NETGAME_ASGEGAME_HPP
 #define NETGAME_ASGEGAME_HPP
 
+#include "../include/gamelib/Map.h"
+
 #include <Engine/OGLGame.h>
-#include <gamelib/GCNetClient.hpp>
-#include <gamelib/GCNetServer.hpp>
-#include <gamelib/GameComponent.hpp>
+#include <gamelib/components/GCNetClient.hpp>
+#include <gamelib/components/GCNetServer.hpp>
+#include <gamelib/components/GameComponent.hpp>
 #include <gamelib/ui/SceneManager.h>
 #include <gamelib/ui/ui_elements/Button.h>
 #include <vector>
-
-#include "../include/gamelib/Map.h"
 
 class Game : public ASGE::OGLGame
 {
@@ -24,7 +24,7 @@ class Game : public ASGE::OGLGame
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
 
-  // TEMPORARY INPUT STUFF WILL MOVE TO OWN THREAD / CLASS
+  // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS
   void keyHandler(ASGE::SharedEventData data);
   void moveHandler(ASGE::SharedEventData data);
   void clickHandler(ASGE::SharedEventData data);
@@ -36,12 +36,13 @@ class Game : public ASGE::OGLGame
   bool loadFont();
   int font_index = 0;
 
-  std::vector<std::unique_ptr<GameComponent>> game_components = {};
-  SceneManager scene_manager;
+  std::vector<std::unique_ptr<GameComponent>> game_components;
 
-  // TEMPORARY INPUT STUFF WILL MOVE TO OWN THREAD / CLASS
+  // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS
   ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);
   bool mouse_click        = false;
+  bool key_pressed        = false;
+  int key_value           = 0;
 
   int key_callback_id   = -1; /**< Key Input Callback ID. */
   int move_callback_id  = -1; /**< Key Input Callback ID. */
@@ -50,4 +51,4 @@ class Game : public ASGE::OGLGame
   Map map;
 };
 
-#endif // NETGAME_ASGEGAME_HPP
+#endif  // NETGAME_ASGEGAME_HPP

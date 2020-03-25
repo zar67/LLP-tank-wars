@@ -2,10 +2,9 @@
 // Created by a2-lott on 13/03/2020.
 //
 
-#include "GameObject.h"
+#include "components/GameObject.h"
 
-void GameObject::addSpriteComponent(
-  ASGE::Renderer* renderer, const std::string& texture_file_name)
+void GameObject::addSpriteComponent(ASGE::Renderer* renderer, const std::string& texture_file_name)
 {
   delete sprite_component;
   sprite_component = nullptr;
@@ -14,7 +13,9 @@ void GameObject::addSpriteComponent(
 }
 
 void GameObject::addSpriteComponent(
-  ASGE::Renderer* renderer, const std::string& texture_file_name, float x_pos,
+  ASGE::Renderer* renderer,
+  const std::string& texture_file_name,
+  float x_pos,
   float y_pos)
 {
   delete sprite_component;

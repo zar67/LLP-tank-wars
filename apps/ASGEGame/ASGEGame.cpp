@@ -22,9 +22,12 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     Logging::log("*** FONT NOT LOADED ***\n");
   }
 
-  if (!scene_manager.init(renderer.get(), font_index, settings.window_width, settings.window_height))
+  for (auto& gc : game_components)
   {
-    Logging::log("*** SCENE MANAGER NOT LOADED ***\n");
+    if (!gc->init(renderer.get(), font_index))
+    {
+      Logging::log("*** COMPONENT NOT LOADED ***");
+    }
   }
 
   inputs->use_threads = true;
@@ -55,6 +58,16 @@ void Game::keyHandler(ASGE::SharedEventData data)
   {
     signalExit();
   }
+
+  if (key->action == ASGE::KEYS::KEY_PRESSED)
+  {
+    key_pressed = true;
+    key_value   = key->key;
+  }
+  else if (key->action == ASGE::KEYS::KEY_RELEASED)
+  {
+    key_pressed = false;
+  }
 }
 
 void Game::moveHandler(ASGE::SharedEventData data)
@@ -76,41 +89,23 @@ void Game::clickHandler(ASGE::SharedEventData data)
 /// @param us
 void Game::update(const ASGE::GameTime& us)
 {
-  for (auto& gc : game_components) { gc->update(us.deltaInSecs()); }
+  for (auto& gc : game_components)
+  {
+    if (gc->update(us.deltaInSecs(), mouse_pos, mouse_click, key_pressed, key_value))
+    {
+      signalExit();
+    }
+  }
 
-  UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click);
-
-  if (item == UIElement::MenuItem::EXIT_GAME)
-  {
-    signalExit();
-  }
-  else if (item == UIElement::MenuItem::BUY_UNIT_0)
-  {
-    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
-    std::cout << "BUY UNIT 0" << std::endl;
-  }
-  else if (item == UIElement::MenuItem::BUY_UNIT_1)
-  {
-    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
-    std::cout << "BUY UNIT 1" << std::endl;
-  }
-  else if (item == UIElement::MenuItem::BUY_UNIT_2)
-  {
-    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
-    std::cout << "BUY UNIT 2" << std::endl;
-  }
-  else if (item == UIElement::MenuItem::BUY_UNIT_3)
-  {
-    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
-    std::cout << "BUY UNIT 3" << std::endl;
-  }
+  key_pressed = false;
 }
 
 /// Render your game and its scenes here.
 void Game::render()
 {
   renderer->setFont(font_index);
-  scene_manager.render(renderer.get(), map.getMap());
+
+  for (auto& gc : game_components) { gc->render(renderer.get(), map.getMap()); }
 }
 
 bool Game::loadFont()
@@ -124,7 +119,6 @@ bool Game::loadFont()
     using Buffer  = ASGE::FILEIO::IOBuffer;
     Buffer buffer = file.read();
 
-    Logging::log(std::to_string(buffer.length) + "\n");
     // if we have data, load the font
     if (buffer.length != 0)
     {

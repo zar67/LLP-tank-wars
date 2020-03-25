@@ -14,12 +14,14 @@ class UIElement
  public:
   enum class MenuItem
   {
-    NONE       = -1,
-    OPEN_LOBBY = 1,
-    EXIT_GAME  = 2,
-    START_GAME = 3,
-    OPEN_SHOP  = 4,
-    HIDE_SHOP  = 5,
+    NONE          = -1,
+    HOST_GAME     = 1,
+    JOIN_SCREEN   = 2,
+    BACK_TO_MENU  = 3,
+    CONNECT_TO_IP = 4,
+    EXIT_GAME     = 5,
+    START_GAME    = 6,
+    END_TURN      = 7,
     BUY_UNIT_0,
     BUY_UNIT_1,
     BUY_UNIT_2,
@@ -32,12 +34,24 @@ class UIElement
 
   static bool isInside(const ASGE::Point2D& point, ASGE::Sprite* sprite);
   static bool setupSprite(
-    ASGE::Sprite& sprite, const std::string& texture, float x_pos, float y_pos,
-    float width, float height, float opacity = 1);
+    ASGE::Sprite& sprite,
+    const std::string& texture,
+    float x_pos,
+    float y_pos,
+    float width,
+    float height,
+    float opacity = 1);
   static ASGE::Text setupText(
-    ASGE::Renderer* renderer, int font_index, const std::string& text,
-    float x_pos, float y_pos, bool center_x, bool center_y, ASGE::Colour colour,
-    short z_order, float scale = 1);
+    ASGE::Renderer* renderer,
+    int font_index,
+    const std::string& text,
+    float x_pos,
+    float y_pos,
+    bool center_x,
+    bool center_y,
+    ASGE::Colour colour,
+    short z_order,
+    float scale = 1);
 };
 
-#endif // MYNETGAME_UIELEMENT_H
+#endif  // MYNETGAME_UIELEMENT_H

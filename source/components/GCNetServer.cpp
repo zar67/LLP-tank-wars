@@ -2,19 +2,25 @@
 // Created by huxy on 23/02/2020.
 //
 
-#include "GCNetServer.hpp"
+#include "components/GCNetServer.hpp"
+
+#include "gamedata/MessageTypes.h"
+
 #include <Engine/Logger.hpp>
 #include <iostream>
 #include <thread>
-
-#include "gamedata/DataStates.h"
 
 GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
 {
   server.Start(32488);
 }
 
-void GCNetServer::update(double dt)
+bool GCNetServer::update(
+  double dt,
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  bool key_pressed,
+  int key)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();
   while (!all_events.empty())
@@ -22,41 +28,45 @@ void GCNetServer::update(double dt)
     netlib::NetworkEvent& event = all_events.front();
     switch (event.eventType)
     {
-      case netlib::NetworkEvent::EventType::ON_CONNECT:
+    case netlib::NetworkEvent::EventType::ON_CONNECT:
+    {
+      netlib::ClientInfo info = server.GetClientInfo(event.senderId);
+
+      if (server.GetAllClients().size() == 1)
       {
-        netlib::ClientInfo info = server.GetClientInfo(event.senderId);
-        Logging::log(
-          "New client " + info.name + " connected on ip: " + info.ipv4 +
-          " - ID:[" + std::to_string(info.uid) + "]\n");
-        break;
+        server.SendMessageTo(encodeMessage(NetworkMessages::PLAYER_START_TURN, ""), 1);
       }
-      case netlib::NetworkEvent::EventType::ON_DISCONNECT:
-      {
-        Logging::log(
-          "Client " + std::to_string(event.senderId) + " has disconnected.\n");
-        break;
-      }
-      case netlib::NetworkEvent::EventType::MESSAGE:
-      {
-        // server.SendMessageToAllExcluding(event.data, event.senderId);
-        decodeMessage(event.data);
-        break;
-      }
+
+      server.SendMessageToAll(encodeMessage(
+        NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
+      Logging::log(
+        "New client " + info.name + " connected on ip: " + info.ipv4 + " - ID:[" +
+        std::to_string(info.uid) + "]\n");
+      break;
+    }
+    case netlib::NetworkEvent::EventType::ON_DISCONNECT:
+    {
+      Logging::log("Client " + std::to_string(event.senderId) + " has disconnected.\n");
+      server.SendMessageToAll(encodeMessage(
+        NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
+      break;
+    }
+    case netlib::NetworkEvent::EventType::MESSAGE:
+    {
+      decodeMessage(event.data);
+      break;
+    }
     }
     all_events.pop();
   }
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
-}
-
-void GCNetServer::playerEndTurn()
-{
-  server_state = ServerState::UPDATING;
+  return false;
 }
 
 void GCNetServer::decodeMessage(const std::vector<char>& message)
 {
   // MESSAGE FORMAT: TYPE:DATA,DATA,DATA
-  auto type = static_cast<Instructions>(message[0] - '0');
+  auto type = static_cast<NetworkMessages>(message[0] - '0');
   std::vector<std::string> data;
 
   std::string current;
@@ -76,50 +86,85 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
 
   switch (type)
   {
-    case Instructions::MOVE:
-    {
-      int unit_id = std::stoi(data[0]);
-      float x_pos = std::stof(data[1]);
-      float y_pos = std::stof(data[2]);
-
-      Logging::log(
-        "MESSAGE RECEIVED: MOVE (PLAYER ID: "
-        ", UNIT ID:" +
-        std::to_string(unit_id) + ", X_POS: " + std::to_string(x_pos) +
-        ", Y_POS: " + std::to_string(y_pos) + ")\n");
-
-      break;
-    }
-    case Instructions::ATTACK:
-    {
-      // ATTACK: PLAYER_ID, UNIT_ID, DAMAGE
-      int attacker_id = std::stoi(data[0]);
-      int unit_id     = std::stoi(data[2]);
-      int damage      = std::stoi(data[3]);
-
-      Logging::log(
-        "MESSAGE RECEIVED: ATTACK (PLAYER ID: "
-        ", Attacker_ID" +
-        std::to_string(attacker_id) + ", UNIT_ID: " + std::to_string(unit_id) +
-        ", DAMAGE: " + std::to_string(damage) + "\n");
-
-      break;
-    }
-    case Instructions::BUY:
-    {
-      // BUY: PLAYER_ID, UNIT_TYPE, X_POS, Y_POS
-      ///   int player_id = std::stoi(data[0]);
-      int unit_to_buy = std::stoi(data[0]);
-      float x_pos     = std::stof(data[1]);
-      float y_pos     = std::stof(data[2]);
-
-      Logging::log(
-        "MESSAGE RECEIVED: BUY (PLAYER ID: "
-        ", UNIT_TYPE: " +
-        std::to_string(unit_to_buy) + ", X_POS: " + std::to_string(x_pos) +
-        ", Y_POS: " + std::to_string(y_pos) + "\n");
-
-      break;
-    }
+  case NetworkMessages::START_GAME:
+  {
+    server.SendMessageToAll(encodeMessage(NetworkMessages::START_GAME, ""));
+    break;
   }
+  case NetworkMessages::PLAYER_END_TURN:
+  {
+    playerEndTurn();
+    break;
+  }
+  case NetworkMessages::PLAYER_MOVE:
+  {
+    int unit_id = std::stoi(data[0]);
+    float x_pos = std::stof(data[1]);
+    float y_pos = std::stof(data[2]);
+
+    // TODO: Move The Unit
+    Logging::log(
+      "MESSAGE RECEIVED: PLAYER_MOVE ("
+      "UNIT ID: " +
+      std::to_string(unit_id) + ", X_POS: " + std::to_string(x_pos) +
+      ", Y_POS: " + std::to_string(y_pos) + ")\n");
+
+    break;
+  }
+  case NetworkMessages::PLAYER_ATTACK:
+  {
+    int attacker_id = std::stoi(data[0]);
+    int unit_id     = std::stoi(data[1]);
+    int damage      = std::stoi(data[2]);
+
+    // TODO: Attack The Unit
+    Logging::log(
+      "MESSAGE RECEIVED: PLAYER_ATTACK ("
+      "ATTTACKER_ID: " +
+      std::to_string(attacker_id) + ", UNIT_ID: " + std::to_string(unit_id) +
+      ", DAMAGE: " + std::to_string(damage) + "\n");
+
+    break;
+  }
+  case NetworkMessages::PLAYER_BUY:
+  {
+    int unit_to_buy = std::stoi(data[0]);
+    float x_pos     = std::stof(data[1]);
+    float y_pos     = std::stof(data[2]);
+
+    // TODO: Create The Unit
+    Logging::log(
+      "MESSAGE RECEIVED: BUY ("
+      "UNIT_TYPE: " +
+      std::to_string(unit_to_buy) + ", X_POS: " + std::to_string(x_pos) +
+      ", Y_POS: " + std::to_string(y_pos) + "\n");
+
+    break;
+  }
+  }
+}
+
+std::vector<char> GCNetServer::encodeMessage(NetworkMessages message, const std::string& data)
+{
+  std::string string_message = std::to_string(static_cast<int>(message));
+  std::vector<char> char_message;
+
+  string_message += ":" + data;
+
+  std::copy(string_message.begin(), string_message.end(), std::back_inserter(char_message));
+  return char_message;
+}
+
+std::string GCNetServer::getIP()
+{
+  return server.GetClientInfo(1).ipv4;
+}
+
+void GCNetServer::playerEndTurn()
+{
+  current_turn_id %= server.GetAllClients().size();
+  current_turn_id += 1;
+  server.SendMessageTo(encodeMessage(NetworkMessages::PLAYER_START_TURN, "0"), current_turn_id);
+
+  server_state = ServerState::UPDATING;
 }
