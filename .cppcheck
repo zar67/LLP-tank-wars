@@ -1,6 +1,8 @@
 // suppress all unused functions errors in all files
 unusedFunction
 noExplicitConstructor
+unreadVariable
+unusedVariable
 
 // suppress the annoying system include messages
 missingIncludeSystem
@@ -10,5 +12,6 @@ missingIncludeSystem
 *:*_deps/*
 *:*extern/*
 *:libs/*
+
 
 

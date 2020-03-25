@@ -3,6 +3,7 @@ set(GAME ${PROJECT_NAME})
 set(DEDICATED DedicatedServer)
 set(COMMON_TARGET CommonTarget)
 
+
 ## we're using a common target for shared properties ##
 add_library(${COMMON_TARGET} INTERFACE)
 
@@ -42,7 +43,11 @@ endif()
 if (WIN32)
     set(ICON Resources/game.rc)
 elseif (APPLE)
+
+    set(ICON Resources/game.icns ../include/gamelib/DataStates.h ../include/gamelib/DataStructs.h ../include/gamelib/TileData.h)
+
     set(ICON Resources/game.icns ../include/gamelib/gamedata/DataStates.h ../include/gamelib/gamedata/DataStructs.h ../source/components/TroopComponent.cpp ../include/gamelib/TroopComponent.h ../source/components/SpriteComponent.cpp ../include/gamelib/SpriteComponent.h ../source/components/GameObject.cpp ../include/gamelib/GameObject.h ../source/components/DataComp.cpp ../include/gamelib/gamedata/DataComp.h)
+
     set_source_files_properties(
             Resources/game.icns PROPERTIES
             MAXOSX_PACKAGE_LOCATION "Resources")

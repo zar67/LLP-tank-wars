@@ -25,6 +25,9 @@ add_library(
         ui/scenes/Lobby.cpp
         ui/scenes/GameScreen.cpp
         ui/scenes/Shop.cpp
+
+        ui/SceneManager.cpp Map.cpp ../include/gamelib/Map.h)
+
         ui/SceneManager.cpp
         components/TroopComponent.cpp
         components/SpriteComponent.cpp
@@ -67,7 +70,7 @@ endif()
 
 ## enable json support if enabled ##
 if (ENABLE_JSON)
-    add_dependencies(${LIB_NAME}jsonlib)
+    add_dependencies(${LIB_NAME} jsonlib)
     target_link_libraries(${LIB_NAME} PUBLIC jsonlib)
 endif()
 

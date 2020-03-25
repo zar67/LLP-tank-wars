@@ -1,4 +1,5 @@
 #include "ASGEGame.hpp"
+
 #include <Engine/FileIO.h>
 #include <Engine/Logger.hpp>
 
@@ -7,14 +8,11 @@
 /// @param settings
 Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 {
-  key_callback_id =
-    inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
+  key_callback_id = inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
 
-  move_callback_id =
-    inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
+  move_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
 
-  click_callback_id =
-    inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
+  click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
 
   game_components.emplace_back(std::make_unique<GCNetServer>());
   game_components.emplace_back(std::make_unique<GCNetClient>());
@@ -24,17 +22,16 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     Logging::log("*** FONT NOT LOADED ***\n");
   }
 
-  if (!scene_manager.init(
-        renderer.get(),
-        font_index,
-        settings.window_width,
-        settings.window_height))
+  if (!scene_manager.init(renderer.get(), font_index, settings.window_width, settings.window_height))
   {
     Logging::log("*** SCENE MANAGER NOT LOADED ***\n");
   }
 
   inputs->use_threads = true;
   toggleFPS();
+
+  map.init(settings.window_width, settings.window_height);
+  map.generateMap(renderer.get());
 }
 
 /// Destroys the game.
@@ -79,10 +76,7 @@ void Game::clickHandler(ASGE::SharedEventData data)
 /// @param us
 void Game::update(const ASGE::GameTime& us)
 {
-  for (auto& gc : game_components)
-  {
-    gc->update(us.deltaInSecs());
-  }
+  for (auto& gc : game_components) { gc->update(us.deltaInSecs()); }
 
   UIElement::MenuItem item = scene_manager.update(mouse_pos, mouse_click);
 
@@ -92,22 +86,22 @@ void Game::update(const ASGE::GameTime& us)
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_0)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
     std::cout << "BUY UNIT 0" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_1)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
     std::cout << "BUY UNIT 1" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_2)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
     std::cout << "BUY UNIT 2" << std::endl;
   }
   else if (item == UIElement::MenuItem::BUY_UNIT_3)
   {
-    scene_manager.closeShop(); // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
+    scene_manager.closeShop();  // IF ITEM BOUGHT, CLOSE THE SHOP AND PLACE UNIT
     std::cout << "BUY UNIT 3" << std::endl;
   }
 }
@@ -116,7 +110,7 @@ void Game::update(const ASGE::GameTime& us)
 void Game::render()
 {
   renderer->setFont(font_index);
-  scene_manager.render(renderer.get());
+  scene_manager.render(renderer.get(), map.getMap());
 }
 
 bool Game::loadFont()
@@ -134,8 +128,8 @@ bool Game::loadFont()
     // if we have data, load the font
     if (buffer.length != 0)
     {
-      font_index = renderer->loadFontFromMem(
-        "Kenney", buffer.as_unsigned_char(), buffer.length, 32);
+      font_index =
+        renderer->loadFontFromMem("Kenney", buffer.as_unsigned_char(), buffer.length, 32);
       file.close();
       return true;
     }

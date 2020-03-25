@@ -4,7 +4,7 @@ include(FeatureSummary)
 OPTION(ENABLE_DEDICATED "Console based dedicated server" OFF)
 add_feature_info("ENABLE_DEDICATED" ENABLE_DEDICATED "Provides a console based dedicated server.")
 
-set(ENABLE_JSON    OFF CACHE BOOL "Adds JSON to the Project" FORCE)
+set(ENABLE_JSON    ON CACHE BOOL "Adds JSON to the Project" FORCE)
 set(ENABLE_NETWORK ON  CACHE BOOL "Adds Network to the Project" FORCE)
 set(ENABLE_SOUND   OFF CACHE BOOL "Adds SoLoud Audio" FORCE)
 

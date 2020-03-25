@@ -4,8 +4,7 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(
-  ASGE::Renderer* renderer, int font_index, int game_width, int game_height)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int game_width, int game_height)
 {
   if (!main_menu.init(renderer, font_index, game_width))
   {
@@ -21,10 +20,8 @@ bool SceneManager::init(
         renderer,
         font_index,
         game_width,
-        std::vector<std::string>{ "data/text_box.png",
-                                  "data/text_box.png",
-                                  "data/text_box.png",
-                                  "data/text_box.png" }))
+        std::vector<std::string>{
+          "data/text_box.png", "data/text_box.png", "data/text_box.png", "data/text_box.png"}))
   {
     return false;
   }
@@ -36,72 +33,76 @@ bool SceneManager::init(
   return true;
 }
 
-UIElement::MenuItem
-SceneManager::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem SceneManager::update(const ASGE::Point2D& cursor_pos, bool click)
 {
   UIElement::MenuItem item;
   switch (screen_open)
   {
-    case Screens::MAIN_MENU:
-    {
-      item = main_menu.update(cursor_pos, click);
-      break;
-    }
-    case Screens::LOBBY:
-    {
-      item = lobby.update(cursor_pos, click);
-      break;
-    }
-    case Screens::GAME:
-    {
-      item = game_screen.update(cursor_pos, click);
-      break;
-    }
-    default:
-      item = UIElement::MenuItem::NONE;
-      break;
+  case Screens::MAIN_MENU:
+  {
+    item = main_menu.update(cursor_pos, click);
+    break;
+  }
+  case Screens::LOBBY:
+  {
+    item = lobby.update(cursor_pos, click);
+    break;
+  }
+  case Screens::GAME:
+  {
+    item = game_screen.update(cursor_pos, click);
+    break;
+  }
+  default: item = UIElement::MenuItem::NONE; break;
   }
 
   switch (item)
   {
-    case UIElement::MenuItem::OPEN_LOBBY:
-    {
-      screen_open = Screens::LOBBY;
-      break;
-    }
-    case UIElement::MenuItem::START_GAME:
-    {
-      screen_open = Screens::GAME;
-      break;
-    }
-    default:
-    {
-      break;
-    }
+  case UIElement::MenuItem::OPEN_LOBBY:
+  {
+    screen_open = Screens::LOBBY;
+    break;
+  }
+  case UIElement::MenuItem::START_GAME:
+  {
+    screen_open = Screens::GAME;
+    break;
+  }
+  default:
+  {
+    break;
+  }
   }
 
   return item;
 }
 
-void SceneManager::render(ASGE::Renderer* renderer)
+void SceneManager::render(ASGE::Renderer* renderer, const std::vector<TileData>& _tileData)
 {
   switch (screen_open)
   {
-    case Screens::MAIN_MENU:
+  case Screens::MAIN_MENU:
+  {
+    main_menu.render(renderer);
+    break;
+  }
+  case Screens::LOBBY:
+  {
+    lobby.render(renderer);
+    break;
+  }
+  case Screens::GAME:
+  {
+    game_screen.render(renderer, currency);
+    for (auto& tile : _tileData)
     {
-      main_menu.render(renderer);
-      break;
+      if (tile.sprite != nullptr)
+      {
+        renderer->renderSprite(*tile.sprite);
+      }
     }
-    case Screens::LOBBY:
-    {
-      lobby.render(renderer);
-      break;
-    }
-    case Screens::GAME:
-    {
-      game_screen.render(renderer, currency);
-      break;
-    }
+    break;
+  }
   }
 }
 

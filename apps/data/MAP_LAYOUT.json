@@ -1,0 +1,51 @@
+{
+    "number_tiles_wide" : 5,
+    "number_tiles_high" : 3,
+    "TILES": [
+        {
+            "name" : "g"
+        },
+        {
+            "name" : "g_LUB"
+        },
+        {
+            "name" : "g_HORIZONTAl_s"
+        },
+        {
+            "name" : "s_CROSS"
+        },
+        {
+            "name" : "s_HORIZONTAL"
+        },
+        {
+            "name" : "g_HORIZONTAL"
+        },
+        {
+            "name" : "g_UL"
+        },
+        {
+            "name" : "g_HORIZONTAl_s"
+        },
+        {
+            "name" : "s"
+        },
+        {
+            "name" : "s"
+        },
+        {
+            "name" : "g"
+        },
+        {
+            "name" : "g_largeTree"
+        },
+        {
+            "name" : "g_HORIZONTAl_s"
+        },
+        {
+            "name" : "s_BR"
+        },
+        {
+            "name" : "s_HORIZONTAL"
+        }
+    ]
+}
