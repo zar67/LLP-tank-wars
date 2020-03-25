@@ -25,10 +25,9 @@ add_library(
         ui/scenes/Lobby.cpp
         ui/scenes/GameScreen.cpp
         ui/scenes/Shop.cpp
-
-        ui/SceneManager.cpp Map.cpp ../include/gamelib/Map.h)
-
         ui/SceneManager.cpp
+        Map.cpp
+        ../include/gamelib/Map.h
         components/TroopComponent.cpp
         components/SpriteComponent.cpp
         components/GameObject.cpp
