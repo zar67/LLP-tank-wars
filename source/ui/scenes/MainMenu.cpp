@@ -21,8 +21,8 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
   if (!host_game.init(
         renderer,
         font_index,
-        "data/button.png",
-        "data/button_pressed.png",
+        "data/sprites/ui/button.png",
+        "data/sprites/ui/button_pressed.png",
         "Host",
         static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
         280,
@@ -35,8 +35,8 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
   if (!join_game.init(
         renderer,
         font_index,
-        "data/button.png",
-        "data/button_pressed.png",
+        "data/sprites/ui/button.png",
+        "data/sprites/ui/button_pressed.png",
         "Join",
         static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
         360,
@@ -49,8 +49,8 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
   return exit_game.init(
     renderer,
     font_index,
-    "data/button.png",
-    "data/button_pressed.png",
+    "data/sprites/ui/button.png",
+    "data/sprites/ui/button_pressed.png",
     "Exit",
     static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
     440,

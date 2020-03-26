@@ -17,8 +17,8 @@ bool GameScreen::init(
   if (!open_shop.init(
         renderer,
         font_index,
-        "data/button.png",
-        "data/button_pressed.png",
+        "data/sprites/ui/button.png",
+        "data/sprites/ui/button_pressed.png",
         "Open Shop",
         15,
         15,
@@ -31,8 +31,8 @@ bool GameScreen::init(
   return end_turn.init(
     renderer,
     font_index,
-    "data/button.png",
-    "data/button_pressed.png",
+    "data/sprites/ui/button.png",
+    "data/sprites/ui/button_pressed.png",
     "End Turn",
     static_cast<float>(ASGE::SETTINGS.window_width) - 275,
     static_cast<float>(ASGE::SETTINGS.window_height) - 55,

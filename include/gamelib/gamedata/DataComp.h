@@ -48,13 +48,13 @@ class DataComp
 
  private:
   std::map<TroopTypes, TankDataStruct> tankTypeToData = {
-    { TroopTypes::TANK_BLUE, TankDataStruct(0, 0, 0, 0, 0, "") },
-    { TroopTypes::TANK_DARK, TankDataStruct(0, 0, 0, 0, 0, "") },
-    { TroopTypes::TANK_GREEN, TankDataStruct(0, 0, 0, 0, 0, "") },
-    { TroopTypes::TANK_RED, TankDataStruct(0, 0, 0, 0, 0, "") },
-    { TroopTypes::TANK_SAND, TankDataStruct(0, 0, 0, 0, 0, "") }
+    {TroopTypes::TANK_BLUE, TankDataStruct(0, 0, 0, 0, 0, "data/sprites/troops/tank_blue.png")},
+    {TroopTypes::TANK_DARK, TankDataStruct(0, 0, 0, 0, 0, "data/sprites/troops/tank_dark.png")},
+    {TroopTypes::TANK_GREEN, TankDataStruct(0, 0, 0, 0, 0, "data/sprites/troops/tank_green.png")},
+    {TroopTypes::TANK_RED, TankDataStruct(0, 0, 0, 0, 0, "data/sprites/troops/tank_red.png")},
+    {TroopTypes::TANK_SAND, TankDataStruct(0, 0, 0, 0, 0, "data/sprites/troops/tank_sand.png")}
 
   };
 };
 
-#endif // MYNETGAME_DATACOMP_H
+#endif  // MYNETGAME_DATACOMP_H
