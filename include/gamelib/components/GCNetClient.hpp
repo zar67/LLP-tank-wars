@@ -4,11 +4,11 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
+#include "../Input.h"
 #include "../Map/Map.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
 #include "GameComponent.hpp"
-//#include "Input.h"
 
 #include <NetLib/ClientConnection.h>
 
@@ -21,12 +21,7 @@ class GCNetClient : public GameComponent
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
-  bool update(
-    double dt,
-    const ASGE::Point2D& cursor_pos,
-    bool click,
-    std::atomic<bool>& key_pressed,
-    int key) override;
+  bool update(double dt) override;
   bool
   updateUI(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
   void render(ASGE::Renderer* renderer) override;
@@ -42,6 +37,8 @@ class GCNetClient : public GameComponent
 
   void buyUnit(int unit_id);
 
+  void addInputReader(ASGE::Input& _inputs) override;
+
  private:
   netlib::ClientConnection client;
   SceneManager scene_manager;
@@ -53,6 +50,7 @@ class GCNetClient : public GameComponent
 
   int currency = 100;
   Map map;
+  Input* inputReader = nullptr;
   // TODO: std::vector<Unit>() units;
 };
 

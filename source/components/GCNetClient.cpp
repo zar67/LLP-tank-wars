@@ -20,19 +20,18 @@ GCNetClient::~GCNetClient()
 
 bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
-  map.init(1280, 720);
+  map.init(1280, 720);  // hard coded but works for now
   map.generateMap(renderer);
   return scene_manager.init(renderer, font_index);
 }
 
-bool GCNetClient::update(
-  double dt,
-  const ASGE::Point2D& cursor_pos,
-  bool click,
-  std::atomic<bool>& key_pressed,
-  int key)
+bool GCNetClient::update(double dt)
 {
-  if (updateUI(cursor_pos, click, key_pressed, key))
+  if (updateUI(
+        inputReader->mousePos(),
+        inputReader->mouseClicked(),
+        *inputReader->keyPressed(),
+        inputReader->keyValue()))  // just pass in the input reader or struct??
   {
     return true;
   }
@@ -293,4 +292,13 @@ void GCNetClient::buyUnit(int unit_id)
     type.buy.pos.y_pos = 55;
     encodeAction(NetworkMessages::PLAYER_BUY, type);
   }
+}
+
+void GCNetClient::addInputReader(ASGE::Input& _inputs)
+{
+  if (inputReader != nullptr)
+  {
+    delete (inputReader);
+  }
+  inputReader = new Input(_inputs);
 }

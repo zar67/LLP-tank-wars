@@ -13,6 +13,27 @@ Input::Input(ASGE::Input& _inputs)
 
   std::thread input_thread(&Input::executeQueue, this);
   input_thread.detach();
+  asge_input = &_inputs;
+}
+
+Input::~Input()
+{
+  if (asge_input != nullptr)
+  {
+    asge_input->unregisterCallback(static_cast<unsigned int>(key_callback_id));
+    asge_input = nullptr;
+  }
+}
+
+Input::Input(const Input& _input) {}
+
+Input& Input::operator=(const Input& _input)
+{
+  if (&_input != this)
+  {
+    // add pointers in here
+  }
+  return *this;
 }
 
 /// Processes key inputs.

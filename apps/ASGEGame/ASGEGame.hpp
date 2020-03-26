@@ -24,11 +24,6 @@ class Game : public ASGE::OGLGame
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
 
-  // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS
-  // void keyHandler(ASGE::SharedEventData data);
-  // void moveHandler(ASGE::SharedEventData data);
-  // void clickHandler(ASGE::SharedEventData data);
-
   void update(const ASGE::GameTime& us) override;
   void render() override;
 
@@ -36,14 +31,7 @@ class Game : public ASGE::OGLGame
   bool loadFont();
   int font_index = 0;
 
-  Input* inputReader = nullptr;
   std::vector<std::unique_ptr<GameComponent>> game_components;
-
-  // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS
-  // ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);
-  //  bool mouse_click        = false;
-  // bool key_pressed        = false;
-  // int key_value           = 0;
 
   int key_callback_id   = -1; /**< Key Input Callback ID. */
   int move_callback_id  = -1; /**< Key Input Callback ID. */

@@ -22,14 +22,11 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     {
       Logging::log("*** COMPONENT NOT LOADED ***");
     }
+    gc->addInputReader(*inputs);
   }
 
   inputs->use_threads = true;
-  inputReader         = new Input(*inputs);
   toggleFPS();
-
-  // map.init(settings.window_width, settings.window_height);
-  // map.generateMap(renderer.get());
 }
 
 /// Destroys the game.
@@ -52,12 +49,7 @@ void Game::update(const ASGE::GameTime& us)
 {
   for (auto& gc : game_components)
   {
-    if (gc->update(
-          us.deltaInSecs(),
-          inputReader->mousePos(),
-          inputReader->mouseClicked(),
-          *inputReader->keyPressed(),
-          inputReader->keyValue()))  // these values will br stored in clients
+    if (gc->update(us.deltaInSecs()))
     {
       signalExit();
     }

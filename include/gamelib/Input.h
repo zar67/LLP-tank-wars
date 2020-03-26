@@ -17,7 +17,9 @@ class Input
 {
  public:
   explicit Input(ASGE::Input& _inputs);
-  ~Input() = default;
+  ~Input();
+  Input(const Input& _input);
+  Input& operator=(const Input& _input);
 
   void keyHandler(ASGE::SharedEventData data);
   void moveHandler(ASGE::SharedEventData data);
@@ -50,6 +52,8 @@ class Input
   std::atomic<bool> is_active = true;
   std::mutex mutex;
   std::queue<InputData> input_queue;
+
+  ASGE::Input* asge_input = nullptr;
 };
 
 #endif  // MYNETGAME_INPUT_H

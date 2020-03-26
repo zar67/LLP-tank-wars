@@ -37,17 +37,13 @@ class GCNetServer : public GameComponent
   GCNetServer& operator=(const GCNetServer&) = delete;
   bool init(ASGE::Renderer* renderer, int font_index) override;
 
-  bool update(
-    double dt,
-    const ASGE::Point2D& cursor_pos,
-    bool click,
-    std::atomic<bool>& key_pressed,
-    int key) override;
+  bool update(double dt) override;
   void decodeMessage(const std::vector<char>& message);
   std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);
 
   std::string getIP();
   void playerEndTurn();
+  void addInputReader(ASGE::Input& _inputs) override{};
 
  private:
   netlib::ServerConnection server;
