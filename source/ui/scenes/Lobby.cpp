@@ -43,8 +43,8 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
   if (!start_game.init(
         renderer,
         font_index,
-        "data/button.png",
-        "data/button_pressed.png",
+        "data/sprites/ui/button.png",
+        "data/sprites/ui/button_pressed.png",
         "Start Game",
         static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
         420,
@@ -57,8 +57,8 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
   return back.init(
     renderer,
     font_index,
-    "data/button.png",
-    "data/button_pressed.png",
+    "data/sprites/ui/button.png",
+    "data/sprites/ui/button_pressed.png",
     "Back",
     static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
     480,
@@ -107,7 +107,7 @@ void Lobby::setPlayerNumber(int number)
 void Lobby::addPlayer(ASGE::Renderer* renderer)
 {
   ASGE::Sprite* sprite = renderer->createRawSprite();
-  if (!sprite->loadTexture("data/text_box.png"))
+  if (!sprite->loadTexture("data/sprites/ui/text_box.png"))
   {
     Logging::log("*** COULDN'T ADD PLAYER ***");
   }

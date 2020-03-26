@@ -28,12 +28,12 @@ add_library(
         ui/SceneManager.cpp
         ui/scenes/JoinScreen.cpp
         ui/ui_elements/TextBox.cpp
-        Map.cpp
         Input.cpp
+        map/Map.cpp
         components/DataComp.cpp
         components/GameObject.cpp
         components/SpriteComponent.cpp
-        components/TroopComponent.cpp)
+        Troop.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)

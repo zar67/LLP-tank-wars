@@ -22,23 +22,14 @@ class GCNetServer : public GameComponent
     NEXT_PLAYER_TURN   = 3
   };
 
-  // include DataStates
-  enum class MessageType
-  {
-    MOVE   = 1,
-    ATTACK = 2,
-    BUY    = 3
-  };
-
  public:
   GCNetServer();
   ~GCNetServer() final            = default;
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
-  bool init(ASGE::Renderer* renderer, int font_index) override;
 
   bool update(double dt) override;
-  void decodeMessage(const std::vector<char>& message);
+  void decodeMessage(const netlib::NetworkEvent& event);
   std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);
 
   std::string getIP();
@@ -46,6 +37,7 @@ class GCNetServer : public GameComponent
   void addInputReader(ASGE::Input& _inputs) override{};
 
  private:
+  ASGE::Renderer* renderer = nullptr;
   netlib::ServerConnection server;
 
   ServerState server_state = ServerState::NONE;

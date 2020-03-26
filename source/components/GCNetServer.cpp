@@ -17,6 +17,7 @@ GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
 
 bool GCNetServer::init(ASGE::Renderer* renderer, int font_index)
 {
+  this->renderer = renderer;
   return true;
 }
 
@@ -53,7 +54,7 @@ bool GCNetServer::update(double dt)
     }
     case netlib::NetworkEvent::EventType::MESSAGE:
     {
-      decodeMessage(event.data);
+      decodeMessage(event);
       break;
     }
     }
@@ -63,26 +64,10 @@ bool GCNetServer::update(double dt)
   return false;
 }
 
-void GCNetServer::decodeMessage(const std::vector<char>& message)
+void GCNetServer::decodeMessage(const netlib::NetworkEvent& event)
 {
-  // MESSAGE FORMAT: TYPE:DATA,DATA,DATA
-  auto type = static_cast<NetworkMessages>(message[0] - '0');
-  std::vector<std::string> data;
-
-  std::string current;
-  for (int i = 2; i < message.size(); i++)
-  {
-    if (message[i] == ',')
-    {
-      data.push_back(current);
-      current = "";
-    }
-    else
-    {
-      current += message[i];
-    }
-  }
-  data.push_back(current);
+  std::vector<char> message = event.data;
+  auto type                 = static_cast<NetworkMessages>(message[0] - '0');
 
   switch (type)
   {
@@ -96,6 +81,16 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
     playerEndTurn();
     break;
   }
+  case NetworkMessages::PLAYER_MOVE:
+  case NetworkMessages::PLAYER_ATTACK:
+  case NetworkMessages::PLAYER_BUY:
+  {
+    message.push_back(',');
+    message.push_back(static_cast<int>(event.senderId - 1) + '0');
+    server.SendMessageToAllExcluding(message, event.senderId);
+    break;
+  }
+    /*
   case NetworkMessages::PLAYER_MOVE:
   {
     int unit_id = std::stoi(data[0]);
@@ -140,7 +135,7 @@ void GCNetServer::decodeMessage(const std::vector<char>& message)
       ", Y_POS: " + std::to_string(y_pos) + "\n");
 
     break;
-  }
+  }*/
   }
 }
 

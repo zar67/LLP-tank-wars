@@ -5,6 +5,8 @@
 #ifndef MYNETGAME_DATASTRUCTS_H
 #define MYNETGAME_DATASTRUCTS_H
 
+#include "DataComp.h"
+
 struct Move
 {
   int unit_id = 0;
@@ -21,7 +23,7 @@ struct Attack
 
 struct Buy
 {
-  int item_id = -1;
+  TroopTypes item_id = TroopTypes::TANK_RED;
   Move pos;
 };
 
