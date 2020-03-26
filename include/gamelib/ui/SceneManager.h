@@ -5,7 +5,7 @@
 #ifndef MYNETGAME_SCENEMANAGER_H
 #define MYNETGAME_SCENEMANAGER_H
 
-#include "../../Map/TileData.h"
+#include "../Map/TileData.h"
 #include "scenes/GameScreen.h"
 #include "scenes/JoinScreen.h"
 #include "scenes/Lobby.h"

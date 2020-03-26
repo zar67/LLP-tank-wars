@@ -4,10 +4,11 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
-#include "../../Map/Map.h"
+#include "../Map/Map.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
 #include "GameComponent.hpp"
+//#include "Input.h"
 
 #include <NetLib/ClientConnection.h>
 

@@ -2,7 +2,7 @@
 // Created by l4-neale on 13/03/2020.
 //
 
-#include "../include/Map/Map.h"
+#include "../include/gamelib/Map/Map.h"
 
 #include <Engine/FileIO.h>
 #include <Engine/Logger.hpp>

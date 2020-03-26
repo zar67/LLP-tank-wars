@@ -29,6 +29,7 @@ add_library(
         ui/scenes/JoinScreen.cpp
         ui/ui_elements/TextBox.cpp
         Map.cpp
+        Input.cpp
         components/DataComp.cpp
         components/GameObject.cpp
         components/SpriteComponent.cpp

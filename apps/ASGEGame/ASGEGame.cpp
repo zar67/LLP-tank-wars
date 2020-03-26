@@ -8,12 +8,11 @@
 /// @param settings
 Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 {
-  key_callback_id = inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
+  // key_callback_id = inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
 
-  move_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
+  // move_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
 
-  click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
-
+  // click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
   game_components.emplace_back(std::make_unique<GCNetServer>());
   game_components.emplace_back(std::make_unique<GCNetClient>());
 
@@ -38,10 +37,10 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 }
 
 /// Destroys the game.
-Game::~Game()
-{
-  this->inputs->unregisterCallback(static_cast<unsigned int>(key_callback_id));
-}
+// Game::~Game()
+//{
+// this->inputs->unregisterCallback(static_cast<unsigned int>(key_callback_id));
+//}
 
 /// Processes key inputs.
 /// This function is added as a callback to handle the game's
@@ -50,6 +49,7 @@ Game::~Game()
 /// but your code needs to designed to prevent data-races.
 /// @param data
 /// @see KeyEvent
+/*
 void Game::keyHandler(ASGE::SharedEventData data)
 {
   const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
@@ -83,7 +83,7 @@ void Game::clickHandler(ASGE::SharedEventData data)
   const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.get());
 
   mouse_click = click->action == ASGE::MOUSE::BUTTON_PRESSED;
-}
+}*/
 
 /// Updates your game and all it's components.
 /// @param us
@@ -91,13 +91,14 @@ void Game::update(const ASGE::GameTime& us)
 {
   for (auto& gc : game_components)
   {
-    if (gc->update(us.deltaInSecs(), mouse_pos, mouse_click, key_pressed, key_value))
-    {
-      signalExit();
-    }
+    // add into thread
+    // if (gc->update(us.deltaInSecs(), mouse_pos, mouse_click, key_pressed, key_value))
+    // {
+    //   signalExit();
+    //  }
   }
 
-  key_pressed = false;
+  // key_pressed = false;
 }
 
 /// Render your game and its scenes here.
