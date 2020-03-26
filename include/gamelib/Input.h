@@ -26,7 +26,7 @@ class Input
   bool mouseClicked() { return mouse_click; }
   ASGE::Point2D mousePos() { return mouse_pos; }
   int keyValue() { return key_value; }
-  bool keyPressed() { return key_pressed; }
+  std::atomic<bool>* keyPressed() { return &key_pressed; }
 
   void keyBoard(ASGE::SharedEventData data);
 

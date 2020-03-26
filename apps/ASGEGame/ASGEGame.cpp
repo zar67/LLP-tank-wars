@@ -56,7 +56,7 @@ void Game::update(const ASGE::GameTime& us)
           us.deltaInSecs(),
           inputReader->mousePos(),
           inputReader->mouseClicked(),
-          inputReader->keyPressed(),
+          *inputReader->keyPressed(),
           inputReader->keyValue()))  // these values will br stored in clients
     {
       signalExit();

@@ -21,9 +21,14 @@ class GCNetClient : public GameComponent
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
+  bool update(
+    double dt,
+    const ASGE::Point2D& cursor_pos,
+    bool click,
+    std::atomic<bool>& key_pressed,
+    int key) override;
   bool
-  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;
-  bool updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
+  updateUI(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
   void render(ASGE::Renderer* renderer) override;
 
   void decodeMessage(const std::vector<char>& message);

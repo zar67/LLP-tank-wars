@@ -24,7 +24,7 @@ bool GCNetServer::update(
   double dt,
   const ASGE::Point2D& cursor_pos,
   bool click,
-  bool key_pressed,
+  std::atomic<bool>& key_pressed,
   int key)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();

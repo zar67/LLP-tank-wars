@@ -29,7 +29,7 @@ bool GCNetClient::update(
   double dt,
   const ASGE::Point2D& cursor_pos,
   bool click,
-  bool key_pressed,
+  std::atomic<bool>& key_pressed,
   int key)
 {
   if (updateUI(cursor_pos, click, key_pressed, key))
@@ -69,7 +69,11 @@ bool GCNetClient::update(
   return false;
 }
 
-bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key)
+bool GCNetClient::updateUI(
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  std::atomic<bool>& key_pressed,
+  int key)
 {
   UIElement::MenuItem item = scene_manager.update(in_turn, cursor_pos, click, key_pressed, key);
 
