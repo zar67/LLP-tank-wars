@@ -36,7 +36,12 @@ class SceneManager
   update(bool in_turn, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
   void render(
     ASGE::Renderer* renderer,
-    const std::vector<Troop>& troops,
+    const std::vector<std::vector<Troop>>& troops,
+    const std::vector<TileData>& tile_data,
+    int currency);
+  void renderGameScreen(
+    ASGE::Renderer* renderer,
+    const std::vector<std::vector<Troop>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
 

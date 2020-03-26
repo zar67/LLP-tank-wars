@@ -27,8 +27,8 @@ class GCNetClient : public GameComponent
 
   void decodeMessage(const std::vector<char>& message);
   void encodeAction(NetworkMessages instruction, Types data);
+  std::vector<std::string> getMessageData(std::vector<char> message);
 
-  void input();
   void endTurn();
   void startTurn();
 
@@ -47,8 +47,8 @@ class GCNetClient : public GameComponent
   bool can_start = false;
   bool in_turn   = false;
 
-  int currency = 100;
-  std::vector<Troop> troops;
+  int currency                           = 100;
+  std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

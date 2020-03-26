@@ -45,8 +45,6 @@ bool GCNetClient::update(
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       Logging::log("Connected to the server!\n");
-      std::thread tr(&GCNetClient::input, this);
-      tr.detach();
       break;
     }
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
@@ -178,6 +176,44 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     in_turn = true;
     break;
   }
+  // MESSAGE FORMAT: TYPE:DATA,DATA,DATA:SENDER_ID
+  case NetworkMessages::PLAYER_MOVE:
+  {
+    std::vector<std::string> data = getMessageData(message);
+    int unit_id                   = std::stoi(data[0]);
+    float x_pos                   = std::stof(data[1]);
+    float y_pos                   = std::stof(data[2]);
+    int sender_id                 = std::stoi(data[3]);
+
+    ASGE::Sprite* sprite = troops[sender_id][unit_id].getSpriteComponent()->getSprite();
+    sprite->xPos(x_pos);
+    sprite->yPos(y_pos);
+    break;
+  }
+  case NetworkMessages::PLAYER_ATTACK:
+  {
+    std::vector<std::string> data = getMessageData(message);
+    int attacker_id               = std::stoi(data[0]);
+    int unit_id                   = std::stoi(data[1]);
+    int damage                    = std::stoi(data[2]);
+    int sender_id                 = std::stoi(data[3]);
+
+    troops[sender_id][unit_id].takeDamage(damage);
+
+    // TODO: Troop Death
+    break;
+  }
+  case NetworkMessages::PLAYER_BUY:
+  {
+    std::vector<std::string> data = getMessageData(message);
+    auto unit_to_buy              = static_cast<TroopTypes>(std::stoi(data[0]));
+    int x_pos                     = std::stoi(data[1]);
+    int y_pos                     = std::stoi(data[2]);
+    int sender_id                 = std::stoi(data[3]);
+
+    troops[sender_id].emplace_back(Troop(unit_to_buy, renderer, x_pos, y_pos));
+    break;
+  }
   }
 }
 
@@ -205,47 +241,26 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
   actions.push_back(message);
 }
 
-void GCNetClient::input()
+std::vector<std::string> GCNetClient::getMessageData(std::vector<char> message)
 {
-  Types type;
-  while (!exiting)
-  {
-    std::string input;
-    std::getline(std::cin, input);
+  std::vector<std::string> data;
 
-    if (input == "#move")
+  std::string current;
+  for (int i = 2; i < message.size(); i++)
+  {
+    if (message[i] == ',')
     {
-      type.move.unit_id = 1;
-      type.move.x_pos   = 10;
-      type.move.y_pos   = 8;
-      encodeAction(NetworkMessages::PLAYER_MOVE, type);
-    }
-    else if (input == "#attack")
-    {
-      type.attack.attacker_id = 1;
-      type.attack.enemy_id    = 4;
-      type.attack.damage      = 26;
-      encodeAction(NetworkMessages::PLAYER_ATTACK, type);
-    }
-    else if (input == "#buy")
-    {
-      type.buy.item_id   = TroopTypes::TANK_RED;
-      type.buy.pos.x_pos = 14;
-      type.buy.pos.y_pos = 55;
-      encodeAction(NetworkMessages::PLAYER_BUY, type);
-    }
-    else if (input == "#endturn")
-    {
-      endTurn();
+      data.push_back(current);
+      current = "";
     }
     else
     {
-      std::string new_input = std::to_string(client.GetUID()) + ": " + input;
-      client.SendMessageToServer(new_input.c_str(), static_cast<int>(new_input.size()) + 1);
+      current += message[i];
     }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
+  data.push_back(current);
+
+  return data;
 }
 
 void GCNetClient::endTurn()
@@ -289,8 +304,8 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
   {
     currency -= new_troop.getCost();
     scene_manager.gameScreen()->closeShop();
-
-    troops.push_back(new_troop);
+    int client_number = static_cast<int>(client.GetUID()) - 1;
+    troops[client_number].push_back(new_troop);
 
     Types type;
     type.buy.item_id   = unit_type;

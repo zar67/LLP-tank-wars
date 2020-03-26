@@ -94,7 +94,7 @@ UIElement::MenuItem SceneManager::update(
 
 void SceneManager::render(
   ASGE::Renderer* renderer,
-  const std::vector<Troop>& troops,
+  const std::vector<std::vector<Troop>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
@@ -117,24 +117,37 @@ void SceneManager::render(
   }
   case Screens::GAME:
   {
-    game_screen.render(renderer, currency);
-    for (auto& tile : tile_data)
-    {
-      if (tile.sprite != nullptr)
-      {
-        renderer->renderSprite(*tile.sprite);
-      }
-    }
+    renderGameScreen(renderer, troops, tile_data, currency);
+    break;
+  }
+  }
+}
 
-    for (Troop troop : troops)
+void SceneManager::renderGameScreen(
+  ASGE::Renderer* renderer,
+  const std::vector<std::vector<Troop>>& troops,
+  const std::vector<TileData>& tile_data,
+  int currency)
+{
+  game_screen.render(renderer, currency);
+
+  for (auto& tile : tile_data)
+  {
+    if (tile.sprite != nullptr)
+    {
+      renderer->renderSprite(*tile.sprite);
+    }
+  }
+
+  for (const auto& player : troops)
+  {
+    for (Troop troop : player)
     {
       if (troop.getSpriteComponent()->getSprite() != nullptr)
       {
         renderer->renderSprite(*troop.getSpriteComponent()->getSprite());
       }
     }
-    break;
-  }
   }
 }
 
