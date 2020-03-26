@@ -8,11 +8,6 @@
 /// @param settings
 Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 {
-  // key_callback_id = inputs->addCallbackFnc(ASGE::E_KEY, &Game::keyHandler, this);
-
-  // move_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Game::moveHandler, this);
-
-  // click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Game::clickHandler, this);
   game_components.emplace_back(std::make_unique<GCNetServer>());
   game_components.emplace_back(std::make_unique<GCNetClient>());
 

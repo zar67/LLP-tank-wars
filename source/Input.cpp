@@ -10,6 +10,9 @@ Input::Input(ASGE::Input& _inputs)
   move_callback_id = _inputs.addCallbackFnc(ASGE::E_MOUSE_MOVE, &Input::moveHandler, this);
 
   click_callback_id = _inputs.addCallbackFnc(ASGE::E_MOUSE_CLICK, &Input::clickHandler, this);
+
+  std::thread input_thread(&Input::executeQueue, this);
+  input_thread.detach();
 }
 // Input::Input()
 //{
@@ -26,7 +29,24 @@ Input::Input(ASGE::Input& _inputs)
 /// but your code needs to designed to prevent data-races.
 /// @param data
 /// @see KeyEvent
+
+// make these call backs on threads
 void Input::keyHandler(ASGE::SharedEventData data)
+{
+  eventInput(data, ASGE::E_KEY);
+}
+
+void Input::moveHandler(ASGE::SharedEventData data)
+{
+  eventInput(data, ASGE::E_MOUSE_MOVE);
+}
+
+void Input::clickHandler(ASGE::SharedEventData data)
+{
+  eventInput(data, ASGE::E_MOUSE_CLICK);
+}
+
+void Input::keyBoard(ASGE::SharedEventData data)
 {
   const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
 
@@ -43,21 +63,65 @@ void Input::keyHandler(ASGE::SharedEventData data)
   }
 }
 
-void Input::moveHandler(ASGE::SharedEventData data)
+void Input::eventInput(ASGE::SharedEventData s_data, ASGE::EventType e_data)
 {
-  const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.get());
-
-  mouse_pos.x = static_cast<float>(move->xpos);
-  mouse_pos.y = static_cast<float>(move->ypos);
+  InputData i_data       = InputData();
+  i_data.sharedEventData = s_data;
+  i_data.eventType       = e_data;
+  input_queue.push(i_data);
 }
 
-void Input::clickHandler(ASGE::SharedEventData data)
+std::queue<InputData>* Input::getInputQueue()
 {
-  const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.get());
-
-  mouse_click = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+  mutex.lock();
+  return &input_queue;
 }
 
-// call this function in seperate thread
-// polls for input
-void Input::pollInput(ASGE::Input& _inputs) {}
+/*
+ * poll in thread
+ *
+ */
+void Input::executeQueue()
+{
+  while (is_active)
+  {
+    std::queue<InputData>* queue = getInputQueue();
+    if (queue->empty())
+    {
+      mutex.unlock();
+    }
+    else
+    {
+      InputData data = queue->front();
+      queue->pop();
+
+      switch (data.eventType)
+      {
+      case ASGE::EventType::E_KEY:
+      {
+        keyBoard(data.sharedEventData);
+        break;
+      }
+      case ASGE::EventType::E_MOUSE_CLICK:
+      {
+        const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.sharedEventData.get());
+        mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+        break;
+      }
+      case ASGE::EventType ::E_MOUSE_MOVE:
+      {
+        const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.sharedEventData.get());
+        mouse_pos.x      = static_cast<float>(move->xpos);
+        mouse_pos.y      = static_cast<float>(move->ypos);
+        break;
+      }
+      }
+      mutex.unlock();
+    }
+  }
+}
+
+void Input::exitInputThread()
+{
+  is_active = false;
+}

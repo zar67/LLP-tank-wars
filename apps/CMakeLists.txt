@@ -43,7 +43,7 @@ endif()
 if (WIN32)
     set(ICON Resources/game.rc)
 elseif (APPLE)
-    set(ICON Resources/game.icns ../source/Input.cpp ../include/gamelib/Input.h)
+    set(ICON Resources/game.icns ../source/Input.cpp ../include/gamelib/Input.h ../include/gamelib/InputData.h)
     set_source_files_properties(
             Resources/game.icns PROPERTIES
             MAXOSX_PACKAGE_LOCATION "Resources")
