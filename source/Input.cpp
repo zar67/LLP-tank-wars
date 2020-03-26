@@ -14,14 +14,7 @@ Input::Input(ASGE::Input& _inputs)
   std::thread input_thread(&Input::executeQueue, this);
   input_thread.detach();
 }
-// Input::Input()
-//{
-// key_callback_id = ASGE::In::addCallbackFnc(ASGE::E_KEY, &Input::keyHandler, this);
 
-//  move_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_MOVE, &Input::moveHandler, this);
-
-// click_callback_id = inputs->addCallbackFnc(ASGE::E_MOUSE_CLICK, &Input::clickHandler, this);
-//}
 /// Processes key inputs.
 /// This function is added as a callback to handle the game's
 /// keyboard input. For this game, calls to this function
@@ -50,7 +43,11 @@ void Input::keyBoard(ASGE::SharedEventData data)
 {
   const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
 
-  if (key->key == ASGE::KEYS::KEY_ESCAPE) {}
+  if (key->key == ASGE::KEYS::KEY_ESCAPE)
+  {
+    exitInputThread();
+    // quit game
+  }
 
   if (key->action == ASGE::KEYS::KEY_PRESSED)
   {
@@ -94,28 +91,7 @@ void Input::executeQueue()
     {
       InputData data = queue->front();
       queue->pop();
-
-      switch (data.eventType)
-      {
-      case ASGE::EventType::E_KEY:
-      {
-        keyBoard(data.sharedEventData);
-        break;
-      }
-      case ASGE::EventType::E_MOUSE_CLICK:
-      {
-        const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.sharedEventData.get());
-        mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
-        break;
-      }
-      case ASGE::EventType ::E_MOUSE_MOVE:
-      {
-        const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.sharedEventData.get());
-        mouse_pos.x      = static_cast<float>(move->xpos);
-        mouse_pos.y      = static_cast<float>(move->ypos);
-        break;
-      }
-      }
+      executeEvent(data);
       mutex.unlock();
     }
   }
@@ -124,4 +100,29 @@ void Input::executeQueue()
 void Input::exitInputThread()
 {
   is_active = false;
+}
+
+void Input::executeEvent(const InputData& data)
+{
+  switch (data.eventType)
+  {
+  case ASGE::EventType::E_KEY:
+  {
+    keyBoard(data.sharedEventData);
+    break;
+  }
+  case ASGE::EventType::E_MOUSE_CLICK:
+  {
+    const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.sharedEventData.get());
+    mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+    break;
+  }
+  case ASGE::EventType ::E_MOUSE_MOVE:
+  {
+    const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.sharedEventData.get());
+    mouse_pos.x      = static_cast<float>(move->xpos);
+    mouse_pos.y      = static_cast<float>(move->ypos);
+    break;
+  }
+  }
 }

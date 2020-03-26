@@ -36,16 +36,18 @@ class Input
   void exitInputThread();
 
  private:
-  ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);
-  bool mouse_click        = false;
-  bool key_pressed        = false;
-  int key_value           = 0;
+  void executeEvent(const InputData& data);
+
+  ASGE::Point2D mouse_pos       = ASGE::Point2D(0, 0);
+  std::atomic<bool> mouse_click = false;
+  std::atomic<bool> key_pressed = false;
+  std::atomic<int> key_value    = 0;
 
   int key_callback_id   = -1; /**< Key Input Callback ID. */
   int move_callback_id  = -1; /**< Key Input Callback ID. */
   int click_callback_id = -1; /**< Key Input Callback ID. */
 
-  bool is_active = true;
+  std::atomic<bool> is_active = true;
   std::mutex mutex;
   std::queue<InputData> input_queue;
 };

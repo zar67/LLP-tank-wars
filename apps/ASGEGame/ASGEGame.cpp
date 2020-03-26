@@ -45,41 +45,6 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
 /// but your code needs to designed to prevent data-races.
 /// @param data
 /// @see KeyEvent
-/*
-void Game::keyHandler(ASGE::SharedEventData data)
-{
-  const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
-
-  if (key->key == ASGE::KEYS::KEY_ESCAPE)
-  {
-    signalExit();
-  }
-
-  if (key->action == ASGE::KEYS::KEY_PRESSED)
-  {
-    key_pressed = true;
-    key_value   = key->key;
-  }
-  else if (key->action == ASGE::KEYS::KEY_RELEASED)
-  {
-    key_pressed = false;
-  }
-}
-
-void Game::moveHandler(ASGE::SharedEventData data)
-{
-  const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.get());
-
-  mouse_pos.x = static_cast<float>(move->xpos);
-  mouse_pos.y = static_cast<float>(move->ypos);
-}
-
-void Game::clickHandler(ASGE::SharedEventData data)
-{
-  const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.get());
-
-  mouse_click = click->action == ASGE::MOUSE::BUTTON_PRESSED;
-}*/
 
 /// Updates your game and all it's components.
 /// @param us
