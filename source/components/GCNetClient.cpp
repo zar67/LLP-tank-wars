@@ -20,6 +20,8 @@ GCNetClient::~GCNetClient()
 
 bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
+  map.init(1280, 720);
+  map.generateMap(renderer);
   return scene_manager.init(renderer, font_index);
 }
 
@@ -139,9 +141,9 @@ bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key
   return false;
 }
 
-void GCNetClient::render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data)
+void GCNetClient::render(ASGE::Renderer* renderer)
 {
-  scene_manager.render(renderer, tile_data, currency);
+  scene_manager.render(renderer, map.getMap(), currency);
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)

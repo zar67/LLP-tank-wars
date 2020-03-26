@@ -35,6 +35,7 @@ class GCNetServer : public GameComponent
   ~GCNetServer() final            = default;
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
+  bool init(ASGE::Renderer* renderer, int font_index) override;
 
   bool
   update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;

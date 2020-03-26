@@ -4,6 +4,7 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
+#include "../../Map/Map.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
 #include "GameComponent.hpp"
@@ -22,7 +23,7 @@ class GCNetClient : public GameComponent
   bool
   update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;
   bool updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
-  void render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data) override;
+  void render(ASGE::Renderer* renderer) override;
 
   void decodeMessage(const std::vector<char>& message);
   void encodeAction(NetworkMessages instruction, Types data);
@@ -45,6 +46,7 @@ class GCNetClient : public GameComponent
   bool in_turn   = false;
 
   int currency = 100;
+  Map map;
   // TODO: std::vector<Unit>() units;
 };
 
