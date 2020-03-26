@@ -33,8 +33,8 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   inputs->use_threads = true;
   toggleFPS();
 
-  map.init(settings.window_width, settings.window_height);
-  map.generateMap(renderer.get());
+  // map.init(settings.window_width, settings.window_height);
+  // map.generateMap(renderer.get());
 }
 
 /// Destroys the game.
@@ -105,7 +105,7 @@ void Game::render()
 {
   renderer->setFont(font_index);
 
-  for (auto& gc : game_components) { gc->render(renderer.get(), map.getMap()); }
+  for (auto& gc : game_components) { gc->render(renderer.get()); }
 }
 
 bool Game::loadFont()

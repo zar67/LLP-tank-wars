@@ -15,6 +15,11 @@ GCNetServer::GCNetServer() : GameComponent(ID::NETWORK_SERVER)
   server.Start(32488);
 }
 
+bool GCNetServer::init(ASGE::Renderer* renderer, int font_index)
+{
+  return true;
+}
+
 bool GCNetServer::update(
   double dt,
   const ASGE::Point2D& cursor_pos,

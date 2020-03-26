@@ -5,8 +5,6 @@
 #ifndef NETGAME_ASGEGAME_HPP
 #define NETGAME_ASGEGAME_HPP
 
-#include "../include/gamelib/Map.h"
-
 #include <Engine/OGLGame.h>
 #include <gamelib/components/GCNetClient.hpp>
 #include <gamelib/components/GCNetServer.hpp>
@@ -47,8 +45,6 @@ class Game : public ASGE::OGLGame
   int key_callback_id   = -1; /**< Key Input Callback ID. */
   int move_callback_id  = -1; /**< Key Input Callback ID. */
   int click_callback_id = -1; /**< Key Input Callback ID. */
-
-  Map map;
 };
 
 #endif  // NETGAME_ASGEGAME_HPP
