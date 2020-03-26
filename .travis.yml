@@ -83,8 +83,8 @@ jobs:
         - /usr/bin/cppcheck --quiet --platform=unix64
           --enable=warning,style,performance,portability
           --template='{file}:{line}:{severity},{id},{message}'
-          --error-exitcode=1 --force  --inline-suppr --suppressions-list=.cppcheck
-          --std=c++20 --language=c++ -i_deps -iCMakeFiles .
+          --error-exitcode=1 --force --inline-suppr --suppressions-list=.cppcheck
+          --std=c++17 --language=c++ -i_deps -iCMakeFiles .
 
       script:
         - cmake --build build
