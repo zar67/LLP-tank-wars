@@ -29,7 +29,7 @@ class GameComponent
 
   virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
   virtual bool update(double dt) = 0;
-  virtual void render(ASGE::Renderer* renderer){};
+  virtual void render(){};
 
   GameComponent(const GameComponent&) = default;
   GameComponent(GameComponent&&)      = default;

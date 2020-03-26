@@ -28,6 +28,7 @@ class GCNetServer : public GameComponent
   GCNetServer(const GCNetServer&) = delete;
   GCNetServer& operator=(const GCNetServer&) = delete;
 
+  bool init(ASGE::Renderer* renderer, int font_index) override;
   bool update(double dt) override;
   void decodeMessage(const netlib::NetworkEvent& event);
   std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);

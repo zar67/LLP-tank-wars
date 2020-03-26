@@ -26,7 +26,7 @@ class GCNetClient : public GameComponent
   bool update(double dt) override;
   bool
   updateUI(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
-  void render(ASGE::Renderer* renderer) override;
+  void render() override;
 
   void decodeMessage(const std::vector<char>& message);
   void encodeAction(NetworkMessages instruction, Types data);
