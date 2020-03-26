@@ -5,6 +5,8 @@
 #ifndef NETGAME_ASGEGAME_HPP
 #define NETGAME_ASGEGAME_HPP
 
+#include "../include/gamelib/Input.h"
+
 #include <Engine/OGLGame.h>
 #include <gamelib/components/GCNetClient.hpp>
 #include <gamelib/components/GCNetServer.hpp>
@@ -34,6 +36,7 @@ class Game : public ASGE::OGLGame
   bool loadFont();
   int font_index = 0;
 
+  Input* inputReader = nullptr;
   std::vector<std::unique_ptr<GameComponent>> game_components;
 
   // TEMPORARY INPUT STUFF WILL PLAYER_MOVE TO OWN THREAD / CLASS

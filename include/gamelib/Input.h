@@ -5,7 +5,8 @@
 #ifndef MYNETGAME_INPUT_H
 #define MYNETGAME_INPUT_H
 
-#include "Engine/Input.h"
+#include "components/GameComponent.hpp"
+#include "gamedata/DataStructs.h"
 
 #include <Engine/OGLGame.h>
 
@@ -18,6 +19,13 @@ class Input
   void keyHandler(ASGE::SharedEventData data);
   void moveHandler(ASGE::SharedEventData data);
   void clickHandler(ASGE::SharedEventData data);
+
+  void pollInput(ASGE::Input& _inputs);
+
+  bool mouseClicked() { return mouse_click; }
+  ASGE::Point2D mousePos() { return mouse_pos; }
+  int keyValue() { return key_value; }
+  bool keyPressed() { return key_pressed; }
 
  private:
   ASGE::Point2D mouse_pos = ASGE::Point2D(0, 0);

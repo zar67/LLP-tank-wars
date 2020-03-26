@@ -57,3 +57,7 @@ void Input::clickHandler(ASGE::SharedEventData data)
 
   mouse_click = click->action == ASGE::MOUSE::BUTTON_PRESSED;
 }
+
+// call this function in seperate thread
+// polls for input
+void Input::pollInput(ASGE::Input& _inputs) {}

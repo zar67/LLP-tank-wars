@@ -30,6 +30,7 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   }
 
   inputs->use_threads = true;
+  inputReader         = new Input(*inputs);
   toggleFPS();
 
   // map.init(settings.window_width, settings.window_height);
@@ -91,11 +92,15 @@ void Game::update(const ASGE::GameTime& us)
 {
   for (auto& gc : game_components)
   {
-    // add into thread
-    // if (gc->update(us.deltaInSecs(), mouse_pos, mouse_click, key_pressed, key_value))
-    // {
-    //   signalExit();
-    //  }
+    if (gc->update(
+          us.deltaInSecs(),
+          inputReader->mousePos(),
+          inputReader->mouseClicked(),
+          inputReader->keyPressed(),
+          inputReader->keyValue()))  // these values will br stored in clients
+    {
+      signalExit();
+    }
   }
 
   // key_pressed = false;
