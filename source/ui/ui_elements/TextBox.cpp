@@ -69,7 +69,7 @@ bool TextBox::init(
     height + (BORDER_AMOUNT * 2));
 }
 
-void TextBox::update(ASGE::Point2D cursor_pos, bool click, bool key_press, int key)
+void TextBox::update(ASGE::Point2D cursor_pos, bool click, std::atomic<bool>& key_press, int key)
 {
   if (click)
   {
@@ -79,6 +79,7 @@ void TextBox::update(ASGE::Point2D cursor_pos, bool click, bool key_press, int k
   if (active && key_press)
   {
     keyHandler(key);
+    key_press = false;
   }
 }
 

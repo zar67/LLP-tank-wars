@@ -28,7 +28,7 @@ class TextBox : public UIElement
     float y_pos,
     float width,
     float height);
-  void update(ASGE::Point2D cursor_pos, bool click, bool key_press, int key);
+  void update(ASGE::Point2D cursor_pos, bool click, std::atomic<bool>& key_press, int key);
   void render(ASGE::Renderer* renderer);
 
   void keyHandler(int key);

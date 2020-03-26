@@ -19,7 +19,7 @@ class JoinScreen
 
   bool init(ASGE::Renderer* renderer, int font_index);
   UIElement::MenuItem
-  update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
+  update(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
   void render(ASGE::Renderer* renderer);
 
   void displayConnectionError();

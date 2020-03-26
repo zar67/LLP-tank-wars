@@ -35,7 +35,7 @@ UIElement::MenuItem SceneManager::update(
   bool in_turn,
   const ASGE::Point2D& cursor_pos,
   bool click,
-  bool key_pressed,
+  std::atomic<bool>& key_pressed,
   int key)
 {
   game_screen.setInTurn(in_turn);

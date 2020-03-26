@@ -5,6 +5,7 @@
 #ifndef MYNETGAME_SCENEMANAGER_H
 #define MYNETGAME_SCENEMANAGER_H
 
+#include "../Map/TileData.h"
 #include "../Troop.h"
 #include "../map/TileData.h"
 #include "scenes/GameScreen.h"
@@ -32,8 +33,6 @@ class SceneManager
 
   bool init(ASGE::Renderer* renderer, int font_index);
 
-  UIElement::MenuItem
-  update(bool in_turn, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
   void render(
     ASGE::Renderer* renderer,
     const std::vector<std::vector<Troop>>& troops,
@@ -44,6 +43,13 @@ class SceneManager
     const std::vector<std::vector<Troop>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
+  UIElement::MenuItem update(
+    bool in_turn,
+    const ASGE::Point2D& cursor_pos,
+    bool click,
+    std::atomic<bool>& key_pressed,
+    int key);
+  void render(ASGE::Renderer* renderer, const std::vector<TileData>& tile_data, int currency);
 
   void screenOpen(Screens screen);
   bool inMenu();

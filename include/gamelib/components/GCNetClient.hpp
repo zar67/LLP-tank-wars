@@ -4,6 +4,8 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
+#include "../Input.h"
+#include "../Map/Map.h"
 #include "../Troop.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
@@ -21,9 +23,9 @@ class GCNetClient : public GameComponent
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
+  bool update(double dt) override;
   bool
-  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) override;
-  bool updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key);
+  updateUI(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
   void render() override;
 
   void decodeMessage(const std::vector<char>& message);
@@ -36,6 +38,8 @@ class GCNetClient : public GameComponent
   void startGame();
 
   void buyUnit(TroopTypes unit_type);
+
+  void addInputReader(ASGE::Input& _inputs) override;
 
  private:
   ASGE::Renderer* renderer = nullptr;
@@ -51,6 +55,8 @@ class GCNetClient : public GameComponent
   int currency                           = 100;
   std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};
   Map map;
+  Input* inputReader = nullptr;
+  // TODO: std::vector<Unit>() units;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

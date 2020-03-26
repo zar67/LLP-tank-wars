@@ -28,14 +28,15 @@ class GameComponent
   virtual ~GameComponent() = default;
 
   virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
-  virtual bool
-  update(double dt, const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key) = 0;
+  virtual bool update(double dt) = 0;
   virtual void render(){};
 
   GameComponent(const GameComponent&) = default;
   GameComponent(GameComponent&&)      = default;
   GameComponent& operator=(const GameComponent&) = default;
   GameComponent& operator=(GameComponent&&) = default;
+
+  virtual void addInputReader(ASGE::Input& _inputs) = 0;
 
  private:
   ID id = ID::INVALID_COMPONENT_ID;

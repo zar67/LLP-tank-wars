@@ -26,14 +26,13 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
   return scene_manager.init(renderer, font_index);
 }
 
-bool GCNetClient::update(
-  double dt,
-  const ASGE::Point2D& cursor_pos,
-  bool click,
-  bool key_pressed,
-  int key)
+bool GCNetClient::update(double dt)
 {
-  if (updateUI(cursor_pos, click, key_pressed, key))
+  if (updateUI(
+        inputReader->mousePos(),
+        inputReader->mouseClicked(),
+        *inputReader->keyPressed(),
+        inputReader->keyValue()))  // just pass in the input reader or struct??
   {
     return true;
   }
@@ -68,7 +67,11 @@ bool GCNetClient::update(
   return false;
 }
 
-bool GCNetClient::updateUI(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key)
+bool GCNetClient::updateUI(
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  std::atomic<bool>& key_pressed,
+  int key)
 {
   UIElement::MenuItem item = scene_manager.update(in_turn, cursor_pos, click, key_pressed, key);
 
@@ -315,4 +318,13 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
     type.buy.pos.y_pos = y_pos;
     encodeAction(NetworkMessages::PLAYER_BUY, type);
   }
+}
+
+void GCNetClient::addInputReader(ASGE::Input& _inputs)
+{
+  if (inputReader != nullptr)
+  {
+    delete (inputReader);
+  }
+  inputReader = new Input(_inputs);
 }

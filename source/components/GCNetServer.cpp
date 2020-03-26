@@ -21,12 +21,7 @@ bool GCNetServer::init(ASGE::Renderer* renderer, int font_index)
   return true;
 }
 
-bool GCNetServer::update(
-  double dt,
-  const ASGE::Point2D& cursor_pos,
-  bool click,
-  bool key_pressed,
-  int key)
+bool GCNetServer::update(double dt)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();
   while (!all_events.empty())

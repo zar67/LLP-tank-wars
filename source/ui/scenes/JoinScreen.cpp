@@ -54,8 +54,11 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index)
     40);
 }
 
-UIElement::MenuItem
-JoinScreen::update(const ASGE::Point2D& cursor_pos, bool click, bool key_pressed, int key)
+UIElement::MenuItem JoinScreen::update(
+  const ASGE::Point2D& cursor_pos,
+  bool click,
+  std::atomic<bool>& key_pressed,
+  int key)
 {
   start_game.update(cursor_pos, click);
   text_box.update(cursor_pos, click, key_pressed, key);
