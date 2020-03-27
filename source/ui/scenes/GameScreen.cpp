@@ -60,6 +60,10 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool cli
   UIElement::MenuItem item = shop.update(cursor_pos, click);
   end_turn.update(cursor_pos, click);
 
+  if (item == UIElement::MenuItem::MAP_CLICK && !shop_active)
+  {
+    item = UIElement::MenuItem ::NONE;
+  }
   if (end_turn.pressed())
   {
     item = UIElement::MenuItem::END_TURN;
