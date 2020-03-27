@@ -29,13 +29,17 @@ bool AudioManager::audioSetUp()
   if (click_004.open("/data/Audio/click_004.mp3"))
   {
     auto io_buffer = click_004.read();
-    // if(click_004_MP3.loadMem(io_buffer.as_unsigned_char(), static_cast<unsigned
-    // int>(io_buffer.length), false,false)) click_004_MP3.loadMem(io_buffer.as_unsigned_char(),
-    // static_cast<unsigned int>(io_buffer.length), false,false);
+    click_004_MP3.loadMem(
+      io_buffer.as_unsigned_char(), static_cast<unsigned int>(io_buffer.length), false, false);
     click_004.close();
   }
   else
   {
     return false;
   }
+}
+
+void AudioManager::playClick()
+{
+  soloud.play(click_004_MP3);
 }

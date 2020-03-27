@@ -21,6 +21,8 @@ class AudioManager
 
   bool audioSetUp();
 
+  void playClick();
+
  private:
   ASGE::FILEIO::File click_004;
   SoLoud::Wav click_004_MP3;
