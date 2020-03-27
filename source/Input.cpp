@@ -154,7 +154,6 @@ void Input::executeEvent(const InputData& data)
         break;
       }
     }
-
     break;
   }
   case ASGE::EventType ::E_MOUSE_MOVE:

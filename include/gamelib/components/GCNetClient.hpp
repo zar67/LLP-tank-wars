@@ -57,6 +57,7 @@ class GCNetClient : public GameComponent
   Map map;
   Input* inputReader     = nullptr;
   TileData* tile_clicked = nullptr;
+  int unit_count         = 0;
   // TODO: std::vector<Unit>() units;
 };
 

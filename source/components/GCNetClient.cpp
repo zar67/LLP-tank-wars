@@ -308,11 +308,16 @@ void GCNetClient::startGame()
 
 void GCNetClient::buyUnit(TroopTypes unit_type)
 {
+  if (tile_clicked->troop_id > 0)
+  {
+    return;
+  }
   int x_pos = static_cast<int>(tile_clicked->sprite->xPos());
   int y_pos = static_cast<int>(tile_clicked->sprite->yPos());
 
   Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos);
-
+  new_troop.setID(++unit_count);
+  tile_clicked->troop_id = new_troop.getID();
   if (in_turn && currency >= new_troop.getCost())
   {
     currency -= new_troop.getCost();
