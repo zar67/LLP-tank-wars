@@ -32,14 +32,11 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 }
 
 UIElement::MenuItem SceneManager::update(
-  bool in_turn,
   const ASGE::Point2D& cursor_pos,
   bool click,
   std::atomic<bool>& key_pressed,
   int key)
 {
-  game_screen.setInTurn(in_turn);
-
   UIElement::MenuItem item;
   switch (screen_open)
   {
@@ -94,6 +91,8 @@ UIElement::MenuItem SceneManager::update(
 
 void SceneManager::render(
   ASGE::Renderer* renderer,
+  int current_player_turn,
+  bool in_turn,
   const std::vector<std::vector<Troop>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
@@ -117,7 +116,7 @@ void SceneManager::render(
   }
   case Screens::GAME:
   {
-    renderGameScreen(renderer, troops, tile_data, currency);
+    renderGameScreen(renderer, current_player_turn, in_turn, troops, tile_data, currency);
     break;
   }
   }
@@ -125,11 +124,13 @@ void SceneManager::render(
 
 void SceneManager::renderGameScreen(
   ASGE::Renderer* renderer,
+  int current_player_turn,
+  bool in_turn,
   const std::vector<std::vector<Troop>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
-  game_screen.render(renderer, currency);
+  game_screen.render(renderer, current_player_turn, in_turn, currency);
 
   for (auto& tile : tile_data)
   {

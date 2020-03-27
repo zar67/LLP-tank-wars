@@ -49,8 +49,9 @@ class GCNetClient : public GameComponent
 
   std::atomic_bool exiting = false;
   std::vector<std::vector<char>> actions;
-  bool can_start = false;
-  bool in_turn   = false;
+  bool can_start      = false;
+  bool in_turn        = false;
+  int current_turn_id = 1;
 
   int currency                           = 100;
   std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};

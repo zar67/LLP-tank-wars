@@ -35,7 +35,8 @@ bool GCNetServer::update(double dt)
 
       if (server.GetAllClients().size() == 1)
       {
-        server.SendMessageTo(encodeMessage(NetworkMessages::PLAYER_START_TURN, ""), 1);
+        server.SendMessageToAll(
+          encodeMessage(NetworkMessages::PLAYER_START_TURN, std::to_string(current_turn_id)));
       }
 
       server.SendMessageToAll(encodeMessage(
@@ -90,52 +91,6 @@ void GCNetServer::decodeMessage(const netlib::NetworkEvent& event)
     server.SendMessageToAllExcluding(message, event.senderId);
     break;
   }
-    /*
-  case NetworkMessages::PLAYER_MOVE:
-  {
-    int unit_id = std::stoi(data[0]);
-    float x_pos = std::stof(data[1]);
-    float y_pos = std::stof(data[2]);
-
-    // TODO: Move The Unit
-    Logging::log(
-      "MESSAGE RECEIVED: PLAYER_MOVE ("
-      "UNIT ID: " +
-      std::to_string(unit_id) + ", X_POS: " + std::to_string(x_pos) +
-      ", Y_POS: " + std::to_string(y_pos) + ")\n");
-
-    break;
-  }
-  case NetworkMessages::PLAYER_ATTACK:
-  {
-    int attacker_id = std::stoi(data[0]);
-    int unit_id     = std::stoi(data[1]);
-    int damage      = std::stoi(data[2]);
-
-    // TODO: Attack The Unit
-    Logging::log(
-      "MESSAGE RECEIVED: PLAYER_ATTACK ("
-      "ATTTACKER_ID: " +
-      std::to_string(attacker_id) + ", UNIT_ID: " + std::to_string(unit_id) +
-      ", DAMAGE: " + std::to_string(damage) + "\n");
-
-    break;
-  }
-  case NetworkMessages::PLAYER_BUY:
-  {
-    int unit_to_buy = std::stoi(data[0]);
-    float x_pos     = std::stof(data[1]);
-    float y_pos     = std::stof(data[2]);
-
-    // TODO: Create The Unit
-    Logging::log(
-      "MESSAGE RECEIVED: BUY ("
-      "UNIT_TYPE: " +
-      std::to_string(unit_to_buy) + ", X_POS: " + std::to_string(x_pos) +
-      ", Y_POS: " + std::to_string(y_pos) + "\n");
-
-    break;
-  }*/
   }
 }
 
@@ -159,7 +114,8 @@ void GCNetServer::playerEndTurn()
 {
   current_turn_id %= server.GetAllClients().size();
   current_turn_id += 1;
-  server.SendMessageTo(encodeMessage(NetworkMessages::PLAYER_START_TURN, "0"), current_turn_id);
+  server.SendMessageToAll(
+    encodeMessage(NetworkMessages::PLAYER_START_TURN, std::to_string(current_turn_id)));
 
   server_state = ServerState::UPDATING;
 }

@@ -20,9 +20,9 @@ bool GameScreen::init(
         "data/sprites/ui/button.png",
         "data/sprites/ui/button_pressed.png",
         "Open Shop",
-        15,
-        15,
-        250,
+        10,
+        10,
+        290,
         30))
   {
     return false;
@@ -34,8 +34,8 @@ bool GameScreen::init(
     "data/sprites/ui/button.png",
     "data/sprites/ui/button_pressed.png",
     "End Turn",
-    static_cast<float>(ASGE::SETTINGS.window_width) - 275,
-    static_cast<float>(ASGE::SETTINGS.window_height) - 55,
+    static_cast<float>(ASGE::SETTINGS.window_width) - 260,
+    static_cast<float>(ASGE::SETTINGS.window_height) - 40,
     250,
     30);
 }
@@ -72,13 +72,16 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool cli
   return item;
 }
 
-void GameScreen::render(ASGE::Renderer* renderer, const int& currency)
+void GameScreen::render(
+  ASGE::Renderer* renderer,
+  int current_player_turn,
+  bool in_turn,
+  const int& currency)
 {
   renderer->renderText("GAME", 300, 300, ASGE::COLOURS::WHITE);
-  renderer->renderText("Currency: " + std::to_string(currency), 300, 35, ASGE::COLOURS::WHITE);
+  renderer->renderText("Currency: " + std::to_string(currency), 310, 35, ASGE::COLOURS::WHITE);
 
   open_shop.render(renderer);
-  end_turn.render(renderer);
 
   if (shop_active)
   {
@@ -87,7 +90,16 @@ void GameScreen::render(ASGE::Renderer* renderer, const int& currency)
 
   if (in_turn)
   {
-    renderer->renderText("YOUR TURN", 300, 350, ASGE::COLOURS::WHITE);
+    renderer->renderText("YOUR TURN", 15, ASGE::SETTINGS.window_height - 15, ASGE::COLOURS::WHITE);
+    end_turn.render(renderer);
+  }
+  else
+  {
+    renderer->renderText(
+      "PLAYER " + std::to_string(current_player_turn) + "'S TURN",
+      15,
+      ASGE::SETTINGS.window_height - 15,
+      ASGE::COLOURS::WHITE);
   }
 }
 
@@ -101,9 +113,4 @@ void GameScreen::closeShop()
 {
   shop_active = false;
   open_shop.changeText("Open Shop");
-}
-
-void GameScreen::setInTurn(bool value)
-{
-  in_turn = value;
 }

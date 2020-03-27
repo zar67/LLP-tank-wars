@@ -28,7 +28,7 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, const std::vector<std:
     renderer,
     font_index,
     "Shop",
-    20 + (static_cast<float>(unit_types.size() * 60 - 10) / 2),
+    10 + (static_cast<float>(unit_types.size() * 60 - 10) / 2),
     75,
     true,
     false,
@@ -45,7 +45,7 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, const std::vector<std:
           texture,
           texture,
           "",
-          20 + static_cast<float>(60 * count),
+          10 + static_cast<float>(60 * count),
           90,
           50,
           50))
