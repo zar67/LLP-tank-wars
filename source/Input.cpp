@@ -81,6 +81,39 @@ void Input::keyBoard(ASGE::SharedEventData data)
     key_pressed = false;
   }
 }
+void Input::mouse(ASGE::SharedEventData data)
+{
+  const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.get());
+  mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+  if (!mouseClicked())
+  {
+    return;
+  }
+  for (auto& tile : map)
+  {
+    int tile_id = tile.mouseClicked(mousePos().x, mousePos().y);
+    if (tile_id != 0)
+    {
+      if (tile_clicked != nullptr)
+      {
+        tile_clicked->sprite->colour(tile.sprite->colour());
+      }
+      mutex_tile_clicked.lock();
+      tile_clicked = &tile;
+      if (tile.troop_id > 0)
+      {
+        tile_clicked->sprite->colour(cant_click_col);
+      }
+      else
+      {
+        tile_clicked->sprite->colour(clicked_col);
+      }
+      mutex_tile_clicked.unlock();
+      clicked_map = false;
+      break;
+    }
+  }
+}
 
 void Input::eventInput(ASGE::SharedEventData s_data, ASGE::EventType e_data)
 {
@@ -136,24 +169,7 @@ void Input::executeEvent(const InputData& data)
   }
   case ASGE::EventType::E_MOUSE_CLICK:
   {
-    const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.sharedEventData.get());
-    mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
-    if (!mouseClicked())
-    {
-      break;
-    }
-    for (auto& tile : map)
-    {
-      int tile_id = tile.mouseClicked(mousePos().x, mousePos().y);
-      if (tile_id != 0)
-      {
-        mutex_tile_clicked.lock();
-        tile_clicked = &tile;
-        mutex_tile_clicked.unlock();
-        clicked_map = false;
-        break;
-      }
-    }
+    mouse(data.sharedEventData);
     break;
   }
   case ASGE::EventType ::E_MOUSE_MOVE:
