@@ -94,11 +94,14 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
     {
       return UIElement::MenuItem::BUY_UNIT_4;
     }
-    default: break;
+    default:
+    {
+      break;
+    }
     }
   }
 
-  return UIElement::MenuItem::NONE;
+  return UIElement::MenuItem ::MAP_CLICK;
 }
 
 void Shop::render(ASGE::Renderer* renderer)

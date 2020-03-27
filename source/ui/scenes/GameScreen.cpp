@@ -54,6 +54,7 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool cli
     {
       openShop();
     }
+    return UIElement::MenuItem::NONE;
   }
 
   UIElement::MenuItem item = shop.update(cursor_pos, click);

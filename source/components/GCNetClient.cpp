@@ -38,12 +38,9 @@ bool GCNetClient::update(double dt)
   }
 
   tile_clicked = inputReader->tileClicked();
-  if (tile_clicked == nullptr)
-  {
-    inputReader->unlockTile();
-  }
-  // do stuff with tile then unlock it
   inputReader->unlockTile();
+  // do stuff with tile then unlock it
+  // inputReader->unlockTile();
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
   {
@@ -97,7 +94,6 @@ bool GCNetClient::updateUI(
     }
     break;
   }
-
   case (UIElement::MenuItem::HOST_GAME):
   {
     client.ConnectToIP("localHost", 32488);
@@ -148,6 +144,11 @@ bool GCNetClient::updateUI(
   case (UIElement::MenuItem::BUY_UNIT_4):
   {
     buyUnit(TroopTypes::TANK_SAND);
+    break;
+  }
+  case (UIElement::MenuItem::MAP_CLICK):
+  {
+    inputReader->setClickedMap(click, cursor_pos.x, cursor_pos.y);
     break;
   }
   }
@@ -307,8 +308,8 @@ void GCNetClient::startGame()
 
 void GCNetClient::buyUnit(TroopTypes unit_type)
 {
-  int x_pos = 500;
-  int y_pos = 500;
+  int x_pos = static_cast<int>(tile_clicked->sprite->xPos());
+  int y_pos = static_cast<int>(tile_clicked->sprite->yPos());
 
   Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos);
 
@@ -325,6 +326,7 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
     type.buy.pos.y_pos = y_pos;
     encodeAction(NetworkMessages::PLAYER_BUY, type);
   }
+  tile_clicked = nullptr;
 }
 
 void GCNetClient::addInputReader(ASGE::Input& _inputs)

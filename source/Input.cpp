@@ -138,6 +138,10 @@ void Input::executeEvent(const InputData& data)
   {
     const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.sharedEventData.get());
     mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+    if (!mouseClicked())
+    {
+      break;
+    }
     for (auto& tile : map)
     {
       int tile_id = tile.mouseClicked(mousePos().x, mousePos().y);
@@ -146,9 +150,11 @@ void Input::executeEvent(const InputData& data)
         mutex_tile_clicked.lock();
         tile_clicked = &tile;
         mutex_tile_clicked.unlock();
+        clicked_map = false;
         break;
       }
     }
+
     break;
   }
   case ASGE::EventType ::E_MOUSE_MOVE:
@@ -175,4 +181,11 @@ void Input::unlockTile()
 void Input::setMap(const std::vector<TileData>& _map)
 {
   map = _map;
+}
+
+void Input::setClickedMap(bool _map_clicked, float x, float y)
+{
+  clicked_map        = _map_clicked;
+  recent_mouse_pos.x = x;
+  recent_mouse_pos.y = y;
 }
