@@ -43,14 +43,14 @@ void Map::readJSON(const std::string& _directory)
       TileData tile_data_grass;
       tile_data_grass.name = json_file["grass"][i]["name"].get<std::string>();
       tile_data_grass.directory =
-        "data/sprites/" + json_file["grass"][i]["directory"].get<std::string>();
+        "data/sprites/map/" + json_file["grass"][i]["directory"].get<std::string>();
       // tile_data_grass.movement_speed = json_file["grass"][i]["movement_speed"].get<int>();
       grass.push_back(tile_data_grass);
 
       TileData tile_data_sand;
       tile_data_sand.name = json_file["sand"][i]["name"].get<std::string>();
       tile_data_sand.directory =
-        "data/sprites/" + json_file["sand"][i]["directory"].get<std::string>();
+        "data/sprites/map/" + json_file["sand"][i]["directory"].get<std::string>();
       //  tile_data_sand.movement_speed = json_file["sand"][i]["movement_speed"].get<int>();
       sand.push_back(tile_data_sand);
     }
@@ -59,7 +59,7 @@ void Map::readJSON(const std::string& _directory)
       TileData tile_data_mix;
       tile_data_mix.name = json_file["mix"][j]["name"].get<std::string>();
       tile_data_mix.directory =
-        "data/sprites/" + json_file["mix"][j]["directory"].get<std::string>();
+        "data/sprites/map/" + json_file["mix"][j]["directory"].get<std::string>();
       //  tile_data_mix.movement_speed = json_file["mix"][j]["movement_speed"].get<int>();
       mix.push_back(tile_data_mix);
     }
