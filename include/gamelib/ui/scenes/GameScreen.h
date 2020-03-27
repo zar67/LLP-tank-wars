@@ -20,19 +20,16 @@ class GameScreen
 
   bool init(ASGE::Renderer* renderer, int font_index, const std::vector<std::string>& unit_types);
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
-  void render(ASGE::Renderer* renderer, const int& currency);
+  void render(ASGE::Renderer* renderer, int current_player_turn, bool in_turn, const int& currency);
 
   void openShop();
   void closeShop();
-
-  void setInTurn(bool value);
 
  private:
   Shop shop;
   Button open_shop;
   Button end_turn;
 
-  bool in_turn     = false;
   bool shop_active = false;
 };
 

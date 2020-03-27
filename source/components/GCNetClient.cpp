@@ -73,7 +73,7 @@ bool GCNetClient::updateUI(
   std::atomic<bool>& key_pressed,
   int key)
 {
-  UIElement::MenuItem item = scene_manager.update(in_turn, cursor_pos, click, key_pressed, key);
+  UIElement::MenuItem item = scene_manager.update(cursor_pos, click, key_pressed, key);
 
   switch (item)
   {
@@ -150,7 +150,7 @@ bool GCNetClient::updateUI(
 
 void GCNetClient::render()
 {
-  scene_manager.render(renderer, troops, map.getMap(), currency);
+  scene_manager.render(renderer, current_turn_id, in_turn, troops, map.getMap(), currency);
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)
@@ -178,7 +178,12 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   }
   case (NetworkMessages::PLAYER_START_TURN):
   {
-    in_turn = true;
+    current_turn_id = static_cast<int>(message[2] - '0');
+    if (current_turn_id == client.GetUID())
+    {
+      in_turn = true;
+    }
+
     break;
   }
   // MESSAGE FORMAT: TYPE:DATA,DATA,DATA:SENDER_ID
