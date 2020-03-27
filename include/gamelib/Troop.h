@@ -48,8 +48,12 @@ class Troop : public GameObject
 
   void takeDamage(int damageAmount);
 
+  int getID() { return id; }
+  void setID(int _id) { id = _id; }
+
  private:
-  DataComp* data                       = nullptr;
+  int id         = 0;  // probably move this to datacomp
+  DataComp* data = nullptr;
   DataComp::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};
   TroopTypes current_troop_type        = TroopTypes::TANK_BLUE;
 };

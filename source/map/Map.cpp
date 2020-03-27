@@ -74,6 +74,7 @@ void Map::generateMap(ASGE::Renderer* renderer)
     for (int j = 0; j < tiles_high; ++j)
     {
       TileData& current_tile = map.at(i + tiles_wide * j);
+      current_tile.tile_id   = i + j + 1;
       current_tile.sprite    = renderer->createRawSprite();
       current_tile.sprite->loadTexture(current_tile.directory);
       current_tile.sprite->xPos(static_cast<float>(i * tile_width));

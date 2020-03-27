@@ -30,16 +30,22 @@ class Input
   int keyValue() { return key_value; }
   std::atomic<bool>* keyPressed() { return &key_pressed; }
 
-  void keyBoard(ASGE::SharedEventData data);
-
   void eventInput(ASGE::SharedEventData data, ASGE::EventType e_data);
   std::queue<InputData>* getInputQueue();
   void executeQueue();
   void exitInputThread();
 
+  void setMap(const std::vector<TileData>& _map);
+  TileData* tileClicked();
+  void unlockTile();
+
+  void setClickedMap(bool _map_clicked, float x, float y);
+  bool getClickedMap() { return clicked_map; }
+
  private:
   void executeEvent(const InputData& data);
-
+  void keyBoard(ASGE::SharedEventData data);
+  void mouse(ASGE::SharedEventData data);
   ASGE::Point2D mouse_pos       = ASGE::Point2D(0, 0);
   std::atomic<bool> mouse_click = false;
   std::atomic<bool> key_pressed = false;
@@ -49,11 +55,18 @@ class Input
   int move_callback_id  = -1; /**< Key Input Callback ID. */
   int click_callback_id = -1; /**< Key Input Callback ID. */
 
-  std::atomic<bool> is_active = true;
-  std::mutex mutex;
+  std::atomic<bool> clicked_map = true;
+  std::atomic<bool> is_active   = true;
+  std::mutex mutex_queue;
+  std::mutex mutex_tile_clicked;
   std::queue<InputData> input_queue;
-
   ASGE::Input* asge_input = nullptr;
+  std::vector<TileData> map;
+  TileData* tile_clicked         = nullptr;
+  ASGE::Point2D recent_mouse_pos = ASGE::Point2D(0, 0);
+
+  ASGE::Colour clicked_col    = ASGE::COLOURS::DARKGREEN;
+  ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
 };
 
 #endif  // MYNETGAME_INPUT_H
