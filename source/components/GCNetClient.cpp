@@ -37,6 +37,13 @@ bool GCNetClient::update(double dt)
     return true;
   }
 
+  tile_clicked = inputReader->tileClicked();
+  if (tile_clicked == nullptr)
+  {
+    inputReader->unlockTile();
+  }
+  // do stuff with tile then unlock it
+  inputReader->unlockTile();
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
   {
@@ -327,4 +334,5 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
     delete (inputReader);
   }
   inputReader = new Input(_inputs);
+  inputReader->setMap(map.getMap());
 }

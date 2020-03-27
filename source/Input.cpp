@@ -60,6 +60,7 @@ void Input::clickHandler(ASGE::SharedEventData data)
   eventInput(data, ASGE::E_MOUSE_CLICK);
 }
 
+// called in thread
 void Input::keyBoard(ASGE::SharedEventData data)
 {
   const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
@@ -91,13 +92,13 @@ void Input::eventInput(ASGE::SharedEventData s_data, ASGE::EventType e_data)
 
 std::queue<InputData>* Input::getInputQueue()
 {
-  mutex.lock();
+  mutex_queue.lock();
   return &input_queue;
 }
 
 /*
  * poll in thread
- *
+ * get items off queue
  */
 void Input::executeQueue()
 {
@@ -106,14 +107,14 @@ void Input::executeQueue()
     std::queue<InputData>* queue = getInputQueue();
     if (queue->empty())
     {
-      mutex.unlock();
+      mutex_queue.unlock();
     }
     else
     {
       InputData data = queue->front();
       queue->pop();
       executeEvent(data);
-      mutex.unlock();
+      mutex_queue.unlock();
     }
   }
 }
@@ -123,6 +124,7 @@ void Input::exitInputThread()
   is_active = false;
 }
 
+// switch statement for each event type
 void Input::executeEvent(const InputData& data)
 {
   switch (data.eventType)
@@ -136,6 +138,17 @@ void Input::executeEvent(const InputData& data)
   {
     const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.sharedEventData.get());
     mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
+    for (auto& tile : map)
+    {
+      int tile_id = tile.mouseClicked(mousePos().x, mousePos().y);
+      if (tile_id != 0)
+      {
+        mutex_tile_clicked.lock();
+        tile_clicked = &tile;
+        mutex_tile_clicked.unlock();
+        break;
+      }
+    }
     break;
   }
   case ASGE::EventType ::E_MOUSE_MOVE:
@@ -146,4 +159,20 @@ void Input::executeEvent(const InputData& data)
     break;
   }
   }
+}
+
+TileData* Input::tileClicked()
+{
+  mutex_tile_clicked.lock();
+  return tile_clicked;
+}
+
+void Input::unlockTile()
+{
+  mutex_tile_clicked.unlock();
+}
+
+void Input::setMap(const std::vector<TileData>& _map)
+{
+  map = _map;
 }

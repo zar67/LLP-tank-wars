@@ -16,6 +16,7 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     Logging::log("*** FONT NOT LOADED ***\n");
   }
 
+  inputs->use_threads = true;
   for (auto& gc : game_components)
   {
     if (!gc->init(renderer.get(), font_index))
@@ -25,7 +26,6 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
     gc->addInputReader(*inputs);
   }
 
-  inputs->use_threads = true;
   toggleFPS();
 }
 

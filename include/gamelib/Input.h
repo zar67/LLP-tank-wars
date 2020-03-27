@@ -37,6 +37,10 @@ class Input
   void executeQueue();
   void exitInputThread();
 
+  void setMap(const std::vector<TileData>& _map);
+  TileData* tileClicked();
+  void unlockTile();
+
  private:
   void executeEvent(const InputData& data);
 
@@ -50,10 +54,12 @@ class Input
   int click_callback_id = -1; /**< Key Input Callback ID. */
 
   std::atomic<bool> is_active = true;
-  std::mutex mutex;
+  std::mutex mutex_queue;
+  std::mutex mutex_tile_clicked;
   std::queue<InputData> input_queue;
-
   ASGE::Input* asge_input = nullptr;
+  std::vector<TileData> map;
+  TileData* tile_clicked = nullptr;
 };
 
 #endif  // MYNETGAME_INPUT_H

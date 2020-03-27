@@ -32,7 +32,6 @@ class Game : public ASGE::OGLGame
   int font_index = 0;
 
   std::vector<std::unique_ptr<GameComponent>> game_components;
-
   int key_callback_id   = -1; /**< Key Input Callback ID. */
   int move_callback_id  = -1; /**< Key Input Callback ID. */
   int click_callback_id = -1; /**< Key Input Callback ID. */
