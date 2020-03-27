@@ -15,6 +15,12 @@ GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 
 GCNetClient::~GCNetClient()
 {
+  if (inputReader != nullptr)
+  {
+    inputReader->exitInputThread();
+    delete (inputReader);
+    inputReader = nullptr;
+  }
   client.Disconnect();
 }
 
