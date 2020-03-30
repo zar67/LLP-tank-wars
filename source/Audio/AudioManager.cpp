@@ -42,18 +42,19 @@ bool AudioManager::audioSetUp()
 
   if (!Background.open("/data/Audio/Background.mp3"))
   {
-    auto io_buffer = Background.read();
-    if (Background_MP3.loadMem(
-          io_buffer.as_unsigned_char(), static_cast<unsigned int>(io_buffer.length), false, false))
-    {
-      return true;
-    }
-    Background.close();
+    return false;
   }
-  else
+  auto io_buffer = Background.read();
+  if (
+    Background_MP3.loadMem(
+      io_buffer.as_unsigned_char(), static_cast<unsigned int>(io_buffer.length), false, false) ==
+    SoLoud::FILE_LOAD_FAILED)
   {
     return false;
   }
+  Background.close();
+
+  return true;
 }
 
 void AudioManager::playClick()

@@ -43,8 +43,6 @@ UIElement::MenuItem SceneManager::update(
   int key)
 {
   UIElement::MenuItem item;
-  game_screen.setInTurn(in_turn);
-  UIElement::MenuItem item;
   audio.playBackgroundMusic();
 
   switch (screen_open)
