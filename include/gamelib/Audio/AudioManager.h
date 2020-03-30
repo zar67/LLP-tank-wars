@@ -22,10 +22,14 @@ class AudioManager
   bool audioSetUp();
 
   void playClick();
+  void playBackgroundMusic();
 
  private:
   ASGE::FILEIO::File click_004;
   SoLoud::Wav click_004_MP3;
+
+  ASGE::FILEIO::File Background;
+  SoLoud::Wav Background_MP3;
 
   SoLoud::Soloud soloud;
 };

@@ -6,6 +6,11 @@
 
 bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 {
+  if (!audio.audioSetUp())
+  {
+    return false;
+  }
+
   if (!main_menu.init(renderer, font_index))
   {
     return false;
@@ -39,12 +44,14 @@ UIElement::MenuItem SceneManager::update(
   int key)
 {
   game_screen.setInTurn(in_turn);
-
   UIElement::MenuItem item;
+  audio.playBackgroundMusic();
+
   switch (screen_open)
   {
   case Screens::MAIN_MENU:
   {
+    audio.playBackgroundMusic();
     item = main_menu.update(cursor_pos, click);
     break;
   }
