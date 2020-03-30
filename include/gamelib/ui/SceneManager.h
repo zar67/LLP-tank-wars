@@ -5,6 +5,7 @@
 #ifndef MYNETGAME_SCENEMANAGER_H
 #define MYNETGAME_SCENEMANAGER_H
 
+#include "../Audio/AudioManager.h"
 #include "../Map/TileData.h"
 #include "../Troop.h"
 #include "../map/TileData.h"
@@ -65,6 +66,8 @@ class SceneManager
   GameScreen game_screen = GameScreen();
 
   Screens screen_open = Screens::MAIN_MENU;
+
+  AudioManager audio;
 };
 
 #endif  // MYNETGAME_SCENEMANAGER_H

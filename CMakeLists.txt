@@ -6,7 +6,7 @@ add_feature_info("ENABLE_DEDICATED" ENABLE_DEDICATED "Provides a console based d
 
 set(ENABLE_JSON    ON CACHE BOOL "Adds JSON to the Project" FORCE)
 set(ENABLE_NETWORK ON  CACHE BOOL "Adds Network to the Project" FORCE)
-set(ENABLE_SOUND   OFF CACHE BOOL "Adds SoLoud Audio" FORCE)
+set(ENABLE_SOUND   ON CACHE BOOL "Adds SoLoud Audio" FORCE)
 
 project(MyNetGame
 VERSION 0.1

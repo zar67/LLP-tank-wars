@@ -33,6 +33,7 @@ add_library(
         components/DataComp.cpp
         components/GameObject.cpp
         components/SpriteComponent.cpp
+        Audio/AudioManager.cpp
         Troop.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
