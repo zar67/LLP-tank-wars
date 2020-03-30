@@ -26,8 +26,6 @@ bool AudioManager::audioSetUp()
     return false;
   }
 
-  // soloud.setVolume(1,50);
-
   /*if (!click_004.open("/data/Audio/click_004.mp3"))
   {
     auto io_buffer = click_004.read();
@@ -50,6 +48,8 @@ bool AudioManager::audioSetUp()
       io_buffer.as_unsigned_char(), static_cast<unsigned int>(io_buffer.length), false, false) ==
     SoLoud::FILE_LOAD_FAILED)
   {
+    /// Sort Volume Out
+    soloud.setVolume(0, 10);
     return false;
   }
   Background.close();

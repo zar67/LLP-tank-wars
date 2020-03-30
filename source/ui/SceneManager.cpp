@@ -26,6 +26,9 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
     return false;
   }
 
+  /// start game menu music
+  audio.playBackgroundMusic();
+
   return game_screen.init(
     renderer,
     font_index,
@@ -43,13 +46,11 @@ UIElement::MenuItem SceneManager::update(
   int key)
 {
   UIElement::MenuItem item;
-  audio.playBackgroundMusic();
 
   switch (screen_open)
   {
   case Screens::MAIN_MENU:
   {
-    audio.playBackgroundMusic();
     item = main_menu.update(cursor_pos, click);
     break;
   }
