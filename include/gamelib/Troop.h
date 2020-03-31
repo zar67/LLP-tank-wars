@@ -22,11 +22,11 @@ class Troop : public GameObject
                                                   // Assignment
                                                   // Operator
   // Constructor that creates a troop type and a sprite component.
-  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer);
+  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, bool owned);
 
   // Constructor that creates a troop type and a sprite component and sets it's
   // position.
-  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos);
+  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos, bool owned);
 
   // returns current troop type.
   TroopTypes getTroopType();
@@ -52,8 +52,8 @@ class Troop : public GameObject
   void setID(int _id) { id = _id; }
 
  private:
-  int id         = 0;  // probably move this to datacomp
-  DataComp* data = nullptr;
+  int id                               = 0;  // probably move this to datacomp
+  DataComp* data                       = nullptr;
   DataComp::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};
   TroopTypes current_troop_type        = TroopTypes::TANK_BLUE;
 };

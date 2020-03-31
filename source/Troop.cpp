@@ -4,27 +4,37 @@
 
 #include "Troop.h"
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer)
+Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, bool owned)
 {
   data        = new DataComp();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
-  addSpriteComponent(renderer, data->getTankData(current_troop_type).texture_path);
+
+  std::string texture = "data/sprites/troops/";
+  if (owned)
+  {
+    texture += "owned_";
+  }
+  texture += data->getTankData(current_troop_type).texture_path;
+
+  addSpriteComponent(renderer, texture);
 }
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos)
+Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos, bool owned)
 {
   data        = new DataComp();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
+  std::string texture = "data/sprites/troops/";
+  if (owned)
+  {
+    texture += "owned_";
+  }
+  texture += data->getTankData(current_troop_type).texture_path;
+
   addSpriteComponent(
-    renderer,
-    data->getTankData(current_troop_type).texture_path,
-    static_cast<float>(x_pos - 20),
-    static_cast<float>(y_pos - 20),
-    40,
-    40);
+    renderer, texture, static_cast<float>(x_pos - 40), static_cast<float>(y_pos - 40), 80, 80);
 }
 
 void Troop::setTroopType(TroopTypes new_type)

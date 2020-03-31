@@ -236,7 +236,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     int y_pos                     = std::stoi(data[2]);
     int sender_id                 = std::stoi(data[3]);
 
-    troops[sender_id].emplace_back(Troop(unit_to_buy, renderer, x_pos, y_pos));
+    troops[sender_id].emplace_back(Troop(unit_to_buy, renderer, x_pos, y_pos, false));
     break;
   }
   }
@@ -330,7 +330,7 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
     int x_pos = static_cast<int>(tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2);
     int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
-    Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos);
+    Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos, true);
     new_troop.setID(++unit_count);
     tile_clicked->troop_id = new_troop.getID();
     if (in_turn && currency >= new_troop.getCost())
