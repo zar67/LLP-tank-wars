@@ -18,8 +18,8 @@ class GameScreen
   GameScreen()  = default;
   ~GameScreen() = default;
 
-  bool init(ASGE::Renderer* renderer, int font_index, const std::vector<std::string>& unit_types);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
+  bool init(ASGE::Renderer* renderer, int font_index);
+  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer, int current_player_turn, bool in_turn, const int& currency);
 
   void openShop();

@@ -22,12 +22,13 @@ class UIElement
     EXIT_GAME     = 5,
     START_GAME    = 6,
     END_TURN      = 7,
-    BUY_UNIT_0,
-    BUY_UNIT_1,
-    BUY_UNIT_2,
-    BUY_UNIT_3,
-    BUY_UNIT_4,
-    MAP_CLICK
+    SHOP_BUTTON   = 8,
+    BUY_UNIT_0    = 9,
+    BUY_UNIT_1    = 10,
+    BUY_UNIT_2    = 11,
+    BUY_UNIT_3    = 12,
+    BUY_UNIT_4    = 13,
+    MAP_CLICK     = 14
   };
 
  public:

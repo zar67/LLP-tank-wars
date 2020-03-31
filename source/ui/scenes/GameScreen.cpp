@@ -4,12 +4,11 @@
 
 #include "ui/scenes/GameScreen.h"
 
-bool GameScreen::init(
-  ASGE::Renderer* renderer,
-  int font_index,
-  const std::vector<std::string>& unit_types)
+#include <Engine/Logger.hpp>
+
+bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
 {
-  if (!shop.init(renderer, font_index, unit_types))
+  if (!shop.init(renderer, font_index))
   {
     return false;
   }
@@ -40,12 +39,13 @@ bool GameScreen::init(
     30);
 }
 
-UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
 {
   open_shop.update(cursor_pos, click);
 
   if (open_shop.pressed())
   {
+    click = false;
     if (shop_active)
     {
       closeShop();
@@ -54,19 +54,21 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool cli
     {
       openShop();
     }
-    return UIElement::MenuItem::NONE;
+    return UIElement::MenuItem::SHOP_BUTTON;
+  }
+
+  end_turn.update(cursor_pos, click);
+  if (end_turn.pressed())
+  {
+    click = false;
+    return UIElement::MenuItem::END_TURN;
   }
 
   UIElement::MenuItem item = shop.update(cursor_pos, click);
-  end_turn.update(cursor_pos, click);
 
-  if (item == UIElement::MenuItem::MAP_CLICK && !shop_active)
+  if (click)
   {
-    item = UIElement::MenuItem ::NONE;
-  }
-  if (end_turn.pressed())
-  {
-    item = UIElement::MenuItem::END_TURN;
+    item = UIElement::MenuItem::MAP_CLICK;
   }
 
   return item;

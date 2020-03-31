@@ -4,7 +4,7 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
-#include "../Input.h"
+#include "../InputManager.h"
 #include "../Map/Map.h"
 #include "../Troop.h"
 #include "../gamedata/DataStructs.h"
@@ -24,8 +24,7 @@ class GCNetClient : public GameComponent
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
   bool update(double dt) override;
-  bool
-  updateUI(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
+  bool updateUI();
   void render() override;
 
   void decodeMessage(const std::vector<char>& message);
@@ -49,16 +48,16 @@ class GCNetClient : public GameComponent
 
   std::atomic_bool exiting = false;
   std::vector<std::vector<char>> actions;
-  bool can_start      = false;
+  bool can_start      = true;
   bool in_turn        = false;
   int current_turn_id = 1;
 
   int currency                           = 100;
   std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};
   Map map;
-  Input* inputReader     = nullptr;
-  TileData* tile_clicked = nullptr;
-  int unit_count         = 0;
+  InputManager* inputReader = nullptr;
+  TileData* tile_clicked    = nullptr;
+  int unit_count            = 0;
   // TODO: std::vector<Unit>() units;
 };
 

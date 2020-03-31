@@ -2,8 +2,8 @@
 // Created by User on 26/03/2020.
 //
 
-#ifndef MYNETGAME_INPUT_H
-#define MYNETGAME_INPUT_H
+#ifndef MYNETGAME_INPUTMANAGER_H
+#define MYNETGAME_INPUTMANAGER_H
 
 #include "InputData.h"
 #include "components/GameComponent.hpp"
@@ -13,19 +13,19 @@
 #include <mutex>
 #include <queue>
 #include <thread>
-class Input
+class InputManager
 {
  public:
-  explicit Input(ASGE::Input& _inputs);
-  ~Input();
-  Input(const Input& _input);
-  Input& operator=(const Input& _input);
+  explicit InputManager(ASGE::Input& _inputs);
+  ~InputManager();
+  InputManager(const InputManager& _input);
+  InputManager& operator=(const InputManager& _input);
 
   void keyHandler(ASGE::SharedEventData data);
   void moveHandler(ASGE::SharedEventData data);
   void clickHandler(ASGE::SharedEventData data);
 
-  bool mouseClicked() { return mouse_click; }
+  std::atomic<bool>* mouseClicked() { return &mouse_click; }
   ASGE::Point2D mousePos() { return mouse_pos; }
   int keyValue() { return key_value; }
   std::atomic<bool>* keyPressed() { return &key_pressed; }
@@ -51,9 +51,9 @@ class Input
   std::atomic<bool> key_pressed = false;
   std::atomic<int> key_value    = 0;
 
-  int key_callback_id   = -1; /**< Key Input Callback ID. */
-  int move_callback_id  = -1; /**< Key Input Callback ID. */
-  int click_callback_id = -1; /**< Key Input Callback ID. */
+  int key_callback_id   = -1; /**< Key InputManager Callback ID. */
+  int move_callback_id  = -1; /**< Key InputManager Callback ID. */
+  int click_callback_id = -1; /**< Key InputManager Callback ID. */
 
   std::atomic<bool> clicked_map = true;
   std::atomic<bool> is_active   = true;
@@ -69,4 +69,4 @@ class Input
   ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
 };
 
-#endif  // MYNETGAME_INPUT_H
+#endif  // MYNETGAME_INPUTMANAGER_H

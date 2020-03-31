@@ -26,46 +26,37 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
     return false;
   }
 
-  return game_screen.init(
-    renderer,
-    font_index,
-    std::vector<std::string>{"data/sprites/troops/tank_blue.png",
-                             "data/sprites/troops/tank_dark.png",
-                             "data/sprites/troops/tank_green.png",
-                             "data/sprites/troops/tank_red.png",
-                             "data/sprites/troops/tank_sand.png"});
+  return game_screen.init(renderer, font_index);
 }
 
-UIElement::MenuItem SceneManager::update(
-  const ASGE::Point2D& cursor_pos,
-  bool click,
-  std::atomic<bool>& key_pressed,
-  int key)
+UIElement::MenuItem SceneManager::update(InputManager* input_manager)
 {
   UIElement::MenuItem item;
-  audio.playBackgroundMusic();
 
   switch (screen_open)
   {
   case Screens::MAIN_MENU:
   {
-    audio.playBackgroundMusic();
-    item = main_menu.update(cursor_pos, click);
+    item = main_menu.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::JOIN_SCREEN:
   {
-    item = join_screen.update(cursor_pos, click, key_pressed, key);
+    item = join_screen.update(
+      input_manager->mousePos(),
+      *input_manager->mouseClicked(),
+      *input_manager->keyPressed(),
+      input_manager->keyValue());
     break;
   }
   case Screens::LOBBY:
   {
-    item = lobby.update(cursor_pos, click);
+    item = lobby.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::GAME:
   {
-    item = game_screen.update(cursor_pos, click);
+    item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   default: item = UIElement::MenuItem::NONE; break;
@@ -163,16 +154,6 @@ void SceneManager::renderGameScreen(
 void SceneManager::screenOpen(Screens screen)
 {
   screen_open = screen;
-}
-
-bool SceneManager::inMenu()
-{
-  return false;
-}
-
-MainMenu* SceneManager::mainMenu()
-{
-  return &main_menu;
 }
 
 JoinScreen* SceneManager::joinScreen()

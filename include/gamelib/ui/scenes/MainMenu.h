@@ -17,7 +17,7 @@ class MainMenu
   ~MainMenu() = default;
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
+  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
  private:

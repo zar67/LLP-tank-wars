@@ -2,21 +2,22 @@
 // Created by User on 26/03/2020.
 //
 
-#include "Input.h"
-Input::Input(ASGE::Input& _inputs)
+#include "InputManager.h"
+InputManager::InputManager(ASGE::Input& _inputs)
 {
-  key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &Input::keyHandler, this);
+  key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &InputManager::keyHandler, this);
 
-  move_callback_id = _inputs.addCallbackFnc(ASGE::E_MOUSE_MOVE, &Input::moveHandler, this);
+  move_callback_id = _inputs.addCallbackFnc(ASGE::E_MOUSE_MOVE, &InputManager::moveHandler, this);
 
-  click_callback_id = _inputs.addCallbackFnc(ASGE::E_MOUSE_CLICK, &Input::clickHandler, this);
+  click_callback_id =
+    _inputs.addCallbackFnc(ASGE::E_MOUSE_CLICK, &InputManager::clickHandler, this);
 
-  std::thread input_thread(&Input::executeQueue, this);
+  std::thread input_thread(&InputManager::executeQueue, this);
   input_thread.detach();
   asge_input = &_inputs;
 }
 
-Input::~Input()
+InputManager::~InputManager()
 {
   if (asge_input != nullptr)
   {
@@ -30,9 +31,9 @@ Input::~Input()
   }
 }
 
-Input::Input(const Input& _input) {}
+InputManager::InputManager(const InputManager& _input) {}
 
-Input& Input::operator=(const Input& _input)
+InputManager& InputManager::operator=(const InputManager& _input)
 {
   if (&_input != this)
   {
@@ -50,23 +51,23 @@ Input& Input::operator=(const Input& _input)
 /// @see KeyEvent
 
 // make these call backs on threads
-void Input::keyHandler(ASGE::SharedEventData data)
+void InputManager::keyHandler(ASGE::SharedEventData data)
 {
   eventInput(data, ASGE::E_KEY);
 }
 
-void Input::moveHandler(ASGE::SharedEventData data)
+void InputManager::moveHandler(ASGE::SharedEventData data)
 {
   eventInput(data, ASGE::E_MOUSE_MOVE);
 }
 
-void Input::clickHandler(ASGE::SharedEventData data)
+void InputManager::clickHandler(ASGE::SharedEventData data)
 {
   eventInput(data, ASGE::E_MOUSE_CLICK);
 }
 
 // called in thread
-void Input::keyBoard(ASGE::SharedEventData data)
+void InputManager::keyBoard(ASGE::SharedEventData data)
 {
   const auto* key = dynamic_cast<const ASGE::KeyEvent*>(data.get());
 
@@ -86,41 +87,22 @@ void Input::keyBoard(ASGE::SharedEventData data)
     key_pressed = false;
   }
 }
-void Input::mouse(ASGE::SharedEventData data)
+void InputManager::mouse(ASGE::SharedEventData data)
 {
   const auto* click = dynamic_cast<const ASGE::ClickEvent*>(data.get());
-  mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED;
-  if (!mouseClicked())
+  mouse_click       = click->action == ASGE::MOUSE::BUTTON_PRESSED &&
+                click->button == ASGE::MOUSE::MOUSE_BTN1;
+
+  if (
+    click->action == ASGE::MOUSE::BUTTON_PRESSED && click->button == ASGE::MOUSE::MOUSE_BTN2 &&
+    tile_clicked != nullptr)
   {
-    return;
-  }
-  for (auto& tile : map)
-  {
-    int tile_id = tile.mouseClicked(mousePos().x, mousePos().y);
-    if (tile_id != 0)
-    {
-      if (tile_clicked != nullptr)
-      {
-        tile_clicked->sprite->colour(tile.sprite->colour());
-      }
-      mutex_tile_clicked.lock();
-      tile_clicked = &tile;
-      if (tile.troop_id > 0)
-      {
-        tile_clicked->sprite->colour(cant_click_col);
-      }
-      else
-      {
-        tile_clicked->sprite->colour(clicked_col);
-      }
-      mutex_tile_clicked.unlock();
-      clicked_map = false;
-      break;
-    }
+    tile_clicked->sprite->colour(ASGE::COLOURS::WHITE);
+    tile_clicked = nullptr;
   }
 }
 
-void Input::eventInput(ASGE::SharedEventData s_data, ASGE::EventType e_data)
+void InputManager::eventInput(ASGE::SharedEventData s_data, ASGE::EventType e_data)
 {
   InputData i_data       = InputData();
   i_data.sharedEventData = s_data;
@@ -128,7 +110,7 @@ void Input::eventInput(ASGE::SharedEventData s_data, ASGE::EventType e_data)
   input_queue.push(i_data);
 }
 
-std::queue<InputData>* Input::getInputQueue()
+std::queue<InputData>* InputManager::getInputQueue()
 {
   mutex_queue.lock();
   return &input_queue;
@@ -138,7 +120,7 @@ std::queue<InputData>* Input::getInputQueue()
  * poll in thread
  * get items off queue
  */
-void Input::executeQueue()
+void InputManager::executeQueue()
 {
   while (is_active)
   {
@@ -157,13 +139,13 @@ void Input::executeQueue()
   }
 }
 
-void Input::exitInputThread()
+void InputManager::exitInputThread()
 {
   is_active = false;
 }
 
 // switch statement for each event type
-void Input::executeEvent(const InputData& data)
+void InputManager::executeEvent(const InputData& data)
 {
   switch (data.eventType)
   {
@@ -187,25 +169,50 @@ void Input::executeEvent(const InputData& data)
   }
 }
 
-TileData* Input::tileClicked()
+TileData* InputManager::tileClicked()
 {
   mutex_tile_clicked.lock();
   return tile_clicked;
 }
 
-void Input::unlockTile()
+void InputManager::unlockTile()
 {
   mutex_tile_clicked.unlock();
 }
 
-void Input::setMap(const std::vector<TileData>& _map)
+void InputManager::setMap(const std::vector<TileData>& _map)
 {
   map = _map;
 }
 
-void Input::setClickedMap(bool _map_clicked, float x, float y)
+void InputManager::setClickedMap(bool _map_clicked, float x, float y)
 {
   clicked_map        = _map_clicked;
   recent_mouse_pos.x = x;
   recent_mouse_pos.y = y;
+
+  for (auto& tile : map)
+  {
+    int tile_id = tile.mouseClicked(x, y);
+    if (tile_id != 0)
+    {
+      if (tile_clicked != nullptr)
+      {
+        tile_clicked->sprite->colour(tile.sprite->colour());
+      }
+      mutex_tile_clicked.lock();
+      tile_clicked = &tile;
+      if (tile.troop_id > 0)
+      {
+        tile_clicked->sprite->colour(cant_click_col);
+      }
+      else
+      {
+        tile_clicked->sprite->colour(clicked_col);
+      }
+      mutex_tile_clicked.unlock();
+      clicked_map = false;
+      break;
+    }
+  }
 }

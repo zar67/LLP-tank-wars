@@ -22,7 +22,7 @@ Shop& Shop::operator=(const Shop& shop)
   return *this;
 }
 
-bool Shop::init(ASGE::Renderer* renderer, int font_index, const std::vector<std::string>& unit_types)
+bool Shop::init(ASGE::Renderer* renderer, int font_index)
 {
   shop_title = UIElement::setupText(
     renderer,
@@ -59,7 +59,7 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, const std::vector<std:
   return true;
 }
 
-UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
 {
   int index = 0;
   for (Button* button : units)
@@ -72,6 +72,7 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
       continue;
     }
 
+    click = false;
     switch (index)
     {
     case 0:
@@ -101,7 +102,7 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, bool click)
     }
   }
 
-  return UIElement::MenuItem ::MAP_CLICK;
+  return UIElement::MenuItem::NONE;
 }
 
 void Shop::render(ASGE::Renderer* renderer)

@@ -6,6 +6,7 @@
 #define MYNETGAME_SCENEMANAGER_H
 
 #include "../Audio/AudioManager.h"
+#include "../InputManager.h"
 #include "../Map/TileData.h"
 #include "../Troop.h"
 #include "../map/TileData.h"
@@ -16,6 +17,8 @@
 #include "ui_elements/UIElement.h"
 
 #include <Engine/Renderer.h>
+
+class InputManager;
 
 class SceneManager
 {
@@ -34,8 +37,7 @@ class SceneManager
 
   bool init(ASGE::Renderer* renderer, int font_index);
 
-  UIElement::MenuItem
-  update(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
+  UIElement::MenuItem update(InputManager* input_manager);
   void render(
     ASGE::Renderer* renderer,
     int current_player_turn,
@@ -52,9 +54,7 @@ class SceneManager
     int currency);
 
   void screenOpen(Screens screen);
-  bool inMenu();
 
-  MainMenu* mainMenu();
   JoinScreen* joinScreen();
   Lobby* lobbyScreen();
   GameScreen* gameScreen();
