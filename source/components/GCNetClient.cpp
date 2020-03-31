@@ -39,10 +39,6 @@ bool GCNetClient::update(double dt)
     return true;
   }
 
-  tile_clicked = inputReader->tileClicked();
-  inputReader->unlockTile();
-  // do stuff with tile then unlock it
-  // inputReader->unlockTile();
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
   {
@@ -121,33 +117,45 @@ bool GCNetClient::updateUI()
   }
   case (UIElement::MenuItem::BUY_UNIT_0):
   {
-    buyUnit(TroopTypes::TANK_BLUE);
+    inputReader->deselectTile();
+    unit_selcted = TroopTypes::TANK_BLUE;
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_1):
   {
-    buyUnit(TroopTypes::TANK_DARK);
+    inputReader->deselectTile();
+    unit_selcted = TroopTypes::TANK_DARK;
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_2):
   {
-    buyUnit(TroopTypes::TANK_GREEN);
+    inputReader->deselectTile();
+    unit_selcted = TroopTypes::TANK_GREEN;
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_3):
   {
-    buyUnit(TroopTypes::TANK_RED);
+    inputReader->deselectTile();
+    unit_selcted = TroopTypes::TANK_RED;
     break;
   }
   case (UIElement::MenuItem::BUY_UNIT_4):
   {
-    buyUnit(TroopTypes::TANK_SAND);
+    inputReader->deselectTile();
+    unit_selcted = TroopTypes::TANK_SAND;
     break;
   }
   case (UIElement::MenuItem::MAP_CLICK):
   {
     inputReader->setClickedMap(
       *inputReader->mouseClicked(), inputReader->mousePos().x, inputReader->mousePos().y);
+
+    if (unit_selcted != TroopTypes::NONE)
+    {
+      buyUnit(unit_selcted);
+      unit_selcted = TroopTypes::NONE;
+    }
+
     break;
   }
   }
@@ -312,14 +320,15 @@ void GCNetClient::startGame()
 
 void GCNetClient::buyUnit(TroopTypes unit_type)
 {
+  TileData* tile_clicked = inputReader->tileClicked();
   if (tile_clicked != nullptr)
   {
     if (tile_clicked->troop_id > 0)
     {
       return;
     }
-    int x_pos = static_cast<int>(tile_clicked->sprite->xPos());
-    int y_pos = static_cast<int>(tile_clicked->sprite->yPos());
+    int x_pos = static_cast<int>(tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2);
+    int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
     Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos);
     new_troop.setID(++unit_count);
@@ -337,8 +346,9 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
       type.buy.pos.y_pos = y_pos;
       encodeAction(NetworkMessages::PLAYER_BUY, type);
     }
-    tile_clicked = nullptr;
+    inputReader->deselectTile();
   }
+  inputReader->unlockTile();
 }
 
 void GCNetClient::addInputReader(ASGE::Input& _inputs)

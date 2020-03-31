@@ -21,8 +21,10 @@ Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y
   addSpriteComponent(
     renderer,
     data->getTankData(current_troop_type).texture_path,
-    static_cast<float>(x_pos),
-    static_cast<float>(y_pos));
+    static_cast<float>(x_pos - 20),
+    static_cast<float>(y_pos - 20),
+    40,
+    40);
 }
 
 void Troop::setTroopType(TroopTypes new_type)

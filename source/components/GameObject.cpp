@@ -16,7 +16,9 @@ void GameObject::addSpriteComponent(
   ASGE::Renderer* renderer,
   const std::string& texture_file_name,
   float x_pos,
-  float y_pos)
+  float y_pos,
+  float width,
+  float height)
 {
   delete sprite_component;
   sprite_component = nullptr;
@@ -25,6 +27,8 @@ void GameObject::addSpriteComponent(
 
   sprite_component->getSprite()->xPos(x_pos);
   sprite_component->getSprite()->yPos(y_pos);
+  sprite_component->getSprite()->width(width);
+  sprite_component->getSprite()->height(height);
 }
 
 SpriteComponent* GameObject::getSpriteComponent()

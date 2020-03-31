@@ -6,6 +6,7 @@
 #define MYNETGAME_INPUTMANAGER_H
 
 #include "InputData.h"
+#include "Map/TileData.h"
 #include "components/GameComponent.hpp"
 #include "gamedata/DataStructs.h"
 
@@ -41,6 +42,7 @@ class InputManager
 
   void setClickedMap(bool _map_clicked, float x, float y);
   bool getClickedMap() { return clicked_map; }
+  void deselectTile();
 
  private:
   void executeEvent(const InputData& data);

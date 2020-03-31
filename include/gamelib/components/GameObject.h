@@ -20,7 +20,9 @@ class GameObject
     ASGE::Renderer* renderer,
     const std::string& texture_file_name,
     float x_pos,
-    float y_pos);
+    float y_pos,
+    float width,
+    float height);
 
   SpriteComponent* getSpriteComponent();
 

@@ -97,8 +97,7 @@ void InputManager::mouse(ASGE::SharedEventData data)
     click->action == ASGE::MOUSE::BUTTON_PRESSED && click->button == ASGE::MOUSE::MOUSE_BTN2 &&
     tile_clicked != nullptr)
   {
-    tile_clicked->sprite->colour(ASGE::COLOURS::WHITE);
-    tile_clicked = nullptr;
+    deselectTile();
   }
 }
 
@@ -214,5 +213,14 @@ void InputManager::setClickedMap(bool _map_clicked, float x, float y)
       clicked_map = false;
       break;
     }
+  }
+}
+
+void InputManager::deselectTile()
+{
+  if (tile_clicked != nullptr)
+  {
+    tile_clicked->sprite->colour(ASGE::COLOURS::WHITE);
+    tile_clicked = nullptr;
   }
 }

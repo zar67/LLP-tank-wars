@@ -54,9 +54,9 @@ class GCNetClient : public GameComponent
 
   int currency                           = 100;
   std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};
+  TroopTypes unit_selcted                = TroopTypes::NONE;
   Map map;
   InputManager* inputReader = nullptr;
-  TileData* tile_clicked    = nullptr;
   int unit_count            = 0;
   // TODO: std::vector<Unit>() units;
 };

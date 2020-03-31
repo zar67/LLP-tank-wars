@@ -9,6 +9,7 @@
 #include <string>
 enum class TroopTypes
 {
+  NONE,
   TANK_BLUE,
   TANK_DARK,
   TANK_GREEN,
