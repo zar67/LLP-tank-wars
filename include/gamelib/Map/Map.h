@@ -25,9 +25,10 @@ class Map
   TileData* getTile(int id);
 
  private:
-  void readJSON(const std::string& _directory);
-  void readLevelJson(const std::string& _directory);
-  bool checkTileName(const std::vector<TileData>& _tiles, const std::string& _name);
+  void readJSON(const std::string& directory);
+  void readLevelJson(const std::string& directory);
+  bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
+  bool nameValid(std::string name, std::string to_find);
 
   int screen_width  = 0;
   int screen_height = 0;

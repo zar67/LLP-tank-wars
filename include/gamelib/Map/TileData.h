@@ -17,6 +17,7 @@ struct TileData
   int troop_player_id = -1;
   int troop_id        = -1;
   int tile_id         = 0;
+
   int mouseClicked(float _x, float _y)
   {
     if (

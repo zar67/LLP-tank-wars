@@ -19,7 +19,7 @@ void Map::init(const int screen_width, const int screen_height)
   this->screen_height = screen_height;
 }
 
-void Map::readJSON(const std::string& _directory)
+void Map::readJSON(const std::string& directory)
 {
   grass.clear();
   sand.clear();
@@ -27,7 +27,7 @@ void Map::readJSON(const std::string& _directory)
   using File = ASGE::FILEIO::File;
   File file  = File();
 
-  if (file.open(_directory))
+  if (file.open(directory))
   {
     using Buffer  = ASGE::FILEIO::IOBuffer;
     Buffer buffer = file.read();
@@ -95,12 +95,12 @@ void Map::renderMap(ASGE::Renderer* renderer)
   for (auto& tile : map) { renderer->renderSprite(*tile.sprite); }
 }
 
-void Map::readLevelJson(const std::string& _directory)
+void Map::readLevelJson(const std::string& directory)
 {
   using File = ASGE::FILEIO::File;
   File file  = File();
 
-  if (file.open(_directory))
+  if (file.open(directory))
   {
     using Buffer  = ASGE::FILEIO::IOBuffer;
     Buffer buffer = file.read();
@@ -129,11 +129,11 @@ void Map::readLevelJson(const std::string& _directory)
   }
 }
 
-bool Map::checkTileName(const std::vector<TileData>& _tiles, const std::string& _name)
+bool Map::checkTileName(const std::vector<TileData>& tiles, const std::string& to_find)
 {
-  for (auto& tile : _tiles)
+  for (auto& tile : tiles)
   {
-    if (_name == tile.name)
+    if (to_find == tile.name)
     {
       map.push_back(tile);
       return true;
