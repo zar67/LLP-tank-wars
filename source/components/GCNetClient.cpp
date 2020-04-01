@@ -213,6 +213,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     ASGE::Sprite* sprite = troops[sender_id][unit_id].getSpriteComponent()->getSprite();
     sprite->xPos(x_pos);
     sprite->yPos(y_pos);
+    // TODO: Update Map Too
     break;
   }
   case NetworkMessages::PLAYER_ATTACK:
@@ -237,6 +238,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     int sender_id                 = std::stoi(data[3]);
 
     troops[sender_id].emplace_back(Troop(unit_to_buy, renderer, x_pos, y_pos, false));
+    // TODO: Update Map Too
     break;
   }
   }
@@ -332,7 +334,9 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
 
     Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos, true);
     new_troop.setID(++unit_count);
-    tile_clicked->troop_id = new_troop.getID();
+    tile_clicked->troop_id = new_troop.getID();  // TODO: This doesn't seem to update the map?
+    // TODO: Also should store the player ID of the troop so that we can't select other player's
+    // troops
     if (in_turn && currency >= new_troop.getCost())
     {
       currency -= new_troop.getCost();
