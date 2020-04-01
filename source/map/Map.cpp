@@ -146,3 +146,8 @@ std::vector<TileData>* Map::getMap()
 {
   return &map;
 }
+
+TileData* Map::getTile(int id)
+{
+  return &map.at(id);
+}

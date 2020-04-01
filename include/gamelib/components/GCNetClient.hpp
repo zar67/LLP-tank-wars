@@ -36,11 +36,14 @@ class GCNetClient : public GameComponent
 
   void startGame();
 
-  void buyUnit(TroopTypes unit_type);
+  void buyUnit(TileData* tile_clicked, TroopTypes unit_type);
+  void moveUnit(TileData* tile_clicked, TileData* previously_clicked);
 
   void addInputReader(ASGE::Input& _inputs) override;
 
  private:
+  int clientIndexNumber();
+
   ASGE::Renderer* renderer = nullptr;
 
   netlib::ClientConnection client;
@@ -54,11 +57,12 @@ class GCNetClient : public GameComponent
 
   int currency                           = 100;
   std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};
-  TroopTypes unit_selcted                = TroopTypes::NONE;
+  int unit_count                         = 0;
+  TroopTypes shop_unit_selected          = TroopTypes::NONE;
+
   Map map;
+
   InputManager* inputReader = nullptr;
-  int unit_count            = 0;
-  // TODO: std::vector<Unit>() units;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

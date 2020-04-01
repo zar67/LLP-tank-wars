@@ -38,6 +38,8 @@ class InputManager
 
   TileData* tileClicked();
   void unlockTile();
+  TileData* previousTileClicked();
+  void unlockPreviousTile();
 
   void setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y);
   bool getClickedMap() { return clicked_map; }
@@ -58,11 +60,16 @@ class InputManager
 
   std::atomic<bool> clicked_map = true;
   std::atomic<bool> is_active   = true;
+
   std::mutex mutex_queue;
-  std::mutex mutex_tile_clicked;
   std::queue<InputData> input_queue;
-  ASGE::Input* asge_input        = nullptr;
-  TileData* tile_clicked         = nullptr;
+  ASGE::Input* asge_input = nullptr;
+
+  std::mutex mutex_tile_clicked;
+  TileData* tile_clicked = nullptr;
+  std::mutex mutex_prev_tile_clicked;
+  TileData* prev_tile_clicked = nullptr;
+
   ASGE::Point2D recent_mouse_pos = ASGE::Point2D(0, 0);
 
   ASGE::Colour clicked_col    = ASGE::COLOURS::DARKGREEN;

@@ -22,6 +22,7 @@ class Map
   void renderMap(ASGE::Renderer* renderer);
 
   std::vector<TileData>* getMap();
+  TileData* getTile(int id);
 
  private:
   void readJSON(const std::string& _directory);

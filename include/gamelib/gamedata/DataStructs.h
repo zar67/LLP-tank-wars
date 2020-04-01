@@ -9,16 +9,16 @@
 
 struct Move
 {
-  int unit_id = 0;
-  int x_pos   = 0;
-  int y_pos   = 0;
+  int unit_id         = -1;
+  int current_tile_id = -1;
+  int new_tile_id     = -1;
 };
 
 struct Attack
 {
   int attacker_id = -1;
   int enemy_id    = -1;
-  int damage      = 0;
+  int damage      = -1;
 };
 
 struct Buy

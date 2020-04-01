@@ -179,8 +179,21 @@ void InputManager::unlockTile()
   mutex_tile_clicked.unlock();
 }
 
+TileData* InputManager::previousTileClicked()
+{
+  mutex_prev_tile_clicked.lock();
+  return prev_tile_clicked;
+}
+
+void InputManager::unlockPreviousTile()
+{
+  mutex_prev_tile_clicked.unlock();
+}
+
 void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y)
 {
+  prev_tile_clicked = tile_clicked;
+
   clicked_map        = _map_clicked;
   recent_mouse_pos.x = x;
   recent_mouse_pos.y = y;
@@ -216,6 +229,7 @@ void InputManager::deselectTile()
   if (tile_clicked != nullptr)
   {
     tile_clicked->sprite->colour(ASGE::COLOURS::WHITE);
-    tile_clicked = nullptr;
+    tile_clicked      = nullptr;
+    prev_tile_clicked = nullptr;
   }
 }
