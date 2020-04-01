@@ -36,11 +36,10 @@ class InputManager
   void executeQueue();
   void exitInputThread();
 
-  void setMap(const std::vector<TileData>& _map);
   TileData* tileClicked();
   void unlockTile();
 
-  void setClickedMap(bool _map_clicked, float x, float y);
+  void setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y);
   bool getClickedMap() { return clicked_map; }
   void deselectTile();
 
@@ -62,8 +61,7 @@ class InputManager
   std::mutex mutex_queue;
   std::mutex mutex_tile_clicked;
   std::queue<InputData> input_queue;
-  ASGE::Input* asge_input = nullptr;
-  std::vector<TileData> map;
+  ASGE::Input* asge_input        = nullptr;
   TileData* tile_clicked         = nullptr;
   ASGE::Point2D recent_mouse_pos = ASGE::Point2D(0, 0);
 

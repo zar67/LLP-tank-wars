@@ -179,18 +179,13 @@ void InputManager::unlockTile()
   mutex_tile_clicked.unlock();
 }
 
-void InputManager::setMap(const std::vector<TileData>& _map)
-{
-  map = _map;
-}
-
-void InputManager::setClickedMap(bool _map_clicked, float x, float y)
+void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y)
 {
   clicked_map        = _map_clicked;
   recent_mouse_pos.x = x;
   recent_mouse_pos.y = y;
 
-  for (auto& tile : map)
+  for (auto& tile : *map)
   {
     int tile_id = tile.mouseClicked(x, y);
     if (tile_id != 0)

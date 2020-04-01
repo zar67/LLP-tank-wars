@@ -14,8 +14,9 @@ struct TileData
   std::string directory = "";
   ASGE::Sprite* sprite  = nullptr;
   int movement_speed = 0;  // if road move faster, if you cant travel on it speed = 0, max speed = 2
-  int troop_id       = -1;
-  int tile_id        = 0;
+  int troop_player_id = -1;
+  int troop_id        = -1;
+  int tile_id         = 0;
   int mouseClicked(float _x, float _y)
   {
     if (

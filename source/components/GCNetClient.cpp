@@ -148,7 +148,10 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::MAP_CLICK):
   {
     inputReader->setClickedMap(
-      *inputReader->mouseClicked(), inputReader->mousePos().x, inputReader->mousePos().y);
+      map.getMap(),
+      *inputReader->mouseClicked(),
+      inputReader->mousePos().x,
+      inputReader->mousePos().y);
 
     if (unit_selcted != TroopTypes::NONE)
     {
@@ -165,7 +168,7 @@ bool GCNetClient::updateUI()
 
 void GCNetClient::render()
 {
-  scene_manager.render(renderer, current_turn_id, in_turn, troops, map.getMap(), currency);
+  scene_manager.render(renderer, current_turn_id, in_turn, troops, *map.getMap(), currency);
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)
@@ -211,6 +214,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     int sender_id                 = std::stoi(data[3]);
 
     ASGE::Sprite* sprite = troops[sender_id][unit_id].getSpriteComponent()->getSprite();
+
     sprite->xPos(x_pos);
     sprite->yPos(y_pos);
     // TODO: Update Map Too
@@ -233,12 +237,20 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
     std::vector<std::string> data = getMessageData(message);
     auto unit_to_buy              = static_cast<TroopTypes>(std::stoi(data[0]));
-    int x_pos                     = std::stoi(data[1]);
-    int y_pos                     = std::stoi(data[2]);
+    int unit_id                   = std::stoi(data[1]);
+    int tile_id                   = std::stoi(data[2]);
     int sender_id                 = std::stoi(data[3]);
 
+    TileData tile = map.getMap()->at(tile_id);
+
+    int x_pos = static_cast<int>(tile.sprite->xPos() + tile.sprite->width() / 2);
+    int y_pos = static_cast<int>(tile.sprite->yPos() + tile.sprite->height() / 2);
+
     troops[sender_id].emplace_back(Troop(unit_to_buy, renderer, x_pos, y_pos, false));
-    // TODO: Update Map Too
+
+    map.getMap()->at(tile_id).troop_id        = unit_id;
+    map.getMap()->at(tile_id).troop_player_id = sender_id;
+
     break;
   }
   }
@@ -260,8 +272,8 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
                       std::to_string(data.attack.damage);
     break;
   case NetworkMessages::PLAYER_BUY:
-    string_message += ":" + std::to_string(static_cast<int>(data.buy.item_id)) + "," +
-                      std::to_string(data.buy.pos.x_pos) + "," + std::to_string(data.buy.pos.y_pos);
+    string_message += ":" + std::to_string(static_cast<int>(data.buy.unit_type)) + "," +
+                      std::to_string(data.buy.unit_id) + "," + std::to_string(data.buy.tile_index);
     break;
   }
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
@@ -334,9 +346,6 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
 
     Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos, true);
     new_troop.setID(++unit_count);
-    tile_clicked->troop_id = new_troop.getID();  // TODO: This doesn't seem to update the map?
-    // TODO: Also should store the player ID of the troop so that we can't select other player's
-    // troops
     if (in_turn && currency >= new_troop.getCost())
     {
       currency -= new_troop.getCost();
@@ -344,10 +353,13 @@ void GCNetClient::buyUnit(TroopTypes unit_type)
       int client_number = static_cast<int>(client.GetUID()) - 1;
       troops[client_number].push_back(new_troop);
 
+      map.getMap()->at(tile_clicked->tile_id - 1).troop_id        = new_troop.getID();
+      map.getMap()->at(tile_clicked->tile_id - 1).troop_player_id = client_number;
+
       Types type;
-      type.buy.item_id   = unit_type;
-      type.buy.pos.x_pos = x_pos;
-      type.buy.pos.y_pos = y_pos;
+      type.buy.unit_type  = unit_type;
+      type.buy.unit_id    = new_troop.getID();
+      type.buy.tile_index = tile_clicked->tile_id - 1;
       encodeAction(NetworkMessages::PLAYER_BUY, type);
     }
     inputReader->deselectTile();
@@ -362,5 +374,4 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
     delete (inputReader);
   }
   inputReader = new InputManager(_inputs);
-  inputReader->setMap(map.getMap());
 }
