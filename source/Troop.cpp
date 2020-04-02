@@ -4,13 +4,13 @@
 
 #include "Troop.h"
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, bool owned)
+Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int player_id, bool owned)
 {
   data        = new DataComp();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
-  std::string texture = "data/sprites/troops/";
+  std::string texture = "data/sprites/troops/player_" + std::to_string(player_id) + "/";
   if (owned)
   {
     texture += "owned_";
@@ -20,21 +20,31 @@ Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, bool owned)
   addSpriteComponent(renderer, texture);
 }
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos, bool owned)
+Troop::Troop(
+  TroopTypes type_to_make,
+  ASGE::Renderer* renderer,
+  int x_pos,
+  int y_pos,
+  int player_id,
+  bool owned)
 {
   data        = new DataComp();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
-  std::string texture = "data/sprites/troops/";
+  std::string texture = "data/sprites/troops/player_" + std::to_string(player_id) + "/";
   if (owned)
   {
     texture += "owned_";
   }
   texture += data->getTankData(current_troop_type).texture_path;
 
-  addSpriteComponent(
-    renderer, texture, static_cast<float>(x_pos - 40), static_cast<float>(y_pos - 40), 80, 80);
+  addSpriteComponent(renderer, texture, static_cast<float>(x_pos), static_cast<float>(y_pos));
+
+  // Center
+  ASGE::Sprite* sprite = getSpriteComponent()->getSprite();
+  sprite->xPos(sprite->xPos() - sprite->width() / 2);
+  sprite->yPos(sprite->yPos() - sprite->height() / 2);
 }
 
 void Troop::setTroopType(TroopTypes new_type)

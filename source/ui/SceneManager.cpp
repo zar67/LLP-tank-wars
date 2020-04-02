@@ -4,7 +4,7 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int player_id)
 {
   if (!audio.audioSetUp())
   {

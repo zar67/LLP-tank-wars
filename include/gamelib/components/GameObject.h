@@ -20,6 +20,13 @@ class GameObject
     ASGE::Renderer* renderer,
     const std::string& texture_file_name,
     float x_pos,
+    float y_pos);
+
+  // Adds a sprite to game object and sets it's position and size
+  void addSpriteComponent(
+    ASGE::Renderer* renderer,
+    const std::string& texture_file_name,
+    float x_pos,
     float y_pos,
     float width,
     float height);

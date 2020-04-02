@@ -10,11 +10,10 @@
 enum class TroopTypes
 {
   NONE,
-  TANK_BLUE,
-  TANK_DARK,
-  TANK_GREEN,
-  TANK_RED,
-  TANK_SAND
+  NORMAL_TANK,
+  BIG_TANK,
+  LARGE_TANK,
+  HUGE_TANK,
 };
 
 class DataComp
@@ -49,11 +48,10 @@ class DataComp
 
  private:
   std::map<TroopTypes, TankDataStruct> tankTypeToData = {
-    {TroopTypes::TANK_BLUE, TankDataStruct(0, 0, 0, 0, 0, "tank_blue.png")},
-    {TroopTypes::TANK_DARK, TankDataStruct(0, 0, 0, 0, 0, "tank_dark.png")},
-    {TroopTypes::TANK_GREEN, TankDataStruct(0, 0, 0, 0, 0, "tank_green.png")},
-    {TroopTypes::TANK_RED, TankDataStruct(0, 0, 0, 0, 0, "tank_red.png")},
-    {TroopTypes::TANK_SAND, TankDataStruct(0, 0, 0, 0, 0, "tank_sand.png")}
+    {TroopTypes::NORMAL_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank.png")},
+    {TroopTypes::BIG_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank_big.png")},
+    {TroopTypes::LARGE_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank_large.png")},
+    {TroopTypes::HUGE_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank_huge.png")},
 
   };
 };

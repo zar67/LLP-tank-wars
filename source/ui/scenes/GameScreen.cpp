@@ -8,11 +8,6 @@
 
 bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
 {
-  if (!shop.init(renderer, font_index))
-  {
-    return false;
-  }
-
   if (!open_shop.init(
         renderer,
         font_index,
@@ -108,6 +103,11 @@ void GameScreen::render(
       ASGE::SETTINGS.window_height - 15,
       ASGE::COLOURS::WHITE);
   }
+}
+
+bool GameScreen::initShop(ASGE::Renderer* renderer, int font_index, int player_id)
+{
+  return shop.init(renderer, font_index, player_id);
 }
 
 void GameScreen::openShop()

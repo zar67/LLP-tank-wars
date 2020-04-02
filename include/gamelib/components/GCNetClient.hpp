@@ -45,6 +45,7 @@ class GCNetClient : public GameComponent
   int clientIndexNumber();
 
   ASGE::Renderer* renderer = nullptr;
+  int font_index           = 0;
 
   netlib::ClientConnection client;
   SceneManager scene_manager;

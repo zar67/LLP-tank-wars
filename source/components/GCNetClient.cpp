@@ -26,10 +26,11 @@ GCNetClient::~GCNetClient()
 
 bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
-  this->renderer = renderer;
+  this->renderer   = renderer;
+  this->font_index = font_index;
   map.init(1280, 720);
   map.generateMap(renderer);
-  return scene_manager.init(renderer, font_index);
+  return scene_manager.init(renderer, font_index, static_cast<int>(client.GetUID()));
 }
 
 bool GCNetClient::update(double dt)
@@ -48,6 +49,7 @@ bool GCNetClient::update(double dt)
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       Logging::log("Connected to the server!\n");
+      scene_manager.gameScreen()->initShop(renderer, font_index, static_cast<int>(client.GetUID()));
       break;
     }
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
@@ -115,34 +117,28 @@ bool GCNetClient::updateUI()
     endTurn();
     break;
   }
-  case (UIElement::MenuItem::BUY_UNIT_0):
+  case (UIElement::MenuItem::BUY_NORMAL_TANK):
   {
     inputReader->deselectTile();
-    shop_unit_selected = TroopTypes::TANK_BLUE;
+    shop_unit_selected = TroopTypes::NORMAL_TANK;
     break;
   }
-  case (UIElement::MenuItem::BUY_UNIT_1):
+  case (UIElement::MenuItem::BUY_BIG_TANK):
   {
     inputReader->deselectTile();
-    shop_unit_selected = TroopTypes::TANK_DARK;
+    shop_unit_selected = TroopTypes::BIG_TANK;
     break;
   }
-  case (UIElement::MenuItem::BUY_UNIT_2):
+  case (UIElement::MenuItem::BUY_LARGE_TANK):
   {
     inputReader->deselectTile();
-    shop_unit_selected = TroopTypes::TANK_GREEN;
+    shop_unit_selected = TroopTypes::LARGE_TANK;
     break;
   }
-  case (UIElement::MenuItem::BUY_UNIT_3):
+  case (UIElement::MenuItem::BUY_HUGE_TANK):
   {
     inputReader->deselectTile();
-    shop_unit_selected = TroopTypes::TANK_RED;
-    break;
-  }
-  case (UIElement::MenuItem::BUY_UNIT_4):
-  {
-    inputReader->deselectTile();
-    shop_unit_selected = TroopTypes::TANK_SAND;
+    shop_unit_selected = TroopTypes::HUGE_TANK;
     break;
   }
   case (UIElement::MenuItem::MAP_CLICK):
@@ -166,7 +162,7 @@ bool GCNetClient::updateUI()
       else if (
         previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id > 0 && tile_clicked->troop_id <= 0)
+        previously_clicked->troop_id >= 0 && tile_clicked->troop_id < 0)
       {
         moveUnit(tile_clicked, previously_clicked);
       }
@@ -269,7 +265,8 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     int x_pos = static_cast<int>(tile->sprite->xPos() + tile->sprite->width() / 2);
     int y_pos = static_cast<int>(tile->sprite->yPos() + tile->sprite->height() / 2);
 
-    troops[sender_id].emplace_back(Troop(unit_to_buy, renderer, x_pos, y_pos, false));
+    troops[sender_id].emplace_back(
+      Troop(unit_to_buy, renderer, x_pos, y_pos, sender_id + 1, false));
 
     tile->troop_id        = unit_id;
     tile->troop_player_id = sender_id;
@@ -365,7 +362,8 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   int x_pos = static_cast<int>(tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2);
   int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
-  Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos, true);
+  Troop new_troop =
+    Troop(unit_type, renderer, x_pos, y_pos, static_cast<int>(client.GetUID()), true);
   new_troop.setID(unit_count++);
   if (in_turn && currency >= new_troop.getCost())
   {

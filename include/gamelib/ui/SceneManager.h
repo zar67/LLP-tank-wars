@@ -35,7 +35,7 @@ class SceneManager
   SceneManager()  = default;
   ~SceneManager() = default;
 
-  bool init(ASGE::Renderer* renderer, int font_index);
+  bool init(ASGE::Renderer* renderer, int font_index, int player_id);
 
   UIElement::MenuItem update(InputManager* input_manager);
   void render(

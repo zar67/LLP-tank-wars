@@ -22,7 +22,7 @@ Shop& Shop::operator=(const Shop& shop)
   return *this;
 }
 
-bool Shop::init(ASGE::Renderer* renderer, int font_index)
+bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
 {
   shop_title = UIElement::setupText(
     renderer,
@@ -38,12 +38,14 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index)
   int count = 0;
   for (const std::string& texture : unit_types)
   {
+    std::string directory =
+      "data/sprites/troops/player_" + std::to_string(player_id) + "/" + texture;
     auto* button = new Button();
     if (!button->init(
           renderer,
           font_index,
-          texture,
-          texture,
+          directory,
+          directory,
           "",
           10 + static_cast<float>(60 * count),
           90,
@@ -77,23 +79,19 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bo
     {
     case 0:
     {
-      return UIElement::MenuItem::BUY_UNIT_0;
+      return UIElement::MenuItem::BUY_NORMAL_TANK;
     }
     case 1:
     {
-      return UIElement::MenuItem::BUY_UNIT_1;
+      return UIElement::MenuItem::BUY_BIG_TANK;
     }
     case 2:
     {
-      return UIElement::MenuItem::BUY_UNIT_2;
+      return UIElement::MenuItem::BUY_LARGE_TANK;
     }
     case 3:
     {
-      return UIElement::MenuItem::BUY_UNIT_3;
-    }
-    case 4:
-    {
-      return UIElement::MenuItem::BUY_UNIT_4;
+      return UIElement::MenuItem::BUY_HUGE_TANK;
     }
     default:
     {

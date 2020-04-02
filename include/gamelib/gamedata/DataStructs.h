@@ -23,7 +23,7 @@ struct Attack
 
 struct Buy
 {
-  TroopTypes unit_type = TroopTypes::TANK_RED;
+  TroopTypes unit_type = TroopTypes::NONE;
   int unit_id          = -1;
   int tile_id          = -1;
 };
