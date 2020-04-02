@@ -2,8 +2,8 @@
 // Created by a2-lott on 13/03/2020.
 //
 
-#ifndef MYNETGAME_DATACOMP_H
-#define MYNETGAME_DATACOMP_H
+#ifndef MYNETGAME_TROOPDATA_H
+#define MYNETGAME_TROOPDATA_H
 
 #include <map>
 #include <string>
@@ -16,7 +16,7 @@ enum class TroopTypes
   HUGE_TANK,
 };
 
-class DataComp
+class TroopData
 {
  public:
   struct TankDataStruct
@@ -30,14 +30,20 @@ class DataComp
 
     // suggest turning this into an init/startup function so you can pool the
     // data struct - ask liam if unsure what i mean
-    TankDataStruct(int _h, int _d, int _c, int _m, int _w, std::string _t) :
-      texture_path(std::move(_t))
+    TankDataStruct(
+      int tank_health,
+      int attack_damage,
+      int buy_cost,
+      int move_distance,
+      int attack_range,
+      std::string texture) :
+      texture_path(std::move(texture))
     {
-      health       = _h;
-      damage       = _d;
-      cost         = _c;
-      move_range   = _m;
-      weapon_range = _w;
+      health       = tank_health;
+      damage       = attack_damage;
+      cost         = buy_cost;
+      move_range   = move_distance;
+      weapon_range = attack_range;
     }
     // somewhere you were trying to create a datastruct of this type using no
     // parameters
@@ -48,12 +54,12 @@ class DataComp
 
  private:
   std::map<TroopTypes, TankDataStruct> tankTypeToData = {
-    {TroopTypes::NORMAL_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank.png")},
-    {TroopTypes::BIG_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank_big.png")},
-    {TroopTypes::LARGE_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank_large.png")},
-    {TroopTypes::HUGE_TANK, TankDataStruct(0, 0, 0, 0, 0, "tank_huge.png")},
+    {TroopTypes::NORMAL_TANK, TankDataStruct(15, 5, 5, 3, 1, "tank.png")},
+    {TroopTypes::BIG_TANK, TankDataStruct(20, 10, 15, 2, 2, "tank_big.png")},
+    {TroopTypes::LARGE_TANK, TankDataStruct(30, 20, 30, 2, 2, "tank_large.png")},
+    {TroopTypes::HUGE_TANK, TankDataStruct(40, 30, 50, 1, 3, "tank_huge.png")},
 
   };
 };
 
-#endif  // MYNETGAME_DATACOMP_H
+#endif  // MYNETGAME_TROOPDATA_H

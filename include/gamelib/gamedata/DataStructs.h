@@ -5,7 +5,7 @@
 #ifndef MYNETGAME_DATASTRUCTS_H
 #define MYNETGAME_DATASTRUCTS_H
 
-#include "DataComp.h"
+#include "TroopData.h"
 
 struct Move
 {

@@ -28,7 +28,7 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
     renderer,
     font_index,
     "Shop",
-    10 + (static_cast<float>(unit_types.size() * 60 - 10) / 2),
+    10 + (static_cast<float>(unit_types.size() * 70 - 10) / 2),
     75,
     true,
     false,
@@ -47,7 +47,7 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
           directory,
           directory,
           "",
-          10 + static_cast<float>(60 * count),
+          10 + static_cast<float>(70 * count),
           90,
           50,
           50))
@@ -56,6 +56,19 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
     }
     units.push_back(button);
     count += 1;
+  }
+
+  count = 0;
+  for (const std::string& cost : unit_costs)
+  {
+    auto* text = new ASGE::Text(renderer->getFont(font_index), cost);
+    text->setColour(ASGE::COLOURS::BLACK);
+    text->setScale(0.8F);
+    text->setPositionX(35 + static_cast<float>(70 * count) - (text->getWidth() / 2));
+    text->setPositionY(160);
+    text->setZOrder(1);
+    count += 1;
+    cost_text.push_back(text);
   }
 
   return true;
@@ -108,4 +121,6 @@ void Shop::render(ASGE::Renderer* renderer)
   renderer->renderText(shop_title);
 
   for (Button* button : units) { button->render(renderer); }
+
+  for (ASGE::Text* text : cost_text) { renderer->renderText(*text); }
 }

@@ -16,7 +16,7 @@ bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
         "Open Shop",
         10,
         10,
-        290,
+        260,
         30))
   {
     return false;

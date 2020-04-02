@@ -30,7 +30,7 @@ add_library(
         ui/ui_elements/TextBox.cpp
         InputManager.cpp
         map/Map.cpp
-        components/DataComp.cpp
+        components/TroopData.cpp
         components/GameObject.cpp
         components/SpriteComponent.cpp
         Audio/AudioManager.cpp

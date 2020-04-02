@@ -6,7 +6,7 @@
 
 Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int player_id, bool owned)
 {
-  data        = new DataComp();
+  data        = new TroopData();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
@@ -28,7 +28,7 @@ Troop::Troop(
   int player_id,
   bool owned)
 {
-  data        = new DataComp();
+  data        = new TroopData();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
