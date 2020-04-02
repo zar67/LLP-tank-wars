@@ -92,7 +92,7 @@ void SceneManager::render(
   ASGE::Renderer* renderer,
   int current_player_turn,
   bool in_turn,
-  const std::vector<std::vector<Troop>>& troops,
+  const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
@@ -125,7 +125,7 @@ void SceneManager::renderGameScreen(
   ASGE::Renderer* renderer,
   int current_player_turn,
   bool in_turn,
-  const std::vector<std::vector<Troop>>& troops,
+  const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
@@ -141,11 +141,11 @@ void SceneManager::renderGameScreen(
 
   for (const auto& player : troops)
   {
-    for (Troop troop : player)
+    for (Troop* troop : player)
     {
-      if (troop.getSpriteComponent()->getSprite() != nullptr)
+      if (troop->getSpriteComponent()->getSprite() != nullptr)
       {
-        renderer->renderSprite(*troop.getSpriteComponent()->getSprite());
+        renderer->renderSprite(*troop->getSpriteComponent()->getSprite());
       }
     }
   }

@@ -42,14 +42,14 @@ class SceneManager
     ASGE::Renderer* renderer,
     int current_player_turn,
     bool in_turn,
-    const std::vector<std::vector<Troop>>& troops,
+    const std::vector<std::vector<Troop*>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
   void renderGameScreen(
     ASGE::Renderer* renderer,
     int current_player_turn,
     bool in_turn,
-    const std::vector<std::vector<Troop>>& troops,
+    const std::vector<std::vector<Troop*>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
 
