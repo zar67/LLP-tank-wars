@@ -9,7 +9,7 @@
 
 struct Move
 {
-  int unit_id         = -1;
+  int unit_index      = -1;
   int current_tile_id = -1;
   int new_tile_id     = -1;
 };
@@ -25,7 +25,7 @@ struct Buy
 {
   TroopTypes unit_type = TroopTypes::TANK_RED;
   int unit_id          = -1;
-  int tile_index       = -1;
+  int tile_id          = -1;
 };
 
 struct Types

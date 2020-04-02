@@ -74,14 +74,14 @@ void Map::generateMap(ASGE::Renderer* renderer)
     for (int j = 0; j < tiles_high; ++j)
     {
       TileData& current_tile = map.at(i + tiles_wide * j);
-      current_tile.tile_id   = i + tiles_wide * j + 1;
+      current_tile.tile_id   = i + tiles_wide * j;
       current_tile.sprite    = renderer->createRawSprite();
       current_tile.sprite->loadTexture(current_tile.directory);
       current_tile.sprite->xPos(static_cast<float>(i * tile_width));
       current_tile.sprite->yPos(static_cast<float>(j * tile_height));
       current_tile.sprite->width(static_cast<float>(tile_width));
       current_tile.sprite->height(static_cast<float>(tile_height));
-      current_tile.sprite->setGlobalZOrder(-1);
+      current_tile.sprite->setGlobalZOrder(-10);
     }
   }
 }

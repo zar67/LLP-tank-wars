@@ -166,8 +166,7 @@ bool GCNetClient::updateUI()
       else if (
         previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id > 0 && tile_clicked->troop_id <= 0 &&
-        map.tileInRange(previously_clicked->tile_id, tile_clicked->tile_id, 2))
+        previously_clicked->troop_id > 0 && tile_clicked->troop_id <= 0)
       {
         moveUnit(tile_clicked, previously_clicked);
       }
@@ -287,7 +286,7 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
   switch (instruction)
   {
   case NetworkMessages::PLAYER_MOVE:
-    string_message += ":" + std::to_string(data.move.unit_id) + "," +
+    string_message += ":" + std::to_string(data.move.unit_index) + "," +
                       std::to_string(data.move.current_tile_id) + "," +
                       std::to_string(data.move.new_tile_id);
     break;
@@ -298,7 +297,7 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
     break;
   case NetworkMessages::PLAYER_BUY:
     string_message += ":" + std::to_string(static_cast<int>(data.buy.unit_type)) + "," +
-                      std::to_string(data.buy.unit_id) + "," + std::to_string(data.buy.tile_index);
+                      std::to_string(data.buy.unit_id) + "," + std::to_string(data.buy.tile_id);
     break;
   }
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
@@ -367,7 +366,7 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
   Troop new_troop = Troop(unit_type, renderer, x_pos, y_pos, true);
-  new_troop.setID(++unit_count);
+  new_troop.setID(unit_count++);
   if (in_turn && currency >= new_troop.getCost())
   {
     currency -= new_troop.getCost();
@@ -378,9 +377,9 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
     tile_clicked->troop_player_id = clientIndexNumber();
 
     Types type;
-    type.buy.unit_type  = unit_type;
-    type.buy.unit_id    = new_troop.getID();
-    type.buy.tile_index = tile_clicked->tile_id - 1;
+    type.buy.unit_type = unit_type;
+    type.buy.unit_id   = new_troop.getID();
+    type.buy.tile_id   = tile_clicked->tile_id;
     encodeAction(NetworkMessages::PLAYER_BUY, type);
   }
   inputReader->deselectTile();
@@ -388,11 +387,15 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 
 void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
 {
-  if (tile_clicked != nullptr)  // TODO: IF IN RANGE
+  // TODO: Calculate Range Based On Unit Movement Speed and Tile Movement Speed
+  int range = 2;
+
+  if (
+    tile_clicked != nullptr &&
+    map.tileInRange(previously_clicked->tile_id, tile_clicked->tile_id, range))
   {
-    ASGE::Sprite* sprite = troops[clientIndexNumber()][previously_clicked->troop_id - 1]
-                             .getSpriteComponent()
-                             ->getSprite();
+    ASGE::Sprite* sprite =
+      troops[clientIndexNumber()][previously_clicked->troop_id].getSpriteComponent()->getSprite();
     sprite->xPos(
       tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2 - sprite->width() / 2);
     sprite->yPos(
@@ -404,9 +407,9 @@ void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
     previously_clicked->troop_id        = -1;
 
     Types type;
-    type.move.unit_id;
-    type.move.current_tile_id;
-    type.move.new_tile_id;
+    type.move.unit_index      = tile_clicked->troop_id;
+    type.move.current_tile_id = previously_clicked->tile_id;
+    type.move.new_tile_id     = tile_clicked->tile_id;
     encodeAction(NetworkMessages::PLAYER_MOVE, type);
   }
 }

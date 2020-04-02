@@ -64,7 +64,12 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::ato
     return UIElement::MenuItem::END_TURN;
   }
 
-  UIElement::MenuItem item = shop.update(cursor_pos, click);
+  UIElement::MenuItem item = UIElement::MenuItem::NONE;
+
+  if (shop_active)
+  {
+    item = shop.update(cursor_pos, click);
+  }
 
   if (click)
   {

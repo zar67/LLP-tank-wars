@@ -201,7 +201,7 @@ void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, 
   for (auto& tile : *map)
   {
     int tile_id = tile.mouseClicked(x, y);
-    if (tile_id != 0)
+    if (tile_id >= 0)
     {
       if (tile_clicked != nullptr)
       {
@@ -209,7 +209,7 @@ void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, 
       }
       mutex_tile_clicked.lock();
       tile_clicked = &tile;
-      if (tile.troop_id > 0)
+      if (tile.troop_id >= 0)
       {
         tile_clicked->sprite->colour(cant_click_col);
       }
