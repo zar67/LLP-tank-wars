@@ -166,7 +166,8 @@ bool GCNetClient::updateUI()
       else if (
         previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id > 0 && tile_clicked->troop_id <= 0)
+        previously_clicked->troop_id > 0 && tile_clicked->troop_id <= 0 &&
+        map.tileInRange(previously_clicked->tile_id, tile_clicked->tile_id, 2))
       {
         moveUnit(tile_clicked, previously_clicked);
       }

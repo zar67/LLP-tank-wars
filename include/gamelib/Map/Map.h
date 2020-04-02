@@ -24,6 +24,8 @@ class Map
   std::vector<TileData>* getMap();
   TileData* getTile(int id);
 
+  bool tileInRange(int tile_id_one, int tile_id_two, int range);
+
  private:
   void readJSON(const std::string& directory);
   void readLevelJson(const std::string& directory);
