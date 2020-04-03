@@ -57,7 +57,7 @@ int Troop::getHealth()
   return troop_stats.health;
 }
 
-int Troop::getDamage()
+int Troop::getAttackDamage()
 {
   return troop_stats.damage;
 }

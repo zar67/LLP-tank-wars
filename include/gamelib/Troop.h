@@ -44,7 +44,7 @@ class Troop : public GameObject
 
   int getHealth();
 
-  int getDamage();
+  int getAttackDamage();
 
   int getCost();
 

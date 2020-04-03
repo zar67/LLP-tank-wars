@@ -16,9 +16,8 @@ struct Move
 
 struct Attack
 {
-  int attacker_id = -1;
-  int enemy_id    = -1;
-  int damage      = -1;
+  int tile_id = -1;
+  int damage  = -1;
 };
 
 struct Buy

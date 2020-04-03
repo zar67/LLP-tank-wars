@@ -176,6 +176,14 @@ bool GCNetClient::updateUI()
       {
         moveUnit(tile_clicked, previously_clicked);
       }
+      else if (
+        previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
+        previously_clicked->troop_player_id == clientIndexNumber() &&
+        previously_clicked->troop_id >= 0 && tile_clicked->troop_player_id != clientIndexNumber() &&
+        tile_clicked->troop_id >= 0)
+      {
+        attackUnit(tile_clicked, previously_clicked);
+      }
     }
 
     inputReader->unlockPreviousTile();
@@ -238,7 +246,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     TileData* current_tile = map.getTile(current_tile_id);
     TileData* new_tile     = map.getTile(new_tile_id);
 
-    ASGE::Sprite* sprite = troops[sender_id][unit_id]->getSpriteComponent()->getSprite();
+    ASGE::Sprite* sprite = getTroop(sender_id, unit_id)->getSpriteComponent()->getSprite();
     sprite->xPos(new_tile->sprite->xPos() + new_tile->sprite->width() / 2 - sprite->width() / 2);
     sprite->yPos(new_tile->sprite->yPos() + new_tile->sprite->height() / 2 - sprite->height() / 2);
 
@@ -252,14 +260,23 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   case NetworkMessages::PLAYER_ATTACK:
   {
     std::vector<std::string> data = getMessageData(message);
-    int attacker_id               = std::stoi(data[0]);
-    int unit_id                   = std::stoi(data[1]);
-    int damage                    = std::stoi(data[2]);
-    int sender_id                 = std::stoi(data[3]);
+    int tile_id                   = std::stoi(data[0]);
+    int damage                    = std::stoi(data[1]);
+    int sender_id                 = std::stoi(data[2]);
 
-    troops[sender_id][unit_id]->takeDamage(damage);
+    TileData* tile     = map.getTile(tile_id);
+    Troop* other_troop = getTroop(tile->troop_player_id, tile->troop_id);
 
-    // TODO: Troop Death
+    other_troop->takeDamage(damage);
+
+    if (other_troop->getHealth() <= 0)
+    {
+      auto it = troops[tile->troop_player_id].begin() + tile->troop_id;
+      troops[tile->troop_player_id].erase(it);
+      tile->troop_id        = -1;
+      tile->troop_player_id = -1;
+    }
+
     break;
   }
   case NetworkMessages::PLAYER_BUY:
@@ -277,6 +294,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
 
     troops[sender_id].emplace_back(
       new Troop(unit_to_buy, renderer, x_pos, y_pos, sender_id + 1, false));
+    troops[sender_id].back()->setID(unit_id);
 
     tile->troop_id        = unit_id;
     tile->troop_player_id = sender_id;
@@ -298,9 +316,8 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
                       std::to_string(data.move.new_tile_id);
     break;
   case NetworkMessages::PLAYER_ATTACK:
-    string_message += ":" + std::to_string(data.attack.attacker_id) + "," +
-                      std::to_string(data.attack.enemy_id) + "," +
-                      std::to_string(data.attack.damage);
+    string_message +=
+      ":" + std::to_string(data.attack.tile_id) + "," + std::to_string(data.attack.damage);
     break;
   case NetworkMessages::PLAYER_BUY:
     string_message += ":" + std::to_string(static_cast<int>(data.buy.unit_type)) + "," +
@@ -363,6 +380,19 @@ void GCNetClient::startGame()
   client.SendMessageToServer(message);
 }
 
+Troop* GCNetClient::getTroop(int player_id, int troop_id)
+{
+  for (auto troop : troops[player_id])
+  {
+    if (troop->getID() == troop_id)
+    {
+      return troop;
+    }
+  }
+
+  return nullptr;
+}
+
 void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 {
   if (tile_clicked->troop_id > 0)
@@ -400,15 +430,14 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 
 void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
 {
-  // TODO: Calculate Range Based On Unit Movement Speed and Tile Movement Speed
-  int range = troops[clientIndexNumber()][previously_clicked->troop_id]->getMovementRange();
+  int range = getTroop(clientIndexNumber(), previously_clicked->troop_id)->getMovementRange();
 
   if (
     tile_clicked != nullptr &&
     map.tileInRange(previously_clicked->tile_id, tile_clicked->tile_id, range))
   {
     ASGE::Sprite* sprite =
-      troops[clientIndexNumber()][previously_clicked->troop_id]->getSpriteComponent()->getSprite();
+      getTroop(clientIndexNumber(), previously_clicked->troop_id)->getSpriteComponent()->getSprite();
     sprite->xPos(
       tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2 - sprite->width() / 2);
     sprite->yPos(
@@ -425,6 +454,28 @@ void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
     type.move.new_tile_id     = tile_clicked->tile_id;
     encodeAction(NetworkMessages::PLAYER_MOVE, type);
   }
+}
+
+void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicked)
+{
+  Troop* owned_troop = getTroop(clientIndexNumber(), previously_clicked->troop_id);
+  Troop* other_troop = getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id);
+
+  other_troop->takeDamage(owned_troop->getAttackDamage());
+
+  if (other_troop->getHealth() <= 0)
+  {
+    auto it = troops[tile_clicked->troop_player_id].begin() + tile_clicked->troop_id;
+    troops[tile_clicked->troop_player_id].erase(it);
+
+    tile_clicked->troop_id        = -1;
+    tile_clicked->troop_player_id = -1;
+  }
+
+  Types type;
+  type.attack.tile_id = tile_clicked->tile_id;
+  type.attack.damage  = owned_troop->getAttackDamage();
+  encodeAction(NetworkMessages::PLAYER_ATTACK, type);
 }
 
 void GCNetClient::addInputReader(ASGE::Input& _inputs)

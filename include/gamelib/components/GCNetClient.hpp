@@ -36,8 +36,11 @@ class GCNetClient : public GameComponent
 
   void startGame();
 
+  Troop* getTroop(int player_id, int troop_id);
+
   void buyUnit(TileData* tile_clicked, TroopTypes unit_type);
   void moveUnit(TileData* tile_clicked, TileData* previously_clicked);
+  void attackUnit(TileData* tile_clicked, TileData* previously_clicked);
 
   void addInputReader(ASGE::Input& _inputs) override;
 
