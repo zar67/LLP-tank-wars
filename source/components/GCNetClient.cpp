@@ -293,8 +293,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     int y_pos = static_cast<int>(tile->sprite->yPos() + tile->sprite->height() / 2);
 
     troops[sender_id].emplace_back(
-      new Troop(unit_to_buy, renderer, x_pos, y_pos, sender_id + 1, false));
-    troops[sender_id].back()->setID(unit_id);
+      new Troop(unit_id, unit_to_buy, renderer, x_pos, y_pos, sender_id + 1, false));
 
     tile->troop_id        = unit_id;
     tile->troop_player_id = sender_id;
@@ -402,11 +401,10 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   int x_pos = static_cast<int>(tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2);
   int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
-  troops[clientIndexNumber()].emplace_back(
-    new Troop(unit_type, renderer, x_pos, y_pos, static_cast<int>(client.GetUID()), true));
+  troops[clientIndexNumber()].emplace_back(new Troop(
+    unit_count++, unit_type, renderer, x_pos, y_pos, static_cast<int>(client.GetUID()), true));
   Troop* new_troop = troops[clientIndexNumber()].back();
 
-  new_troop->setID(unit_count++);
   if (in_turn && currency >= new_troop->getCost())
   {
     currency -= new_troop->getCost();

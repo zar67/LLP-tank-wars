@@ -4,8 +4,14 @@
 
 #include "Troop.h"
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int player_id, bool owned)
+Troop::Troop(
+  int unit_id,
+  TroopTypes type_to_make,
+  ASGE::Renderer* renderer,
+  int player_id,
+  bool owned)
 {
+  id          = unit_id;
   data        = new TroopData();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
@@ -21,6 +27,7 @@ Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int player_id, b
 }
 
 Troop::Troop(
+  int unit_id,
   TroopTypes type_to_make,
   ASGE::Renderer* renderer,
   int x_pos,
@@ -28,6 +35,7 @@ Troop::Troop(
   int player_id,
   bool owned)
 {
+  id          = unit_id;
   data        = new TroopData();
   troop_stats = data->getTankData(type_to_make);
   setTroopType(type_to_make);
