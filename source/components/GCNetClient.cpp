@@ -172,15 +172,18 @@ bool GCNetClient::updateUI()
       else if (
         previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id >= 0 && tile_clicked->troop_id < 0)
+        previously_clicked->troop_id >= 0 &&
+        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+        tile_clicked->troop_id < 0)
       {
         moveUnit(tile_clicked, previously_clicked);
       }
       else if (
         previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id >= 0 && tile_clicked->troop_player_id != clientIndexNumber() &&
-        tile_clicked->troop_id >= 0)
+        previously_clicked->troop_id >= 0 &&
+        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+        tile_clicked->troop_player_id != clientIndexNumber() && tile_clicked->troop_id >= 0)
       {
         attackUnit(tile_clicked, previously_clicked);
       }
@@ -357,6 +360,9 @@ void GCNetClient::endTurn()
     for (const auto& action : actions) { client.SendMessageToServer(action); }
     actions.clear();
 
+    for (auto troop : units_bought_this_turn) { troop->setBoughtThisTurn(false); }
+    units_bought_this_turn.clear();
+
     std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));
     std::vector<char> message;
     std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
@@ -407,6 +413,8 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 
   if (in_turn && currency >= new_troop->getCost())
   {
+    units_bought_this_turn.emplace_back(new_troop);
+
     currency -= new_troop->getCost();
     scene_manager.gameScreen()->closeShop();
 

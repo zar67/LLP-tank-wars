@@ -59,10 +59,12 @@ class GCNetClient : public GameComponent
   bool in_turn        = false;
   int current_turn_id = 1;
 
-  int currency                            = 100;
   std::vector<std::vector<Troop*>> troops = {{}, {}, {}, {}};
   int unit_count                          = 0;
-  TroopTypes shop_unit_selected           = TroopTypes::NONE;
+
+  int currency                               = 100;
+  TroopTypes shop_unit_selected              = TroopTypes::NONE;
+  std::vector<Troop*> units_bought_this_turn = {};
 
   Map map;
 

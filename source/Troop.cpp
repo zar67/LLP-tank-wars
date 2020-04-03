@@ -11,9 +11,10 @@ Troop::Troop(
   int player_id,
   bool owned)
 {
-  id          = unit_id;
-  data        = new TroopData();
-  troop_stats = data->getTankData(type_to_make);
+  id                  = unit_id;
+  generated_this_turn = true;
+  data                = new TroopData();
+  troop_stats         = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
   std::string texture = "data/sprites/troops/player_" + std::to_string(player_id) + "/";
@@ -35,9 +36,10 @@ Troop::Troop(
   int player_id,
   bool owned)
 {
-  id          = unit_id;
-  data        = new TroopData();
-  troop_stats = data->getTankData(type_to_make);
+  id                  = unit_id;
+  generated_this_turn = true;
+  data                = new TroopData();
+  troop_stats         = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
   std::string texture = "data/sprites/troops/player_" + std::to_string(player_id) + "/";
