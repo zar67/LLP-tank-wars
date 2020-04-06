@@ -8,8 +8,29 @@
 #include <Engine/Sprite.h>
 #include <string>
 
+// make this into a class
 struct TileData
 {
+  // TileData() = default;
+  //  TileData(const TileData& _data){};
+  /*  TileData& operator=(const TileData& _data)
+    {
+        if (&_data != this)
+        {
+            // add pointers in here
+            delete sprite;
+            this->sprite = _data.sprite;
+        }
+        return *this;
+    }*/
+  ~TileData() = default;
+
+  /* if(sprite != nullptr)
+   {
+       delete(sprite);
+       sprite = nullptr;
+   }*/
+
   std::string name      = "";
   std::string directory = "";
   ASGE::Sprite* sprite  = nullptr;
