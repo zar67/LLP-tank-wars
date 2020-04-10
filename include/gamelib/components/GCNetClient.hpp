@@ -9,7 +9,6 @@
 #include "../Troop.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
-#include "../map/Map.h"
 #include "GameComponent.hpp"
 
 #include <NetLib/ClientConnection.h>
