@@ -154,7 +154,7 @@ TileData* Map::getTile(int id)
   return &map.at(id);
 }
 
-bool Map::tileInRange(int tile_id_one, int tile_id_two, int range)
+bool Map::tileInRange(int tile_id_one, int tile_id_two, int range) const
 {
   int x_index_one = tile_id_one % tiles_wide;
   int x_index_two = tile_id_two % tiles_wide;
