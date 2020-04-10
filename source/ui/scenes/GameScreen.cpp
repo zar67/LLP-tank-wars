@@ -76,6 +76,7 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::ato
 
 void GameScreen::render(
   ASGE::Renderer* renderer,
+  int action_number,
   int current_player_turn,
   bool in_turn,
   const int& currency)
@@ -92,6 +93,11 @@ void GameScreen::render(
 
   if (in_turn)
   {
+    renderer->renderText(
+      "ACTIONS: " + std::to_string(action_number) + "/3",
+      15,
+      ASGE::SETTINGS.window_height - 45,
+      ASGE::COLOURS::WHITE);
     renderer->renderText("YOUR TURN", 15, ASGE::SETTINGS.window_height - 15, ASGE::COLOURS::WHITE);
     end_turn.render(renderer);
   }

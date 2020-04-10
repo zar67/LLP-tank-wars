@@ -53,11 +53,13 @@ class GCNetClient : public GameComponent
   netlib::ClientConnection client;
   SceneManager scene_manager;
 
-  std::atomic_bool exiting = false;
-  std::vector<std::vector<char>> actions;
   bool can_start      = true;
   bool in_turn        = false;
   int current_turn_id = 1;
+
+  int max_time_units   = 3;
+  int time_units_spent = 0;
+  std::vector<std::vector<char>> actions;
 
   std::vector<std::vector<Troop*>> troops = {{}, {}, {}, {}};
   int unit_count                          = 0;

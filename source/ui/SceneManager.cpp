@@ -90,6 +90,7 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
 
 void SceneManager::render(
   ASGE::Renderer* renderer,
+  int action_number,
   int current_player_turn,
   bool in_turn,
   const std::vector<std::vector<Troop*>>& troops,
@@ -115,7 +116,8 @@ void SceneManager::render(
   }
   case Screens::GAME:
   {
-    renderGameScreen(renderer, current_player_turn, in_turn, troops, tile_data, currency);
+    renderGameScreen(
+      renderer, action_number, current_player_turn, in_turn, troops, tile_data, currency);
     break;
   }
   }
@@ -123,13 +125,14 @@ void SceneManager::render(
 
 void SceneManager::renderGameScreen(
   ASGE::Renderer* renderer,
+  int action_number,
   int current_player_turn,
   bool in_turn,
   const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
-  game_screen.render(renderer, current_player_turn, in_turn, currency);
+  game_screen.render(renderer, action_number, current_player_turn, in_turn, currency);
 
   for (auto& tile : tile_data)
   {

@@ -20,7 +20,12 @@ class GameScreen
 
   bool init(ASGE::Renderer* renderer, int font_index);
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
-  void render(ASGE::Renderer* renderer, int current_player_turn, bool in_turn, const int& currency);
+  void render(
+    ASGE::Renderer* renderer,
+    int action_number,
+    int current_player_turn,
+    bool in_turn,
+    const int& currency);
 
   bool initShop(ASGE::Renderer* renderer, int font_index, int player_id);
   void openShop();

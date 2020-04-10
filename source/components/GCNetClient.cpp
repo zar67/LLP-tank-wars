@@ -76,7 +76,6 @@ bool GCNetClient::update(double dt)
     all_events.pop();
   }
 
-  exiting = !client.IsRunning();
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
   return false;
 }
@@ -162,7 +161,7 @@ bool GCNetClient::updateUI()
     TileData* tile_clicked       = inputReader->tileClicked();
     TileData* previously_clicked = inputReader->previousTileClicked();
 
-    if (tile_clicked != nullptr)
+    if (tile_clicked != nullptr && time_units_spent < max_time_units)
     {
       if (shop_unit_selected != TroopTypes::NONE)
       {
@@ -201,7 +200,8 @@ bool GCNetClient::updateUI()
 
 void GCNetClient::render()
 {
-  scene_manager.render(renderer, current_turn_id, in_turn, troops, *map.getMap(), currency);
+  scene_manager.render(
+    renderer, time_units_spent, current_turn_id, in_turn, troops, *map.getMap(), currency);
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)
@@ -219,7 +219,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
     int player_num = static_cast<int>(message[2] - '0');
     scene_manager.lobbyScreen()->setPlayerNumber(player_num);
-    // can_start = player_num >= 2;
+    can_start = player_num >= 2;
     break;
   }
   case (NetworkMessages::PLAYER_END_TURN):
@@ -328,6 +328,7 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
   }
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
   actions.push_back(message);
+  time_units_spent += 1;
 }
 
 std::vector<std::string> GCNetClient::getMessageData(std::vector<char> message)
@@ -357,6 +358,9 @@ void GCNetClient::endTurn()
   if (in_turn)
   {
     in_turn = false;
+
+    time_units_spent = 0;
+
     for (const auto& action : actions) { client.SendMessageToServer(action); }
     actions.clear();
 

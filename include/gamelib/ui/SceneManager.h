@@ -40,6 +40,7 @@ class SceneManager
   UIElement::MenuItem update(InputManager* input_manager);
   void render(
     ASGE::Renderer* renderer,
+    int action_number,
     int current_player_turn,
     bool in_turn,
     const std::vector<std::vector<Troop*>>& troops,
@@ -47,6 +48,7 @@ class SceneManager
     int currency);
   void renderGameScreen(
     ASGE::Renderer* renderer,
+    int action_number,
     int current_player_turn,
     bool in_turn,
     const std::vector<std::vector<Troop*>>& troops,
