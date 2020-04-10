@@ -24,7 +24,7 @@ GCNetClient::~GCNetClient()
 
   for (const auto& player : troops)
   {
-    for (auto troop : player)
+    for (auto* troop : player)
     {
       delete troop;
       troop = nullptr;
@@ -364,7 +364,7 @@ void GCNetClient::endTurn()
     for (const auto& action : actions) { client.SendMessageToServer(action); }
     actions.clear();
 
-    for (auto troop : units_bought_this_turn) { troop->setBoughtThisTurn(false); }
+    for (auto* troop : units_bought_this_turn) { troop->setBoughtThisTurn(false); }
     units_bought_this_turn.clear();
 
     std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));

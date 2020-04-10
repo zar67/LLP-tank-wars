@@ -57,7 +57,7 @@ class Troop : public GameObject
 
   [[nodiscard]] int getID() const { return id; }
 
-  bool getBoughtThisTurn() { return generated_this_turn; };
+  [[nodiscard]] bool getBoughtThisTurn() const { return generated_this_turn; };
   void setBoughtThisTurn(bool value) { generated_this_turn = value; };
 
  private:
