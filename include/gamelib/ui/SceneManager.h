@@ -9,7 +9,6 @@
 #include "../InputManager.h"
 #include "../Map/TileData.h"
 #include "../Troop.h"
-#include "../map/TileData.h"
 #include "scenes/GameScreen.h"
 #include "scenes/JoinScreen.h"
 #include "scenes/Lobby.h"
