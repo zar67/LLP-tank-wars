@@ -38,6 +38,7 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 {
   this->renderer   = renderer;
   this->font_index = font_index;
+
   map.init(1280, 720);
   map.generateMap(renderer);
   return scene_manager.init(renderer, font_index, static_cast<int>(client.GetUID()));
