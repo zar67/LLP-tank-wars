@@ -134,7 +134,7 @@ void SceneManager::renderGameScreen(
 {
   game_screen.render(renderer, action_number, current_player_turn, in_turn, currency);
 
-  for (auto& tile : tile_data)
+  for (const auto& tile : tile_data)
   {
     if (tile.sprite != nullptr)
     {
