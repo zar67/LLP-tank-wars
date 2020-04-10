@@ -29,10 +29,11 @@ class Shop
   std::vector<Button*> units         = {};
   std::vector<ASGE::Text*> cost_text = {};
 
-  const std::vector<std::string> unit_types{"tank.png",
-                                            "tank_big.png",
-                                            "tank_large.png",
-                                            "tank_huge.png"};
+  const std::vector<std::string> unit_types{
+    "tank.png",
+    "tank_big.png",
+    "tank_large.png",
+    "tank_huge.png"};
 
   const std::vector<std::string> unit_costs{"5", "15", "30", "50"};
 };
