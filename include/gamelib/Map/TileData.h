@@ -18,7 +18,7 @@ struct TileData
   int troop_id        = -1;
   int tile_id         = -1;
 
-  int mouseClicked(float _x, float _y)
+  [[nodiscard]] int mouseClicked(float _x, float _y) const
   {
     if (
       _x > sprite->xPos() && _x < sprite->xPos() + sprite->width() && _y > sprite->yPos() &&

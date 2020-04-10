@@ -5,9 +5,9 @@
 #ifndef MYNETGAME_TROOP_H
 #define MYNETGAME_TROOP_H
 
+#include "Map/Map.h"
 #include "components/GameObject.h"
 #include "gamedata/TroopData.h"
-#include "map/Map.h"
 
 #include <Engine/Renderer.h>
 
@@ -55,13 +55,13 @@ class Troop : public GameObject
 
   void takeDamage(int damageAmount);
 
-  int getID() { return id; }
+  [[nodiscard]] int getID() const { return id; }
 
   bool getBoughtThisTurn() { return generated_this_turn; };
   void setBoughtThisTurn(bool value) { generated_this_turn = value; };
 
  private:
-  int id                                = -1;  // probably move this to datacomp
+  int id                                = -1;
   bool generated_this_turn              = false;
   TroopData* data                       = nullptr;
   TroopData::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};

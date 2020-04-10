@@ -391,12 +391,14 @@ void GCNetClient::startGame()
 
 Troop* GCNetClient::getTroop(int player_id, int troop_id)
 {
-  for (auto troop : troops[player_id])
+  auto it = std::find_if(
+    troops[player_id].begin(), troops[player_id].end(), [troop_id](const Troop* troop) {
+      return troop->getID() == troop_id;
+    });
+
+  if (it != troops[player_id].end())
   {
-    if (troop->getID() == troop_id)
-    {
-      return troop;
-    }
+    return *it;
   }
 
   return nullptr;
