@@ -62,27 +62,27 @@ void Troop::setTroopType(TroopTypes new_type)
   Troop::current_troop_type = new_type;
 }
 
-int Troop::getHealth()
+int Troop::getHealth() const
 {
   return troop_stats.health;
 }
 
-int Troop::getAttackDamage()
+int Troop::getAttackDamage() const
 {
   return troop_stats.damage;
 }
 
-int Troop::getCost()
+int Troop::getCost() const
 {
   return troop_stats.cost;
 }
 
-int Troop::getMovementRange()
+int Troop::getMovementRange() const
 {
   return troop_stats.move_range;
 }
 
-int Troop::getWeaponRange()
+int Troop::getWeaponRange() const
 {
   return troop_stats.weapon_range;
 }

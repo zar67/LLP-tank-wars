@@ -43,15 +43,11 @@ class Troop : public GameObject
 
   void setTroopValues();
 
-  int getHealth();
-
-  int getAttackDamage();
-
-  int getCost();
-
-  int getMovementRange();
-
-  int getWeaponRange();
+  [[nodiscard]] int getHealth() const;
+  [[nodiscard]] int getAttackDamage() const;
+  [[nodiscard]] int getCost() const;
+  [[nodiscard]] int getMovementRange() const;
+  [[nodiscard]] int getWeaponRange() const;
 
   void takeDamage(int damageAmount);
 
