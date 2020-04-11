@@ -19,16 +19,13 @@ InputManager::InputManager(ASGE::Input& _inputs)
 
 InputManager::~InputManager()
 {
+  exitInputThread();
   if (asge_input != nullptr)
   {
     asge_input->unregisterCallback(static_cast<unsigned int>(key_callback_id));
     asge_input = nullptr;
   }
-  if (tile_clicked != nullptr)
-  {
-    delete (tile_clicked);
-    tile_clicked = nullptr;
-  }
+  tile_clicked = nullptr;
 }
 
 InputManager::InputManager(const InputManager& _input) {}
