@@ -47,7 +47,8 @@ class Map
   std::vector<TileData> grass{};
   std::vector<TileData> sand{};
   std::vector<TileData> mix{};
-  TileData* base_camp = nullptr;
+  TileData* base_camp     = nullptr;
+  const float SPAWN_RANGE = 3.0F;
 };
 
 #endif  // MYNETGAME_MAP_H

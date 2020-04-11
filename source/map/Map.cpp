@@ -223,5 +223,5 @@ bool Map::inRangeOfBase(const TileData& _tile_data)
 
   float x_tiles = x_distance / (float)tile_width;
   float y_tiles = y_distance / (float)tile_width;
-  return (abs(x_tiles) <= 3 && abs(y_tiles) <= 3);
+  return (abs(x_tiles) <= SPAWN_RANGE && abs(y_tiles) <= SPAWN_RANGE);
 }
