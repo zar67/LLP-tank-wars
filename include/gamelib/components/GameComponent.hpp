@@ -18,8 +18,8 @@ class GameComponent
   enum class ID
   {
     INVALID_COMPONENT_ID = -1,
-    NETWORK_CLIENT,
-    NETWORK_SERVER,
+    NETWORK_CLIENT       = 0,
+    NETWORK_SERVER       = 1,
     NUM_OF_SUPPORTED_COMPONENTS
   };
 
@@ -39,7 +39,8 @@ class GameComponent
   virtual void addInputReader(ASGE::Input& _inputs) = 0;
 
  private:
-  ID id = ID::INVALID_COMPONENT_ID;
+  ID id         = ID::INVALID_COMPONENT_ID;
+  int player_id = 0;
 };
 
 #endif  // NETGAME_GAMECOMPONENT_HPP

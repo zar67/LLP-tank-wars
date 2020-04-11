@@ -18,7 +18,7 @@ class Map
 
   void init(int screen_width, int screen_height);
   void generateMap(ASGE::Renderer* renderer);
-
+  void addSpawnBase(int _player_id);
   void renderMap(ASGE::Renderer* renderer);
 
   std::vector<TileData>* getMap();
@@ -32,12 +32,13 @@ class Map
   bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
   bool nameValid(std::string name, std::string to_find);
 
-  int screen_width  = 0;
-  int screen_height = 0;
-  int tiles_wide    = 0;
-  int tiles_high    = 0;
-  int tile_width    = 0;
-  int tile_height   = 0;
+  int screen_width             = 0;
+  int screen_height            = 0;
+  int tiles_wide               = 0;
+  int tiles_high               = 0;
+  int tile_width               = 0;
+  int tile_height              = 0;
+  const int base_tile_distance = 4;
 
   std::vector<TileData> map{};
   std::vector<TileData> grass{};

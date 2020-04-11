@@ -8,6 +8,7 @@
 #include <Engine/Logger.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <random>
 
 using nlohmann::json;
 
@@ -165,4 +166,40 @@ bool Map::tileInRange(int tile_id_one, int tile_id_two, int range) const
   int height_diff = abs(y_index_one - y_index_two);
 
   return width_diff + height_diff <= range;
+}
+
+void Map::addSpawnBase(int _player_id)
+{
+  bool left  = _player_id == 1;
+  bool found = false;
+  std::random_device gen;
+  std::mt19937 mt(gen());
+  std::uniform_int_distribution<int> distribution(0, tiles_wide * tiles_high);
+  do
+  {
+    int num = distribution(mt);
+    for (auto tile : map)
+    {
+      if (left && tile.tile_id == num)
+      {
+        if ((int)tile.sprite->xPos() < base_tile_distance * tile_width)
+        {
+          tile.is_base = true;
+          tile.sprite->colour(ASGE::COLOURS::BLUE);
+          found = true;
+        }
+        break;
+      }
+      if (!left && tile.tile_id == num)
+      {
+        if ((int)tile.sprite->xPos() > (tiles_wide - base_tile_distance) * tile_width)
+        {
+          tile.is_base = true;
+          tile.sprite->colour(ASGE::COLOURS::BLUE);
+          found = true;
+        }
+        break;
+      }
+    }
+  } while (!found);
 }
