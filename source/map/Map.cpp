@@ -178,7 +178,7 @@ void Map::addSpawnBase(int _player_id)
   do
   {
     int num = distribution(mt);
-    for (auto tile : map)
+    for (auto& tile : map)
     {
       if (left && tile.tile_id == num)
       {
