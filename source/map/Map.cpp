@@ -186,7 +186,8 @@ void Map::addSpawnBase(int _player_id)
         {
           tile.is_base = true;
           tile.sprite->colour(ASGE::COLOURS::BLUE);
-          found = true;
+          base_camp = &tile;
+          found     = true;
         }
         break;
       }
@@ -196,10 +197,31 @@ void Map::addSpawnBase(int _player_id)
         {
           tile.is_base = true;
           tile.sprite->colour(ASGE::COLOURS::BLUE);
-          found = true;
+          base_camp = &tile;
+          found     = true;
         }
         break;
       }
     }
   } while (!found);
+}
+
+TileData* Map::getBaseCamp()
+{
+  return base_camp;
+}
+
+/*
+ * calculates whether you can place a troop there
+ * needs to be within a certain amount of tiles to the base camp
+ */
+bool Map::inRangeOfBase(const TileData& _tile_data)
+{
+  std::array pos   = {_tile_data.sprite->xPos(), _tile_data.sprite->yPos()};
+  float x_distance = base_camp->sprite->xPos() - pos[0];
+  float y_distance = base_camp->sprite->yPos() - pos[1];
+
+  float x_tiles = x_distance / (float)tile_width;
+  float y_tiles = y_distance / (float)tile_width;
+  return (abs(x_tiles) <= 3 && abs(y_tiles) <= 3);
 }

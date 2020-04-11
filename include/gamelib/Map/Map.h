@@ -26,6 +26,9 @@ class Map
 
   [[nodiscard]] bool tileInRange(int tile_id_one, int tile_id_two, int range) const;
 
+  TileData* getBaseCamp();
+  bool inRangeOfBase(const TileData& _tile_data);
+
  private:
   void readJSON(const std::string& directory);
   void readLevelJson(const std::string& directory);
@@ -44,6 +47,7 @@ class Map
   std::vector<TileData> grass{};
   std::vector<TileData> sand{};
   std::vector<TileData> mix{};
+  TileData* base_camp = nullptr;
 };
 
 #endif  // MYNETGAME_MAP_H

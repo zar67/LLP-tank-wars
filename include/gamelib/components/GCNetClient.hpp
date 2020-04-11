@@ -68,7 +68,6 @@ class GCNetClient : public GameComponent
   std::vector<Troop*> units_bought_this_turn = {};
 
   Map map;
-
   InputManager* inputReader = nullptr;
 
   int player_id = 0;

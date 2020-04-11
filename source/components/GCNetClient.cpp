@@ -410,7 +410,7 @@ Troop* GCNetClient::getTroop(int player_id, int troop_id)
 
 void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 {
-  if (tile_clicked->troop_id > 0)
+  if (tile_clicked->troop_id > 0 || !map.inRangeOfBase(*tile_clicked))
   {
     return;
   }
