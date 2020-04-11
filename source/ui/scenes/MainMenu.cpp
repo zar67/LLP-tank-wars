@@ -58,24 +58,26 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
     40);
 }
 
-UIElement::MenuItem MainMenu::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem MainMenu::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
 {
   host_game.update(cursor_pos, click);
-  join_game.update(cursor_pos, click);
-  exit_game.update(cursor_pos, click);
-
   if (host_game.pressed())
   {
+    click = false;
     return UIElement::MenuItem::HOST_GAME;
   }
 
+  join_game.update(cursor_pos, click);
   if (join_game.pressed())
   {
+    click = false;
     return UIElement::MenuItem::JOIN_SCREEN;
   }
 
+  exit_game.update(cursor_pos, click);
   if (exit_game.pressed())
   {
+    click = false;
     return UIElement::MenuItem::EXIT_GAME;
   }
 

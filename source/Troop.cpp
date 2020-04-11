@@ -4,25 +4,57 @@
 
 #include "Troop.h"
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer)
+Troop::Troop(
+  int unit_id,
+  TroopTypes type_to_make,
+  ASGE::Renderer* renderer,
+  int player_id,
+  bool owned)
 {
-  data        = new DataComp();
-  troop_stats = data->getTankData(type_to_make);
+  id                  = unit_id;
+  generated_this_turn = true;
+  data                = new TroopData();
+  troop_stats         = data->getTankData(type_to_make);
   setTroopType(type_to_make);
-  addSpriteComponent(renderer, data->getTankData(current_troop_type).texture_path);
+
+  std::string texture = "data/sprites/troops/player_" + std::to_string(player_id) + "/";
+  if (owned)
+  {
+    texture += "owned_";
+  }
+  texture += data->getTankData(current_troop_type).texture_path;
+
+  addSpriteComponent(renderer, texture);
 }
 
-Troop::Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos)
+Troop::Troop(
+  int unit_id,
+  TroopTypes type_to_make,
+  ASGE::Renderer* renderer,
+  int x_pos,
+  int y_pos,
+  int player_id,
+  bool owned)
 {
-  data        = new DataComp();
-  troop_stats = data->getTankData(type_to_make);
+  id                  = unit_id;
+  generated_this_turn = true;
+  data                = new TroopData();
+  troop_stats         = data->getTankData(type_to_make);
   setTroopType(type_to_make);
 
-  addSpriteComponent(
-    renderer,
-    data->getTankData(current_troop_type).texture_path,
-    static_cast<float>(x_pos),
-    static_cast<float>(y_pos));
+  std::string texture = "data/sprites/troops/player_" + std::to_string(player_id) + "/";
+  if (owned)
+  {
+    texture += "owned_";
+  }
+  texture += data->getTankData(current_troop_type).texture_path;
+
+  addSpriteComponent(renderer, texture, static_cast<float>(x_pos), static_cast<float>(y_pos));
+
+  // Center
+  ASGE::Sprite* sprite = getSpriteComponent()->getSprite();
+  sprite->xPos(sprite->xPos() - sprite->width() / 2);
+  sprite->yPos(sprite->yPos() - sprite->height() / 2);
 }
 
 void Troop::setTroopType(TroopTypes new_type)
@@ -30,27 +62,27 @@ void Troop::setTroopType(TroopTypes new_type)
   Troop::current_troop_type = new_type;
 }
 
-int Troop::getHealth()
+int Troop::getHealth() const
 {
   return troop_stats.health;
 }
 
-int Troop::getDamage()
+int Troop::getAttackDamage() const
 {
   return troop_stats.damage;
 }
 
-int Troop::getCost()
+int Troop::getCost() const
 {
   return troop_stats.cost;
 }
 
-int Troop::getMovementRange()
+int Troop::getMovementRange() const
 {
   return troop_stats.move_range;
 }
 
-int Troop::getWeaponRange()
+int Troop::getWeaponRange() const
 {
   return troop_stats.weapon_range;
 }

@@ -5,9 +5,9 @@
 #ifndef MYNETGAME_TROOP_H
 #define MYNETGAME_TROOP_H
 
+#include "Map/Map.h"
 #include "components/GameObject.h"
-#include "gamedata/DataComp.h"
-#include "map/Map.h"
+#include "gamedata/TroopData.h"
 
 #include <Engine/Renderer.h>
 
@@ -22,11 +22,18 @@ class Troop : public GameObject
                                                   // Assignment
                                                   // Operator
   // Constructor that creates a troop type and a sprite component.
-  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer);
+  Troop(int unit_id, TroopTypes type_to_make, ASGE::Renderer* renderer, int player_id, bool owned);
 
   // Constructor that creates a troop type and a sprite component and sets it's
   // position.
-  Troop(TroopTypes type_to_make, ASGE::Renderer* renderer, int x_pos, int y_pos);
+  Troop(
+    int unit_id,
+    TroopTypes type_to_make,
+    ASGE::Renderer* renderer,
+    int x_pos,
+    int y_pos,
+    int player_id,
+    bool owned);
 
   // returns current troop type.
   TroopTypes getTroopType();
@@ -36,26 +43,25 @@ class Troop : public GameObject
 
   void setTroopValues();
 
-  int getHealth();
-
-  int getDamage();
-
-  int getCost();
-
-  int getMovementRange();
-
-  int getWeaponRange();
+  [[nodiscard]] int getHealth() const;
+  [[nodiscard]] int getAttackDamage() const;
+  [[nodiscard]] int getCost() const;
+  [[nodiscard]] int getMovementRange() const;
+  [[nodiscard]] int getWeaponRange() const;
 
   void takeDamage(int damageAmount);
 
-  int getID() { return id; }
-  void setID(int _id) { id = _id; }
+  [[nodiscard]] int getID() const { return id; }
+
+  [[nodiscard]] bool getBoughtThisTurn() const { return generated_this_turn; };
+  void setBoughtThisTurn(bool value) { generated_this_turn = value; };
 
  private:
-  int id         = 0;  // probably move this to datacomp
-  DataComp* data = nullptr;
-  DataComp::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};
-  TroopTypes current_troop_type        = TroopTypes::TANK_BLUE;
+  int id                                = -1;
+  bool generated_this_turn              = false;
+  TroopData* data                       = nullptr;
+  TroopData::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};
+  TroopTypes current_troop_type         = TroopTypes::NONE;
 };
 
 #endif  // MYNETGAME_TROOP_H

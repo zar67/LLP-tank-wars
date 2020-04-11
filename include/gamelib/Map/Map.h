@@ -21,12 +21,16 @@ class Map
 
   void renderMap(ASGE::Renderer* renderer);
 
-  std::vector<TileData> getMap();
+  std::vector<TileData>* getMap();
+  TileData* getTile(int id);
+
+  [[nodiscard]] bool tileInRange(int tile_id_one, int tile_id_two, int range) const;
 
  private:
-  void readJSON(const std::string& _directory);
-  void readLevelJson(const std::string& _directory);
-  bool checkTileName(const std::vector<TileData>& _tiles, const std::string& _name);
+  void readJSON(const std::string& directory);
+  void readLevelJson(const std::string& directory);
+  bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
+  bool nameValid(std::string name, std::string to_find);
 
   int screen_width  = 0;
   int screen_height = 0;
@@ -35,10 +39,10 @@ class Map
   int tile_width    = 0;
   int tile_height   = 0;
 
-  std::vector<TileData> map;
-  std::vector<TileData> grass;
-  std::vector<TileData> sand;
-  std::vector<TileData> mix;
+  std::vector<TileData> map{};
+  std::vector<TileData> grass{};
+  std::vector<TileData> sand{};
+  std::vector<TileData> mix{};
 };
 
 #endif  // MYNETGAME_MAP_H

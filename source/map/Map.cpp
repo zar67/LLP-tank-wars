@@ -2,7 +2,7 @@
 // Created by l4-neale on 13/03/2020.
 //
 
-#include "map/Map.h"
+#include "Map/Map.h"
 
 #include <Engine/FileIO.h>
 #include <Engine/Logger.hpp>
@@ -19,7 +19,7 @@ void Map::init(const int screen_width, const int screen_height)
   this->screen_height = screen_height;
 }
 
-void Map::readJSON(const std::string& _directory)
+void Map::readJSON(const std::string& directory)
 {
   grass.clear();
   sand.clear();
@@ -27,7 +27,7 @@ void Map::readJSON(const std::string& _directory)
   using File = ASGE::FILEIO::File;
   File file  = File();
 
-  if (file.open(_directory))
+  if (file.open(directory))
   {
     using Buffer  = ASGE::FILEIO::IOBuffer;
     Buffer buffer = file.read();
@@ -74,14 +74,14 @@ void Map::generateMap(ASGE::Renderer* renderer)
     for (int j = 0; j < tiles_high; ++j)
     {
       TileData& current_tile = map.at(i + tiles_wide * j);
-      current_tile.tile_id   = i + j + 1;
+      current_tile.tile_id   = i + tiles_wide * j;
       current_tile.sprite    = renderer->createRawSprite();
       current_tile.sprite->loadTexture(current_tile.directory);
       current_tile.sprite->xPos(static_cast<float>(i * tile_width));
       current_tile.sprite->yPos(static_cast<float>(j * tile_height));
       current_tile.sprite->width(static_cast<float>(tile_width));
       current_tile.sprite->height(static_cast<float>(tile_height));
-      current_tile.sprite->setGlobalZOrder(-1);
+      current_tile.sprite->setGlobalZOrder(-10);
     }
   }
 }
@@ -95,12 +95,12 @@ void Map::renderMap(ASGE::Renderer* renderer)
   for (auto& tile : map) { renderer->renderSprite(*tile.sprite); }
 }
 
-void Map::readLevelJson(const std::string& _directory)
+void Map::readLevelJson(const std::string& directory)
 {
   using File = ASGE::FILEIO::File;
   File file  = File();
 
-  if (file.open(_directory))
+  if (file.open(directory))
   {
     using Buffer  = ASGE::FILEIO::IOBuffer;
     Buffer buffer = file.read();
@@ -129,20 +129,40 @@ void Map::readLevelJson(const std::string& _directory)
   }
 }
 
-bool Map::checkTileName(const std::vector<TileData>& _tiles, const std::string& _name)
+bool Map::checkTileName(const std::vector<TileData>& tiles, const std::string& to_find)
 {
-  for (auto& tile : _tiles)
+  auto it = std::find_if(tiles.begin(), tiles.end(), [&to_find](const TileData& tile) {
+    return tile.name == to_find;
+  });
+
+  if (it != tiles.end())
   {
-    if (_name == tile.name)
-    {
-      map.push_back(tile);
-      return true;
-    }
+    map.push_back(*it);
+    return true;
   }
+
   return false;
 }
 
-std::vector<TileData> Map::getMap()
+std::vector<TileData>* Map::getMap()
 {
-  return map;
+  return &map;
+}
+
+TileData* Map::getTile(int id)
+{
+  return &map.at(id);
+}
+
+bool Map::tileInRange(int tile_id_one, int tile_id_two, int range) const
+{
+  int x_index_one = tile_id_one % tiles_wide;
+  int x_index_two = tile_id_two % tiles_wide;
+  int width_diff  = abs(x_index_one - x_index_two);
+
+  int y_index_one = tile_id_one / tiles_wide;
+  int y_index_two = tile_id_two / tiles_wide;
+  int height_diff = abs(y_index_one - y_index_two);
+
+  return width_diff + height_diff <= range;
 }

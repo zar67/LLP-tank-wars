@@ -2,10 +2,11 @@
 // Created by User on 26/03/2020.
 //
 
-#ifndef MYNETGAME_INPUT_H
-#define MYNETGAME_INPUT_H
+#ifndef MYNETGAME_INPUTMANAGER_H
+#define MYNETGAME_INPUTMANAGER_H
 
 #include "InputData.h"
+#include "Map/TileData.h"
 #include "components/GameComponent.hpp"
 #include "gamedata/DataStructs.h"
 
@@ -13,19 +14,19 @@
 #include <mutex>
 #include <queue>
 #include <thread>
-class Input
+class InputManager
 {
  public:
-  explicit Input(ASGE::Input& _inputs);
-  ~Input();
-  Input(const Input& _input);
-  Input& operator=(const Input& _input);
+  explicit InputManager(ASGE::Input& _inputs);
+  ~InputManager();
+  InputManager(const InputManager& _input);
+  InputManager& operator=(const InputManager& _input);
 
   void keyHandler(ASGE::SharedEventData data);
   void moveHandler(ASGE::SharedEventData data);
   void clickHandler(ASGE::SharedEventData data);
 
-  bool mouseClicked() { return mouse_click; }
+  std::atomic<bool>* mouseClicked() { return &mouse_click; }
   ASGE::Point2D mousePos() { return mouse_pos; }
   int keyValue() { return key_value; }
   std::atomic<bool>* keyPressed() { return &key_pressed; }
@@ -35,12 +36,14 @@ class Input
   void executeQueue();
   void exitInputThread();
 
-  void setMap(const std::vector<TileData>& _map);
   TileData* tileClicked();
   void unlockTile();
+  TileData* previousTileClicked();
+  void unlockPreviousTile();
 
-  void setClickedMap(bool _map_clicked, float x, float y);
+  void setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y);
   bool getClickedMap() { return clicked_map; }
+  void deselectTile();
 
  private:
   void executeEvent(const InputData& data);
@@ -51,22 +54,26 @@ class Input
   std::atomic<bool> key_pressed = false;
   std::atomic<int> key_value    = 0;
 
-  int key_callback_id   = -1; /**< Key Input Callback ID. */
-  int move_callback_id  = -1; /**< Key Input Callback ID. */
-  int click_callback_id = -1; /**< Key Input Callback ID. */
+  int key_callback_id   = -1; /**< Key InputManager Callback ID. */
+  int move_callback_id  = -1; /**< Key InputManager Callback ID. */
+  int click_callback_id = -1; /**< Key InputManager Callback ID. */
 
   std::atomic<bool> clicked_map = true;
   std::atomic<bool> is_active   = true;
+
   std::mutex mutex_queue;
-  std::mutex mutex_tile_clicked;
   std::queue<InputData> input_queue;
   ASGE::Input* asge_input = nullptr;
-  std::vector<TileData> map;
-  TileData* tile_clicked         = nullptr;
+
+  std::mutex mutex_tile_clicked;
+  TileData* tile_clicked = nullptr;
+  std::mutex mutex_prev_tile_clicked;
+  TileData* prev_tile_clicked = nullptr;
+
   ASGE::Point2D recent_mouse_pos = ASGE::Point2D(0, 0);
 
   ASGE::Colour clicked_col    = ASGE::COLOURS::DARKGREEN;
   ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
 };
 
-#endif  // MYNETGAME_INPUT_H
+#endif  // MYNETGAME_INPUTMANAGER_H

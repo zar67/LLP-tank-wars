@@ -4,16 +4,10 @@
 
 #include "ui/scenes/GameScreen.h"
 
-bool GameScreen::init(
-  ASGE::Renderer* renderer,
-  int font_index,
-  const std::vector<std::string>& unit_types)
-{
-  if (!shop.init(renderer, font_index, unit_types))
-  {
-    return false;
-  }
+#include <Engine/Logger.hpp>
 
+bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
+{
   if (!open_shop.init(
         renderer,
         font_index,
@@ -22,7 +16,7 @@ bool GameScreen::init(
         "Open Shop",
         10,
         10,
-        290,
+        260,
         30))
   {
     return false;
@@ -40,12 +34,13 @@ bool GameScreen::init(
     30);
 }
 
-UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
 {
   open_shop.update(cursor_pos, click);
 
   if (open_shop.pressed())
   {
+    click = false;
     if (shop_active)
     {
       closeShop();
@@ -54,19 +49,26 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool cli
     {
       openShop();
     }
-    return UIElement::MenuItem::NONE;
+    return UIElement::MenuItem::SHOP_BUTTON;
   }
 
-  UIElement::MenuItem item = shop.update(cursor_pos, click);
   end_turn.update(cursor_pos, click);
-
-  if (item == UIElement::MenuItem::MAP_CLICK && !shop_active)
-  {
-    item = UIElement::MenuItem ::NONE;
-  }
   if (end_turn.pressed())
   {
-    item = UIElement::MenuItem::END_TURN;
+    click = false;
+    return UIElement::MenuItem::END_TURN;
+  }
+
+  UIElement::MenuItem item = UIElement::MenuItem::NONE;
+
+  if (shop_active)
+  {
+    item = shop.update(cursor_pos, click);
+  }
+
+  if (click)
+  {
+    item = UIElement::MenuItem::MAP_CLICK;
   }
 
   return item;
@@ -74,6 +76,7 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, bool cli
 
 void GameScreen::render(
   ASGE::Renderer* renderer,
+  int action_number,
   int current_player_turn,
   bool in_turn,
   const int& currency)
@@ -90,6 +93,11 @@ void GameScreen::render(
 
   if (in_turn)
   {
+    renderer->renderText(
+      "ACTIONS: " + std::to_string(action_number) + "/3",
+      15,
+      ASGE::SETTINGS.window_height - 45,
+      ASGE::COLOURS::WHITE);
     renderer->renderText("YOUR TURN", 15, ASGE::SETTINGS.window_height - 15, ASGE::COLOURS::WHITE);
     end_turn.render(renderer);
   }
@@ -101,6 +109,11 @@ void GameScreen::render(
       ASGE::SETTINGS.window_height - 15,
       ASGE::COLOURS::WHITE);
   }
+}
+
+bool GameScreen::initShop(ASGE::Renderer* renderer, int font_index, int player_id)
+{
+  return shop.init(renderer, font_index, player_id);
 }
 
 void GameScreen::openShop()
