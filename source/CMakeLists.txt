@@ -28,9 +28,9 @@ add_library(
         ui/SceneManager.cpp
         ui/scenes/JoinScreen.cpp
         ui/ui_elements/TextBox.cpp
-        Input.cpp
+        InputManager.cpp
         map/Map.cpp
-        components/DataComp.cpp
+        components/TroopData.cpp
         components/GameObject.cpp
         components/SpriteComponent.cpp
         Audio/AudioManager.cpp

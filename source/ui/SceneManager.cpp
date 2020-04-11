@@ -4,7 +4,7 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int player_id)
 {
   if (!audio.audioSetUp())
   {
@@ -29,21 +29,10 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   /// start game menu music
   audio.playBackgroundMusic();
 
-  return game_screen.init(
-    renderer,
-    font_index,
-    std::vector<std::string>{"data/sprites/troops/tank_blue.png",
-                             "data/sprites/troops/tank_dark.png",
-                             "data/sprites/troops/tank_green.png",
-                             "data/sprites/troops/tank_red.png",
-                             "data/sprites/troops/tank_sand.png"});
+  return game_screen.init(renderer, font_index);
 }
 
-UIElement::MenuItem SceneManager::update(
-  const ASGE::Point2D& cursor_pos,
-  bool click,
-  std::atomic<bool>& key_pressed,
-  int key)
+UIElement::MenuItem SceneManager::update(InputManager* input_manager)
 {
   UIElement::MenuItem item;
 
@@ -51,22 +40,26 @@ UIElement::MenuItem SceneManager::update(
   {
   case Screens::MAIN_MENU:
   {
-    item = main_menu.update(cursor_pos, click);
+    item = main_menu.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::JOIN_SCREEN:
   {
-    item = join_screen.update(cursor_pos, click, key_pressed, key);
+    item = join_screen.update(
+      input_manager->mousePos(),
+      *input_manager->mouseClicked(),
+      *input_manager->keyPressed(),
+      input_manager->keyValue());
     break;
   }
   case Screens::LOBBY:
   {
-    item = lobby.update(cursor_pos, click);
+    item = lobby.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::GAME:
   {
-    item = game_screen.update(cursor_pos, click);
+    item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   default: item = UIElement::MenuItem::NONE; break;
@@ -100,9 +93,10 @@ UIElement::MenuItem SceneManager::update(
 
 void SceneManager::render(
   ASGE::Renderer* renderer,
+  int action_number,
   int current_player_turn,
   bool in_turn,
-  const std::vector<std::vector<Troop>>& troops,
+  const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
@@ -125,7 +119,8 @@ void SceneManager::render(
   }
   case Screens::GAME:
   {
-    renderGameScreen(renderer, current_player_turn, in_turn, troops, tile_data, currency);
+    renderGameScreen(
+      renderer, action_number, current_player_turn, in_turn, troops, tile_data, currency);
     break;
   }
   }
@@ -133,15 +128,16 @@ void SceneManager::render(
 
 void SceneManager::renderGameScreen(
   ASGE::Renderer* renderer,
+  int action_number,
   int current_player_turn,
   bool in_turn,
-  const std::vector<std::vector<Troop>>& troops,
+  const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
-  game_screen.render(renderer, current_player_turn, in_turn, currency);
+  game_screen.render(renderer, action_number, current_player_turn, in_turn, currency);
 
-  for (auto& tile : tile_data)
+  for (const auto& tile : tile_data)
   {
     if (tile.sprite != nullptr)
     {
@@ -151,11 +147,11 @@ void SceneManager::renderGameScreen(
 
   for (const auto& player : troops)
   {
-    for (Troop troop : player)
+    for (Troop* troop : player)
     {
-      if (troop.getSpriteComponent()->getSprite() != nullptr)
+      if (troop->getSpriteComponent()->getSprite() != nullptr)
       {
-        renderer->renderSprite(*troop.getSpriteComponent()->getSprite());
+        renderer->renderSprite(*troop->getSpriteComponent()->getSprite());
       }
     }
   }
@@ -164,16 +160,6 @@ void SceneManager::renderGameScreen(
 void SceneManager::screenOpen(Screens screen)
 {
   screen_open = screen;
-}
-
-bool SceneManager::inMenu()
-{
-  return false;
-}
-
-MainMenu* SceneManager::mainMenu()
-{
-  return &main_menu;
 }
 
 JoinScreen* SceneManager::joinScreen()
