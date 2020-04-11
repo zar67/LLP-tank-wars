@@ -5,7 +5,7 @@
 #ifndef NETGAME_ASGEGAME_HPP
 #define NETGAME_ASGEGAME_HPP
 
-#include "../include/gamelib/Input.h"
+#include "gamelib/InputManager.h"
 
 #include <Engine/OGLGame.h>
 #include <gamelib/components/GCNetClient.hpp>
@@ -32,9 +32,9 @@ class Game : public ASGE::OGLGame
   int font_index = 0;
 
   std::vector<std::unique_ptr<GameComponent>> game_components;
-  int key_callback_id   = -1; /**< Key Input Callback ID. */
-  int move_callback_id  = -1; /**< Key Input Callback ID. */
-  int click_callback_id = -1; /**< Key Input Callback ID. */
+  int key_callback_id   = -1; /**< Key InputManager Callback ID. */
+  int move_callback_id  = -1; /**< Key InputManager Callback ID. */
+  int click_callback_id = -1; /**< Key InputManager Callback ID. */
 };
 
 #endif  // NETGAME_ASGEGAME_HPP

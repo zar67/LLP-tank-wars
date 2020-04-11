@@ -20,8 +20,8 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index)
   if (!text_box.init(
         renderer,
         font_index,
-        "data/text_box.png",
-        "data/button.png",
+        "data/sprites/ui/text_box.png",
+        "data/sprites/ui/button.png",
         "",
         static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 200,
         240,
@@ -45,8 +45,8 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index)
   return start_game.init(
     renderer,
     font_index,
-    "data/button.png",
-    "data/button_pressed.png",
+    "data/sprites/ui/button.png",
+    "data/sprites/ui/button_pressed.png",
     "Join",
     static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 125,
     500,

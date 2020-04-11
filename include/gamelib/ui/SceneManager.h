@@ -6,9 +6,9 @@
 #define MYNETGAME_SCENEMANAGER_H
 
 #include "../Audio/AudioManager.h"
+#include "../InputManager.h"
 #include "../Map/TileData.h"
 #include "../Troop.h"
-#include "../map/TileData.h"
 #include "scenes/GameScreen.h"
 #include "scenes/JoinScreen.h"
 #include "scenes/Lobby.h"
@@ -16,6 +16,8 @@
 #include "ui_elements/UIElement.h"
 
 #include <Engine/Renderer.h>
+
+class InputManager;
 
 class SceneManager
 {
@@ -32,29 +34,28 @@ class SceneManager
   SceneManager()  = default;
   ~SceneManager() = default;
 
-  bool init(ASGE::Renderer* renderer, int font_index);
+  bool init(ASGE::Renderer* renderer, int font_index, int player_id);
 
-  UIElement::MenuItem
-  update(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
+  UIElement::MenuItem update(InputManager* input_manager);
   void render(
     ASGE::Renderer* renderer,
+    int action_number,
     int current_player_turn,
     bool in_turn,
-    const std::vector<std::vector<Troop>>& troops,
+    const std::vector<std::vector<Troop*>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
   void renderGameScreen(
     ASGE::Renderer* renderer,
+    int action_number,
     int current_player_turn,
     bool in_turn,
-    const std::vector<std::vector<Troop>>& troops,
+    const std::vector<std::vector<Troop*>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
 
   void screenOpen(Screens screen);
-  bool inMenu();
 
-  MainMenu* mainMenu();
   JoinScreen* joinScreen();
   Lobby* lobbyScreen();
   GameScreen* gameScreen();

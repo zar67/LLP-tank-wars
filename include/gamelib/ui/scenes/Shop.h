@@ -20,13 +20,22 @@ class Shop
   Shop(const Shop& shop){};           // Copy Constructor
   Shop& operator=(const Shop& shop);  // Copy Assignment Operator
 
-  bool init(ASGE::Renderer* renderer, int font_index, const std::vector<std::string>& unit_types);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
+  bool init(ASGE::Renderer* renderer, int font_index, int player_id);
+  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
  private:
   ASGE::Text shop_title;
-  std::vector<Button*> units = {};
+  std::vector<Button*> units         = {};
+  std::vector<ASGE::Text*> cost_text = {};
+
+  const std::vector<std::string> unit_types{
+    "tank.png",
+    "tank_big.png",
+    "tank_large.png",
+    "tank_huge.png"};
+
+  const std::vector<std::string> unit_costs{"5", "15", "30", "50"};
 };
 
 #endif  // MYNETGAME_SHOP_H

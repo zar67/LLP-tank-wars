@@ -14,20 +14,21 @@ class UIElement
  public:
   enum class MenuItem
   {
-    NONE          = -1,
-    HOST_GAME     = 1,
-    JOIN_SCREEN   = 2,
-    BACK_TO_MENU  = 3,
-    CONNECT_TO_IP = 4,
-    EXIT_GAME     = 5,
-    START_GAME    = 6,
-    END_TURN      = 7,
-    BUY_UNIT_0,
-    BUY_UNIT_1,
-    BUY_UNIT_2,
-    BUY_UNIT_3,
-    BUY_UNIT_4,
-    MAP_CLICK
+    NONE            = -1,
+    HOST_GAME       = 1,
+    JOIN_SCREEN     = 2,
+    BACK_TO_MENU    = 3,
+    CONNECT_TO_IP   = 4,
+    EXIT_GAME       = 5,
+    START_GAME      = 6,
+    END_TURN        = 7,
+    SHOP_BUTTON     = 8,
+    BUY_NORMAL_TANK = 9,
+    BUY_BIG_TANK    = 10,
+    BUY_LARGE_TANK  = 11,
+    BUY_HUGE_TANK   = 12,
+    BUY_UNIT_4      = 13,
+    MAP_CLICK       = 14
   };
 
  public:

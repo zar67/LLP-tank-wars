@@ -4,12 +4,11 @@
 
 #ifndef NETGAME_GCNETCLIENT_HPP
 #define NETGAME_GCNETCLIENT_HPP
-#include "../Input.h"
+#include "../InputManager.h"
 #include "../Map/Map.h"
 #include "../Troop.h"
 #include "../gamedata/DataStructs.h"
 #include "../gamedata/MessageTypes.h"
-#include "../map/Map.h"
 #include "GameComponent.hpp"
 
 #include <NetLib/ClientConnection.h>
@@ -24,8 +23,7 @@ class GCNetClient : public GameComponent
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
   bool update(double dt) override;
-  bool
-  updateUI(const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
+  bool updateUI();
   void render() override;
 
   void decodeMessage(const std::vector<char>& message);
@@ -37,29 +35,41 @@ class GCNetClient : public GameComponent
 
   void startGame();
 
-  void buyUnit(TroopTypes unit_type);
+  Troop* getTroop(int player_id, int troop_id);
+
+  void buyUnit(TileData* tile_clicked, TroopTypes unit_type);
+  void moveUnit(TileData* tile_clicked, TileData* previously_clicked);
+  void attackUnit(TileData* tile_clicked, TileData* previously_clicked);
 
   void addInputReader(ASGE::Input& _inputs) override;
 
  private:
+  int clientIndexNumber();
+
   ASGE::Renderer* renderer = nullptr;
+  int font_index           = 0;
 
   netlib::ClientConnection client;
   SceneManager scene_manager;
 
-  std::atomic_bool exiting = false;
-  std::vector<std::vector<char>> actions;
-  bool can_start      = false;
+  bool can_start      = true;
   bool in_turn        = false;
   int current_turn_id = 1;
 
-  int currency                           = 100;
-  std::vector<std::vector<Troop>> troops = {{}, {}, {}, {}};
+  int max_time_units   = 3;
+  int time_units_spent = 0;
+  std::vector<std::vector<char>> actions;
+
+  std::vector<std::vector<Troop*>> troops = {{}, {}, {}, {}};
+  int unit_count                          = 0;
+
+  int currency                               = 100;
+  TroopTypes shop_unit_selected              = TroopTypes::NONE;
+  std::vector<Troop*> units_bought_this_turn = {};
+
   Map map;
-  Input* inputReader     = nullptr;
-  TileData* tile_clicked = nullptr;
-  int unit_count         = 0;
-  // TODO: std::vector<Unit>() units;
+
+  InputManager* inputReader = nullptr;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP
