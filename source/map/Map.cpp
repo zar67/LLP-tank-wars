@@ -8,6 +8,7 @@
 #include <Engine/Logger.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <random>
 
 using nlohmann::json;
 
@@ -165,4 +166,63 @@ bool Map::tileInRange(int tile_id_one, int tile_id_two, int range) const
   int height_diff = abs(y_index_one - y_index_two);
 
   return width_diff + height_diff <= range;
+}
+
+void Map::addSpawnBase(int _player_id)
+{
+  bool left  = _player_id == 1;
+  bool found = false;
+  std::random_device gen;
+  std::mt19937 mt(gen());
+  std::uniform_int_distribution<int> distribution(0, tiles_wide * tiles_high);
+  do
+  {
+    int num = distribution(mt);
+    for (auto& tile : map)
+    {
+      if (left && tile.tile_id == num)
+      {
+        if ((int)tile.sprite->xPos() < base_tile_distance * tile_width)
+        {
+          tile.is_base = true;
+          tile.sprite->colour(ASGE::COLOURS::BLUE);
+          base_camp = &tile;
+          found     = true;
+        }
+        break;
+      }
+      if (!left && tile.tile_id == num)
+      {
+        if ((int)tile.sprite->xPos() > (tiles_wide - base_tile_distance) * tile_width)
+        {
+          tile.is_base = true;
+          tile.sprite->colour(ASGE::COLOURS::BLUE);
+          base_camp = &tile;
+          found     = true;
+        }
+        break;
+      }
+    }
+  } while (!found);
+}
+
+TileData* Map::getBaseCamp()
+{
+  return base_camp;
+}
+
+/*
+ * calculates whether you can place a troop there
+ * needs to be within a certain amount of tiles to the base camp
+ */
+bool Map::inRangeOfBase(const TileData& _tile_data)
+{
+  std::array pos = {_tile_data.sprite->xPos(), _tile_data.sprite->yPos()};
+  int x_distance = static_cast<int>(base_camp->sprite->xPos()) - static_cast<int>(pos[0]);
+  int y_distance = static_cast<int>(base_camp->sprite->yPos()) - static_cast<int>(pos[1]);
+
+  int x_tiles = x_distance / (tile_width);
+  int y_tiles = y_distance / (tile_height);
+  return static_cast<float>(abs(x_tiles)) <= SPAWN_RANGE &&
+         static_cast<float>(abs(y_tiles)) <= SPAWN_RANGE;
 }

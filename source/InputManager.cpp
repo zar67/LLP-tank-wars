@@ -200,6 +200,10 @@ void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, 
     int tile_id = tile.mouseClicked(x, y);
     if (tile_id >= 0)
     {
+      if (tile.is_base)
+      {
+        break;
+      }
       if (tile_clicked != nullptr)
       {
         tile_clicked->sprite->colour(tile.sprite->colour());

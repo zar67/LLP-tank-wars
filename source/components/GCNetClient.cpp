@@ -60,6 +60,7 @@ bool GCNetClient::update(double dt)
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       Logging::log("Connected to the server!\n");
+      player_id = static_cast<int>(client.GetUID());
       scene_manager.gameScreen()->initShop(renderer, font_index, static_cast<int>(client.GetUID()));
       break;
     }
@@ -97,6 +98,7 @@ bool GCNetClient::updateUI()
     {
       scene_manager.screenOpen(SceneManager::Screens::GAME);
       startGame();
+      map.addSpawnBase(player_id);
     }
     break;
   }
@@ -214,6 +216,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   case (NetworkMessages::START_GAME):
   {
     scene_manager.screenOpen(SceneManager::Screens::GAME);
+    map.addSpawnBase(player_id);
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
@@ -407,7 +410,7 @@ Troop* GCNetClient::getTroop(int player_id, int troop_id)
 
 void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 {
-  if (tile_clicked->troop_id > 0)
+  if (tile_clicked->troop_id > 0 || !map.inRangeOfBase(*tile_clicked))
   {
     return;
   }
