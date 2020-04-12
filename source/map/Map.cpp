@@ -217,11 +217,12 @@ TileData* Map::getBaseCamp()
  */
 bool Map::inRangeOfBase(const TileData& _tile_data)
 {
-  std::array pos   = {_tile_data.sprite->xPos(), _tile_data.sprite->yPos()};
-  float x_distance = base_camp->sprite->xPos() - pos[0];
-  float y_distance = base_camp->sprite->yPos() - pos[1];
+  std::array pos = {_tile_data.sprite->xPos(), _tile_data.sprite->yPos()};
+  int x_distance = static_cast<int>(base_camp->sprite->xPos()) - static_cast<int>(pos[0]);
+  int y_distance = static_cast<int>(base_camp->sprite->yPos()) - static_cast<int>(pos[1]);
 
-  float x_tiles = x_distance / static_cast<float>(tile_width);
-  float y_tiles = y_distance / static_cast<float>(tile_height);
-  return (abs(x_tiles) <= SPAWN_RANGE && abs(y_tiles) <= SPAWN_RANGE);
+  int x_tiles = x_distance / (tile_width);
+  int y_tiles = y_distance / (tile_height);
+  return abs(static_cast<float>(x_tiles)) <= SPAWN_RANGE &&
+         abs(static_cast<float>(y_tiles)) <= SPAWN_RANGE;
 }
