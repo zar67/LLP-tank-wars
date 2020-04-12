@@ -221,7 +221,7 @@ bool Map::inRangeOfBase(const TileData& _tile_data)
   float x_distance = base_camp->sprite->xPos() - pos[0];
   float y_distance = base_camp->sprite->yPos() - pos[1];
 
-  float x_tiles = x_distance / (float)tile_width;
-  float y_tiles = y_distance / (float)tile_width;
+  float x_tiles = x_distance / static_cast<float>(tile_width);
+  float y_tiles = y_distance / static_cast<float>(tile_height);
   return (abs(x_tiles) <= SPAWN_RANGE && abs(y_tiles) <= SPAWN_RANGE);
 }
