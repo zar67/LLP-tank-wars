@@ -223,6 +223,6 @@ bool Map::inRangeOfBase(const TileData& _tile_data)
 
   int x_tiles = x_distance / (tile_width);
   int y_tiles = y_distance / (tile_height);
-  return static_cast<float>(abs(static_cast<float>(x_tiles))) <= SPAWN_RANGE &&
-         static_cast<float>(abs(static_cast<float>(y_tiles))) <= SPAWN_RANGE;
+  return static_cast<float>(abs(x_tiles)) <= SPAWN_RANGE &&
+         static_cast<float>(abs(y_tiles)) <= SPAWN_RANGE;
 }
