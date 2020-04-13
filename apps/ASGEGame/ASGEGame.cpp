@@ -11,6 +11,11 @@ Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
   game_components.emplace_back(std::make_unique<GCNetServer>());
   game_components.emplace_back(std::make_unique<GCNetClient>());
 
+  ASGE::Point2D cam_pivot;
+  cam_pivot.x = 0;
+  cam_pivot.y = 0;
+  cam         = new ASGE::Camera2D(cam_pivot, 1280, 720);
+
   if (!loadFont())
   {
     Logging::log("\n*** FONT NOT LOADED ***\n");
@@ -50,11 +55,13 @@ void Game::update(const ASGE::GameTime& us)
 {
   for (auto& gc : game_components)
   {
-    if (gc->update(us.deltaInSecs()))
+    if (gc->update(us))
     {
       signalExit();
     }
   }
+  // cam->translateX(500);
+  // cam->update(us);
 
   // key_pressed = false;
 }

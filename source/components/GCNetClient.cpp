@@ -11,6 +11,15 @@ GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 {
   // client.ConnectToIP("localhost", 32488);
   // client.ConnectToIP("164.11.76.100", 32488);
+  ASGE::Point2D cam_pivot;
+  cam_pivot.x = 0.0F;
+  cam_pivot.y = 0.0F;
+  cam         = new ASGE::Camera2D(cam_pivot, 1280, 720);
+
+  ASGE::Point2D look_at;
+  look_at.x = -690;
+  look_at.y = -360;
+  cam->lookAt(look_at);
 }
 
 GCNetClient::~GCNetClient()
@@ -39,17 +48,27 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
   this->renderer   = renderer;
   this->font_index = font_index;
 
+  //  ASGE::Point2D cam_pivot;
+  // ASGE::Camera2D cam ;
+  //  cam_pivot.x = 0;
+  // cam_pivot.y = 0;
+
+  // cam->resize(1280, 720);
+  // cam->translateX(500);
+
   map.init(1280, 720);
   map.generateMap(renderer);
   return scene_manager.init(renderer, font_index, static_cast<int>(client.GetUID()));
 }
 
-bool GCNetClient::update(double dt)
+bool GCNetClient::update(ASGE::GameTime time)
 {
   if (updateUI())
   {
     return true;
   }
+
+  //  cam->translateX(-200);
 
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
@@ -205,6 +224,8 @@ void GCNetClient::render()
 {
   scene_manager.render(
     renderer, time_units_spent, current_turn_id, in_turn, troops, *map.getMap(), currency);
+
+  renderer->setProjectionMatrix(cam->getView());
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)

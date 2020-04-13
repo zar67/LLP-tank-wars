@@ -11,6 +11,7 @@
 #include "../gamedata/MessageTypes.h"
 #include "GameComponent.hpp"
 
+#include <Engine/Camera2D.hpp>
 #include <NetLib/ClientConnection.h>
 
 class GCNetClient : public GameComponent
@@ -22,7 +23,7 @@ class GCNetClient : public GameComponent
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
-  bool update(double dt) override;
+  bool update(ASGE::GameTime time) override;
   bool updateUI();
   void render() override;
 
@@ -46,6 +47,7 @@ class GCNetClient : public GameComponent
  private:
   int clientIndexNumber();
 
+  ASGE::Camera2D* cam      = nullptr;  // ASGE::Camera2D(1280, 720);
   ASGE::Renderer* renderer = nullptr;
   int font_index           = 0;
 
