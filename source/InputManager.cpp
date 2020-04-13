@@ -28,6 +28,7 @@ InputManager::~InputManager()
     asge_input = nullptr;
   }
   tile_clicked = nullptr;
+  cam_ref      = nullptr;
 }
 
 InputManager::InputManager(const InputManager& _input) {}
@@ -84,6 +85,10 @@ void InputManager::keyBoard(ASGE::SharedEventData data)
     {
       scrollMap(*key);
     }
+  }
+  if (key->action == ASGE::KEYS::KEY_REPEATED && in_game)
+  {
+    scrollMap(*key);
   }
   else if (key->action == ASGE::KEYS::KEY_RELEASED)
   {
