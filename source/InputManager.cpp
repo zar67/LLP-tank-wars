@@ -3,7 +3,7 @@
 //
 
 #include "InputManager.h"
-InputManager::InputManager(ASGE::Input& _inputs)
+InputManager::InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D)
 {
   key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &InputManager::keyHandler, this);
 
@@ -15,6 +15,8 @@ InputManager::InputManager(ASGE::Input& _inputs)
   std::thread input_thread(&InputManager::executeQueue, this);
   input_thread.detach();
   asge_input = &_inputs;
+
+  cam_ref = camera2D;
 }
 
 InputManager::~InputManager()
@@ -78,6 +80,10 @@ void InputManager::keyBoard(ASGE::SharedEventData data)
   {
     key_pressed = true;
     key_value   = key->key;
+    if (in_game)
+    {
+      scrollMap(*key);
+    }
   }
   else if (key->action == ASGE::KEYS::KEY_RELEASED)
   {
@@ -233,4 +239,45 @@ void InputManager::deselectTile()
     tile_clicked      = nullptr;
     prev_tile_clicked = nullptr;
   }
+}
+
+void InputManager::setInGame(bool value)
+{
+  in_game = value;
+}
+
+void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
+{
+  switch (key_event.key)
+  {
+  case ASGE::KEYS::KEY_W:
+  {
+    // move camera up
+    cam_ref->translateY(translate_distance);
+    break;
+  }
+  case ASGE::KEYS::KEY_D:
+  {
+    // move camera right
+    cam_ref->translateX(translate_distance);
+    break;
+  }
+  case ASGE::KEYS::KEY_S:
+  {
+    // move camera down
+    cam_ref->translateY(-translate_distance);
+    break;
+  }
+  case ASGE::KEYS::KEY_A:
+  {
+    // move camera left
+    cam_ref->translateX(-translate_distance);
+    break;
+  }
+  }
+}
+
+bool InputManager::getIsCamFree()
+{
+  return is_cam_free;
 }

@@ -17,7 +17,7 @@ GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
   cam         = new ASGE::Camera2D(cam_pivot, 1280, 720);
 
   ASGE::Point2D look_at;
-  look_at.x = -690;
+  look_at.x = -640;
   look_at.y = -360;
   cam->lookAt(look_at);
 }
@@ -68,7 +68,7 @@ bool GCNetClient::update(ASGE::GameTime time)
     return true;
   }
 
-  //  cam->translateX(-200);
+  cam->update(time);
 
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
@@ -118,6 +118,7 @@ bool GCNetClient::updateUI()
       scene_manager.screenOpen(SceneManager::Screens::GAME);
       startGame();
       map.addSpawnBase(player_id);
+      inputReader->setInGame(true);
     }
     break;
   }
@@ -238,6 +239,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
     scene_manager.screenOpen(SceneManager::Screens::GAME);
     map.addSpawnBase(player_id);
+    inputReader->setInGame(true);
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
@@ -521,7 +523,7 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (inputReader);
   }
-  inputReader = new InputManager(_inputs);
+  inputReader = new InputManager(_inputs, cam);
 }
 
 int GCNetClient::clientIndexNumber()
