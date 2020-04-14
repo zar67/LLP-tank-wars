@@ -103,7 +103,9 @@ bool GCNetClient::update(ASGE::GameTime time)
 
 bool GCNetClient::updateUI()
 {
-  UIElement::MenuItem item = scene_manager.update(inputReader);
+  std::array<int, 2> cam_pos = {static_cast<int>(cam->getView().x),
+                                static_cast<int>(cam->getView().y)};
+  UIElement::MenuItem item   = scene_manager.update(inputReader, cam_pos);
 
   switch (item)
   {
@@ -239,13 +241,10 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     inputReader->setInGame(true);
     if (player_id == 2)
     {
-      do
-      {
-        ASGE::Point2D look_at;
-        look_at.x = -1920;
-        look_at.y = -720;
-        cam->lookAt(look_at);
-      } while (!inputReader->getIsCamFree());
+      ASGE::Point2D look_at;
+      look_at.x = -cam_x[1];
+      look_at.y = -static_cast<float>(cam_y);
+      cam->lookAt(look_at);
     }
     break;
   }
@@ -268,7 +267,14 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     {
       in_turn = true;
     }
-
+    if (player_id == 1)
+    {
+      inputReader->setIsPLayer1(true);
+    }
+    else if (player_id == 2)
+    {
+      inputReader->setIsPLayer1(false);
+    }
     break;
   }
   // MESSAGE FORMAT: TYPE:DATA,DATA,DATA:SENDER_ID
@@ -546,12 +552,9 @@ void GCNetClient::initGame()
   inputReader->setInGame(true);
   if (player_id == 2)
   {
-    do
-    {
-      ASGE::Point2D look_at;
-      look_at.x = 1920;
-      look_at.y = -720;
-      cam->lookAt(look_at);
-    } while (!inputReader->getIsCamFree());
+    ASGE::Point2D look_at;
+    look_at.x = -cam_x[1];
+    look_at.y = -static_cast<float>(cam_y);
+    cam->lookAt(look_at);
   }
 }

@@ -34,9 +34,12 @@ bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
     30);
 }
 
-UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
+UIElement::MenuItem GameScreen::update(
+  const ASGE::Point2D& cursor_pos,
+  std::atomic<bool>& click,
+  std::array<int, 2> camera_pos)
 {
-  open_shop.update(cursor_pos, click);
+  open_shop.update(cursor_pos, click, camera_pos);
 
   if (open_shop.pressed())
   {
@@ -52,7 +55,7 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::ato
     return UIElement::MenuItem::SHOP_BUTTON;
   }
 
-  end_turn.update(cursor_pos, click);
+  end_turn.update(cursor_pos, click, camera_pos);
   if (end_turn.pressed())
   {
     click = false;
@@ -63,7 +66,7 @@ UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::ato
 
   if (shop_active)
   {
-    item = shop.update(cursor_pos, click);
+    item = shop.update(cursor_pos, click, camera_pos);
   }
 
   if (click)
@@ -119,11 +122,13 @@ bool GameScreen::initShop(ASGE::Renderer* renderer, int font_index, int player_i
 void GameScreen::openShop()
 {
   shop_active = true;
+  shop_title  = "Close Shop";
   open_shop.changeText("Close Shop");
 }
 
 void GameScreen::closeShop()
 {
   shop_active = false;
+  shop_title  = "Open Shop";
   open_shop.changeText("Open Shop");
 }

@@ -201,14 +201,16 @@ void InputManager::unlockPreviousTile()
 void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y)
 {
   prev_tile_clicked = tile_clicked;
+  clicked_map       = _map_clicked;
 
-  clicked_map        = _map_clicked;
+  float x_pos = x + cam_ref->getView().x;
+  float y_pos = y + cam_ref->getView().y;
+
   recent_mouse_pos.x = x;
   recent_mouse_pos.y = y;
-
   for (auto& tile : *map)
   {
-    int tile_id = tile.mouseClicked(x, y);
+    int tile_id = tile.mouseClicked(x_pos, y_pos);
     if (tile_id >= 0)
     {
       if (tile.is_base)
@@ -285,4 +287,9 @@ void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
 bool InputManager::getIsCamFree()
 {
   return is_cam_free;
+}
+
+void InputManager::setIsPLayer1(bool value)
+{
+  is_player1 = value;
 }

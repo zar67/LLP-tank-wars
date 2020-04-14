@@ -19,7 +19,8 @@ class GameScreen
   ~GameScreen() = default;
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  UIElement::MenuItem
+  update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> camera_pos);
   void render(
     ASGE::Renderer* renderer,
     int action_number,
@@ -36,7 +37,9 @@ class GameScreen
   Button open_shop;
   Button end_turn;
 
-  bool shop_active = false;
+  std::array<int, 2> local_cam_pos = {0, 0};
+  std::string shop_title           = "";
+  bool shop_active                 = false;
 };
 
 #endif  // MYNETGAME_GAMESCREEN_H
