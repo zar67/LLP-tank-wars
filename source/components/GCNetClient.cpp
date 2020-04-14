@@ -115,10 +115,7 @@ bool GCNetClient::updateUI()
   {
     if (can_start)
     {
-      scene_manager.screenOpen(SceneManager::Screens::GAME);
-      startGame();
-      map.addSpawnBase(player_id);
-      inputReader->setInGame(true);
+      initGame();
     }
     break;
   }
@@ -240,6 +237,16 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     scene_manager.screenOpen(SceneManager::Screens::GAME);
     map.addSpawnBase(player_id);
     inputReader->setInGame(true);
+    if (player_id == 2)
+    {
+      do
+      {
+        ASGE::Point2D look_at;
+        look_at.x = -1920;
+        look_at.y = -720;
+        cam->lookAt(look_at);
+      } while (!inputReader->getIsCamFree());
+    }
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
@@ -529,4 +536,22 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
 int GCNetClient::clientIndexNumber()
 {
   return static_cast<int>(client.GetUID()) - 1;
+}
+
+void GCNetClient::initGame()
+{
+  scene_manager.screenOpen(SceneManager::Screens::GAME);
+  startGame();
+  map.addSpawnBase(player_id);
+  inputReader->setInGame(true);
+  if (player_id == 2)
+  {
+    do
+    {
+      ASGE::Point2D look_at;
+      look_at.x = 1920;
+      look_at.y = -720;
+      cam->lookAt(look_at);
+    } while (!inputReader->getIsCamFree());
+  }
 }

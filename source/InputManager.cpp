@@ -264,7 +264,7 @@ void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
   case ASGE::KEYS::KEY_D:
   {
     // move camera right
-    cam_ref->translateX(translate_distance);
+    cam_ref->translateX(-translate_distance);
     break;
   }
   case ASGE::KEYS::KEY_S:
@@ -276,7 +276,7 @@ void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
   case ASGE::KEYS::KEY_A:
   {
     // move camera left
-    cam_ref->translateX(-translate_distance);
+    cam_ref->translateX(translate_distance);
     break;
   }
   }
