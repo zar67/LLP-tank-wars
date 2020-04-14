@@ -41,7 +41,7 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 
   map.init(1280, 720);
   map.generateMap(renderer);
-  return scene_manager.init(renderer, font_index, static_cast<int>(client.GetUID()));
+  return scene_manager.init(renderer, font_index);
 }
 
 bool GCNetClient::update(double dt)
@@ -203,8 +203,39 @@ bool GCNetClient::updateUI()
 
 void GCNetClient::render()
 {
-  scene_manager.render(
-    renderer, time_units_spent, current_turn_id, in_turn, troops, *map.getMap(), currency);
+  if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
+  {
+    TileData* tile_clicked = inputReader->tileClicked();
+    if (tile_clicked != nullptr)
+    {
+      scene_manager.renderGameScreen(
+        renderer,
+        time_units_spent,
+        current_turn_id,
+        in_turn,
+        getTroop(clientIndexNumber(), tile_clicked->troop_id),
+        troops,
+        *map.getMap(),
+        currency);
+    }
+    else
+    {
+      scene_manager.renderGameScreen(
+        renderer,
+        time_units_spent,
+        current_turn_id,
+        in_turn,
+        nullptr,
+        troops,
+        *map.getMap(),
+        currency);
+    }
+    inputReader->unlockTile();
+  }
+  else
+  {
+    scene_manager.render(renderer);
+  }
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)
@@ -223,7 +254,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
     int player_num = static_cast<int>(message[2] - '0');
     scene_manager.lobbyScreen()->setPlayerNumber(player_num);
-    can_start = player_num >= 2;
+    // can_start = player_num >= 2;
     break;
   }
   case (NetworkMessages::PLAYER_END_TURN):

@@ -4,7 +4,7 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int player_id)
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 {
   if (!audio.audioSetUp())
   {
@@ -88,14 +88,7 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   return item;
 }
 
-void SceneManager::render(
-  ASGE::Renderer* renderer,
-  int action_number,
-  int current_player_turn,
-  bool in_turn,
-  const std::vector<std::vector<Troop*>>& troops,
-  const std::vector<TileData>& tile_data,
-  int currency)
+void SceneManager::render(ASGE::Renderer* renderer)
 {
   switch (screen_open)
   {
@@ -114,12 +107,6 @@ void SceneManager::render(
     lobby.render(renderer);
     break;
   }
-  case Screens::GAME:
-  {
-    renderGameScreen(
-      renderer, action_number, current_player_turn, in_turn, troops, tile_data, currency);
-    break;
-  }
   }
 }
 
@@ -128,11 +115,13 @@ void SceneManager::renderGameScreen(
   int action_number,
   int current_player_turn,
   bool in_turn,
+  Troop* troop_selected,
   const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
-  game_screen.render(renderer, action_number, current_player_turn, in_turn, currency);
+  game_screen.render(
+    renderer, action_number, current_player_turn, in_turn, troop_selected, currency);
 
   for (const auto& tile : tile_data)
   {

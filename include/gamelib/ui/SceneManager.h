@@ -34,27 +34,22 @@ class SceneManager
   SceneManager()  = default;
   ~SceneManager() = default;
 
-  bool init(ASGE::Renderer* renderer, int font_index, int player_id);
+  bool init(ASGE::Renderer* renderer, int font_index);
 
   UIElement::MenuItem update(InputManager* input_manager);
-  void render(
-    ASGE::Renderer* renderer,
-    int action_number,
-    int current_player_turn,
-    bool in_turn,
-    const std::vector<std::vector<Troop*>>& troops,
-    const std::vector<TileData>& tile_data,
-    int currency);
+  void render(ASGE::Renderer* renderer);
   void renderGameScreen(
     ASGE::Renderer* renderer,
     int action_number,
     int current_player_turn,
     bool in_turn,
+    Troop* troop_selected,
     const std::vector<std::vector<Troop*>>& troops,
     const std::vector<TileData>& tile_data,
     int currency);
 
   void screenOpen(Screens screen);
+  Screens screenOpen() { return screen_open; };
 
   JoinScreen* joinScreen();
   Lobby* lobbyScreen();
