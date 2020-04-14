@@ -3,7 +3,7 @@
 //
 
 #include "InputManager.h"
-InputManager::InputManager(ASGE::Input& _inputs)
+InputManager::InputManager(ASGE::Input& _inputs, Map* game_map)
 {
   key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &InputManager::keyHandler, this);
 
@@ -15,6 +15,8 @@ InputManager::InputManager(ASGE::Input& _inputs)
   std::thread input_thread(&InputManager::executeQueue, this);
   input_thread.detach();
   asge_input = &_inputs;
+
+  map = game_map;
 }
 
 InputManager::~InputManager()
@@ -35,6 +37,8 @@ InputManager& InputManager::operator=(const InputManager& _input)
   if (&_input != this)
   {
     // add pointers in here
+    delete map;
+    this->map = _input.map;
   }
   return *this;
 }
@@ -187,22 +191,29 @@ void InputManager::unlockPreviousTile()
   mutex_prev_tile_clicked.unlock();
 }
 
-void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y)
+void InputManager::setClickedMap(
+  int player_id,
+  std::vector<Troop*> troops,
+  bool _map_clicked,
+  float x,
+  float y)
 {
+  resetMapColours();
   prev_tile_clicked = tile_clicked;
 
-  clicked_map        = _map_clicked;
-  recent_mouse_pos.x = x;
-  recent_mouse_pos.y = y;
+  std::vector<TileData>* tiles = map->getMap();
+  clicked_map                  = _map_clicked;
+  recent_mouse_pos.x           = x;
+  recent_mouse_pos.y           = y;
 
-  for (auto& tile : *map)
+  for (auto& tile : *tiles)
   {
     int tile_id = tile.mouseClicked(x, y);
     if (tile_id >= 0)
     {
       if (tile.is_base)
       {
-        break;
+        continue;
       }
       if (tile_clicked != nullptr)
       {
@@ -223,14 +234,56 @@ void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, 
       break;
     }
   }
+
+  if (
+    tile_clicked != nullptr && tile_clicked->troop_id != -1 &&
+    tile_clicked->troop_player_id == player_id)
+  {
+    for (auto& tile : *tiles)
+    {
+      if (
+        map->tileInRange(
+          tile.tile_id,
+          tile_clicked->tile_id,
+          troops.at(tile_clicked->troop_id)->getWeaponRange()) &&
+        tile.troop_id != -1 && tile.troop_player_id != player_id)
+      {
+        tile.sprite->colour(ASGE::COLOURS::GREEN);
+      }
+      else if (map->tileInRange(
+                 tile.tile_id,
+                 tile_clicked->tile_id,
+                 troops.at(tile_clicked->troop_id)->getMovementRange()))
+      {
+        tile.sprite->colour(cant_click_col);
+      }
+    }
+  }
 }
 
 void InputManager::deselectTile()
 {
   if (tile_clicked != nullptr)
   {
-    tile_clicked->sprite->colour(ASGE::COLOURS::WHITE);
     tile_clicked      = nullptr;
     prev_tile_clicked = nullptr;
+  }
+
+  resetMapColours();
+}
+
+void InputManager::resetMapColours()
+{
+  std::vector<TileData>* tiles = map->getMap();
+  for (auto& tile : *tiles)
+  {
+    if (tile.is_base)
+    {
+      tile.sprite->colour(ASGE::COLOURS::BLUE);
+    }
+    else
+    {
+      tile.sprite->colour(ASGE::COLOURS::WHITE);
+    }
   }
 }

@@ -6,7 +6,9 @@
 #define MYNETGAME_INPUTMANAGER_H
 
 #include "InputData.h"
+#include "Map/Map.h"
 #include "Map/TileData.h"
+#include "Troop.h"
 #include "components/GameComponent.hpp"
 #include "gamedata/DataStructs.h"
 
@@ -17,7 +19,7 @@
 class InputManager
 {
  public:
-  explicit InputManager(ASGE::Input& _inputs);
+  explicit InputManager(ASGE::Input& _inputs, Map* game_map);
   ~InputManager();
   InputManager(const InputManager& _input);
   InputManager& operator=(const InputManager& _input);
@@ -41,9 +43,11 @@ class InputManager
   TileData* previousTileClicked();
   void unlockPreviousTile();
 
-  void setClickedMap(std::vector<TileData>* map, bool _map_clicked, float x, float y);
+  void
+  setClickedMap(int player_id, std::vector<Troop*> troops, bool _map_clicked, float x, float y);
   bool getClickedMap() { return clicked_map; }
   void deselectTile();
+  void resetMapColours();
 
  private:
   void executeEvent(const InputData& data);
@@ -74,6 +78,8 @@ class InputManager
 
   ASGE::Colour clicked_col    = ASGE::COLOURS::DARKGREEN;
   ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
+
+  Map* map = nullptr;
 };
 
 #endif  // MYNETGAME_INPUTMANAGER_H

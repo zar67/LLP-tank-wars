@@ -156,7 +156,8 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::MAP_CLICK):
   {
     inputReader->setClickedMap(
-      map.getMap(),
+      clientIndexNumber(),
+      troops[clientIndexNumber()],
       *inputReader->mouseClicked(),
       inputReader->mousePos().x,
       inputReader->mousePos().y);
@@ -531,7 +532,7 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (inputReader);
   }
-  inputReader = new InputManager(_inputs);
+  inputReader = new InputManager(_inputs, &map);
 }
 
 int GCNetClient::clientIndexNumber()

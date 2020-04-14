@@ -59,6 +59,8 @@ bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
     return false;
   }
   selected_box->setGlobalZOrder(-1);
+
+  return true;
 }
 
 UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
