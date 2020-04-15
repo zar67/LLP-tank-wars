@@ -4,6 +4,8 @@
 
 #include "ui/SceneManager.h"
 
+#include <Engine/Logger.hpp>
+
 bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 {
   if (!audio.audioSetUp())
@@ -22,6 +24,11 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   }
 
   if (!lobby.init(renderer, font_index))
+  {
+    return false;
+  }
+
+  if (!game_over.init(renderer, font_index))
   {
     return false;
   }
@@ -59,11 +66,21 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
     item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
+  case Screens::GAME_OVER:
+  {
+    item = game_over.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    break;
+  }
   default: item = UIElement::MenuItem::NONE; break;
   }
 
   switch (item)
   {
+  case UIElement::MenuItem::OPEN_MENU:
+  {
+    screen_open = Screens::MAIN_MENU;
+    break;
+  }
   case UIElement::MenuItem::HOST_GAME:
   {
     screen_open = Screens::LOBBY;
@@ -105,6 +122,11 @@ void SceneManager::render(ASGE::Renderer* renderer)
   case Screens::LOBBY:
   {
     lobby.render(renderer);
+    break;
+  }
+  case Screens::GAME_OVER:
+  {
+    game_over.render(renderer);
     break;
   }
   }

@@ -45,6 +45,7 @@ class GCNetClient : public GameComponent
 
  private:
   int clientIndexNumber();
+  void reset();
 
   ASGE::Renderer* renderer = nullptr;
   int font_index           = 0;

@@ -27,6 +27,7 @@ add_library(
         ui/scenes/Shop.cpp
         ui/SceneManager.cpp
         ui/scenes/JoinScreen.cpp
+        ui/Scenes/GameOverScreen.cpp
         ui/ui_elements/TextBox.cpp
         InputManager.cpp
         map/Map.cpp

@@ -30,6 +30,7 @@ GCNetClient::~GCNetClient()
       troop = nullptr;
     }
   }
+  troops.clear();
 
   client.Disconnect();
 }
@@ -91,6 +92,13 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::EXIT_GAME):
   {
     return true;
+  }
+  case (UIElement::MenuItem::OPEN_MENU):
+  {
+    // Stop server
+    client.Disconnect();
+    reset();
+    break;
   }
   case (UIElement::MenuItem::START_GAME):
   {
@@ -538,4 +546,32 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
 int GCNetClient::clientIndexNumber()
 {
   return static_cast<int>(client.GetUID()) - 1;
+}
+
+void GCNetClient::reset()
+{
+  can_start        = true;
+  in_turn          = false;
+  current_turn_id  = 1;
+  time_units_spent = 0;
+
+  actions.clear();
+
+  for (std::vector<Troop*> player : troops)
+  {
+    for (auto* troop : player)
+    {
+      delete troop;
+      troop = nullptr;
+    }
+    player.clear();
+  }
+
+  unit_count = 0;
+
+  currency           = 100;
+  shop_unit_selected = TroopTypes::NONE;
+  units_bought_this_turn.clear();
+
+  // TODO: Reset Map Values
 }
