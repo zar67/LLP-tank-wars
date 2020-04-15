@@ -263,7 +263,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
     int player_num = static_cast<int>(message[2] - '0');
     scene_manager.lobbyScreen()->setPlayerNumber(player_num);
-    // can_start = player_num >= 2;
+    can_start = player_num >= 2;
     break;
   }
   case (NetworkMessages::PLAYER_END_TURN):

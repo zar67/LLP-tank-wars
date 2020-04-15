@@ -64,7 +64,7 @@ class SceneManager
   GameScreen game_screen   = GameScreen();
   GameOverScreen game_over = GameOverScreen();
 
-  Screens screen_open = Screens::GAME_OVER;
+  Screens screen_open = Screens::MAIN_MENU;
 
   AudioManager audio;
 };
