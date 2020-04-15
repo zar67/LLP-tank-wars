@@ -40,6 +40,18 @@ UIElement::MenuItem GameScreen::update(
   std::array<int, 2> camera_pos)
 {
   open_shop.update(cursor_pos, click, camera_pos);
+  /*if(local_cam_pos[0] != camera_pos[0])
+  {
+      local_cam_pos[0] = camera_pos[0];
+      x_different = true;
+  }
+  if(local_cam_pos[1] != camera_pos[1])
+  {
+      local_cam_pos[1] = camera_pos[1];
+      y_different = true;
+  }*/
+
+  local_cam_pos = camera_pos;
 
   if (open_shop.pressed())
   {
@@ -84,8 +96,13 @@ void GameScreen::render(
   bool in_turn,
   const int& currency)
 {
-  renderer->renderText("GAME", 300, 300, ASGE::COLOURS::WHITE);
-  renderer->renderText("Currency: " + std::to_string(currency), 310, 35, ASGE::COLOURS::WHITE);
+  renderer->renderText(
+    "GAME", 300 + local_cam_pos[0], 300 + local_cam_pos[1], ASGE::COLOURS::WHITE);
+  renderer->renderText(
+    "Currency: " + std::to_string(currency),
+    310 + local_cam_pos[0],
+    35 + local_cam_pos[1],
+    ASGE::COLOURS::WHITE);
 
   open_shop.render(renderer);
 
@@ -98,18 +115,22 @@ void GameScreen::render(
   {
     renderer->renderText(
       "ACTIONS: " + std::to_string(action_number) + "/3",
-      15,
-      ASGE::SETTINGS.window_height - 45,
+      15 + local_cam_pos[0],
+      ASGE::SETTINGS.window_height - 45 + local_cam_pos[1],
       ASGE::COLOURS::WHITE);
-    renderer->renderText("YOUR TURN", 15, ASGE::SETTINGS.window_height - 15, ASGE::COLOURS::WHITE);
+    renderer->renderText(
+      "YOUR TURN",
+      15 + local_cam_pos[0],
+      ASGE::SETTINGS.window_height - 15 + local_cam_pos[1],
+      ASGE::COLOURS::WHITE);
     end_turn.render(renderer);
   }
   else
   {
     renderer->renderText(
       "PLAYER " + std::to_string(current_player_turn) + "'S TURN",
-      15,
-      ASGE::SETTINGS.window_height - 15,
+      15 + local_cam_pos[0],
+      ASGE::SETTINGS.window_height - 15 + local_cam_pos[1],
       ASGE::COLOURS::WHITE);
   }
 }

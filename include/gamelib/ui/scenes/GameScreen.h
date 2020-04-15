@@ -38,6 +38,8 @@ class GameScreen
   Button end_turn;
 
   std::array<int, 2> local_cam_pos = {0, 0};
+  bool x_different                 = false;
+  bool y_different                 = false;
   std::string shop_title           = "";
   bool shop_active                 = false;
 };
