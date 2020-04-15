@@ -169,8 +169,8 @@ void InputManager::executeEvent(const InputData& data)
   case ASGE::EventType ::E_MOUSE_MOVE:
   {
     const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.sharedEventData.get());
-    mouse_pos.x      = static_cast<float>(move->xpos);
-    mouse_pos.y      = static_cast<float>(move->ypos);
+    mouse_pos.x      = static_cast<float>(move->xpos) + cam_ref->getView().x;
+    mouse_pos.y      = static_cast<float>(move->ypos) + cam_ref->getView().y;
     break;
   }
   }
