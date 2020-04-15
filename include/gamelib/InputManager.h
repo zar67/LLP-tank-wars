@@ -85,7 +85,7 @@ class InputManager
 
   ASGE::Camera2D* cam_ref        = nullptr;
   std::atomic<bool> is_cam_free  = true;
-  const float translate_distance = 50.0F;
+  const float translate_distance = 200.0F;
   std::array<float, 2> cam_x     = {640.0F, 1920.0F};
   float cam_y                    = 360.0F;
   std::atomic<bool> is_player1   = true;

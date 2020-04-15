@@ -203,8 +203,8 @@ void InputManager::setClickedMap(std::vector<TileData>* map, bool _map_clicked, 
   prev_tile_clicked = tile_clicked;
   clicked_map       = _map_clicked;
 
-  float x_pos = x + cam_ref->getView().x;
-  float y_pos = y + cam_ref->getView().y;
+  float x_pos = x;  //+ cam_ref->getView().x;
+  float y_pos = y;  //+ cam_ref->getView().y;
 
   recent_mouse_pos.x = x;
   recent_mouse_pos.y = y;
