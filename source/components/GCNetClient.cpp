@@ -521,7 +521,8 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
   Troop* owned_troop = getTroop(clientIndexNumber(), previously_clicked->troop_id);
   Troop* other_troop = getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id);
 
-  units_bought_this_turn.emplace_back(owned_troop);
+  units_attacked_this_turn.emplace_back(owned_troop);
+  owned_troop->setAttackedThisTurn(true);
   other_troop->takeDamage(owned_troop->getAttackDamage());
 
   if (other_troop->getHealth() <= 0)
