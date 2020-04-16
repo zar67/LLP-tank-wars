@@ -21,7 +21,6 @@ class TroopData
  public:
   struct TankDataStruct
   {
-    int id                   = -1;
     int health               = 0;
     int damage               = 0;
     int cost                 = 0;

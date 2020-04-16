@@ -56,9 +56,13 @@ class Troop : public GameObject
   [[nodiscard]] bool getBoughtThisTurn() const { return generated_this_turn; };
   void setBoughtThisTurn(bool value) { generated_this_turn = value; };
 
+  [[nodiscard]] bool getAttackedThisTurn() const { return attacked_this_turn; };
+  void setAttackedThisTurn(bool value) { generated_this_turn = value; };
+
  private:
   int id                                = -1;
   bool generated_this_turn              = false;
+  bool attacked_this_turn               = false;
   TroopData* data                       = nullptr;
   TroopData::TankDataStruct troop_stats = {0, 0, 0, 0, 0, ""};
   TroopTypes current_troop_type         = TroopTypes::NONE;

@@ -6,6 +6,23 @@
 
 #include <Engine/Logger.hpp>
 
+GameScreen::~GameScreen()
+{
+  delete selected_box;
+  selected_box = nullptr;
+}
+
+GameScreen& GameScreen::operator=(const GameScreen& gameScreen)
+{
+  if (&gameScreen != this)
+  {
+    delete selected_box;
+    this->selected_box = gameScreen.selected_box;
+  }
+
+  return *this;
+}
+
 bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
 {
   if (!open_shop.init(
@@ -22,16 +39,28 @@ bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
     return false;
   }
 
-  return end_turn.init(
-    renderer,
-    font_index,
-    "data/sprites/ui/button.png",
-    "data/sprites/ui/button_pressed.png",
-    "End Turn",
-    static_cast<float>(ASGE::SETTINGS.window_width) - 260,
-    static_cast<float>(ASGE::SETTINGS.window_height) - 40,
-    250,
-    30);
+  if (!end_turn.init(
+        renderer,
+        font_index,
+        "data/sprites/ui/button.png",
+        "data/sprites/ui/button_pressed.png",
+        "End Turn",
+        static_cast<float>(ASGE::SETTINGS.window_width) - 260,
+        static_cast<float>(ASGE::SETTINGS.window_height) - 40,
+        250,
+        30))
+  {
+    return false;
+  }
+
+  selected_box = renderer->createRawSprite();
+  if (!UIElement::setupSprite(*selected_box, "data/sprites/ui/text_box.png", 20, 500, 225, 130))
+  {
+    return false;
+  }
+  selected_box->setGlobalZOrder(-1);
+
+  return true;
 }
 
 UIElement::MenuItem GameScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
@@ -79,9 +108,9 @@ void GameScreen::render(
   int action_number,
   int current_player_turn,
   bool in_turn,
+  Troop* troop_selected,
   const int& currency)
 {
-  renderer->renderText("GAME", 300, 300, ASGE::COLOURS::WHITE);
   renderer->renderText("Currency: " + std::to_string(currency), 310, 35, ASGE::COLOURS::WHITE);
 
   open_shop.render(renderer);
@@ -108,6 +137,17 @@ void GameScreen::render(
       15,
       ASGE::SETTINGS.window_height - 15,
       ASGE::COLOURS::WHITE);
+  }
+
+  if (troop_selected != nullptr)
+  {
+    renderer->renderSprite(*selected_box);
+    renderer->renderText(
+      "Troop " + std::to_string(troop_selected->getID() + 1), 35, 535, ASGE::COLOURS::BLACK);
+    renderer->renderText(
+      "HP: " + std::to_string(troop_selected->getHealth()), 35, 575, ASGE::COLOURS::BLACK);
+    renderer->renderText(
+      "Atk: " + std::to_string(troop_selected->getAttackDamage()), 35, 615, ASGE::COLOURS::BLACK);
   }
 }
 

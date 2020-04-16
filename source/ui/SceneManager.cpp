@@ -4,7 +4,9 @@
 
 #include "ui/SceneManager.h"
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int player_id)
+#include <Engine/Logger.hpp>
+
+bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
 {
   if (!audio.audioSetUp())
   {
@@ -22,6 +24,11 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index, int player_id)
   }
 
   if (!lobby.init(renderer, font_index))
+  {
+    return false;
+  }
+
+  if (!game_over.init(renderer, font_index))
   {
     return false;
   }
@@ -59,11 +66,21 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
     item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
+  case Screens::GAME_OVER:
+  {
+    item = game_over.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    break;
+  }
   default: item = UIElement::MenuItem::NONE; break;
   }
 
   switch (item)
   {
+  case UIElement::MenuItem::OPEN_MENU:
+  {
+    screen_open = Screens::MAIN_MENU;
+    break;
+  }
   case UIElement::MenuItem::HOST_GAME:
   {
     screen_open = Screens::LOBBY;
@@ -88,14 +105,7 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   return item;
 }
 
-void SceneManager::render(
-  ASGE::Renderer* renderer,
-  int action_number,
-  int current_player_turn,
-  bool in_turn,
-  const std::vector<std::vector<Troop*>>& troops,
-  const std::vector<TileData>& tile_data,
-  int currency)
+void SceneManager::render(ASGE::Renderer* renderer)
 {
   switch (screen_open)
   {
@@ -114,10 +124,9 @@ void SceneManager::render(
     lobby.render(renderer);
     break;
   }
-  case Screens::GAME:
+  case Screens::GAME_OVER:
   {
-    renderGameScreen(
-      renderer, action_number, current_player_turn, in_turn, troops, tile_data, currency);
+    game_over.render(renderer);
     break;
   }
   }
@@ -128,11 +137,13 @@ void SceneManager::renderGameScreen(
   int action_number,
   int current_player_turn,
   bool in_turn,
+  Troop* troop_selected,
   const std::vector<std::vector<Troop*>>& troops,
   const std::vector<TileData>& tile_data,
   int currency)
 {
-  game_screen.render(renderer, action_number, current_player_turn, in_turn, currency);
+  game_screen.render(
+    renderer, action_number, current_player_turn, in_turn, troop_selected, currency);
 
   for (const auto& tile : tile_data)
   {

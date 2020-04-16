@@ -30,6 +30,7 @@ GCNetClient::~GCNetClient()
       troop = nullptr;
     }
   }
+  troops.clear();
 
   client.Disconnect();
 }
@@ -41,7 +42,7 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 
   map.init(1280, 720);
   map.generateMap(renderer);
-  return scene_manager.init(renderer, font_index, static_cast<int>(client.GetUID()));
+  return scene_manager.init(renderer, font_index);
 }
 
 bool GCNetClient::update(double dt)
@@ -91,6 +92,13 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::EXIT_GAME):
   {
     return true;
+  }
+  case (UIElement::MenuItem::OPEN_MENU):
+  {
+    // Stop server
+    client.Disconnect();
+    reset();
+    break;
   }
   case (UIElement::MenuItem::START_GAME):
   {
@@ -156,7 +164,8 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::MAP_CLICK):
   {
     inputReader->setClickedMap(
-      map.getMap(),
+      clientIndexNumber(),
+      troops[clientIndexNumber()],
       *inputReader->mouseClicked(),
       inputReader->mousePos().x,
       inputReader->mousePos().y);
@@ -185,6 +194,7 @@ bool GCNetClient::updateUI()
         previously_clicked->troop_player_id == clientIndexNumber() &&
         previously_clicked->troop_id >= 0 &&
         !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
         tile_clicked->troop_player_id != clientIndexNumber() && tile_clicked->troop_id >= 0)
       {
         attackUnit(tile_clicked, previously_clicked);
@@ -203,8 +213,39 @@ bool GCNetClient::updateUI()
 
 void GCNetClient::render()
 {
-  scene_manager.render(
-    renderer, time_units_spent, current_turn_id, in_turn, troops, *map.getMap(), currency);
+  if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
+  {
+    TileData* tile_clicked = inputReader->tileClicked();
+    if (tile_clicked != nullptr)
+    {
+      scene_manager.renderGameScreen(
+        renderer,
+        time_units_spent,
+        current_turn_id,
+        in_turn,
+        getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id),
+        troops,
+        *map.getMap(),
+        currency);
+    }
+    else
+    {
+      scene_manager.renderGameScreen(
+        renderer,
+        time_units_spent,
+        current_turn_id,
+        in_turn,
+        nullptr,
+        troops,
+        *map.getMap(),
+        currency);
+    }
+    inputReader->unlockTile();
+  }
+  else
+  {
+    scene_manager.render(renderer);
+  }
 }
 
 void GCNetClient::decodeMessage(const std::vector<char>& message)
@@ -371,6 +412,9 @@ void GCNetClient::endTurn()
     for (auto* troop : units_bought_this_turn) { troop->setBoughtThisTurn(false); }
     units_bought_this_turn.clear();
 
+    for (auto* troop : units_attacked_this_turn) { troop->setAttackedThisTurn(false); }
+    units_attacked_this_turn.clear();
+
     std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));
     std::vector<char> message;
     std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
@@ -477,11 +521,16 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
   Troop* owned_troop = getTroop(clientIndexNumber(), previously_clicked->troop_id);
   Troop* other_troop = getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id);
 
+  units_attacked_this_turn.emplace_back(owned_troop);
+  owned_troop->setAttackedThisTurn(true);
   other_troop->takeDamage(owned_troop->getAttackDamage());
 
   if (other_troop->getHealth() <= 0)
   {
-    auto it = troops[tile_clicked->troop_player_id].begin() + tile_clicked->troop_id;
+    auto it = std::find(
+      troops[tile_clicked->troop_player_id].begin(),
+      troops[tile_clicked->troop_player_id].end(),
+      getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id));
     troops[tile_clicked->troop_player_id].erase(it);
 
     tile_clicked->troop_id        = -1;
@@ -500,10 +549,38 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (inputReader);
   }
-  inputReader = new InputManager(_inputs);
+  inputReader = new InputManager(_inputs, &map);
 }
 
 int GCNetClient::clientIndexNumber()
 {
   return static_cast<int>(client.GetUID()) - 1;
+}
+
+void GCNetClient::reset()
+{
+  can_start        = true;
+  in_turn          = false;
+  current_turn_id  = 1;
+  time_units_spent = 0;
+
+  actions.clear();
+
+  for (std::vector<Troop*> player : troops)
+  {
+    for (auto* troop : player)
+    {
+      delete troop;
+      troop = nullptr;
+    }
+    player.clear();
+  }
+
+  unit_count = 0;
+
+  currency           = 100;
+  shop_unit_selected = TroopTypes::NONE;
+  units_bought_this_turn.clear();
+
+  map.resetMap();
 }
