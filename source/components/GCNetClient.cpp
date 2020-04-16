@@ -194,6 +194,7 @@ bool GCNetClient::updateUI()
         previously_clicked->troop_player_id == clientIndexNumber() &&
         previously_clicked->troop_id >= 0 &&
         !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
         tile_clicked->troop_player_id != clientIndexNumber() && tile_clicked->troop_id >= 0)
       {
         attackUnit(tile_clicked, previously_clicked);
@@ -411,6 +412,9 @@ void GCNetClient::endTurn()
     for (auto* troop : units_bought_this_turn) { troop->setBoughtThisTurn(false); }
     units_bought_this_turn.clear();
 
+    for (auto* troop : units_attacked_this_turn) { troop->setAttackedThisTurn(false); }
+    units_attacked_this_turn.clear();
+
     std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));
     std::vector<char> message;
     std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
@@ -517,11 +521,15 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
   Troop* owned_troop = getTroop(clientIndexNumber(), previously_clicked->troop_id);
   Troop* other_troop = getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id);
 
+  units_bought_this_turn.emplace_back(owned_troop);
   other_troop->takeDamage(owned_troop->getAttackDamage());
 
   if (other_troop->getHealth() <= 0)
   {
-    auto it = troops[tile_clicked->troop_player_id].begin() + tile_clicked->troop_id;
+    auto it = std::find(
+      troops[tile_clicked->troop_player_id].begin(),
+      troops[tile_clicked->troop_player_id].end(),
+      getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id));
     troops[tile_clicked->troop_player_id].erase(it);
 
     tile_clicked->troop_id        = -1;

@@ -43,11 +43,16 @@ class InputManager
   TileData* previousTileClicked();
   void unlockPreviousTile();
 
-  void
-  setClickedMap(int player_id, std::vector<Troop*> troops, bool _map_clicked, float x, float y);
+  void setClickedMap(
+    int player_id,
+    const std::vector<Troop*>& troops,
+    bool _map_clicked,
+    float x,
+    float y);
   bool getClickedMap() { return clicked_map; }
   void deselectTile();
   void resetMapColours();
+  Troop* getTroop(std::vector<Troop*> troops, int id);
 
  private:
   void executeEvent(const InputData& data);

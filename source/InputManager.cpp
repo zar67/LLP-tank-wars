@@ -193,7 +193,7 @@ void InputManager::unlockPreviousTile()
 
 void InputManager::setClickedMap(
   int player_id,
-  std::vector<Troop*> troops,
+  const std::vector<Troop*>& troops,
   bool _map_clicked,
   float x,
   float y)
@@ -245,7 +245,7 @@ void InputManager::setClickedMap(
         map->tileInRange(
           tile.tile_id,
           tile_clicked->tile_id,
-          troops.at(tile_clicked->troop_id)->getWeaponRange()) &&
+          getTroop(troops, tile_clicked->troop_id)->getWeaponRange()) &&
         tile.troop_id != -1 && tile.troop_player_id != player_id)
       {
         tile.sprite->colour(ASGE::COLOURS::GREEN);
@@ -254,7 +254,7 @@ void InputManager::setClickedMap(
         map->tileInRange(
           tile.tile_id,
           tile_clicked->tile_id,
-          troops.at(tile_clicked->troop_id)->getMovementRange()) &&
+          getTroop(troops, tile_clicked->troop_id)->getMovementRange()) &&
         !tile.is_base)
       {
         tile.sprite->colour(cant_click_col);
@@ -287,5 +287,17 @@ void InputManager::resetMapColours()
     {
       tile.sprite->colour(ASGE::COLOURS::WHITE);
     }
+  }
+}
+
+Troop* InputManager::getTroop(std::vector<Troop*> troops, int id)
+{
+  auto it = std::find_if(troops.begin(), troops.end(), [id](const Troop* troop) {
+    return troop->getID() == id;
+  });
+
+  if (it != troops.end())
+  {
+    return *it;
   }
 }
