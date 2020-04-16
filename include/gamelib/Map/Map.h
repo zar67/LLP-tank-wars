@@ -18,6 +18,7 @@ class Map
 
   void init(int screen_width, int screen_height);
   void generateMap(ASGE::Renderer* renderer);
+  void resetMap();
   void addSpawnBase(int _player_id);
   void renderMap(ASGE::Renderer* renderer);
 

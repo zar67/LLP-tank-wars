@@ -20,10 +20,14 @@ class GameOverScreen
   UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
+  void setWinningValues(int player_id);
+
  private:
   ASGE::Text title;
   Button main_menu;
   Button exit_game;
+
+  int winning_player = -1;
 };
 
 #endif  // MYNETGAME_GAMEOVERSCREEN_H

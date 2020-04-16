@@ -250,10 +250,12 @@ void InputManager::setClickedMap(
       {
         tile.sprite->colour(ASGE::COLOURS::GREEN);
       }
-      else if (map->tileInRange(
-                 tile.tile_id,
-                 tile_clicked->tile_id,
-                 troops.at(tile_clicked->troop_id)->getMovementRange()))
+      else if (
+        map->tileInRange(
+          tile.tile_id,
+          tile_clicked->tile_id,
+          troops.at(tile_clicked->troop_id)->getMovementRange()) &&
+        !tile.is_base)
       {
         tile.sprite->colour(cant_click_col);
       }

@@ -87,6 +87,15 @@ void Map::generateMap(ASGE::Renderer* renderer)
   }
 }
 
+void Map::resetMap()
+{
+  for (auto tile : map)
+  {
+    tile.troop_player_id = -1;
+    tile.troop_id        = -1;
+  }
+}
+
 void Map::renderMap(ASGE::Renderer* renderer)
 {
   if (map.empty())

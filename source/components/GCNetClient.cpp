@@ -573,5 +573,5 @@ void GCNetClient::reset()
   shop_unit_selected = TroopTypes::NONE;
   units_bought_this_turn.clear();
 
-  // TODO: Reset Map Values
+  map.resetMap();
 }

@@ -24,8 +24,8 @@ bool GameOverScreen::init(ASGE::Renderer* renderer, int font_index)
         "data/sprites/ui/button.png",
         "data/sprites/ui/button_pressed.png",
         "Main Menu",
-        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 500,
-        330,
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 125,
+        580,
         250,
         40))
   {
@@ -38,8 +38,8 @@ bool GameOverScreen::init(ASGE::Renderer* renderer, int font_index)
     "data/sprites/ui/button.png",
     "data/sprites/ui/button_pressed.png",
     "Exit",
-    static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 500,
-    390,
+    static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 125,
+    640,
     250,
     40);
 }
@@ -67,6 +67,15 @@ GameOverScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click
 void GameOverScreen::render(ASGE::Renderer* renderer)
 {
   renderer->renderText(title);
+  renderer->renderText(
+    "Player " + std::to_string(winning_player) + " wins!",
+    ASGE::SETTINGS.window_width / 2 - 150,
+    380);
   main_menu.render(renderer);
   exit_game.render(renderer);
+}
+
+void GameOverScreen::setWinningValues(int player_id)
+{
+  winning_player = player_id;
 }
