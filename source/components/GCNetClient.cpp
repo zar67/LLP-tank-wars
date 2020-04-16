@@ -223,7 +223,7 @@ void GCNetClient::render()
         time_units_spent,
         current_turn_id,
         in_turn,
-        getTroop(clientIndexNumber(), tile_clicked->troop_id),
+        getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id),
         troops,
         *map.getMap(),
         currency);
