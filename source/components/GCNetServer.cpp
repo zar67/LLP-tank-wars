@@ -32,7 +32,7 @@ bool GCNetServer::update(double dt)
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       netlib::ClientInfo info = server.GetClientInfo(event.senderId);
-
+      player_count++;
       if (server.GetAllClients().size() == 1)
       {
         server.SendMessageToAll(

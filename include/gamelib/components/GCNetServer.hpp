@@ -43,6 +43,7 @@ class GCNetServer : public GameComponent
 
   ServerState server_state = ServerState::NONE;
   int current_turn_id      = 1;
+  int player_count         = 0;
 };
 
 #endif  // NETGAME_GCNETSERVER_HPP
