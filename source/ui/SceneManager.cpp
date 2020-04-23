@@ -12,6 +12,7 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   {
     return false;
   }
+  audio.playBackgroundMusic();
 
   if (!main_menu.init(renderer, font_index))
   {
@@ -27,9 +28,6 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   {
     return false;
   }
-
-  // Start game menu music
-  audio.playBackgroundMusic();
 
   if (!game_over.init(renderer, font_index))
   {
