@@ -27,9 +27,8 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   {
     return false;
   }
-
-
-  /// start game menu music
+  
+  // Start game menu music
   audio.playBackgroundMusic();
 
   if (!game_over.init(renderer, font_index))
