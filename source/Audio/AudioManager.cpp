@@ -19,40 +19,43 @@ AudioManager& AudioManager::operator=(const AudioManager audio)
   return *this;
 }
 
-bool AudioManager::audioSetUp()
+bool AudioManager::loadFile(const std::string& filename, SoLoud::Wav& dest)
 {
-  if (soloud.init() != SoLoud::SO_NO_ERROR)
+  ASGE::FILEIO::File mp3;
+  if (!mp3.open(filename))
   {
     return false;
   }
-
-  // soloud.setVolume(1,50);
-
-  /*if (!click_004.open("/data/Audio/click_004.mp3"))
-  {
-    auto io_buffer = click_004.read();
-    click_004_MP3.loadMem(
-      io_buffer.as_unsigned_char(), static_cast<unsigned int>(io_buffer.length), false, false);
-    click_004.close();
-  }
-  else
-  {
-      return false;
-  }*/
-
-  if (!Background.open("/data/Audio/Background.mp3"))
-  {
-    return false;
-  }
-  auto io_buffer = Background.read();
+  auto io_buffer = mp3.read();
   if (
-    Background_MP3.loadMem(
+    dest.loadMem(
       io_buffer.as_unsigned_char(), static_cast<unsigned int>(io_buffer.length), false, false) ==
     SoLoud::FILE_LOAD_FAILED)
   {
     return false;
   }
-  Background.close();
+
+  dest.setVolume(0.5);
+  mp3.close();
+
+  return true;
+}
+
+bool AudioManager::audioSetUp()
+{
+  /// thread audio
+  // std::thread audio_thread;
+  // audio_thread.detach();
+
+  if (soloud.init() != SoLoud::SO_NO_ERROR)
+  {
+    return false;
+  }
+
+  if (!loadFile("/data/Audio/Background.mp3", Background_MP3))
+  {
+    return false;
+  }
 
   return true;
 }
