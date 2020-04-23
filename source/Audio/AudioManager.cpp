@@ -34,6 +34,8 @@ bool AudioManager::loadFile(const std::string& filename, SoLoud::Wav& dest)
   {
     return false;
   }
+
+  dest.setVolume(0.5);
   mp3.close();
 
   return true;
