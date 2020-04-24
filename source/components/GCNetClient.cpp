@@ -282,6 +282,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     if (current_turn_id == client.GetUID())
     {
       in_turn = true;
+      currency += 10;
     }
 
     break;

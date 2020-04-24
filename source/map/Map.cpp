@@ -193,8 +193,6 @@ void Map::addSpawnBase(int _player_id)
   base_tile->is_base  = true;
   base_tile->sprite->colour(ASGE::COLOURS::GREYBLACK);
   base_camp = base_tile;
-
-  Logging::log("OI");
 }
 
 TileData* Map::getBaseCamp()
