@@ -12,7 +12,7 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   {
     return false;
   }
-  audio.playBackgroundMusic();
+  audio.playgameMenu();
 
   if (!main_menu.init(renderer, font_index))
   {
