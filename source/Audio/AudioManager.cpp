@@ -60,7 +60,9 @@ bool AudioManager::audioSetUp()
     !loadFile("/data/Audio/Game_Menu.mp3", Game_Menu_MP3) ||
     !loadFile("/data/Audio/Movement.mp3", Movement_MP3) ||
     !loadFile("/data/Audio/Player_Joined.mp3", Player_Joined_MP3) ||
-    !loadFile("/data/Audio/Selection.mp3", Selection_MP3));
+    !loadFile("/data/Audio/Selection.mp3", Selection_MP3) ||
+    !loadFile("/data/Audio/Shoot.mp3", Shoot_MP3) ||
+    !loadFile("/data/Audio/Explosion.mp3", Explosion_MP3));
 }
 
 void AudioManager::playClick()
@@ -102,4 +104,14 @@ void AudioManager::playSelection()
 void AudioManager::playMovement()
 {
   soloud.play(Movement_MP3);
+}
+
+void AudioManager::playExplosion()
+{
+  soloud.play(Explosion_MP3);
+}
+
+void AudioManager::playShoot()
+{
+  soloud.play(Shoot_MP3);
 }

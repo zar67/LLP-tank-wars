@@ -32,6 +32,8 @@ class AudioManager
   void playMovement();
   void playplayerJoined();
   void playSelection();
+  void playShoot();
+  void playExplosion();
 
  private:
   SoLoud::Wav click_004_MP3;
@@ -42,6 +44,8 @@ class AudioManager
   SoLoud::Wav Movement_MP3;
   SoLoud::Wav Player_Joined_MP3;
   SoLoud::Wav Selection_MP3;
+  SoLoud::Wav Shoot_MP3;
+  SoLoud::Wav Explosion_MP3;
 
   SoLoud::Soloud soloud;
 };
