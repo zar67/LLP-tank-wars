@@ -6,9 +6,11 @@
 #define MYNETGAME_AUDIOMANAGER_H
 
 #include <Engine/FileIO.h>
+#include <Engine/Logger.hpp>
 #include <Engine/OGLGame.h>
 #include <soloud.h>
 #include <soloud_wav.h>
+#include <thread>
 
 class AudioManager
 {
@@ -20,15 +22,13 @@ class AudioManager
   AudioManager& operator=(AudioManager audio);
 
   bool audioSetUp();
+  bool loadFile(const std::string& filename, SoLoud::Wav& dest);
 
   void playClick();
   void playBackgroundMusic();
 
  private:
-  ASGE::FILEIO::File click_004;
   SoLoud::Wav click_004_MP3;
-
-  ASGE::FILEIO::File Background;
   SoLoud::Wav Background_MP3;
 
   SoLoud::Soloud soloud;

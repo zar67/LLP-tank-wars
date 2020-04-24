@@ -37,10 +37,20 @@ class Shop
                                             "tank_large.png",
                                             "tank_huge.png"};
 
+
   const std::vector<std::string> unit_costs{"5", "15", "30", "50"};
   std::array<int, 2> local_cam_pos = {0, 0};
   bool x_changed                   = false;
   bool y_changed                   = false;
+
+  std::vector<ASGE::Sprite*> unit_stats_ui{};
+
+  const std::vector<std::string> unit_data{
+    "5\n15\n5\n3\n1",
+    "15\n20\n10\n2\n2",
+    "30\n30\n20\n2\n2",
+    "50\n40\n30\n1\n3"};
+
 };
 
 #endif  // MYNETGAME_SHOP_H

@@ -47,6 +47,7 @@ class GCNetClient : public GameComponent
  private:
   int clientIndexNumber();
   void initGame();
+  void reset();
 
   std::array<float, 2> cam_x = {640, 1920};
   int cam_y                  = 360;
@@ -68,9 +69,10 @@ class GCNetClient : public GameComponent
   std::vector<std::vector<Troop*>> troops = {{}, {}, {}, {}};
   int unit_count                          = 0;
 
-  int currency                               = 100;
-  TroopTypes shop_unit_selected              = TroopTypes::NONE;
-  std::vector<Troop*> units_bought_this_turn = {};
+  int currency                                 = 100;
+  TroopTypes shop_unit_selected                = TroopTypes::NONE;
+  std::vector<Troop*> units_bought_this_turn   = {};
+  std::vector<Troop*> units_attacked_this_turn = {};
 
   Map map;
   InputManager* inputReader = nullptr;

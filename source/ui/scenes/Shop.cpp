@@ -8,6 +8,9 @@ Shop::~Shop()
 {
   for (Button* button : units) { delete button; }
   units.clear();
+
+  for (ASGE::Sprite* sprite : unit_stats_ui) { delete sprite; }
+  unit_stats_ui.clear();
 }
 
 Shop& Shop::operator=(const Shop& shop)
@@ -17,6 +20,10 @@ Shop& Shop::operator=(const Shop& shop)
     for (Button* button : units) { delete button; }
     units.clear();
     units = shop.units;
+
+    for (ASGE::Sprite* sprite : unit_stats_ui) { delete sprite; }
+    unit_stats_ui.clear();
+    unit_stats_ui = shop.unit_stats_ui;
   }
 
   return *this;
@@ -58,13 +65,24 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
     count += 1;
   }
 
+  for (int i = 0; i < unit_types.size(); i++)
+  {
+    ASGE::Sprite* sprite = renderer->createRawSprite();
+    if (!UIElement::setupSprite(
+          *sprite, "data/sprites/ui/unit_stats.png", 10 + static_cast<float>(70 * i), 145, 30, 121))
+    {
+      return false;
+    }
+    unit_stats_ui.push_back(sprite);
+  }
+
   count = 0;
-  for (const std::string& cost : unit_costs)
+  for (const std::string& cost : unit_data)
   {
     auto* text = new ASGE::Text(renderer->getFont(font_index), cost);
     text->setColour(ASGE::COLOURS::BLACK);
-    text->setScale(0.8F);
-    text->setPositionX(35 + static_cast<float>(70 * count) - (text->getWidth() / 2));
+    text->setScale(0.7F);
+    text->setPositionX(40 + static_cast<float>(70 * count));
     text->setPositionY(160);
     text->setZOrder(1);
     count += 1;
@@ -145,6 +163,8 @@ void Shop::render(ASGE::Renderer* renderer)
   renderer->renderText(shop_title);
 
   for (Button* button : units) { button->render(renderer); }
+
+  for (ASGE::Sprite* sprite : unit_stats_ui) { renderer->renderSprite(*sprite); }
 
   for (ASGE::Text* text : cost_text) { renderer->renderText(*text); }
 }

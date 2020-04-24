@@ -18,6 +18,7 @@ class Map
 
   void init(int screen_width, int screen_height);
   void generateMap(ASGE::Renderer* renderer);
+  void resetMap();
   void addSpawnBase(int _player_id);
   void renderMap(ASGE::Renderer* renderer);
 
@@ -33,7 +34,6 @@ class Map
   void readJSON(const std::string& directory);
   void readLevelJson(const std::string& directory);
   bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
-  bool nameValid(std::string name, std::string to_find);
 
   int map_width                = 0;
   int map_height               = 0;
