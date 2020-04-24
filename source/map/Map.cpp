@@ -9,6 +9,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <random>
+#include <ui/ui_elements/UIElement.h>
 
 using nlohmann::json;
 
@@ -102,6 +103,7 @@ void Map::renderMap(ASGE::Renderer* renderer)
   {
     return;
   }
+
   for (auto& tile : map) { renderer->renderSprite(*tile.sprite); }
 }
 
@@ -179,40 +181,20 @@ bool Map::tileInRange(int tile_id_one, int tile_id_two, int range) const
 
 void Map::addSpawnBase(int _player_id)
 {
-  bool left  = _player_id == 1;
-  bool found = false;
+  std::vector<int> positions = base_spawn_tiles.at(_player_id);
+
   std::random_device gen;
   std::mt19937 mt(gen());
-  std::uniform_int_distribution<int> distribution(0, tiles_wide * tiles_high);
-  do
-  {
-    int num = distribution(mt);
-    for (auto& tile : map)
-    {
-      if (left && tile.tile_id == num)
-      {
-        if ((int)tile.sprite->xPos() < base_tile_distance * tile_width)
-        {
-          tile.is_base = true;
-          tile.sprite->colour(ASGE::COLOURS::BLUE);
-          base_camp = &tile;
-          found     = true;
-        }
-        break;
-      }
-      if (!left && tile.tile_id == num)
-      {
-        if ((int)tile.sprite->xPos() > (tiles_wide - base_tile_distance) * tile_width)
-        {
-          tile.is_base = true;
-          tile.sprite->colour(ASGE::COLOURS::BLUE);
-          base_camp = &tile;
-          found     = true;
-        }
-        break;
-      }
-    }
-  } while (!found);
+  std::uniform_int_distribution<int> distribution(0, positions.size());
+
+  int tile = distribution(mt);
+
+  TileData* base_tile = getTile(positions.at(tile));
+  base_tile->is_base  = true;
+  base_tile->sprite->colour(ASGE::COLOURS::GREYBLACK);
+  base_camp = base_tile;
+
+  Logging::log("OI");
 }
 
 TileData* Map::getBaseCamp()

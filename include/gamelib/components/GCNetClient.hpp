@@ -71,8 +71,6 @@ class GCNetClient : public GameComponent
 
   Map map;
   InputManager* inputReader = nullptr;
-
-  int player_id = 0;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

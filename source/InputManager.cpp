@@ -281,7 +281,7 @@ void InputManager::resetMapColours()
   {
     if (tile.is_base)
     {
-      tile.sprite->colour(ASGE::COLOURS::BLUE);
+      tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
     }
     else
     {

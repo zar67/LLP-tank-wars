@@ -35,20 +35,24 @@ class Map
   void readLevelJson(const std::string& directory);
   bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
 
-  int screen_width             = 0;
-  int screen_height            = 0;
-  int tiles_wide               = 0;
-  int tiles_high               = 0;
-  int tile_width               = 0;
-  int tile_height              = 0;
-  const int base_tile_distance = 4;
+  int screen_width  = 0;
+  int screen_height = 0;
+  int tiles_wide    = 0;
+  int tiles_high    = 0;
+  int tile_width    = 0;
+  int tile_height   = 0;
 
   std::vector<TileData> map{};
   std::vector<TileData> grass{};
   std::vector<TileData> sand{};
   std::vector<TileData> mix{};
-  TileData* base_camp     = nullptr;
-  const float SPAWN_RANGE = 3.0F;
+
+  std::vector<std::vector<int>> base_spawn_tiles = {{5, 6, 7, 8, 9},
+                                                    {45, 60, 75, 90},
+                                                    {59, 74, 89, 104},
+                                                    {140, 141, 142, 143, 144}};
+  TileData* base_camp                            = nullptr;
+  const float SPAWN_RANGE                        = 3.0F;
 };
 
 #endif  // MYNETGAME_MAP_H
