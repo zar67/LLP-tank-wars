@@ -62,7 +62,17 @@ bool GCNetClient::update(double dt)
     {
       Logging::log("Connected to the server!\n");
       player_id = static_cast<int>(client.GetUID());
-      scene_manager.gameScreen()->initShop(renderer, font_index, static_cast<int>(client.GetUID()));
+
+      if (player_id > 4)
+      {
+        scene_manager.screenOpen(SceneManager::Screens::MAIN_MENU);
+        client.Disconnect();
+      }
+      else
+      {
+        scene_manager.gameScreen()->initShop(renderer, font_index, player_id);
+      }
+
       break;
     }
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
@@ -113,11 +123,6 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::HOST_GAME):
   {
     client.ConnectToIP("localHost", 32488);
-    break;
-  }
-  case (UIElement::MenuItem::BACK_TO_MENU):
-  {
-    client.Disconnect();
     break;
   }
   case (UIElement::MenuItem::CONNECT_TO_IP):

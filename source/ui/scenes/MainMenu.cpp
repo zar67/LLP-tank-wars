@@ -23,10 +23,10 @@ bool MainMenu::init(ASGE::Renderer* renderer, int font_index)
         font_index,
         "data/sprites/ui/button.png",
         "data/sprites/ui/button_pressed.png",
-        "Host",
-        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 70,
+        "Local Host",
+        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 140,
         280,
-        140,
+        280,
         40))
   {
     return false;
