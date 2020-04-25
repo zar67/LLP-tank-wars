@@ -21,7 +21,7 @@ bool GCNetServer::init(ASGE::Renderer* renderer, int font_index)
   return true;
 }
 
-bool GCNetServer::update(double dt)
+bool GCNetServer::update(ASGE::GameTime time)
 {
   std::queue<netlib::NetworkEvent> all_events = server.GetNetworkEvents();
   while (!all_events.empty())

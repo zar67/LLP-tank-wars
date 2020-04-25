@@ -35,8 +35,8 @@ class Map
   void readLevelJson(const std::string& directory);
   bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
 
-  int screen_width             = 0;
-  int screen_height            = 0;
+  int map_width                = 0;
+  int map_height               = 0;
   int tiles_wide               = 0;
   int tiles_high               = 0;
   int tile_width               = 0;

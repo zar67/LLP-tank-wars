@@ -21,10 +21,13 @@ class Shop
   Shop& operator=(const Shop& shop);  // Copy Assignment Operator
 
   bool init(ASGE::Renderer* renderer, int font_index, int player_id);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  UIElement::MenuItem
+  update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
 
  private:
+  void checkTroop(const std::string& value);
+
   ASGE::Text shop_title;
   std::vector<Button*> units         = {};
   std::vector<ASGE::Text*> cost_text = {};
@@ -34,6 +37,11 @@ class Shop
     "tank_big.png",
     "tank_large.png",
     "tank_huge.png"};
+
+  const std::vector<std::string> unit_costs{"5", "15", "30", "50"};
+  std::array<int, 2> local_cam_pos = {0, 0};
+  bool x_changed                   = false;
+  bool y_changed                   = false;
 
   std::vector<ASGE::Sprite*> unit_stats_ui{};
 

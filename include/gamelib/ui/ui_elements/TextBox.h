@@ -28,6 +28,12 @@ class TextBox : public UIElement
     float y_pos,
     float width,
     float height);
+  void update(
+    ASGE::Point2D cursor_pos,
+    bool click,
+    std::atomic<bool>& key_press,
+    int key,
+    std::array<int, 2> cam_pos);
   void update(ASGE::Point2D cursor_pos, bool click, std::atomic<bool>& key_press, int key);
   void render(ASGE::Renderer* renderer);
 
@@ -43,6 +49,8 @@ class TextBox : public UIElement
   bool active = false;
 
   const float BORDER_AMOUNT = 5;
+
+  std::array<int, 2> local_cam_pos = {0, 0};
 };
 
 #endif  // MYNETGAME_TEXTBOX_H

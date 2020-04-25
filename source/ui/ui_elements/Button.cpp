@@ -129,3 +129,24 @@ bool Button::hover()
 {
   return state == HOVER;
 }
+
+void Button::update(const ASGE::Point2D& cursor_pos, bool click, std::array<int, 2> cam_pos)
+{
+  if (cam_pos[0] != local_cam_pos[0])
+  {
+    int x = cam_pos[0] - local_cam_pos[0];
+    pressed_sprite->xPos(pressed_sprite->xPos() + static_cast<float>(x));
+    normal_sprite->xPos(normal_sprite->xPos() + static_cast<float>(x));
+    text.setPositionX(text.getPosition().x + static_cast<float>(x));
+    local_cam_pos[0] = cam_pos[0];
+  }
+  if (cam_pos[1] != local_cam_pos[1])
+  {
+    int y = cam_pos[1] - local_cam_pos[1];
+    pressed_sprite->yPos(pressed_sprite->yPos() + static_cast<float>(y));
+    normal_sprite->yPos(normal_sprite->yPos() + static_cast<float>(y));
+    text.setPositionY(text.getPosition().y + static_cast<float>(y));
+    local_cam_pos[1] = cam_pos[1];
+  }
+  update(cursor_pos, click);
+}

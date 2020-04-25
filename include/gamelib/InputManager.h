@@ -12,14 +12,16 @@
 #include "components/GameComponent.hpp"
 #include "gamedata/DataStructs.h"
 
+#include <Engine/Camera2D.hpp>
 #include <Engine/OGLGame.h>
 #include <mutex>
 #include <queue>
 #include <thread>
+
 class InputManager
 {
  public:
-  explicit InputManager(ASGE::Input& _inputs, Map* game_map);
+  explicit InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D, Map* game_map);
   ~InputManager();
   InputManager(const InputManager& _input);
   InputManager& operator=(const InputManager& _input);
@@ -32,6 +34,8 @@ class InputManager
   ASGE::Point2D mousePos() { return mouse_pos; }
   int keyValue() { return key_value; }
   std::atomic<bool>* keyPressed() { return &key_pressed; }
+  void setInGame(bool value);
+  bool getIsCamFree();
 
   void eventInput(ASGE::SharedEventData data, ASGE::EventType e_data);
   std::queue<InputData>* getInputQueue();
@@ -54,10 +58,14 @@ class InputManager
   void resetMapColours();
   Troop* getTroop(std::vector<Troop*> troops, int id);
 
+  void setIsPLayer1(bool value);
+
  private:
   void executeEvent(const InputData& data);
   void keyBoard(ASGE::SharedEventData data);
   void mouse(ASGE::SharedEventData data);
+  void scrollMap(const ASGE::KeyEvent& key_event);
+
   ASGE::Point2D mouse_pos       = ASGE::Point2D(0, 0);
   std::atomic<bool> mouse_click = false;
   std::atomic<bool> key_pressed = false;
@@ -69,7 +77,7 @@ class InputManager
 
   std::atomic<bool> clicked_map = true;
   std::atomic<bool> is_active   = true;
-
+  std::atomic<bool> in_game     = false;
   std::mutex mutex_queue;
   std::queue<InputData> input_queue;
   ASGE::Input* asge_input = nullptr;
@@ -83,6 +91,13 @@ class InputManager
 
   ASGE::Colour clicked_col    = ASGE::COLOURS::DARKGREEN;
   ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
+
+  ASGE::Camera2D* cam_ref        = nullptr;
+  std::atomic<bool> is_cam_free  = true;
+  const float translate_distance = 200.0F;
+  std::array<float, 2> cam_x     = {640.0F, 1920.0F};
+  float cam_y                    = 360.0F;
+  std::atomic<bool> is_player1   = true;
 
   Map* map = nullptr;
 };

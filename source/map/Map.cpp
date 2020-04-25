@@ -16,8 +16,8 @@ void Map::init(const int screen_width, const int screen_height)
 {
   map.clear();
   readJSON("data/MapTileTypes - Copy.json");
-  this->screen_width  = screen_width;
-  this->screen_height = screen_height;
+  this->map_width  = screen_width * 2;
+  this->map_height = screen_height * 2;
 }
 
 void Map::readJSON(const std::string& directory)
@@ -118,8 +118,8 @@ void Map::readLevelJson(const std::string& directory)
     auto json_file = json::parse(buffer.as_char(), buffer.as_char() + buffer.length);
     tiles_wide     = json_file["number_tiles_wide"].get<int>();
     tiles_high     = json_file["number_tiles_high"].get<int>();
-    tile_width     = screen_width / tiles_wide;
-    tile_height    = screen_height / tiles_high;
+    tile_width     = map_width / tiles_wide;
+    tile_height    = map_height / tiles_high;
     std::vector<std::string> tile_names;
     for (int i = 0; i < tiles_wide * tiles_high; ++i)
     {
