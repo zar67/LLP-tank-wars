@@ -7,6 +7,7 @@
 
 #include "gamelib/InputManager.h"
 
+#include <Engine/Camera2D.hpp>
 #include <Engine/OGLGame.h>
 #include <gamelib/components/GCNetClient.hpp>
 #include <gamelib/components/GCNetServer.hpp>
@@ -29,7 +30,8 @@ class Game : public ASGE::OGLGame
 
  private:
   bool loadFont();
-  int font_index = 0;
+  int font_index      = 0;
+  ASGE::Camera2D* cam = nullptr;
 
   std::vector<std::unique_ptr<GameComponent>> game_components;
   int key_callback_id   = -1; /**< Key InputManager Callback ID. */

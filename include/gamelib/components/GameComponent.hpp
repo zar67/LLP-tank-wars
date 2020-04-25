@@ -28,7 +28,7 @@ class GameComponent
   virtual ~GameComponent() = default;
 
   virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
-  virtual bool update(double dt) = 0;
+  virtual bool update(ASGE::GameTime time) = 0;
   virtual void render(){};
 
   GameComponent(const GameComponent&) = default;

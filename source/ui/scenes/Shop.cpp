@@ -92,19 +92,42 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
   return true;
 }
 
-UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
+UIElement::MenuItem
+Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> cam_pos)
 {
   int index = 0;
   for (Button* button : units)
   {
-    button->update(cursor_pos, click);
-
+    button->update(cursor_pos, click, cam_pos);
+    if (cam_pos[0] != local_cam_pos[0])
+    {
+      int x = cam_pos[0] - local_cam_pos[0];
+      shop_title.setPositionX(shop_title.getPosition().x + static_cast<float>(x));
+      if (!x_changed)
+      {
+        for (auto& text_comp : cost_text)
+        { text_comp->setPositionX(text_comp->getPosition().x + static_cast<float>(x)); }
+      }
+      x_changed        = true;
+      local_cam_pos[0] = cam_pos[0];
+    }
+    if (cam_pos[1] != local_cam_pos[1])
+    {
+      int y = cam_pos[1] - local_cam_pos[1];
+      shop_title.setPositionY(shop_title.getPosition().y + static_cast<float>(y));
+      if (!y_changed)
+      {
+        for (auto& text_comp : cost_text)
+        { text_comp->setPositionY(text_comp->getPosition().y + static_cast<float>(y)); }
+      }
+      y_changed        = true;
+      local_cam_pos[1] = cam_pos[1];
+    }
     if (!button->pressed())
     {
       index += 1;
       continue;
     }
-
     click = false;
     switch (index)
     {
@@ -130,7 +153,8 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bo
     }
     }
   }
-
+  x_changed = false;
+  y_changed = false;
   return UIElement::MenuItem::NONE;
 }
 
@@ -144,3 +168,5 @@ void Shop::render(ASGE::Renderer* renderer)
 
   for (ASGE::Text* text : cost_text) { renderer->renderText(*text); }
 }
+
+void Shop::checkTroop(const std::string& value) {}

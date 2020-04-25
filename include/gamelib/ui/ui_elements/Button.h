@@ -38,6 +38,7 @@ class Button : public UIElement
     float width,
     float height);
   void update(const ASGE::Point2D& cursor_pos, bool click);
+  void update(const ASGE::Point2D& cursor_pos, bool click, std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
 
   ASGE::Sprite* getSprite();
@@ -56,6 +57,8 @@ class Button : public UIElement
   ButtonState state          = NONE;
 
   const float BASE_OPACITY = 0.6F;
+
+  std::array<int, 2> local_cam_pos = {0, 0};
 };
 
 #endif  // MYNETGAME_BUTTON_H

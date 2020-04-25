@@ -37,7 +37,7 @@ bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
   return game_screen.init(renderer, font_index);
 }
 
-UIElement::MenuItem SceneManager::update(InputManager* input_manager)
+UIElement::MenuItem SceneManager::update(InputManager* input_manager, std::array<int, 2> cam_pos)
 {
   UIElement::MenuItem item;
 
@@ -64,7 +64,7 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   }
   case Screens::GAME:
   {
-    item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked(), cam_pos);
     break;
   }
   case Screens::GAME_OVER:

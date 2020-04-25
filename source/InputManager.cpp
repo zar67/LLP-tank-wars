@@ -3,7 +3,8 @@
 //
 
 #include "InputManager.h"
-InputManager::InputManager(ASGE::Input& _inputs, Map* game_map)
+
+InputManager::InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D, Map* game_map)
 {
   key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &InputManager::keyHandler, this);
 
@@ -15,6 +16,8 @@ InputManager::InputManager(ASGE::Input& _inputs, Map* game_map)
   std::thread input_thread(&InputManager::executeQueue, this);
   input_thread.detach();
   asge_input = &_inputs;
+
+  cam_ref = camera2D;
 
   map = game_map;
 }
@@ -28,6 +31,7 @@ InputManager::~InputManager()
     asge_input = nullptr;
   }
   tile_clicked = nullptr;
+  cam_ref      = nullptr;
 }
 
 InputManager::InputManager(const InputManager& _input) {}
@@ -82,6 +86,14 @@ void InputManager::keyBoard(ASGE::SharedEventData data)
   {
     key_pressed = true;
     key_value   = key->key;
+    if (in_game)
+    {
+      scrollMap(*key);
+    }
+  }
+  if (key->action == ASGE::KEYS::KEY_REPEATED && in_game)
+  {
+    scrollMap(*key);
   }
   else if (key->action == ASGE::KEYS::KEY_RELEASED)
   {
@@ -162,8 +174,8 @@ void InputManager::executeEvent(const InputData& data)
   case ASGE::EventType ::E_MOUSE_MOVE:
   {
     const auto* move = dynamic_cast<const ASGE::MoveEvent*>(data.sharedEventData.get());
-    mouse_pos.x      = static_cast<float>(move->xpos);
-    mouse_pos.y      = static_cast<float>(move->ypos);
+    mouse_pos.x      = static_cast<float>(move->xpos) + cam_ref->getView().x;
+    mouse_pos.y      = static_cast<float>(move->ypos) + cam_ref->getView().y;
     break;
   }
   }
@@ -200,15 +212,18 @@ void InputManager::setClickedMap(
 {
   resetMapColours();
   prev_tile_clicked = tile_clicked;
+  clicked_map       = _map_clicked;
+
+  float x_pos = x;  //+ cam_ref->getView().x;
+  float y_pos = y;  //+ cam_ref->getView().y;
 
   std::vector<TileData>* tiles = map->getMap();
   clicked_map                  = _map_clicked;
   recent_mouse_pos.x           = x;
   recent_mouse_pos.y           = y;
-
   for (auto& tile : *tiles)
   {
-    int tile_id = tile.mouseClicked(x, y);
+    int tile_id = tile.mouseClicked(x_pos, y_pos);
     if (tile_id >= 0)
     {
       mutex_tile_clicked.lock();
@@ -324,4 +339,50 @@ Troop* InputManager::getTroop(std::vector<Troop*> troops, int id)
   {
     return *it;
   }
+}
+
+void InputManager::setInGame(bool value)
+{
+  in_game = value;
+}
+
+void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
+{
+  switch (key_event.key)
+  {
+  case ASGE::KEYS::KEY_W:
+  {
+    // move camera up
+    cam_ref->translateY(translate_distance);
+    break;
+  }
+  case ASGE::KEYS::KEY_D:
+  {
+    // move camera right
+    cam_ref->translateX(-translate_distance);
+    break;
+  }
+  case ASGE::KEYS::KEY_S:
+  {
+    // move camera down
+    cam_ref->translateY(-translate_distance);
+    break;
+  }
+  case ASGE::KEYS::KEY_A:
+  {
+    // move camera left
+    cam_ref->translateX(translate_distance);
+    break;
+  }
+  }
+}
+
+bool InputManager::getIsCamFree()
+{
+  return is_cam_free;
+}
+
+void InputManager::setIsPLayer1(bool value)
+{
+  is_player1 = value;
 }

@@ -35,12 +35,13 @@ class Map
   bool
   checkTileName(const std::vector<TileData>& tiles, const std::string& to_find, int player_base_id);
 
-  int screen_width  = 0;
-  int screen_height = 0;
-  int tiles_wide    = 0;
-  int tiles_high    = 0;
-  int tile_width    = 0;
-  int tile_height   = 0;
+  int map_width                = 0;
+  int map_height               = 0;
+  int tiles_wide               = 0;
+  int tiles_high               = 0;
+  int tile_width               = 0;
+  int tile_height              = 0;
+  const int base_tile_distance = 4;
 
   std::vector<TileData> map{};
   std::vector<TileData> grass{};

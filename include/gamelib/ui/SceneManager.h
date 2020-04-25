@@ -38,7 +38,7 @@ class SceneManager
 
   bool init(ASGE::Renderer* renderer, int font_index);
 
-  UIElement::MenuItem update(InputManager* input_manager);
+  UIElement::MenuItem update(InputManager* input_manager, std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
   void renderGameScreen(
     ASGE::Renderer* renderer,
