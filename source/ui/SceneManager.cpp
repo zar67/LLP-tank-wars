@@ -92,11 +92,6 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager, std::array
     screen_open = Screens::JOIN_SCREEN;
     break;
   }
-  case UIElement::MenuItem::BACK_TO_MENU:
-  {
-    screen_open = Screens::MAIN_MENU;
-    break;
-  }
   default:
   {
     break;
@@ -184,4 +179,9 @@ Lobby* SceneManager::lobbyScreen()
 GameScreen* SceneManager::gameScreen()
 {
   return &game_screen;
+}
+
+GameOverScreen* SceneManager::gameOverScreen()
+{
+  return &game_over;
 }

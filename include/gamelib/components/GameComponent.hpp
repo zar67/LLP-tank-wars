@@ -39,8 +39,7 @@ class GameComponent
   virtual void addInputReader(ASGE::Input& _inputs) = 0;
 
  private:
-  ID id         = ID::INVALID_COMPONENT_ID;
-  int player_id = 0;
+  ID id = ID::INVALID_COMPONENT_ID;
 };
 
 #endif  // NETGAME_GAMECOMPONENT_HPP

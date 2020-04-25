@@ -25,14 +25,14 @@ class Lobby
   void render(ASGE::Renderer* renderer);
 
   void setPlayerNumber(int number);
+  void addPlayer();
+  void removePlayer(int id);
 
  private:
-  void addPlayer(ASGE::Renderer* renderer);
-
+  ASGE::Renderer* renderer                = nullptr;
   ASGE::Text lobby_title                  = ASGE::Text();
   std::vector<ASGE::Sprite*> player_icons = {};
   Button start_game                       = Button();
-  Button back;
 
   int player_number = 0;
 };

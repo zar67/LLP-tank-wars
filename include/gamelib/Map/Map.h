@@ -19,7 +19,6 @@ class Map
   void init(int screen_width, int screen_height);
   void generateMap(ASGE::Renderer* renderer);
   void resetMap();
-  void addSpawnBase(int _player_id);
   void renderMap(ASGE::Renderer* renderer);
 
   std::vector<TileData>* getMap();
@@ -27,13 +26,14 @@ class Map
 
   [[nodiscard]] bool tileInRange(int tile_id_one, int tile_id_two, int range) const;
 
-  TileData* getBaseCamp();
-  bool inRangeOfBase(const TileData& _tile_data);
+  TileData* getBaseCamp(int player_index);
+  bool inRangeOfBase(const TileData& _tile_data, int player_index);
 
  private:
   void readJSON(const std::string& directory);
   void readLevelJson(const std::string& directory);
-  bool checkTileName(const std::vector<TileData>& tiles, const std::string& to_find);
+  bool
+  checkTileName(const std::vector<TileData>& tiles, const std::string& to_find, int player_base_id);
 
   int map_width                = 0;
   int map_height               = 0;
@@ -47,8 +47,9 @@ class Map
   std::vector<TileData> grass{};
   std::vector<TileData> sand{};
   std::vector<TileData> mix{};
-  TileData* base_camp     = nullptr;
-  const float SPAWN_RANGE = 3.0F;
+
+  std::vector<TileData*> base_camps = {nullptr, nullptr, nullptr, nullptr};
+  const float SPAWN_RANGE           = 3.0F;
 };
 
 #endif  // MYNETGAME_MAP_H

@@ -226,16 +226,18 @@ void InputManager::setClickedMap(
     int tile_id = tile.mouseClicked(x_pos, y_pos);
     if (tile_id >= 0)
     {
+      mutex_tile_clicked.lock();
+      tile_clicked = &tile;
+
       if (tile.is_base)
       {
+        mutex_tile_clicked.unlock();
         continue;
       }
       if (tile_clicked != nullptr)
       {
         tile_clicked->sprite->colour(tile.sprite->colour());
       }
-      mutex_tile_clicked.lock();
-      tile_clicked = &tile;
       if (tile.troop_id >= 0)
       {
         tile_clicked->sprite->colour(cant_click_col);
@@ -256,6 +258,11 @@ void InputManager::setClickedMap(
   {
     for (auto& tile : *tiles)
     {
+      if (tile.is_base)
+      {
+        continue;
+      }
+
       if (
         map->tileInRange(
           tile.tile_id,
@@ -294,13 +301,30 @@ void InputManager::resetMapColours()
   std::vector<TileData>* tiles = map->getMap();
   for (auto& tile : *tiles)
   {
-    if (tile.is_base)
+    if (!tile.is_base)
     {
-      tile.sprite->colour(ASGE::COLOURS::BLUE);
+      tile.sprite->colour(ASGE::COLOURS::WHITE);
+    }
+  }
+}
+
+void InputManager::setBaseColours(int player_index)
+{
+  std::vector<TileData>* tiles = map->getMap();
+  for (auto& tile : *tiles)
+  {
+    if (!tile.is_base)
+    {
+      continue;
+    }
+
+    if (tile.player_base_id == player_index)
+    {
+      tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
     }
     else
     {
-      tile.sprite->colour(ASGE::COLOURS::WHITE);
+      tile.sprite->colour(ASGE::COLOURS::LIGHTGRAY);
     }
   }
 }
@@ -356,9 +380,4 @@ void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
 bool InputManager::getIsCamFree()
 {
   return is_cam_free;
-}
-
-void InputManager::setIsPLayer1(bool value)
-{
-  is_player1 = value;
 }

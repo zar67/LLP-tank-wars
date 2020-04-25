@@ -36,6 +36,7 @@ class GCNetServer : public GameComponent
   std::string getIP();
   void playerEndTurn();
   void addInputReader(ASGE::Input& _inputs) override{};
+  std::vector<std::string> getMessageData(std::vector<char> message);
 
  private:
   ASGE::Renderer* renderer = nullptr;

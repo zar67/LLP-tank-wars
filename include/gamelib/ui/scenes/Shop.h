@@ -26,7 +26,8 @@ class Shop
   void render(ASGE::Renderer* renderer);
 
  private:
-  void checkTroop(const std::string& value);
+  void updateCameraX(std::array<int, 2> cam_pos);
+  void updateCameraY(std::array<int, 2> cam_pos);
 
   ASGE::Text shop_title;
   std::vector<Button*> units         = {};

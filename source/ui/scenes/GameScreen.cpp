@@ -69,18 +69,14 @@ UIElement::MenuItem GameScreen::update(
   std::array<int, 2> camera_pos)
 {
   open_shop.update(cursor_pos, click, camera_pos);
-  /*if(local_cam_pos[0] != camera_pos[0])
-  {
-      local_cam_pos[0] = camera_pos[0];
-      x_different = true;
-  }
-  if(local_cam_pos[1] != camera_pos[1])
-  {
-      local_cam_pos[1] = camera_pos[1];
-      y_different = true;
-  }*/
+
+  float x_diff = static_cast<float>(camera_pos[0]) - local_cam_pos[0];
+  float y_diff = static_cast<float>(camera_pos[1]) - local_cam_pos[1];
 
   local_cam_pos = camera_pos;
+
+  selected_box->xPos(selected_box->xPos() + x_diff);
+  selected_box->yPos(selected_box->yPos() + y_diff);
 
   if (open_shop.pressed())
   {
@@ -127,8 +123,6 @@ void GameScreen::render(
   const int& currency)
 {
   renderer->renderText(
-    "GAME", 300 + local_cam_pos[0], 300 + local_cam_pos[1], ASGE::COLOURS::WHITE);
-  renderer->renderText(
     "Currency: " + std::to_string(currency),
     310 + local_cam_pos[0],
     35 + local_cam_pos[1],
@@ -168,11 +162,20 @@ void GameScreen::render(
   {
     renderer->renderSprite(*selected_box);
     renderer->renderText(
-      "Troop " + std::to_string(troop_selected->getID() + 1), 35, 535, ASGE::COLOURS::BLACK);
+      "Troop " + std::to_string(troop_selected->getID() + 1),
+      35 + local_cam_pos[0],
+      535 + local_cam_pos[1],
+      ASGE::COLOURS::BLACK);
     renderer->renderText(
-      "HP: " + std::to_string(troop_selected->getHealth()), 35, 575, ASGE::COLOURS::BLACK);
+      "HP: " + std::to_string(troop_selected->getHealth()),
+      35 + local_cam_pos[0],
+      575 + local_cam_pos[1],
+      ASGE::COLOURS::BLACK);
     renderer->renderText(
-      "Atk: " + std::to_string(troop_selected->getAttackDamage()), 35, 615, ASGE::COLOURS::BLACK);
+      "Atk: " + std::to_string(troop_selected->getAttackDamage()),
+      35 + local_cam_pos[0] + local_cam_pos[1],
+      615,
+      ASGE::COLOURS::BLACK);
   }
 }
 

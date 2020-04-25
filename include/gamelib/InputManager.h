@@ -56,9 +56,8 @@ class InputManager
   bool getClickedMap() { return clicked_map; }
   void deselectTile();
   void resetMapColours();
+  void setBaseColours(int player_index);
   Troop* getTroop(std::vector<Troop*> troops, int id);
-
-  void setIsPLayer1(bool value);
 
  private:
   void executeEvent(const InputData& data);
@@ -95,9 +94,6 @@ class InputManager
   ASGE::Camera2D* cam_ref        = nullptr;
   std::atomic<bool> is_cam_free  = true;
   const float translate_distance = 200.0F;
-  std::array<float, 2> cam_x     = {640.0F, 1920.0F};
-  float cam_y                    = 360.0F;
-  std::atomic<bool> is_player1   = true;
 
   Map* map = nullptr;
 };

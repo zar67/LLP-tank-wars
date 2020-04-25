@@ -9,6 +9,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <random>
+#include <ui/ui_elements/UIElement.h>
 
 using nlohmann::json;
 
@@ -83,6 +84,13 @@ void Map::generateMap(ASGE::Renderer* renderer)
       current_tile.sprite->width(static_cast<float>(tile_width));
       current_tile.sprite->height(static_cast<float>(tile_height));
       current_tile.sprite->setGlobalZOrder(-10);
+
+      if (current_tile.player_base_id != -1)
+      {
+        current_tile.is_base = true;
+        current_tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
+        base_camps.at(current_tile.player_base_id) = &current_tile;
+      }
     }
   }
 }
@@ -102,6 +110,7 @@ void Map::renderMap(ASGE::Renderer* renderer)
   {
     return;
   }
+
   for (auto& tile : map) { renderer->renderSprite(*tile.sprite); }
 }
 
@@ -120,26 +129,38 @@ void Map::readLevelJson(const std::string& directory)
     tiles_high     = json_file["number_tiles_high"].get<int>();
     tile_width     = map_width / tiles_wide;
     tile_height    = map_height / tiles_high;
+
     std::vector<std::string> tile_names;
+    std::vector<int> player_bases;
+
     for (int i = 0; i < tiles_wide * tiles_high; ++i)
     {
       if (tile_names.max_size() >= i)
       {
         tile_names.push_back(json_file["TILES"][i]["name"].get<std::string>());
+        player_bases.push_back(json_file["TILES"][i]["player_base_camp"].get<int>());
       }
     }
-    for (auto& name : tile_names)
+
+    for (int i = 0; i < tile_names.size(); i++)
     {
-      if (checkTileName(grass, name) || checkTileName(sand, name) || checkTileName(mix, name))
+      if (
+        checkTileName(grass, tile_names.at(i), player_bases.at(i)) ||
+        checkTileName(sand, tile_names.at(i), player_bases.at(i)) ||
+        checkTileName(mix, tile_names.at(i), player_bases.at(i)))
       {
         continue;
       }
     }
+
     file.close();
   }
 }
 
-bool Map::checkTileName(const std::vector<TileData>& tiles, const std::string& to_find)
+bool Map::checkTileName(
+  const std::vector<TileData>& tiles,
+  const std::string& to_find,
+  int player_base_id)
 {
   auto it = std::find_if(tiles.begin(), tiles.end(), [&to_find](const TileData& tile) {
     return tile.name == to_find;
@@ -148,6 +169,7 @@ bool Map::checkTileName(const std::vector<TileData>& tiles, const std::string& t
   if (it != tiles.end())
   {
     map.push_back(*it);
+    map.back().player_base_id = player_base_id;
     return true;
   }
 
@@ -177,58 +199,22 @@ bool Map::tileInRange(int tile_id_one, int tile_id_two, int range) const
   return width_diff + height_diff <= range;
 }
 
-void Map::addSpawnBase(int _player_id)
+TileData* Map::getBaseCamp(int player_index)
 {
-  bool left  = _player_id == 1;
-  bool found = false;
-  std::random_device gen;
-  std::mt19937 mt(gen());
-  std::uniform_int_distribution<int> distribution(0, tiles_wide * tiles_high);
-  do
-  {
-    int num = distribution(mt);
-    for (auto& tile : map)
-    {
-      if (left && tile.tile_id == num)
-      {
-        if ((int)tile.sprite->xPos() < base_tile_distance * tile_width)
-        {
-          tile.is_base = true;
-          tile.sprite->colour(ASGE::COLOURS::BLUE);
-          base_camp = &tile;
-          found     = true;
-        }
-        break;
-      }
-      if (!left && tile.tile_id == num)
-      {
-        if ((int)tile.sprite->xPos() > (tiles_wide - base_tile_distance) * tile_width)
-        {
-          tile.is_base = true;
-          tile.sprite->colour(ASGE::COLOURS::BLUE);
-          base_camp = &tile;
-          found     = true;
-        }
-        break;
-      }
-    }
-  } while (!found);
-}
-
-TileData* Map::getBaseCamp()
-{
-  return base_camp;
+  return base_camps.at(player_index);
 }
 
 /*
  * calculates whether you can place a troop there
  * needs to be within a certain amount of tiles to the base camp
  */
-bool Map::inRangeOfBase(const TileData& _tile_data)
+bool Map::inRangeOfBase(const TileData& _tile_data, int player_index)
 {
   std::array pos = {_tile_data.sprite->xPos(), _tile_data.sprite->yPos()};
-  int x_distance = static_cast<int>(base_camp->sprite->xPos()) - static_cast<int>(pos[0]);
-  int y_distance = static_cast<int>(base_camp->sprite->yPos()) - static_cast<int>(pos[1]);
+  int x_distance =
+    static_cast<int>(base_camps.at(player_index)->sprite->xPos()) - static_cast<int>(pos[0]);
+  int y_distance =
+    static_cast<int>(base_camps.at(player_index)->sprite->yPos()) - static_cast<int>(pos[1]);
 
   int x_tiles = x_distance / (tile_width);
   int y_tiles = y_distance / (tile_height);
