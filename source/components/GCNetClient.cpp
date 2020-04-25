@@ -15,11 +15,11 @@ GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 
 GCNetClient::~GCNetClient()
 {
-  if (inputReader != nullptr)
+  if (input_reader != nullptr)
   {
-    inputReader->exitInputThread();
-    delete (inputReader);
-    inputReader = nullptr;
+    input_reader->exitInputThread();
+    delete (input_reader);
+    input_reader = nullptr;
   }
 
   for (const auto& player : troops)
@@ -95,7 +95,7 @@ bool GCNetClient::update(double dt)
 
 bool GCNetClient::updateUI()
 {
-  UIElement::MenuItem item = scene_manager.update(inputReader);
+  UIElement::MenuItem item = scene_manager.update(input_reader);
 
   switch (item)
   {
@@ -143,39 +143,39 @@ bool GCNetClient::updateUI()
   }
   case (UIElement::MenuItem::BUY_NORMAL_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::NORMAL_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_BIG_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::BIG_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_LARGE_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::LARGE_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_HUGE_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::HUGE_TANK;
     break;
   }
   case (UIElement::MenuItem::MAP_CLICK):
   {
-    inputReader->setClickedMap(
+    input_reader->setClickedMap(
       clientIndexNumber(),
       troops[clientIndexNumber()],
-      *inputReader->mouseClicked(),
-      inputReader->mousePos().x,
-      inputReader->mousePos().y);
+      *input_reader->mouseClicked(),
+      input_reader->mousePos().x,
+      input_reader->mousePos().y);
 
-    TileData* tile_clicked       = inputReader->tileClicked();
-    TileData* previously_clicked = inputReader->previousTileClicked();
+    TileData* tile_clicked       = input_reader->tileClicked();
+    TileData* previously_clicked = input_reader->previousTileClicked();
 
     if (tile_clicked != nullptr && time_units_spent < max_time_units)
     {
@@ -205,8 +205,8 @@ bool GCNetClient::updateUI()
       }
     }
 
-    inputReader->unlockPreviousTile();
-    inputReader->unlockTile();
+    input_reader->unlockPreviousTile();
+    input_reader->unlockTile();
 
     break;
   }
@@ -219,7 +219,7 @@ void GCNetClient::render()
 {
   if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
   {
-    TileData* tile_clicked = inputReader->tileClicked();
+    TileData* tile_clicked = input_reader->tileClicked();
     if (tile_clicked != nullptr)
     {
       scene_manager.renderGameScreen(
@@ -244,7 +244,7 @@ void GCNetClient::render()
         *map.getMap(),
         currency);
     }
-    inputReader->unlockTile();
+    input_reader->unlockTile();
   }
   else
   {
@@ -324,8 +324,18 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
 
     if (other_troop->getHealth() <= 0)
     {
-      auto it = troops[tile->troop_player_id].begin() + tile->troop_id;
-      troops[tile->troop_player_id].erase(it);
+      int troop_id = tile->troop_id;
+
+      auto it = std::find_if(
+        troops[tile->troop_player_id].begin(),
+        troops[tile->troop_player_id].end(),
+        [troop_id](const Troop* troop) { return troop->getID() == troop_id; });
+
+      if (it != troops[tile->troop_player_id].end())
+      {
+        troops[tile->troop_player_id].erase(it);
+      }
+
       tile->troop_id        = -1;
       tile->troop_player_id = -1;
     }
@@ -407,6 +417,7 @@ void GCNetClient::endTurn()
 {
   if (in_turn)
   {
+    input_reader->deselectTile();
     in_turn = false;
 
     time_units_spent = 0;
@@ -459,10 +470,11 @@ Troop* GCNetClient::getTroop(int player_id, int troop_id)
 
 void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 {
-  if (tile_clicked->troop_id > 0 || !map.inRangeOfBase(*tile_clicked))
+  if (tile_clicked->troop_id > -1 || !map.inRangeOfBase(*tile_clicked))
   {
     return;
   }
+
   int x_pos = static_cast<int>(tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2);
   int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
@@ -490,7 +502,8 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   {
     troops[clientIndexNumber()].pop_back();
   }
-  inputReader->deselectTile();
+
+  input_reader->deselectTile();
 }
 
 void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
@@ -550,11 +563,11 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
 
 void GCNetClient::addInputReader(ASGE::Input& _inputs)
 {
-  if (inputReader != nullptr)
+  if (input_reader != nullptr)
   {
-    delete (inputReader);
+    delete (input_reader);
   }
-  inputReader = new InputManager(_inputs, &map);
+  input_reader = new InputManager(_inputs, &map);
 }
 
 int GCNetClient::clientIndexNumber()
