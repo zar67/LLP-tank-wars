@@ -77,6 +77,12 @@ void GCNetServer::decodeMessage(const netlib::NetworkEvent& event)
     server.SendMessageToAll(encodeMessage(NetworkMessages::START_GAME, ""));
     break;
   }
+  case NetworkMessages::GAME_OVER:
+  {
+    message.push_back(static_cast<int>(event.senderId - 1) + '0');
+    server.SendMessageToAll(message);
+    break;
+  }
   case NetworkMessages::PLAYER_END_TURN:
   {
     playerEndTurn();
@@ -85,6 +91,7 @@ void GCNetServer::decodeMessage(const netlib::NetworkEvent& event)
   case NetworkMessages::PLAYER_MOVE:
   case NetworkMessages::PLAYER_ATTACK:
   case NetworkMessages::PLAYER_BUY:
+  case NetworkMessages::PLAYER_BASE_ATTACK:
   {
     message.push_back(',');
     message.push_back(static_cast<int>(event.senderId - 1) + '0');
@@ -118,4 +125,26 @@ void GCNetServer::playerEndTurn()
     encodeMessage(NetworkMessages::PLAYER_START_TURN, std::to_string(current_turn_id)));
 
   server_state = ServerState::UPDATING;
+}
+
+std::vector<std::string> GCNetServer::getMessageData(std::vector<char> message)
+{
+  std::vector<std::string> data;
+
+  std::string current;
+  for (int i = 2; i < message.size(); i++)
+  {
+    if (message[i] == ',')
+    {
+      data.push_back(current);
+      current = "";
+    }
+    else
+    {
+      current += message[i];
+    }
+  }
+  data.push_back(current);
+
+  return data;
 }

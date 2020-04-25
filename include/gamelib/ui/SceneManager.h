@@ -56,6 +56,7 @@ class SceneManager
   JoinScreen* joinScreen();
   Lobby* lobbyScreen();
   GameScreen* gameScreen();
+  GameOverScreen* gameOverScreen();
 
  private:
   MainMenu main_menu       = MainMenu();

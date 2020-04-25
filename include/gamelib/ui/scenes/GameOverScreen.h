@@ -24,7 +24,6 @@ class GameOverScreen
 
  private:
   ASGE::Text title;
-  Button main_menu;
   Button exit_game;
 
   int winning_player = -1;

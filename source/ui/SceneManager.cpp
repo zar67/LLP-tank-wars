@@ -180,3 +180,8 @@ GameScreen* SceneManager::gameScreen()
 {
   return &game_screen;
 }
+
+GameOverScreen* SceneManager::gameOverScreen()
+{
+  return &game_over;
+}

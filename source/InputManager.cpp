@@ -198,7 +198,7 @@ void InputManager::setClickedMap(
   float x,
   float y)
 {
-  resetMapColours(player_id);
+  resetMapColours();
   prev_tile_clicked = tile_clicked;
 
   std::vector<TileData>* tiles = map->getMap();
@@ -211,16 +211,18 @@ void InputManager::setClickedMap(
     int tile_id = tile.mouseClicked(x, y);
     if (tile_id >= 0)
     {
+      mutex_tile_clicked.lock();
+      tile_clicked = &tile;
+
       if (tile.is_base)
       {
+        mutex_tile_clicked.unlock();
         continue;
       }
       if (tile_clicked != nullptr)
       {
         tile_clicked->sprite->colour(tile.sprite->colour());
       }
-      mutex_tile_clicked.lock();
-      tile_clicked = &tile;
       if (tile.troop_id >= 0)
       {
         tile_clicked->sprite->colour(cant_click_col);
@@ -241,6 +243,11 @@ void InputManager::setClickedMap(
   {
     for (auto& tile : *tiles)
     {
+      if (tile.is_base)
+      {
+        continue;
+      }
+
       if (
         map->tileInRange(
           tile.tile_id,
@@ -270,27 +277,39 @@ void InputManager::deselectTile()
     tile_clicked      = nullptr;
     prev_tile_clicked = nullptr;
   }
+
+  resetMapColours();
 }
 
-void InputManager::resetMapColours(int player_index)
+void InputManager::resetMapColours()
 {
   std::vector<TileData>* tiles = map->getMap();
   for (auto& tile : *tiles)
   {
-    if (tile.is_base)
+    if (!tile.is_base)
     {
-      if (tile.player_base_id == player_index)
-      {
-        tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
-      }
-      else
-      {
-        tile.sprite->colour(ASGE::COLOURS::LIGHTGRAY);
-      }
+      tile.sprite->colour(ASGE::COLOURS::WHITE);
+    }
+  }
+}
+
+void InputManager::setBaseColours(int player_index)
+{
+  std::vector<TileData>* tiles = map->getMap();
+  for (auto& tile : *tiles)
+  {
+    if (!tile.is_base)
+    {
+      continue;
+    }
+
+    if (tile.player_base_id == player_index)
+    {
+      tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
     }
     else
     {
-      tile.sprite->colour(ASGE::COLOURS::WHITE);
+      tile.sprite->colour(ASGE::COLOURS::LIGHTGRAY);
     }
   }
 }
