@@ -47,11 +47,6 @@ class Map
   std::vector<TileData> sand{};
   std::vector<TileData> mix{};
 
-  std::vector<std::vector<int>> base_spawn_tiles = {{5, 6, 7, 8, 9},
-                                                    {45, 60, 75, 90},
-                                                    {59, 74, 89, 104},
-                                                    {140, 141, 142, 143, 144}};
-  std::vector<int> base_camp_tile_ids            = {-1, -1, -1, -1};
   std::vector<TileData*> base_camps              = {nullptr, nullptr, nullptr, nullptr};
   const float SPAWN_RANGE                        = 3.0F;
 };
