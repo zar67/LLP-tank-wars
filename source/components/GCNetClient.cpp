@@ -232,8 +232,6 @@ bool GCNetClient::updateUI()
 
 void GCNetClient::render()
 {
-
-
   renderer->setProjectionMatrix(cam->getView());
 
   if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
@@ -609,7 +607,7 @@ void GCNetClient::initGame()
     look_at.y = -static_cast<float>(cam_y);
     cam->lookAt(look_at);
   }
-
+}
 void GCNetClient::reset()
 {
   can_start        = true;
@@ -636,5 +634,4 @@ void GCNetClient::reset()
   units_bought_this_turn.clear();
 
   map.resetMap();
-
 }
