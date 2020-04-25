@@ -106,7 +106,7 @@ bool GCNetClient::updateUI()
 {
   std::array<int, 2> cam_pos = {
     static_cast<int>(cam->getView().x), static_cast<int>(cam->getView().y)};
-  UIElement::MenuItem item   = scene_manager.update(inputReader, cam_pos);
+  UIElement::MenuItem item = scene_manager.update(inputReader, cam_pos);
 
   switch (item)
   {

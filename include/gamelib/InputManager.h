@@ -100,7 +100,6 @@ class InputManager
   std::atomic<bool> is_player1   = true;
 
   Map* map = nullptr;
-
 };
 
 #endif  // MYNETGAME_INPUTMANAGER_H
