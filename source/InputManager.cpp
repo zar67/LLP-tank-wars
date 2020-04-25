@@ -381,8 +381,3 @@ bool InputManager::getIsCamFree()
 {
   return is_cam_free;
 }
-
-void InputManager::setIsPLayer1(bool value)
-{
-  is_player1 = value;
-}

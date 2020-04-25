@@ -9,17 +9,13 @@
 
 GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 {
-  // client.ConnectToIP("localhost", 32488);
-  // client.ConnectToIP("164.11.76.100", 32488);
-  ASGE::Point2D cam_pivot;
-  cam_pivot.x = 0.0F;
-  cam_pivot.y = 0.0F;
-  cam         = new ASGE::Camera2D(cam_pivot, 1280, 720);
-
-  ASGE::Point2D look_at;
-  look_at.x = -640;
-  look_at.y = -360;
-  cam->lookAt(look_at);
+  cam = new ASGE::Camera2D(
+    ASGE::Point2D(0, 0),
+    static_cast<float>(ASGE::SETTINGS.window_width),
+    static_cast<float>(ASGE::SETTINGS.window_height));
+  cam->lookAt(ASGE::Point2D(
+    -static_cast<float>(ASGE::SETTINGS.window_width) / 2,
+    -static_cast<float>(ASGE::SETTINGS.window_height) / 2));
 }
 
 GCNetClient::~GCNetClient()
@@ -49,15 +45,7 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
   this->renderer   = renderer;
   this->font_index = font_index;
 
-  //  ASGE::Point2D cam_pivot;
-  // ASGE::Camera2D cam ;
-  //  cam_pivot.x = 0;
-  // cam_pivot.y = 0;
-
-  // cam->resize(1280, 720);
-  // cam->translateX(500);
-
-  map.init(1280, 720);
+  map.init(ASGE::SETTINGS.window_width, ASGE::SETTINGS.window_height);
   map.generateMap(renderer);
   return scene_manager.init(renderer, font_index);
 }
@@ -115,9 +103,9 @@ bool GCNetClient::update(ASGE::GameTime time)
 
 bool GCNetClient::updateUI()
 {
-  std::array<int, 2> cam_pos = {
-    static_cast<int>(cam->getView().x), static_cast<int>(cam->getView().y)};
-  UIElement::MenuItem item = scene_manager.update(inputReader, cam_pos);
+  std::array<int, 2> cam_pos = {static_cast<int>(cam->getView().x),
+                                static_cast<int>(cam->getView().y)};
+  UIElement::MenuItem item   = scene_manager.update(input_reader, cam_pos);
 
   switch (item)
   {
@@ -296,20 +284,18 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   case (NetworkMessages::START_GAME):
   {
     scene_manager.screenOpen(SceneManager::Screens::GAME);
-    inputReader->setInGame(true);
-    if (player_id == 2)
-    {
-      ASGE::Point2D look_at;
-      look_at.x = -cam_x[1];
-      look_at.y = -static_cast<float>(cam_y);
-      cam->lookAt(look_at);
-    }
+    input_reader->setInGame(true);
+    cam->lookAt(
+      ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
     break;
   }
   case (NetworkMessages::GAME_OVER):
   {
     scene_manager.gameOverScreen()->setWinningValues(static_cast<int>(message[1] - '0') + 1);
     scene_manager.screenOpen(SceneManager::Screens::GAME_OVER);
+    cam->lookAt(ASGE::Point2D(
+      -static_cast<float>(ASGE::SETTINGS.window_width) / 2,
+      -static_cast<float>(ASGE::SETTINGS.window_height) / 2));
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
@@ -338,14 +324,6 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
       {
         endTurn();
       }
-    }
-    if (player_id == 1)
-    {
-      inputReader->setIsPLayer1(true);
-    }
-    else if (player_id == 2)
-    {
-      inputReader->setIsPLayer1(false);
     }
     break;
   }
@@ -727,15 +705,9 @@ void GCNetClient::initGame()
 {
   scene_manager.screenOpen(SceneManager::Screens::GAME);
   startGame();
-  map.addSpawnBase(player_id);
-  inputReader->setInGame(true);
-  if (player_id == 2)
-  {
-    ASGE::Point2D look_at;
-    look_at.x = -cam_x[1];
-    look_at.y = -static_cast<float>(cam_y);
-    cam->lookAt(look_at);
-  }
+  input_reader->setInGame(true);
+  cam->lookAt(
+    ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
 }
 void GCNetClient::reset()
 {

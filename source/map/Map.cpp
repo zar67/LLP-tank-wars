@@ -129,7 +129,7 @@ void Map::readLevelJson(const std::string& directory)
     tiles_high     = json_file["number_tiles_high"].get<int>();
     tile_width     = map_width / tiles_wide;
     tile_height    = map_height / tiles_high;
-    
+
     std::vector<std::string> tile_names;
     std::vector<int> player_bases;
 
