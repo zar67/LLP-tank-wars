@@ -134,7 +134,6 @@ void GameScreen::render(
     35 + local_cam_pos[1],
     ASGE::COLOURS::WHITE);
 
-
   open_shop.render(renderer);
 
   if (shop_active)

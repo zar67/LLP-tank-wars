@@ -17,11 +17,9 @@ InputManager::InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D, Map* 
   input_thread.detach();
   asge_input = &_inputs;
 
-
   cam_ref = camera2D;
 
   map = game_map;
-
 }
 
 InputManager::~InputManager()
