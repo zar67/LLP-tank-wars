@@ -38,6 +38,7 @@ struct TileData
   int troop_id        = -1;
   int tile_id         = -1;
   bool is_base        = false;
+  int player_base_id  = -1;
 
   [[nodiscard]] int mouseClicked(float _x, float _y) const
   {

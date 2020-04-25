@@ -71,6 +71,7 @@ bool GCNetClient::update(double dt)
       {
         scene_manager.gameScreen()->initShop(
           renderer, font_index, static_cast<int>(client.GetUID()));
+        input_reader->resetMapColours(clientIndexNumber());
       }
 
       break;
@@ -144,24 +145,28 @@ bool GCNetClient::updateUI()
   case (UIElement::MenuItem::BUY_NORMAL_TANK):
   {
     input_reader->deselectTile();
+    input_reader->resetMapColours(clientIndexNumber());
     shop_unit_selected = TroopTypes::NORMAL_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_BIG_TANK):
   {
     input_reader->deselectTile();
+    input_reader->resetMapColours(clientIndexNumber());
     shop_unit_selected = TroopTypes::BIG_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_LARGE_TANK):
   {
     input_reader->deselectTile();
+    input_reader->resetMapColours(clientIndexNumber());
     shop_unit_selected = TroopTypes::LARGE_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_HUGE_TANK):
   {
     input_reader->deselectTile();
+    input_reader->resetMapColours(clientIndexNumber());
     shop_unit_selected = TroopTypes::HUGE_TANK;
     break;
   }
@@ -261,7 +266,6 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   case (NetworkMessages::START_GAME):
   {
     scene_manager.screenOpen(SceneManager::Screens::GAME);
-    map.addSpawnBase(clientIndexNumber());
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
@@ -418,6 +422,7 @@ void GCNetClient::endTurn()
   if (in_turn)
   {
     input_reader->deselectTile();
+    input_reader->resetMapColours(clientIndexNumber());
     in_turn = false;
 
     time_units_spent = 0;
@@ -470,7 +475,7 @@ Troop* GCNetClient::getTroop(int player_id, int troop_id)
 
 void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 {
-  if (tile_clicked->troop_id > -1 || !map.inRangeOfBase(*tile_clicked))
+  if (tile_clicked->troop_id > -1 || !map.inRangeOfBase(*tile_clicked, clientIndexNumber()))
   {
     return;
   }
@@ -504,6 +509,7 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   }
 
   input_reader->deselectTile();
+  input_reader->resetMapColours(clientIndexNumber());
 }
 
 void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)

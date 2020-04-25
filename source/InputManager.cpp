@@ -198,7 +198,7 @@ void InputManager::setClickedMap(
   float x,
   float y)
 {
-  resetMapColours();
+  resetMapColours(player_id);
   prev_tile_clicked = tile_clicked;
 
   std::vector<TileData>* tiles = map->getMap();
@@ -270,18 +270,23 @@ void InputManager::deselectTile()
     tile_clicked      = nullptr;
     prev_tile_clicked = nullptr;
   }
-
-  resetMapColours();
 }
 
-void InputManager::resetMapColours()
+void InputManager::resetMapColours(int player_index)
 {
   std::vector<TileData>* tiles = map->getMap();
   for (auto& tile : *tiles)
   {
     if (tile.is_base)
     {
-      tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
+      if (tile.player_base_id == player_index)
+      {
+        tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
+      }
+      else
+      {
+        tile.sprite->colour(ASGE::COLOURS::LIGHTGRAY);
+      }
     }
     else
     {

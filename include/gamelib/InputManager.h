@@ -51,7 +51,7 @@ class InputManager
     float y);
   bool getClickedMap() { return clicked_map; }
   void deselectTile();
-  void resetMapColours();
+  void resetMapColours(int player_index);
   Troop* getTroop(std::vector<Troop*> troops, int id);
 
  private:

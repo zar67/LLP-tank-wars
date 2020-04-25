@@ -3,453 +3,603 @@
     "number_tiles_high" : 10,
     "TILES": [
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : 0
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : 1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : 2
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },{
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB"
+            "name" : "g_LUB",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS"
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL"
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_UL"
+            "name" : "g_UL",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : 3
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s"
+            "name" : "s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g"
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree"
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s"
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_BR"
+            "name" : "s_BR",
+            "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL"
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
         }
     ]
 }
