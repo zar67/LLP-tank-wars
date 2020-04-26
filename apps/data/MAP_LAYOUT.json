@@ -1,6 +1,6 @@
 {
-    "number_tiles_wide" : 15,
-    "number_tiles_high" : 10,
+    "number_tiles_wide" : 30,
+    "number_tiles_high" : 20,
     "TILES": [
         {
             "name" : "g",
@@ -245,6 +245,2402 @@
         {
             "name" : "g",
             "player_base_camp" : 1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },{
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },{
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },{
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },{
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_largeTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAl_s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
         },
         {
             "name" : "g_LUB",
