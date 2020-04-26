@@ -1,7 +1,5 @@
 # .travis.yml
 
-
-
 os: linux
 language: cpp
 git:

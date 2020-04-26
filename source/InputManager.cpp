@@ -353,25 +353,37 @@ void InputManager::scrollMap(const ASGE::KeyEvent& key_event)
   case ASGE::KEYS::KEY_W:
   {
     // move camera up
-    cam_ref->translateY(translate_distance);
+    if (cam_ref->getView().y > 0)
+    {
+      cam_ref->translateY(translate_distance);
+    }
     break;
   }
   case ASGE::KEYS::KEY_D:
   {
     // move camera right
-    cam_ref->translateX(-translate_distance);
+    if (cam_ref->getView().x < 1280)
+    {
+      cam_ref->translateX(-translate_distance);
+    }
     break;
   }
   case ASGE::KEYS::KEY_S:
   {
     // move camera down
-    cam_ref->translateY(-translate_distance);
+    if (cam_ref->getView().y < 720)
+    {
+      cam_ref->translateY(-translate_distance);
+    }
     break;
   }
   case ASGE::KEYS::KEY_A:
   {
     // move camera left
-    cam_ref->translateX(translate_distance);
+    if (cam_ref->getView().x > 0)
+    {
+      cam_ref->translateX(translate_distance);
+    }
     break;
   }
   }

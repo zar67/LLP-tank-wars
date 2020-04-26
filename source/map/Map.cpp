@@ -75,6 +75,12 @@ void Map::generateMap(ASGE::Renderer* renderer)
   {
     for (int j = 0; j < tiles_high; ++j)
     {
+      std::cout << i << " : " << j << std::endl;
+      if (i == 27 && j == 19)
+      {
+        std::cout << "here";
+      }
+
       TileData& current_tile = map.at(i + tiles_wide * j);
       current_tile.tile_id   = i + tiles_wide * j;
       current_tile.sprite    = renderer->createRawSprite();
