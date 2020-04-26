@@ -16,7 +16,7 @@ using nlohmann::json;
 void Map::init(const int screen_width, const int screen_height)
 {
   map.clear();
-  readJSON("data/MapTileTypes - Copy.json");
+  readJSON("data/MapTileTypes.json");
   this->map_width  = screen_width * 2;
   this->map_height = screen_height * 2;
 }
