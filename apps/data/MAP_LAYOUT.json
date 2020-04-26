@@ -7,15 +7,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g_UR",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_smallTree",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
             "player_base_camp" : -1
         },
         {
@@ -31,7 +47,71 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_RUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_largeTree",
             "player_base_camp" : -1
         },
         {
@@ -47,11 +127,315 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_RUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_CROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_RUB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LRB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LUR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -63,59 +447,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
+            "name" : "s_CROSS",
             "player_base_camp" : -1
         },
         {
@@ -123,35 +459,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s_BL",
             "player_base_camp" : -1
         },
         {
@@ -163,58 +471,6 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
             "name" : "s",
             "player_base_camp" : -1
         },
@@ -223,274 +479,166 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
             "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
             "player_base_camp" : -1
         },{
             "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_ROUNDCROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_LRB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_ULB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
@@ -506,19 +654,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
+            "name" : "g_BL",
             "player_base_camp" : -1
         },
         {
@@ -526,11 +662,55 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_ULB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_LUR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UL",
             "player_base_camp" : -1
         },
         {
@@ -542,26 +722,6 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
             "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
@@ -570,15 +730,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -586,35 +738,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "g_BR",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
+            "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
@@ -630,15 +758,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
+            "name" : "g_VERTICAL",
             "player_base_camp" : -1
         },
         {
@@ -646,11 +770,47 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -662,19 +822,67 @@
             "player_base_camp" : -1
         },
         {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_ROUNDCROSS",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
             "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
+            "name" : "g_UR",
             "player_base_camp" : -1
         },
         {
@@ -686,11 +894,63 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g_BL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -706,11 +966,83 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_VERTICAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -722,35 +1054,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s_UL",
             "player_base_camp" : -1
         },
         {
@@ -762,55 +1066,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -822,274 +1078,22 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
             "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
             "player_base_camp" : -1
         },{
-            "name" : "g",
+            "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
@@ -1109,7 +1113,83 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s_UL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1125,11 +1205,95 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_UR",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_LRB",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_HORIZONTAL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g_BL",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1141,59 +1305,15 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "s_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
+            "name" : "s_HORIZONTAL",
             "player_base_camp" : -1
         },
         {
@@ -1205,39 +1325,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1245,19 +1333,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1265,39 +1341,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1305,111 +1349,87 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
             "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s",
+            "name" : "g",
             "player_base_camp" : 1
         },
         {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
             "name" : "s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
             "player_base_camp" : 0
         },
         {
-            "name" : "g_LUB",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1425,19 +1445,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1445,31 +1453,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1481,55 +1509,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1541,55 +1525,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1605,19 +1565,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1625,31 +1573,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1661,54 +1629,166 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },{
             "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1724,19 +1804,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1744,31 +1812,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1780,55 +1868,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1840,55 +1884,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -1904,19 +1924,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1924,31 +1932,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -1960,55 +1988,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2020,55 +2004,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2084,19 +2044,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2104,31 +2052,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2140,55 +2108,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2200,55 +2124,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2264,50 +2164,230 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },{
             "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2323,19 +2403,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2343,31 +2411,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2379,55 +2467,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2439,55 +2483,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2503,19 +2523,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2523,31 +2531,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2559,55 +2587,11 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2619,55 +2603,31 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_CROSS",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_UL",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
@@ -2683,19 +2643,7 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "g_HORIZONTAl_s",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_BR",
-            "player_base_camp" : -1
-        },
-        {
-            "name" : "s_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2703,31 +2651,51 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g_LUB",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_CROSS",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_UL",
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "g",
             "player_base_camp" : -1
         },
         {
@@ -2739,23 +2707,55 @@
             "player_base_camp" : -1
         },
         {
-            "name" : "g",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_largeTree",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "g_HORIZONTAl_s",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_BR",
+            "name" : "s",
             "player_base_camp" : -1
         },
         {
-            "name" : "s_HORIZONTAL",
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
+            "player_base_camp" : -1
+        },
+        {
+            "name" : "s",
             "player_base_camp" : 2
         },
         {

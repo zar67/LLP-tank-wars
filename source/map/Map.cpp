@@ -16,7 +16,7 @@ using nlohmann::json;
 void Map::init(const int screen_width, const int screen_height)
 {
   map.clear();
-  readJSON("data/MapTileTypes.json");
+  readJSON("data/MapTileTypes - Copy.json");
   this->map_width  = screen_width * 2;
   this->map_height = screen_height * 2;
 }
@@ -75,6 +75,12 @@ void Map::generateMap(ASGE::Renderer* renderer)
   {
     for (int j = 0; j < tiles_high; ++j)
     {
+      std::cout << i << " : " << j << std::endl;
+      if (i == 27 && j == 19)
+      {
+        std::cout << "here";
+      }
+
       TileData& current_tile = map.at(i + tiles_wide * j);
       current_tile.tile_id   = i + tiles_wide * j;
       current_tile.sprite    = renderer->createRawSprite();
