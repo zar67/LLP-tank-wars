@@ -10,6 +10,7 @@
 
 #include <Engine/Renderer.h>
 #include <vector>
+#include "../../Audio/AudioManager.h"
 
 class Shop
 {
@@ -21,7 +22,7 @@ class Shop
   Shop& operator=(const Shop& shop);  // Copy Assignment Operator
 
   bool init(ASGE::Renderer* renderer, int font_index, int player_id);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  UIElement::MenuItem update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
  private:

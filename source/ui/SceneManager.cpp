@@ -6,14 +6,9 @@
 
 #include <Engine/Logger.hpp>
 
-bool SceneManager::init(ASGE::Renderer* renderer, int font_index)
+bool SceneManager::init(ASGE::Renderer* renderer, AudioManager* audio, int font_index)
 {
-  if (!audio.audioSetUp())
-  {
-    return false;
-  }
-  audio.playgameMenu();
-
+  audio_manager = audio;
   if (!main_menu.init(renderer, font_index))
   {
     return false;
@@ -45,12 +40,14 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   {
   case Screens::MAIN_MENU:
   {
-    item = main_menu.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    item =
+      main_menu.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::JOIN_SCREEN:
   {
     item = join_screen.update(
+      audio_manager,
       input_manager->mousePos(),
       *input_manager->mouseClicked(),
       *input_manager->keyPressed(),
@@ -59,17 +56,19 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   }
   case Screens::LOBBY:
   {
-    item = lobby.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    item = lobby.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::GAME:
   {
-    item = game_screen.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    item =
+      game_screen.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   case Screens::GAME_OVER:
   {
-    item = game_over.update(input_manager->mousePos(), *input_manager->mouseClicked());
+    item =
+      game_over.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked());
     break;
   }
   default: item = UIElement::MenuItem::NONE; break;

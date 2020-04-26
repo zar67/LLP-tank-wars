@@ -35,6 +35,8 @@ class AudioManager
   void playShoot();
   void playExplosion();
 
+  void stopAudio();
+
  private:
   SoLoud::Wav click_004_MP3;
   SoLoud::Wav Background_MP3;

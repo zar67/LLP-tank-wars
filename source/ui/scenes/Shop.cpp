@@ -92,7 +92,8 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
   return true;
 }
 
-UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
+UIElement::MenuItem
+Shop::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
 {
   int index = 0;
   for (Button* button : units)
@@ -105,6 +106,7 @@ UIElement::MenuItem Shop::update(const ASGE::Point2D& cursor_pos, std::atomic<bo
       continue;
     }
 
+    audio_manager->playClick();
     click = false;
     switch (index)
     {

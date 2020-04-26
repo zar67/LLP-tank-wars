@@ -44,12 +44,15 @@ bool GameOverScreen::init(ASGE::Renderer* renderer, int font_index)
     40);
 }
 
-UIElement::MenuItem
-GameOverScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
+UIElement::MenuItem GameOverScreen::update(
+  AudioManager* audio_manager,
+  const ASGE::Point2D& cursor_pos,
+  std::atomic<bool>& click)
 {
   main_menu.update(cursor_pos, click);
   if (main_menu.pressed())
   {
+    audio_manager->playClick();
     click = false;
     return UIElement::MenuItem::OPEN_MENU;
   }
@@ -57,6 +60,7 @@ GameOverScreen::update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click
   exit_game.update(cursor_pos, click);
   if (exit_game.pressed())
   {
+    audio_manager->playClick();
     click = false;
     return UIElement::MenuItem::EXIT_GAME;
   }

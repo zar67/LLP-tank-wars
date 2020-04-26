@@ -42,7 +42,14 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 
   map.init(1280, 720);
   map.generateMap(renderer);
-  return scene_manager.init(renderer, font_index);
+
+  if (!audio_manager.audioSetUp())
+  {
+    return false;
+  }
+  audio_manager.playgameMenu();
+
+  return scene_manager.init(renderer, &audio_manager, font_index);
 }
 
 bool GCNetClient::update(double dt)
@@ -105,6 +112,8 @@ bool GCNetClient::updateUI()
     if (can_start)
     {
       scene_manager.screenOpen(SceneManager::Screens::GAME);
+      audio_manager.stopAudio();
+      audio_manager.playBackgroundMusic();
       startGame();
       map.addSpawnBase(player_id);
     }
@@ -264,7 +273,8 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
     int player_num = static_cast<int>(message[2] - '0');
     scene_manager.lobbyScreen()->setPlayerNumber(player_num);
-    can_start = player_num >= 2;
+    audio_manager.playplayerJoined();
+    // can_start = player_num >= 2;
     break;
   }
   case (NetworkMessages::PLAYER_END_TURN):
@@ -468,6 +478,7 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   if (in_turn && currency >= new_troop->getCost())
   {
     units_bought_this_turn.emplace_back(new_troop);
+    audio_manager.playbuyUnit();
 
     currency -= new_troop->getCost();
     scene_manager.gameScreen()->closeShop();
@@ -496,6 +507,8 @@ void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
     tile_clicked != nullptr &&
     map.tileInRange(previously_clicked->tile_id, tile_clicked->tile_id, range))
   {
+    audio_manager.playMovement();
+
     ASGE::Sprite* sprite =
       getTroop(clientIndexNumber(), previously_clicked->troop_id)->getSpriteComponent()->getSprite();
     sprite->xPos(
@@ -527,6 +540,7 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
 
   if (other_troop->getHealth() <= 0)
   {
+    audio_manager.playExplosion();
     auto it = std::find(
       troops[tile_clicked->troop_player_id].begin(),
       troops[tile_clicked->troop_player_id].end(),
@@ -535,6 +549,10 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
 
     tile_clicked->troop_id        = -1;
     tile_clicked->troop_player_id = -1;
+  }
+  else
+  {
+    audio_manager.playShoot();
   }
 
   Types type;
@@ -549,7 +567,7 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (inputReader);
   }
-  inputReader = new InputManager(_inputs, &map);
+  inputReader = new InputManager(_inputs, &audio_manager, &map);
 }
 
 int GCNetClient::clientIndexNumber()

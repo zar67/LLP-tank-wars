@@ -4,6 +4,8 @@
 
 #include "Audio/AudioManager.h"
 
+#include <Audio/AudioManager.h>
+
 AudioManager::~AudioManager()
 {
   soloud.deinit();
@@ -72,8 +74,8 @@ void AudioManager::playClick()
 
 void AudioManager::playBackgroundMusic()
 {
-  soloud.play(Background_MP3);
   Background_MP3.setLooping(true);
+  soloud.play(Background_MP3);
 }
 
 void AudioManager::playDeselection()
@@ -93,6 +95,7 @@ void AudioManager::playplayerJoined()
 
 void AudioManager::playgameMenu()
 {
+  Game_Menu_MP3.setLooping(true);
   soloud.play(Game_Menu_MP3);
 }
 
@@ -114,4 +117,9 @@ void AudioManager::playExplosion()
 void AudioManager::playShoot()
 {
   soloud.play(Shoot_MP3);
+}
+
+void AudioManager::stopAudio()
+{
+  soloud.stopAll();
 }

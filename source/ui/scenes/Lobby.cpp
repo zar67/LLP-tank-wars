@@ -66,18 +66,25 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
     40);
 }
 
-UIElement::MenuItem Lobby::update(const ASGE::Point2D& cursor_pos, bool click)
+UIElement::MenuItem
+Lobby::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, bool click)
 {
   start_game.update(cursor_pos, click);
   back.update(cursor_pos, click);
 
-  if (start_game.pressed() && !player_icons.empty())
+  if (start_game.pressed())
   {
-    return UIElement::MenuItem::START_GAME;
+    audio_manager->playClick();
+
+    if (!player_icons.empty())
+    {
+      return UIElement::MenuItem::START_GAME;
+    }
   }
 
   if (back.pressed())
   {
+    audio_manager->playClick();
     return UIElement::MenuItem::BACK_TO_MENU;
   }
 

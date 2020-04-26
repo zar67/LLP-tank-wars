@@ -19,7 +19,7 @@
 class InputManager
 {
  public:
-  explicit InputManager(ASGE::Input& _inputs, Map* game_map);
+  explicit InputManager(ASGE::Input& _inputs, AudioManager* audio, Map* game_map);
   ~InputManager();
   InputManager(const InputManager& _input);
   InputManager& operator=(const InputManager& _input);
@@ -85,6 +85,7 @@ class InputManager
   ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
 
   Map* map = nullptr;
+  AudioManager* audio_manager = nullptr;
 };
 
 #endif  // MYNETGAME_INPUTMANAGER_H
