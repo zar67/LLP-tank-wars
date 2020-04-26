@@ -1,6 +1,11 @@
 # .travis.yml
 
-
+# safelist
+branches:
+  only:
+  - master
+  - stable
+  - /^(?i:develop)$|(?i:developer)$|(?i:Dev)$|(?i:Development)$
 
 os: linux
 language: cpp
