@@ -51,6 +51,7 @@ class Map
   std::vector<TileData> grass{};
   std::vector<TileData> sand{};
   std::vector<TileData> mix{};
+  std::vector<TileData> foggy{};
 
   std::vector<TileData*> base_camps            = {nullptr, nullptr, nullptr, nullptr};
   std::vector<ASGE::Sprite*> base_camp_sprites = {nullptr, nullptr, nullptr, nullptr};
