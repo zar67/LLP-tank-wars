@@ -30,10 +30,10 @@ struct TileData
        sprite = nullptr;
    }*/
 
-  std::string name          = "";
-  std::string directory     = "";
-  std::string foggydiretory = "";
-  ASGE::Sprite* sprite      = nullptr;
+  std::string name            = "";
+  std::string directory       = "";
+  std::string foggy_directory = "";
+  ASGE::Sprite* sprite        = nullptr;
   int movement_speed = 0;  // if road move faster, if you cant travel on it speed = 0, max speed = 2
   int troop_player_id = -1;
   int troop_id        = -1;
@@ -41,7 +41,7 @@ struct TileData
   bool is_base        = false;
   int player_base_id  = -1;
   int base_health     = 100;
-  bool visable        = true;
+  bool visible        = false;
 
   [[nodiscard]] int mouseClicked(float _x, float _y) const
   {
