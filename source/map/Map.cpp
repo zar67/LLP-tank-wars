@@ -342,15 +342,15 @@ void Map::updateVisibility(int player_id)
   {
     if (tile.troop_id != -1 && tile.troop_player_id == player_id)
     {
-      troop_tiles.push_back(tile);
+      troop_tiles.push_back(&tile);
     }
   }
 
   for (TileData& tile : map)
   {
-    for (TileData& troop_tile : troop_tiles)
+    for (TileData* troop_tile : troop_tiles)
     {
-      if (tileInRange(tile.tile_id, troop_tile.tile_id, 3))
+      if (tileInRange(tile.tile_id, troop_tile->tile_id, 3))
       {
         tile.visible = true;
         break;

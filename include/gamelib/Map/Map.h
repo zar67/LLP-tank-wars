@@ -5,7 +5,6 @@
 #ifndef MYNETGAME_MAP_H
 #define MYNETGAME_MAP_H
 #include "TileData.h"
-#include "gamelib/Troop.h"
 
 #include <Engine/Renderer.h>
 #include <string>
