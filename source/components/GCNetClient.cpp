@@ -103,9 +103,9 @@ bool GCNetClient::update(ASGE::GameTime time)
 
 bool GCNetClient::updateUI()
 {
-  std::array<int, 2> cam_pos = {
-    static_cast<int>(cam->getView().x), static_cast<int>(cam->getView().y)};
-  UIElement::MenuItem item = scene_manager.update(input_reader, cam_pos);
+  std::array<int, 2> cam_pos = {static_cast<int>(cam->getView().x),
+                                static_cast<int>(cam->getView().y)};
+  UIElement::MenuItem item   = scene_manager.update(input_reader, cam_pos);
 
   switch (item)
   {

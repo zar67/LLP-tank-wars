@@ -70,17 +70,11 @@ void Map::readJSON(const std::string& directory)
 
 void Map::generateMap(ASGE::Renderer* renderer)
 {
-  readLevelJson("data/MAP_LAYOUT.json");
+  readLevelJson("data/MAP_LAYOUT - Copy.json");
   for (int i = 0; i < tiles_wide; ++i)
   {
     for (int j = 0; j < tiles_high; ++j)
     {
-      std::cout << i << " : " << j << std::endl;
-      if (i == 27 && j == 19)
-      {
-        std::cout << "here";
-      }
-
       TileData& current_tile = map.at(i + tiles_wide * j);
       current_tile.tile_id   = i + tiles_wide * j;
       current_tile.sprite    = renderer->createRawSprite();
@@ -157,6 +151,8 @@ void Map::readLevelJson(const std::string& directory)
       {
         continue;
       }
+
+      Logging::log("*** COULDN'T FIND TILE " + tile_names.at(i) + " ***");
     }
 
     file.close();
