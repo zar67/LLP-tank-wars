@@ -47,7 +47,7 @@ class SceneManager
     bool in_turn,
     Troop* troop_selected,
     const std::vector<std::vector<Troop*>>& troops,
-    const std::vector<TileData>& tile_data,
+    Map* map,
     int currency);
 
   void screenOpen(Screens screen);

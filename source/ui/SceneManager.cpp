@@ -135,19 +135,13 @@ void SceneManager::renderGameScreen(
   bool in_turn,
   Troop* troop_selected,
   const std::vector<std::vector<Troop*>>& troops,
-  const std::vector<TileData>& tile_data,
+  Map* map,
   int currency)
 {
   game_screen.render(
     renderer, action_number, current_player_turn, in_turn, troop_selected, currency);
 
-  for (const auto& tile : tile_data)
-  {
-    if (tile.sprite != nullptr)
-    {
-      renderer->renderSprite(*tile.sprite);
-    }
-  }
+  map->renderMap(renderer);
 
   for (const auto& player : troops)
   {

@@ -252,20 +252,13 @@ void GCNetClient::render()
         in_turn,
         getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id),
         troops,
-        *map.getMap(),
+        &map,
         currency);
     }
     else
     {
       scene_manager.renderGameScreen(
-        renderer,
-        time_units_spent,
-        current_turn_id,
-        in_turn,
-        nullptr,
-        troops,
-        *map.getMap(),
-        currency);
+        renderer, time_units_spent, current_turn_id, in_turn, nullptr, troops, &map, currency);
     }
     input_reader->unlockTile();
   }
@@ -703,6 +696,7 @@ int GCNetClient::clientIndexNumber()
 
 void GCNetClient::initGame()
 {
+  map.setBaseCamps(num_connected_players);
   scene_manager.screenOpen(SceneManager::Screens::GAME);
   startGame();
   input_reader->setInGame(true);
