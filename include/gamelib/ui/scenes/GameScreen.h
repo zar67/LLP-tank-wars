@@ -30,6 +30,7 @@ class GameScreen
     int action_number,
     int current_player_turn,
     bool in_turn,
+    bool alive,
     Troop* troop_selected,
     const int& currency);
 

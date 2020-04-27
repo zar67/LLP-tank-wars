@@ -133,13 +133,14 @@ void SceneManager::renderGameScreen(
   int action_number,
   int current_player_turn,
   bool in_turn,
+  bool alive,
   Troop* troop_selected,
   const std::vector<std::vector<Troop*>>& troops,
   Map* map,
   int currency)
 {
   game_screen.render(
-    renderer, action_number, current_player_turn, in_turn, troop_selected, currency);
+    renderer, action_number, current_player_turn, in_turn, alive, troop_selected, currency);
 
   map->renderMap(renderer);
 

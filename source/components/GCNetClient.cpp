@@ -250,6 +250,7 @@ void GCNetClient::render()
         time_units_spent,
         current_turn_id,
         in_turn,
+        alive,
         getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id),
         troops,
         &map,
@@ -258,7 +259,7 @@ void GCNetClient::render()
     else
     {
       scene_manager.renderGameScreen(
-        renderer, time_units_spent, current_turn_id, in_turn, nullptr, troops, &map, currency);
+        renderer, time_units_spent, current_turn_id, in_turn, alive, nullptr, troops, &map, currency);
     }
     input_reader->unlockTile();
   }

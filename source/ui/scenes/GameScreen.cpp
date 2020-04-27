@@ -119,42 +119,54 @@ void GameScreen::render(
   int action_number,
   int current_player_turn,
   bool in_turn,
+  bool alive,
   Troop* troop_selected,
   const int& currency)
 {
-  renderer->renderText(
-    "Currency: " + std::to_string(currency),
-    310 + local_cam_pos[0],
-    35 + local_cam_pos[1],
-    ASGE::COLOURS::WHITE);
-
-  open_shop.render(renderer);
-
-  if (shop_active)
-  {
-    shop.render(renderer);
-  }
-
-  if (in_turn)
+  if (alive)
   {
     renderer->renderText(
-      "ACTIONS: " + std::to_string(action_number) + "/3",
-      15 + local_cam_pos[0],
-      ASGE::SETTINGS.window_height - 45 + local_cam_pos[1],
+      "Currency: " + std::to_string(currency),
+      310 + local_cam_pos[0],
+      35 + local_cam_pos[1],
       ASGE::COLOURS::WHITE);
-    renderer->renderText(
-      "YOUR TURN",
-      15 + local_cam_pos[0],
-      ASGE::SETTINGS.window_height - 15 + local_cam_pos[1],
-      ASGE::COLOURS::WHITE);
-    end_turn.render(renderer);
+
+    open_shop.render(renderer);
+
+    if (shop_active)
+    {
+      shop.render(renderer);
+    }
+
+    if (in_turn)
+    {
+      renderer->renderText(
+        "ACTIONS: " + std::to_string(action_number) + "/3",
+        15 + local_cam_pos[0],
+        ASGE::SETTINGS.window_height - 45 + local_cam_pos[1],
+        ASGE::COLOURS::WHITE);
+      renderer->renderText(
+        "YOUR TURN",
+        15 + local_cam_pos[0],
+        ASGE::SETTINGS.window_height - 15 + local_cam_pos[1],
+        ASGE::COLOURS::WHITE);
+      end_turn.render(renderer);
+    }
+    else
+    {
+      renderer->renderText(
+        "PLAYER " + std::to_string(current_player_turn) + "'S TURN",
+        15 + local_cam_pos[0],
+        ASGE::SETTINGS.window_height - 15 + local_cam_pos[1],
+        ASGE::COLOURS::WHITE);
+    }
   }
   else
   {
     renderer->renderText(
-      "PLAYER " + std::to_string(current_player_turn) + "'S TURN",
-      15 + local_cam_pos[0],
-      ASGE::SETTINGS.window_height - 15 + local_cam_pos[1],
+      "You Are Dead!",
+      ASGE::SETTINGS.window_width / 2 - 160 + local_cam_pos[0],
+      100 + local_cam_pos[1],
       ASGE::COLOURS::WHITE);
   }
 
