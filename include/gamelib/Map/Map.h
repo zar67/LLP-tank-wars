@@ -33,7 +33,7 @@ class Map
   TileData* getBaseCamp(int player_index);
   bool inRangeOfBase(const TileData& _tile_data, int player_index);
   void setBaseCamps(int num_players);
-  void updateVisibility(std::vector<Troop*> troop, int player_id);
+  void updateVisibility(int player_id);
 
  private:
   void readJSON(const std::string& directory);

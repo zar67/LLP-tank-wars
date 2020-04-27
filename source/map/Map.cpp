@@ -335,11 +335,26 @@ void Map::setBaseCamps(int num_players)
   }
 }
 
-void Map::updateVisibility(int troop, int player_id)
+void Map::updateVisibility(int player_id)
 {
+  std::vector<TileData*> troop_tiles;
   for (TileData& tile : map)
   {
-    if (tile.player_base_id == player_id) {}
-    if (troop == tileInRange()) {}
+    if (tile.troop_id != -1 && tile.troop_player_id == player_id)
+    {
+      troop_tiles.push_back(tile);
+    }
+  }
+
+  for (TileData& tile : map)
+  {
+    for (TileData& troop_tile : troop_tiles)
+    {
+      if (tileInRange(tile.tile_id, troop_tile.tile_id, 3))
+      {
+        tile.visible = true;
+        break;
+      }
+    }
   }
 }
