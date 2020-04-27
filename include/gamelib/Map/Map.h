@@ -5,6 +5,7 @@
 #ifndef MYNETGAME_MAP_H
 #define MYNETGAME_MAP_H
 #include "TileData.h"
+#include "gamelib/Troop.h"
 
 #include <Engine/Renderer.h>
 #include <string>
@@ -32,6 +33,7 @@ class Map
   TileData* getBaseCamp(int player_index);
   bool inRangeOfBase(const TileData& _tile_data, int player_index);
   void setBaseCamps(int num_players);
+  void updateVisibility(std::vector<Troop*> troop, int player_id);
 
  private:
   void readJSON(const std::string& directory);

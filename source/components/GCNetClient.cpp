@@ -182,6 +182,7 @@ bool GCNetClient::updateUI()
       *input_reader->mouseClicked(),
       input_reader->mousePos().x,
       input_reader->mousePos().y);
+    map.updateVisibility();
 
     TileData* tile_clicked       = input_reader->tileClicked();
     TileData* previously_clicked = input_reader->previousTileClicked();

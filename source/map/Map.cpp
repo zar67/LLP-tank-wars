@@ -4,6 +4,8 @@
 
 #include "Map/Map.h"
 
+#include "Troop.h"
+
 #include <Engine/FileIO.h>
 #include <Engine/Logger.hpp>
 #include <iostream>
@@ -330,5 +332,14 @@ void Map::setBaseCamps(int num_players)
       tile.player_base_id                       = -1;
       tile.sprite->colour(ASGE::COLOURS::WHITE);
     }
+  }
+}
+
+void Map::updateVisibility(int troop, int player_id)
+{
+  for (TileData& tile : map)
+  {
+    if (tile.player_base_id == player_id) {}
+    if (troop == tileInRange()) {}
   }
 }
