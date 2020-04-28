@@ -29,13 +29,14 @@ class GCNetServer : public GameComponent
   GCNetServer& operator=(const GCNetServer&) = delete;
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
-  bool update(double dt) override;
+  bool update(ASGE::GameTime time) override;
   void decodeMessage(const netlib::NetworkEvent& event);
   std::vector<char> encodeMessage(NetworkMessages message, const std::string& data);
 
   std::string getIP();
   void playerEndTurn();
   void addInputReader(ASGE::Input& _inputs) override{};
+  std::vector<std::string> getMessageData(std::vector<char> message);
 
  private:
   ASGE::Renderer* renderer = nullptr;

@@ -93,19 +93,22 @@ bool Shop::init(ASGE::Renderer* renderer, int font_index, int player_id)
 }
 
 UIElement::MenuItem
-Shop::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click)
+Shop::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> cam_pos)
 {
   int index = 0;
   for (Button* button : units)
   {
-    button->update(cursor_pos, click);
+    button->update(cursor_pos, click, cam_pos);
+
+    updateCameraX(cam_pos);
+    updateCameraY(cam_pos);
 
     if (!button->pressed())
     {
       index += 1;
       continue;
     }
-
+    
     audio_manager->playClick();
     click = false;
     switch (index)
@@ -132,7 +135,8 @@ Shop::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::
     }
     }
   }
-
+  x_changed = false;
+  y_changed = false;
   return UIElement::MenuItem::NONE;
 }
 
@@ -145,4 +149,40 @@ void Shop::render(ASGE::Renderer* renderer)
   for (ASGE::Sprite* sprite : unit_stats_ui) { renderer->renderSprite(*sprite); }
 
   for (ASGE::Text* text : cost_text) { renderer->renderText(*text); }
+}
+
+void Shop::updateCameraX(std::array<int, 2> cam_pos)
+{
+  if (cam_pos[0] != local_cam_pos[0])
+  {
+    int x = cam_pos[0] - local_cam_pos[0];
+    shop_title.setPositionX(shop_title.getPosition().x + static_cast<float>(x));
+    if (!x_changed)
+    {
+      for (auto& text_comp : cost_text)
+      { text_comp->setPositionX(text_comp->getPosition().x + static_cast<float>(x)); }
+
+      for (auto* sprite : unit_stats_ui) { sprite->xPos(sprite->xPos() + static_cast<float>(x)); }
+    }
+    x_changed        = true;
+    local_cam_pos[0] = cam_pos[0];
+  }
+}
+
+void Shop::updateCameraY(std::array<int, 2> cam_pos)
+{
+  if (cam_pos[1] != local_cam_pos[1])
+  {
+    int y = cam_pos[1] - local_cam_pos[1];
+    shop_title.setPositionY(shop_title.getPosition().y + static_cast<float>(y));
+    if (!y_changed)
+    {
+      for (auto& text_comp : cost_text)
+      { text_comp->setPositionY(text_comp->getPosition().y + static_cast<float>(y)); }
+
+      for (auto* sprite : unit_stats_ui) { sprite->yPos(sprite->yPos() + static_cast<float>(y)); }
+    }
+    y_changed        = true;
+    local_cam_pos[1] = cam_pos[1];
+  }
 }

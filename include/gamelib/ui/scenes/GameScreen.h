@@ -25,12 +25,13 @@ class GameScreen
 
   bool init(ASGE::Renderer* renderer, int font_index);
   UIElement::MenuItem
-  update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> camera_pos);
   void render(
     ASGE::Renderer* renderer,
     int action_number,
     int current_player_turn,
     bool in_turn,
+    bool alive,
     Troop* troop_selected,
     const int& currency);
 
@@ -44,7 +45,11 @@ class GameScreen
   Button end_turn;
   ASGE::Sprite* selected_box = nullptr;
 
-  bool shop_active = false;
+  std::array<int, 2> local_cam_pos = {0, 0};
+  bool x_different                 = false;
+  bool y_different                 = false;
+  std::string shop_title           = "";
+  bool shop_active                 = false;
 };
 
 #endif  // MYNETGAME_GAMESCREEN_H

@@ -136,7 +136,7 @@
       "movement_speed" : 2
     },
     {
-      "name": "s_LUB",
+      "name": "s_RUB",
       "directory": "tileSand_roadSplitW.png",
       "movement_speed" : 2
     },

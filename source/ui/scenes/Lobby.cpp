@@ -26,6 +26,8 @@ Lobby& Lobby::operator=(const Lobby& lobby)
 
 bool Lobby::init(ASGE::Renderer* renderer, int font_index)
 {
+  this->renderer = renderer;
+
   lobby_title = UIElement::setupText(
     renderer,
     font_index,
@@ -38,30 +40,14 @@ bool Lobby::init(ASGE::Renderer* renderer, int font_index)
     1,
     1.5F);
 
-  for (int i = 0; i < 4; i++) { addPlayer(renderer); }
-
-  if (!start_game.init(
-        renderer,
-        font_index,
-        "data/sprites/ui/button.png",
-        "data/sprites/ui/button_pressed.png",
-        "Start Game",
-        static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
-        420,
-        300,
-        40))
-  {
-    return false;
-  }
-
-  return back.init(
+  return start_game.init(
     renderer,
     font_index,
     "data/sprites/ui/button.png",
     "data/sprites/ui/button_pressed.png",
-    "Back",
+    "Start Game",
     static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 150,
-    480,
+    420,
     300,
     40);
 }
@@ -70,7 +56,6 @@ UIElement::MenuItem
 Lobby::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, bool click)
 {
   start_game.update(cursor_pos, click);
-  back.update(cursor_pos, click);
 
   if (start_game.pressed())
   {
@@ -80,12 +65,6 @@ Lobby::update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, bool
     {
       return UIElement::MenuItem::START_GAME;
     }
-  }
-
-  if (back.pressed())
-  {
-    audio_manager->playClick();
-    return UIElement::MenuItem::BACK_TO_MENU;
   }
 
   return UIElement::MenuItem::NONE;
@@ -98,20 +77,36 @@ void Lobby::render(ASGE::Renderer* renderer)
   for (int i = 0; i < player_number; i++) { renderer->renderSprite(*player_icons[i]); }
 
   start_game.render(renderer);
-  back.render(renderer);
 }
 
 void Lobby::setPlayerNumber(int number)
 {
-  player_number = number;
-  float x_pos   = static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 25 -
+  if (player_number < number)
+  {
+    int players_to_add = number - player_number;
+
+    for (int i = 0; i < players_to_add; i++) { addPlayer(); }
+
+    player_number = number;
+  }
+  else
+  {
+    int players_to_remove = player_number - number;
+
+    for (int i = 0; i < players_to_remove; i++)
+    { removePlayer(static_cast<int>(player_icons.size()) - 1 - i); }
+
+    player_number = number;
+  }
+
+  float x_pos = static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 25 -
                 ((static_cast<float>(player_number) - 1) * 30);
 
   for (int i = 0; i < player_number; i++)
   { player_icons[i]->xPos(x_pos + (static_cast<float>(i * 60))); }
 }
 
-void Lobby::addPlayer(ASGE::Renderer* renderer)
+void Lobby::addPlayer()
 {
   ASGE::Sprite* sprite = renderer->createRawSprite();
   if (!sprite->loadTexture("data/sprites/ui/text_box.png"))
@@ -125,4 +120,16 @@ void Lobby::addPlayer(ASGE::Renderer* renderer)
   sprite->yPos(220);
 
   player_icons.push_back(sprite);
+  player_number += 1;
+
+  float x_pos = static_cast<float>(ASGE::SETTINGS.window_width) / 2 - 25 -
+                ((static_cast<float>(player_number) - 1) * 30);
+
+  for (int i = 0; i < player_number; i++)
+  { player_icons[i]->xPos(x_pos + (static_cast<float>(i * 60))); }
+}
+
+void Lobby::removePlayer(int id)
+{
+  player_icons.erase(player_icons.begin() + id);
 }

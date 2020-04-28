@@ -13,7 +13,9 @@ enum class NetworkMessages
   PLAYER_BUY         = 4,
   PLAYER_NUM_CHANGED = 5,
   PLAYER_END_TURN    = 6,
-  PLAYER_START_TURN  = 7
+  PLAYER_START_TURN  = 7,
+  PLAYER_BASE_ATTACK = 8,
+  GAME_OVER          = 9
 };
 
 #endif  // MYNETGAME_MESSAGETYPES_H

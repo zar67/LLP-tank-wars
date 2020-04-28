@@ -9,17 +9,22 @@
 
 GCNetClient::GCNetClient() : GameComponent(ID::NETWORK_CLIENT)
 {
-  // client.ConnectToIP("localhost", 32488);
-  // client.ConnectToIP("164.11.76.100", 32488);
+  cam = new ASGE::Camera2D(
+    ASGE::Point2D(0, 0),
+    static_cast<float>(ASGE::SETTINGS.window_width),
+    static_cast<float>(ASGE::SETTINGS.window_height));
+  cam->lookAt(ASGE::Point2D(
+    -static_cast<float>(ASGE::SETTINGS.window_width) / 2,
+    -static_cast<float>(ASGE::SETTINGS.window_height) / 2));
 }
 
 GCNetClient::~GCNetClient()
 {
-  if (inputReader != nullptr)
+  if (input_reader != nullptr)
   {
-    inputReader->exitInputThread();
-    delete (inputReader);
-    inputReader = nullptr;
+    input_reader->exitInputThread();
+    delete (input_reader);
+    input_reader = nullptr;
   }
 
   for (const auto& player : troops)
@@ -40,7 +45,7 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
   this->renderer   = renderer;
   this->font_index = font_index;
 
-  map.init(1280, 720);
+  map.init(ASGE::SETTINGS.window_width, ASGE::SETTINGS.window_height);
   map.generateMap(renderer);
 
   if (!audio_manager.audioSetUp())
@@ -52,12 +57,14 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
   return scene_manager.init(renderer, &audio_manager, font_index);
 }
 
-bool GCNetClient::update(double dt)
+bool GCNetClient::update(ASGE::GameTime time)
 {
   if (updateUI())
   {
     return true;
   }
+
+  cam->update(time);
 
   std::queue<netlib::NetworkEvent> all_events = client.GetNetworkEvents();
   while (!all_events.empty())
@@ -68,8 +75,19 @@ bool GCNetClient::update(double dt)
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
       Logging::log("Connected to the server!\n");
-      player_id = static_cast<int>(client.GetUID());
-      scene_manager.gameScreen()->initShop(renderer, font_index, static_cast<int>(client.GetUID()));
+
+      if (static_cast<int>(client.GetUID()) > 4)
+      {
+        scene_manager.screenOpen(SceneManager::Screens::MAIN_MENU);
+        client.Disconnect();
+      }
+      else
+      {
+        scene_manager.gameScreen()->initShop(
+          renderer, font_index, static_cast<int>(client.GetUID()));
+        input_reader->setBaseColours(clientIndexNumber());
+      }
+
       break;
     }
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
@@ -92,7 +110,9 @@ bool GCNetClient::update(double dt)
 
 bool GCNetClient::updateUI()
 {
-  UIElement::MenuItem item = scene_manager.update(inputReader);
+  std::array<int, 2> cam_pos = {
+    static_cast<int>(cam->getView().x), static_cast<int>(cam->getView().y)};
+  UIElement::MenuItem item = scene_manager.update(input_reader, cam_pos);
 
   switch (item)
   {
@@ -111,22 +131,13 @@ bool GCNetClient::updateUI()
   {
     if (can_start)
     {
-      scene_manager.screenOpen(SceneManager::Screens::GAME);
-      audio_manager.stopAudio();
-      audio_manager.playBackgroundMusic();
-      startGame();
-      map.addSpawnBase(player_id);
+      initGame();
     }
     break;
   }
   case (UIElement::MenuItem::HOST_GAME):
   {
     client.ConnectToIP("localHost", 32488);
-    break;
-  }
-  case (UIElement::MenuItem::BACK_TO_MENU):
-  {
-    client.Disconnect();
     break;
   }
   case (UIElement::MenuItem::CONNECT_TO_IP):
@@ -148,49 +159,50 @@ bool GCNetClient::updateUI()
   }
   case (UIElement::MenuItem::BUY_NORMAL_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::NORMAL_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_BIG_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::BIG_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_LARGE_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::LARGE_TANK;
     break;
   }
   case (UIElement::MenuItem::BUY_HUGE_TANK):
   {
-    inputReader->deselectTile();
+    input_reader->deselectTile();
     shop_unit_selected = TroopTypes::HUGE_TANK;
     break;
   }
   case (UIElement::MenuItem::MAP_CLICK):
   {
-    inputReader->setClickedMap(
+    input_reader->setClickedMap(
       clientIndexNumber(),
       troops[clientIndexNumber()],
-      *inputReader->mouseClicked(),
-      inputReader->mousePos().x,
-      inputReader->mousePos().y);
+      *input_reader->mouseClicked(),
+      input_reader->mousePos().x,
+      input_reader->mousePos().y);
 
-    TileData* tile_clicked       = inputReader->tileClicked();
-    TileData* previously_clicked = inputReader->previousTileClicked();
+    TileData* tile_clicked       = input_reader->tileClicked();
+    TileData* previously_clicked = input_reader->previousTileClicked();
 
-    if (tile_clicked != nullptr && time_units_spent < max_time_units)
+    if (in_turn && tile_clicked != nullptr && time_units_spent < max_time_units)
     {
-      if (shop_unit_selected != TroopTypes::NONE)
+      if (!tile_clicked->is_base && shop_unit_selected != TroopTypes::NONE)
       {
         buyUnit(tile_clicked, shop_unit_selected);
         shop_unit_selected = TroopTypes::NONE;
       }
       else if (
-        previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
+        !tile_clicked->is_base && previously_clicked != nullptr &&
+        previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
         previously_clicked->troop_id >= 0 &&
         !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
@@ -199,7 +211,8 @@ bool GCNetClient::updateUI()
         moveUnit(tile_clicked, previously_clicked);
       }
       else if (
-        previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
+        !tile_clicked->is_base && previously_clicked != nullptr &&
+        previously_clicked->tile_id != tile_clicked->tile_id &&
         previously_clicked->troop_player_id == clientIndexNumber() &&
         previously_clicked->troop_id >= 0 &&
         !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
@@ -208,10 +221,20 @@ bool GCNetClient::updateUI()
       {
         attackUnit(tile_clicked, previously_clicked);
       }
+      else if (
+        previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
+        previously_clicked->troop_player_id == clientIndexNumber() &&
+        previously_clicked->troop_id >= 0 &&
+        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
+        tile_clicked->player_base_id != -1)
+      {
+        attackBaseCamp(tile_clicked, previously_clicked);
+      }
     }
 
-    inputReader->unlockPreviousTile();
-    inputReader->unlockTile();
+    input_reader->unlockPreviousTile();
+    input_reader->unlockTile();
 
     break;
   }
@@ -222,34 +245,30 @@ bool GCNetClient::updateUI()
 
 void GCNetClient::render()
 {
+  renderer->setProjectionMatrix(cam->getView());
+
   if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
   {
-    TileData* tile_clicked = inputReader->tileClicked();
-    if (tile_clicked != nullptr)
+    TileData* tile_clicked = input_reader->tileClicked();
+    if (tile_clicked != nullptr && tile_clicked->troop_id != -1)
     {
       scene_manager.renderGameScreen(
         renderer,
         time_units_spent,
         current_turn_id,
         in_turn,
+        alive,
         getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id),
         troops,
-        *map.getMap(),
+        &map,
         currency);
     }
     else
     {
       scene_manager.renderGameScreen(
-        renderer,
-        time_units_spent,
-        current_turn_id,
-        in_turn,
-        nullptr,
-        troops,
-        *map.getMap(),
-        currency);
+        renderer, time_units_spent, current_turn_id, in_turn, alive, nullptr, troops, &map, currency);
     }
-    inputReader->unlockTile();
+    input_reader->unlockTile();
   }
   else
   {
@@ -266,15 +285,25 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   case (NetworkMessages::START_GAME):
   {
     scene_manager.screenOpen(SceneManager::Screens::GAME);
-    map.addSpawnBase(player_id);
+    input_reader->setInGame(true);
+    cam->lookAt(
+      ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
+    break;
+  }
+  case (NetworkMessages::GAME_OVER):
+  {
+    scene_manager.gameOverScreen()->setWinningValues(static_cast<int>(message[1] - '0') + 1);
+    scene_manager.screenOpen(SceneManager::Screens::GAME_OVER);
+    cam->lookAt(ASGE::Point2D(
+      -static_cast<float>(ASGE::SETTINGS.window_width) / 2,
+      -static_cast<float>(ASGE::SETTINGS.window_height) / 2));
     break;
   }
   case (NetworkMessages::PLAYER_NUM_CHANGED):
   {
-    int player_num = static_cast<int>(message[2] - '0');
-    scene_manager.lobbyScreen()->setPlayerNumber(player_num);
-    audio_manager.playplayerJoined();
-    // can_start = player_num >= 2;
+    num_connected_players = static_cast<int>(message[2] - '0');
+    scene_manager.lobbyScreen()->setPlayerNumber(num_connected_players);
+    can_start = num_connected_players >= 2;
     break;
   }
   case (NetworkMessages::PLAYER_END_TURN):
@@ -287,12 +316,33 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
     current_turn_id = static_cast<int>(message[2] - '0');
     if (current_turn_id == client.GetUID())
     {
-      in_turn = true;
+      if (alive)
+      {
+        in_turn = true;
+        currency += 10;
+      }
+      else
+      {
+        endTurn();
+      }
     }
-
     break;
   }
+  default:
+  {
+    handleActions(message);
+    break;
+  }
+  }
+}
+
+void GCNetClient::handleActions(const std::vector<char>& message)
+{
   // MESSAGE FORMAT: TYPE:DATA,DATA,DATA:SENDER_ID
+  auto type = static_cast<NetworkMessages>(message[0] - '0');
+
+  switch (type)
+  {
   case NetworkMessages::PLAYER_MOVE:
   {
     std::vector<std::string> data = getMessageData(message);
@@ -329,12 +379,27 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
 
     if (other_troop->getHealth() <= 0)
     {
-      auto it = troops[tile->troop_player_id].begin() + tile->troop_id;
-      troops[tile->troop_player_id].erase(it);
+      int troop_id = tile->troop_id;
+
+      auto it = std::find_if(
+        troops[tile->troop_player_id].begin(),
+        troops[tile->troop_player_id].end(),
+        [troop_id](const Troop* troop) { return troop->getID() == troop_id; });
+
+      if (it != troops[tile->troop_player_id].end())
+      {
+        troops[tile->troop_player_id].erase(it);
+      }
+
       tile->troop_id        = -1;
       tile->troop_player_id = -1;
     }
 
+    break;
+  }
+  case NetworkMessages::PLAYER_BASE_ATTACK:
+  {
+    handleBaseAttack(message);
     break;
   }
   case NetworkMessages::PLAYER_BUY:
@@ -361,6 +426,31 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   }
 }
 
+void GCNetClient::handleBaseAttack(const std::vector<char>& message)
+{
+  std::vector<std::string> data = getMessageData(message);
+  int tile_id                   = std::stoi(data[0]);
+  int damage                    = std::stoi(data[1]);
+  int sender_id                 = std::stoi(data[2]);
+
+  TileData* tile = map.getTile(tile_id);
+
+  tile->base_health -= damage;
+
+  if (tile->base_health <= 0)
+  {
+    if (tile->player_base_id == clientIndexNumber())
+    {
+      alive = false;
+    }
+
+    players_alive.at(tile->player_base_id) = false;
+    tile->is_base                          = false;
+    tile->player_base_id                   = -1;
+    input_reader->setBaseColours(clientIndexNumber());
+  }
+}
+
 void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
 {
   std::string string_message = std::to_string(static_cast<int>(instruction));
@@ -368,18 +458,25 @@ void GCNetClient::encodeAction(NetworkMessages instruction, Types data)
   switch (instruction)
   {
   case NetworkMessages::PLAYER_MOVE:
+  {
     string_message += ":" + std::to_string(data.move.unit_index) + "," +
                       std::to_string(data.move.current_tile_id) + "," +
                       std::to_string(data.move.new_tile_id);
     break;
+  }
   case NetworkMessages::PLAYER_ATTACK:
+  case NetworkMessages::PLAYER_BASE_ATTACK:
+  {
     string_message +=
       ":" + std::to_string(data.attack.tile_id) + "," + std::to_string(data.attack.damage);
     break;
+  }
   case NetworkMessages::PLAYER_BUY:
+  {
     string_message += ":" + std::to_string(static_cast<int>(data.buy.unit_type)) + "," +
                       std::to_string(data.buy.unit_id) + "," + std::to_string(data.buy.tile_id);
     break;
+  }
   }
   std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
   actions.push_back(message);
@@ -412,6 +509,7 @@ void GCNetClient::endTurn()
 {
   if (in_turn)
   {
+    input_reader->deselectTile();
     in_turn = false;
 
     time_units_spent = 0;
@@ -424,18 +522,13 @@ void GCNetClient::endTurn()
 
     for (auto* troop : units_attacked_this_turn) { troop->setAttackedThisTurn(false); }
     units_attacked_this_turn.clear();
-
-    std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));
-    std::vector<char> message;
-    std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
-
-    client.SendMessageToServer(message);
   }
-}
 
-void GCNetClient::startTurn()
-{
-  in_turn = true;
+  std::string string_message = std::to_string(static_cast<int>(NetworkMessages::PLAYER_END_TURN));
+  std::vector<char> message;
+  std::copy(string_message.begin(), string_message.end(), std::back_inserter(message));
+
+  client.SendMessageToServer(message);
 }
 
 void GCNetClient::startGame()
@@ -464,10 +557,11 @@ Troop* GCNetClient::getTroop(int player_id, int troop_id)
 
 void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
 {
-  if (tile_clicked->troop_id > 0 || !map.inRangeOfBase(*tile_clicked))
+  if (tile_clicked->troop_id > -1 || !map.inRangeOfBase(*tile_clicked, clientIndexNumber()))
   {
     return;
   }
+
   int x_pos = static_cast<int>(tile_clicked->sprite->xPos() + tile_clicked->sprite->width() / 2);
   int y_pos = static_cast<int>(tile_clicked->sprite->yPos() + tile_clicked->sprite->height() / 2);
 
@@ -475,7 +569,7 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
     unit_count++, unit_type, renderer, x_pos, y_pos, static_cast<int>(client.GetUID()), true));
   Troop* new_troop = troops[clientIndexNumber()].back();
 
-  if (in_turn && currency >= new_troop->getCost())
+  if (currency >= new_troop->getCost())
   {
     units_bought_this_turn.emplace_back(new_troop);
     audio_manager.playbuyUnit();
@@ -496,7 +590,8 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   {
     troops[clientIndexNumber()].pop_back();
   }
-  inputReader->deselectTile();
+
+  input_reader->deselectTile();
 }
 
 void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
@@ -561,13 +656,53 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
   encodeAction(NetworkMessages::PLAYER_ATTACK, type);
 }
 
+void GCNetClient::attackBaseCamp(TileData* tile_clicked, TileData* previously_clicked)
+{
+  Troop* owned_troop = getTroop(clientIndexNumber(), previously_clicked->troop_id);
+  units_attacked_this_turn.emplace_back(owned_troop);
+  owned_troop->setAttackedThisTurn(true);
+
+  tile_clicked->base_health -= owned_troop->getAttackDamage();
+
+  if (tile_clicked->base_health <= 0)
+  {
+    players_alive.at(tile_clicked->player_base_id) = false;
+    tile_clicked->is_base                          = false;
+    tile_clicked->player_base_id                   = -1;
+
+    bool game_won = true;
+    for (int i = 0; i < num_connected_players; i++)
+    {
+      if (players_alive.at(i) && i != clientIndexNumber())
+      {
+        game_won = false;
+        break;
+      }
+    }
+
+    if (game_won)
+    {
+      std::string string_message = std::to_string(static_cast<int>(NetworkMessages::GAME_OVER));
+      std::vector<char> server_message;
+      std::copy(string_message.begin(), string_message.end(), std::back_inserter(server_message));
+
+      client.SendMessageToServer(server_message);
+    }
+  }
+
+  Types type;
+  type.attack.tile_id = tile_clicked->tile_id;
+  type.attack.damage  = owned_troop->getAttackDamage();
+  encodeAction(NetworkMessages::PLAYER_BASE_ATTACK, type);
+}
+
 void GCNetClient::addInputReader(ASGE::Input& _inputs)
 {
-  if (inputReader != nullptr)
+  if (input_reader != nullptr)
   {
-    delete (inputReader);
+    delete (input_reader);
   }
-  inputReader = new InputManager(_inputs, &audio_manager, &map);
+  input_reader = new InputManager(_inputs, &audio_manager, cam, &map);
 }
 
 int GCNetClient::clientIndexNumber()
@@ -575,6 +710,15 @@ int GCNetClient::clientIndexNumber()
   return static_cast<int>(client.GetUID()) - 1;
 }
 
+void GCNetClient::initGame()
+{
+  map.setBaseCamps(num_connected_players);
+  scene_manager.screenOpen(SceneManager::Screens::GAME);
+  startGame();
+  input_reader->setInGame(true);
+  cam->lookAt(
+    ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
+}
 void GCNetClient::reset()
 {
   can_start        = true;

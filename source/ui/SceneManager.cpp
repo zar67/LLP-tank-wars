@@ -32,7 +32,7 @@ bool SceneManager::init(ASGE::Renderer* renderer, AudioManager* audio, int font_
   return game_screen.init(renderer, font_index);
 }
 
-UIElement::MenuItem SceneManager::update(InputManager* input_manager)
+UIElement::MenuItem SceneManager::update(InputManager* input_manager, std::array<int, 2> cam_pos)
 {
   UIElement::MenuItem item;
 
@@ -61,8 +61,7 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   }
   case Screens::GAME:
   {
-    item =
-      game_screen.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked());
+    item = game_screen.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked(), cam_pos);
     break;
   }
   case Screens::GAME_OVER:
@@ -89,11 +88,6 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager)
   case UIElement::MenuItem::JOIN_SCREEN:
   {
     screen_open = Screens::JOIN_SCREEN;
-    break;
-  }
-  case UIElement::MenuItem::BACK_TO_MENU:
-  {
-    screen_open = Screens::MAIN_MENU;
     break;
   }
   default:
@@ -137,21 +131,16 @@ void SceneManager::renderGameScreen(
   int action_number,
   int current_player_turn,
   bool in_turn,
+  bool alive,
   Troop* troop_selected,
   const std::vector<std::vector<Troop*>>& troops,
-  const std::vector<TileData>& tile_data,
+  Map* map,
   int currency)
 {
   game_screen.render(
-    renderer, action_number, current_player_turn, in_turn, troop_selected, currency);
+    renderer, action_number, current_player_turn, in_turn, alive, troop_selected, currency);
 
-  for (const auto& tile : tile_data)
-  {
-    if (tile.sprite != nullptr)
-    {
-      renderer->renderSprite(*tile.sprite);
-    }
-  }
+  map->renderMap(renderer);
 
   for (const auto& player : troops)
   {
@@ -183,4 +172,9 @@ Lobby* SceneManager::lobbyScreen()
 GameScreen* SceneManager::gameScreen()
 {
   return &game_screen;
+}
+
+GameOverScreen* SceneManager::gameOverScreen()
+{
+  return &game_over;
 }

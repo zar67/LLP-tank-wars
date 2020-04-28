@@ -38,16 +38,17 @@ class SceneManager
 
   bool init(ASGE::Renderer* renderer, AudioManager* audio, int font_index);
 
-  UIElement::MenuItem update(InputManager* input_manager);
+  UIElement::MenuItem update(InputManager* input_manager, std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
   void renderGameScreen(
     ASGE::Renderer* renderer,
     int action_number,
     int current_player_turn,
     bool in_turn,
+    bool alive,
     Troop* troop_selected,
     const std::vector<std::vector<Troop*>>& troops,
-    const std::vector<TileData>& tile_data,
+    Map* map,
     int currency);
 
   void screenOpen(Screens screen);
@@ -56,6 +57,7 @@ class SceneManager
   JoinScreen* joinScreen();
   Lobby* lobbyScreen();
   GameScreen* gameScreen();
+  GameOverScreen* gameOverScreen();
 
  private:
   MainMenu main_menu       = MainMenu();

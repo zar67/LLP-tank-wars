@@ -11,6 +11,7 @@
 #include "../gamedata/MessageTypes.h"
 #include "GameComponent.hpp"
 
+#include <Engine/Camera2D.hpp>
 #include <NetLib/ClientConnection.h>
 
 class GCNetClient : public GameComponent
@@ -22,16 +23,17 @@ class GCNetClient : public GameComponent
   GCNetClient& operator=(const GCNetClient&) = delete;
 
   bool init(ASGE::Renderer* renderer, int font_index) override;
-  bool update(double dt) override;
+  bool update(ASGE::GameTime time) override;
   bool updateUI();
   void render() override;
 
   void decodeMessage(const std::vector<char>& message);
+  void handleActions(const std::vector<char>& message);
+  void handleBaseAttack(const std::vector<char>& message);
   void encodeAction(NetworkMessages instruction, Types data);
   std::vector<std::string> getMessageData(std::vector<char> message);
 
   void endTurn();
-  void startTurn();
 
   void startGame();
 
@@ -40,29 +42,37 @@ class GCNetClient : public GameComponent
   void buyUnit(TileData* tile_clicked, TroopTypes unit_type);
   void moveUnit(TileData* tile_clicked, TileData* previously_clicked);
   void attackUnit(TileData* tile_clicked, TileData* previously_clicked);
+  void attackBaseCamp(TileData* tile_clicked, TileData* previously_clicked);
 
   void addInputReader(ASGE::Input& _inputs) override;
 
  private:
   int clientIndexNumber();
+  void initGame();
   void reset();
 
-  ASGE::Renderer* renderer = nullptr;
-  int font_index           = 0;
+  std::array<float, 4> cam_starting_x = {-640, -1900, -640, -1900};
+  std::array<float, 4> cam_starting_y = {-360, -360, -1080, -1080};
+  ASGE::Camera2D* cam                 = nullptr;  // ASGE::Camera2D(1280, 720);
+  ASGE::Renderer* renderer            = nullptr;
+  int font_index                      = 0;
 
   netlib::ClientConnection client;
   SceneManager scene_manager;
   AudioManager audio_manager;
 
-  bool can_start      = true;
-  bool in_turn        = false;
-  int current_turn_id = 1;
+  bool can_start            = true;
+  bool alive                = true;
+  bool in_turn              = false;
+  int current_turn_id       = 1;
+  int num_connected_players = 0;
 
   int max_time_units   = 3;
   int time_units_spent = 0;
   std::vector<std::vector<char>> actions;
 
   std::vector<std::vector<Troop*>> troops = {{}, {}, {}, {}};
+  std::vector<bool> players_alive         = {true, true, true, true};
   int unit_count                          = 0;
 
   int currency                                 = 100;
@@ -71,9 +81,7 @@ class GCNetClient : public GameComponent
   std::vector<Troop*> units_attacked_this_turn = {};
 
   Map map;
-  InputManager* inputReader = nullptr;
-
-  int player_id = 0;
+  InputManager* input_reader = nullptr;
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

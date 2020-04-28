@@ -83,6 +83,30 @@ void TextBox::update(ASGE::Point2D cursor_pos, bool click, std::atomic<bool>& ke
   }
 }
 
+void TextBox::update(
+  ASGE::Point2D cursor_pos,
+  bool click,
+  std::atomic<bool>& key_press,
+  int key,
+  std::array<int, 2> cam_pos)
+{
+  if (cam_pos[0] != local_cam_pos[0])
+  {
+    int x = cam_pos[0] - local_cam_pos[0];
+    //   active_sprite->xPos(active_sprite->xPos() + static_cast<float>(x));
+    //   normal_sprite->xPos(normal_sprite->xPos() + static_cast<float>(x));
+    local_cam_pos[0] = cam_pos[0];
+  }
+  if (cam_pos[1] != local_cam_pos[1])
+  {
+    int y = cam_pos[1] - local_cam_pos[1];
+    //  active_sprite->yPos(active_sprite->yPos() + static_cast<float>(y));
+    // normal_sprite->yPos(normal_sprite->yPos() + static_cast<float>(y));
+    local_cam_pos[1] = cam_pos[1];
+  }
+  update(cursor_pos, click, key_press, key);
+}
+
 void TextBox::render(ASGE::Renderer* renderer)
 {
   if (active)

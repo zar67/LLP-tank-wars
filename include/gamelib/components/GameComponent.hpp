@@ -28,7 +28,7 @@ class GameComponent
   virtual ~GameComponent() = default;
 
   virtual bool init(ASGE::Renderer* renderer, int font_index) { return true; };
-  virtual bool update(double dt) = 0;
+  virtual bool update(ASGE::GameTime time) = 0;
   virtual void render(){};
 
   GameComponent(const GameComponent&) = default;
@@ -39,8 +39,7 @@ class GameComponent
   virtual void addInputReader(ASGE::Input& _inputs) = 0;
 
  private:
-  ID id         = ID::INVALID_COMPONENT_ID;
-  int player_id = 0;
+  ID id = ID::INVALID_COMPONENT_ID;
 };
 
 #endif  // NETGAME_GAMECOMPONENT_HPP
