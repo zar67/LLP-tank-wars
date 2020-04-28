@@ -5,12 +5,12 @@
 #ifndef MYNETGAME_SHOP_H
 #define MYNETGAME_SHOP_H
 
+#include "../../Audio/AudioManager.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
 
 #include <Engine/Renderer.h>
 #include <vector>
-#include "../../Audio/AudioManager.h"
 
 class Shop
 {
@@ -22,7 +22,8 @@ class Shop
   Shop& operator=(const Shop& shop);  // Copy Assignment Operator
 
   bool init(ASGE::Renderer* renderer, int font_index, int player_id);
-  UIElement::MenuItem update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  UIElement::MenuItem
+  update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
  private:
@@ -30,19 +31,17 @@ class Shop
   std::vector<Button*> units         = {};
   std::vector<ASGE::Text*> cost_text = {};
 
-  const std::vector<std::string> unit_types{
-    "tank.png",
-    "tank_big.png",
-    "tank_large.png",
-    "tank_huge.png"};
+  const std::vector<std::string> unit_types{"tank.png",
+                                            "tank_big.png",
+                                            "tank_large.png",
+                                            "tank_huge.png"};
 
   std::vector<ASGE::Sprite*> unit_stats_ui{};
 
-  const std::vector<std::string> unit_data{
-    "5\n15\n5\n3\n1",
-    "15\n20\n10\n2\n2",
-    "30\n30\n20\n2\n2",
-    "50\n40\n30\n1\n3"};
+  const std::vector<std::string> unit_data{"5\n15\n5\n3\n1",
+                                           "15\n20\n10\n2\n2",
+                                           "30\n30\n20\n2\n2",
+                                           "50\n40\n30\n1\n3"};
 };
 
 #endif  // MYNETGAME_SHOP_H

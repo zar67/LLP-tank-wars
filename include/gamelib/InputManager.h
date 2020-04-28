@@ -84,7 +84,7 @@ class InputManager
   ASGE::Colour clicked_col    = ASGE::COLOURS::DARKGREEN;
   ASGE::Colour cant_click_col = ASGE::COLOURS::RED;
 
-  Map* map = nullptr;
+  Map* map                    = nullptr;
   AudioManager* audio_manager = nullptr;
 };
 

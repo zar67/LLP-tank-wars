@@ -5,12 +5,12 @@
 #ifndef MYNETGAME_JOINSCREEN_H
 #define MYNETGAME_JOINSCREEN_H
 
+#include "../../Audio/AudioManager.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/TextBox.h"
 #include "../ui_elements/UIElement.h"
 
 #include <Engine/Renderer.h>
-#include "../../Audio/AudioManager.h"
 
 class JoinScreen
 {
@@ -19,8 +19,12 @@ class JoinScreen
   ~JoinScreen() = default;
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem
-  update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, bool click, std::atomic<bool>& key_pressed, int key);
+  UIElement::MenuItem update(
+    AudioManager* audio_manager,
+    const ASGE::Point2D& cursor_pos,
+    bool click,
+    std::atomic<bool>& key_pressed,
+    int key);
   void render(ASGE::Renderer* renderer);
 
   void displayConnectionError();

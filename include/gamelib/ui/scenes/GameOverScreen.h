@@ -5,11 +5,11 @@
 #ifndef MYNETGAME_GAMEOVERSCREEN_H
 #define MYNETGAME_GAMEOVERSCREEN_H
 
+#include "../../Audio/AudioManager.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
 
 #include <Engine/Renderer.h>
-#include "../../Audio/AudioManager.h"
 
 class GameOverScreen
 {
@@ -18,7 +18,8 @@ class GameOverScreen
   ~GameOverScreen() = default;
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  UIElement::MenuItem
+  update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
   void setWinningValues(int player_id);

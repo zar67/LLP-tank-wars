@@ -5,9 +5,9 @@
 #ifndef MYNETGAME_MAINMENU_H
 #define MYNETGAME_MAINMENU_H
 
+#include "../../Audio/AudioManager.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
-#include "../../Audio/AudioManager.h"
 
 #include <Engine/Renderer.h>
 
@@ -18,7 +18,8 @@ class MainMenu
   ~MainMenu() = default;
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem update(AudioManager* audio, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
+  UIElement::MenuItem
+  update(AudioManager* audio, const ASGE::Point2D& cursor_pos, std::atomic<bool>& click);
   void render(ASGE::Renderer* renderer);
 
  private:
