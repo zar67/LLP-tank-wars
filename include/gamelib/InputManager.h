@@ -21,7 +21,11 @@
 class InputManager
 {
  public:
-  explicit InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D, Map* game_map);
+  explicit InputManager(
+    ASGE::Input& _inputs,
+    AudioManager* audio,
+    ASGE::Camera2D* camera2D,
+    Map* game_map);
 
   ~InputManager();
   InputManager(const InputManager& _input);
@@ -96,7 +100,7 @@ class InputManager
   std::atomic<bool> is_cam_free  = true;
   const float translate_distance = 200.0F;
 
-  Map* map = nullptr;
+  Map* map                    = nullptr;
   AudioManager* audio_manager = nullptr;
 };
 

@@ -74,6 +74,7 @@ void AudioManager::playClick()
 
 void AudioManager::playBackgroundMusic()
 {
+  soloud.stopAll();
   Background_MP3.setLooping(true);
   soloud.play(Background_MP3);
 }

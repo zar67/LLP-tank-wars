@@ -110,9 +110,9 @@ bool GCNetClient::update(ASGE::GameTime time)
 
 bool GCNetClient::updateUI()
 {
-  std::array<int, 2> cam_pos = {
-    static_cast<int>(cam->getView().x), static_cast<int>(cam->getView().y)};
-  UIElement::MenuItem item = scene_manager.update(input_reader, cam_pos);
+  std::array<int, 2> cam_pos = {static_cast<int>(cam->getView().x),
+                                static_cast<int>(cam->getView().y)};
+  UIElement::MenuItem item   = scene_manager.update(input_reader, cam_pos);
 
   switch (item)
   {
@@ -132,6 +132,7 @@ bool GCNetClient::updateUI()
     if (can_start)
     {
       initGame();
+      startGame();
     }
     break;
   }
@@ -284,10 +285,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
   case (NetworkMessages::START_GAME):
   {
-    scene_manager.screenOpen(SceneManager::Screens::GAME);
-    input_reader->setInGame(true);
-    cam->lookAt(
-      ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
+    initGame();
     break;
   }
   case (NetworkMessages::GAME_OVER):
@@ -714,7 +712,8 @@ void GCNetClient::initGame()
 {
   map.setBaseCamps(num_connected_players);
   scene_manager.screenOpen(SceneManager::Screens::GAME);
-  startGame();
+  audio_manager.stopAudio();
+  audio_manager.playBackgroundMusic();
   input_reader->setInGame(true);
   cam->lookAt(
     ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
