@@ -4,10 +4,7 @@
 
 #include "InputManager.h"
 
-InputManager::InputManager(
-  ASGE::Input& _inputs,
-  ASGE::Camera2D* camera2D,
-  Map* game_map)
+InputManager::InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D, Map* game_map)
 {
   key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &InputManager::keyHandler, this);
 
