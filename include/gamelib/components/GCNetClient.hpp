@@ -75,7 +75,7 @@ class GCNetClient : public GameComponent
   std::vector<bool> players_alive         = {true, true, true, true};
   int unit_count                          = 0;
 
-  int currency                                 = 100;
+  int currency                                 = 10;
   TroopTypes shop_unit_selected                = TroopTypes::NONE;
   std::vector<Troop*> units_bought_this_turn   = {};
   std::vector<Troop*> units_attacked_this_turn = {};
