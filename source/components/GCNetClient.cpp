@@ -125,6 +125,7 @@ bool GCNetClient::updateUI()
     if (can_start)
     {
       initGame();
+      startGame();
     }
     break;
   }
@@ -700,7 +701,6 @@ void GCNetClient::initGame()
   map.setBaseCamps(num_connected_players);
   map.updateVisibility(clientIndexNumber());
   scene_manager.screenOpen(SceneManager::Screens::GAME);
-  startGame();
   input_reader->setInGame(true);
   cam->lookAt(
     ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
