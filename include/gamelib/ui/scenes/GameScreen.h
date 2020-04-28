@@ -25,10 +25,10 @@ class GameScreen
 
   bool init(ASGE::Renderer* renderer, int font_index);
   UIElement::MenuItem update(
-      AudioManager* audio_manager,
-      const ASGE::Point2D& cursor_pos,
-      std::atomic<bool>& click,
-      std::array<int, 2> camera_pos);
+    AudioManager* audio_manager,
+    const ASGE::Point2D& cursor_pos,
+    std::atomic<bool>& click,
+    std::array<int, 2> camera_pos);
   void render(
     ASGE::Renderer* renderer,
     int action_number,

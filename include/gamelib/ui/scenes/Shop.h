@@ -23,10 +23,10 @@ class Shop
 
   bool init(ASGE::Renderer* renderer, int font_index, int player_id);
   UIElement::MenuItem update(
-      AudioManager* audio_manager,
-      const ASGE::Point2D& cursor_pos,
-      std::atomic<bool>& click,
-      std::array<int, 2> cam_pos);
+    AudioManager* audio_manager,
+    const ASGE::Point2D& cursor_pos,
+    std::atomic<bool>& click,
+    std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
 
  private:
