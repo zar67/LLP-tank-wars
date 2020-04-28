@@ -59,6 +59,7 @@ class GCNetClient : public GameComponent
 
   netlib::ClientConnection client;
   SceneManager scene_manager;
+  AudioManager audio_manager;
 
   bool can_start            = true;
   bool alive                = true;

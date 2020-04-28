@@ -5,6 +5,7 @@
 #ifndef MYNETGAME_GAMESCREEN_H
 #define MYNETGAME_GAMESCREEN_H
 
+#include "../../Audio/AudioManager.h"
 #include "../../Troop.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
@@ -23,8 +24,11 @@ class GameScreen
   GameScreen& operator=(const GameScreen& gameScreen);  // Copy Assignment Operator
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem
-  update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> camera_pos);
+  UIElement::MenuItem update(
+    AudioManager* audio_manager,
+    const ASGE::Point2D& cursor_pos,
+    std::atomic<bool>& click,
+    std::array<int, 2> camera_pos);
   void render(
     ASGE::Renderer* renderer,
     int action_number,
