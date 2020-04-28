@@ -55,7 +55,7 @@ Map& Map::operator=(const Map& map)
 void Map::init(const int screen_width, const int screen_height)
 {
   map.clear();
-  readJSON("data/MapTileTypes - Copy.json");
+  readJSON("data/MapTileTypes.json");
   this->map_width  = screen_width * 2;
   this->map_height = screen_height * 2;
 }
@@ -115,7 +115,7 @@ void Map::readJSON(const std::string& directory)
 
 void Map::generateMap(ASGE::Renderer* renderer)
 {
-  readLevelJson("data/MAP_LAYOUT - Copy.json");
+  readLevelJson("data/MAP_LAYOUT.json");
   for (int i = 0; i < tiles_wide; ++i)
   {
     for (int j = 0; j < tiles_high; ++j)

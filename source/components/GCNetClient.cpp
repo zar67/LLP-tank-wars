@@ -246,7 +246,7 @@ void GCNetClient::render()
   if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
   {
     TileData* tile_clicked = input_reader->tileClicked();
-    if (tile_clicked != nullptr && tile_clicked->troop_id != -1)
+    if (tile_clicked != nullptr && tile_clicked->troop_id != -1 && tile_clicked->visible)
     {
       scene_manager.renderGameScreen(
         renderer,
