@@ -703,7 +703,7 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (input_reader);
   }
-  input_reader = new InputManager(_inputs, &audio_manager, cam, &map);
+  input_reader = new InputManager(_inputs, cam, &map);
 }
 
 int GCNetClient::clientIndexNumber()

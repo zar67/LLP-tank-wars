@@ -23,7 +23,6 @@ class InputManager
  public:
   explicit InputManager(
     ASGE::Input& _inputs,
-    AudioManager* audio,
     ASGE::Camera2D* camera2D,
     Map* game_map);
 
@@ -101,7 +100,6 @@ class InputManager
   const float translate_distance = 200.0F;
 
   Map* map                    = nullptr;
-  AudioManager* audio_manager = nullptr;
 };
 
 #endif  // MYNETGAME_INPUTMANAGER_H
