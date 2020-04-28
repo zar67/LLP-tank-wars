@@ -26,10 +26,28 @@ class AudioManager
 
   void playClick();
   void playBackgroundMusic();
+  void playbuyUnit();
+  void playDeselection();
+  void playgameMenu();
+  void playMovement();
+  void playplayerJoined();
+  void playSelection();
+  void playShoot();
+  void playExplosion();
+
+  void stopAudio();
 
  private:
   SoLoud::Wav click_004_MP3;
   SoLoud::Wav Background_MP3;
+  SoLoud::Wav Buy_Unit_MP3;
+  SoLoud::Wav Deselection_MP3;
+  SoLoud::Wav Game_Menu_MP3;
+  SoLoud::Wav Movement_MP3;
+  SoLoud::Wav Player_Joined_MP3;
+  SoLoud::Wav Selection_MP3;
+  SoLoud::Wav Shoot_MP3;
+  SoLoud::Wav Explosion_MP3;
 
   SoLoud::Soloud soloud;
 };

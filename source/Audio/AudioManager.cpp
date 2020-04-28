@@ -4,6 +4,8 @@
 
 #include "Audio/AudioManager.h"
 
+#include <Audio/AudioManager.h>
+
 AudioManager::~AudioManager()
 {
   soloud.deinit();
@@ -52,12 +54,17 @@ bool AudioManager::audioSetUp()
     return false;
   }
 
-  if (!loadFile("/data/Audio/Background.mp3", Background_MP3))
-  {
-    return false;
-  }
-
-  return true;
+  return !(
+    !loadFile("/data/Audio/Background-ingame.mp3", Background_MP3) ||
+    !loadFile("/data/Audio/click_004.mp3", click_004_MP3) ||
+    !loadFile("/data/Audio/Buy_Unit.mp3", Buy_Unit_MP3) ||
+    !loadFile("/data/Audio/Deselection.mp3", Deselection_MP3) ||
+    !loadFile("/data/Audio/Game_Menu.mp3", Game_Menu_MP3) ||
+    !loadFile("/data/Audio/Movement.mp3", Movement_MP3) ||
+    !loadFile("/data/Audio/Player_Joined.mp3", Player_Joined_MP3) ||
+    !loadFile("/data/Audio/Selection.mp3", Selection_MP3) ||
+    !loadFile("/data/Audio/Shoot.mp3", Shoot_MP3) ||
+    !loadFile("/data/Audio/Explosion.mp3", Explosion_MP3));
 }
 
 void AudioManager::playClick()
@@ -67,5 +74,53 @@ void AudioManager::playClick()
 
 void AudioManager::playBackgroundMusic()
 {
+  soloud.stopAll();
+  Background_MP3.setLooping(true);
   soloud.play(Background_MP3);
+}
+
+void AudioManager::playDeselection()
+{
+  soloud.play(Deselection_MP3);
+}
+
+void AudioManager::playbuyUnit()
+{
+  soloud.play(Buy_Unit_MP3);
+}
+
+void AudioManager::playplayerJoined()
+{
+  soloud.play(Player_Joined_MP3);
+}
+
+void AudioManager::playgameMenu()
+{
+  Game_Menu_MP3.setLooping(true);
+  soloud.play(Game_Menu_MP3);
+}
+
+void AudioManager::playSelection()
+{
+  soloud.play(Selection_MP3);
+}
+
+void AudioManager::playMovement()
+{
+  soloud.play(Movement_MP3);
+}
+
+void AudioManager::playExplosion()
+{
+  soloud.play(Explosion_MP3);
+}
+
+void AudioManager::playShoot()
+{
+  soloud.play(Shoot_MP3);
+}
+
+void AudioManager::stopAudio()
+{
+  soloud.stopAll();
 }

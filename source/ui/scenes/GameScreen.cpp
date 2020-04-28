@@ -64,6 +64,7 @@ bool GameScreen::init(ASGE::Renderer* renderer, int font_index)
 }
 
 UIElement::MenuItem GameScreen::update(
+  AudioManager* audio_manager,
   const ASGE::Point2D& cursor_pos,
   std::atomic<bool>& click,
   std::array<int, 2> camera_pos)
@@ -80,6 +81,7 @@ UIElement::MenuItem GameScreen::update(
 
   if (open_shop.pressed())
   {
+    audio_manager->playClick();
     click = false;
     if (shop_active)
     {
@@ -95,6 +97,7 @@ UIElement::MenuItem GameScreen::update(
   end_turn.update(cursor_pos, click, camera_pos);
   if (end_turn.pressed())
   {
+    audio_manager->playClick();
     click = false;
     return UIElement::MenuItem::END_TURN;
   }
@@ -103,7 +106,7 @@ UIElement::MenuItem GameScreen::update(
 
   if (shop_active)
   {
-    item = shop.update(cursor_pos, click, camera_pos);
+    item = shop.update(audio_manager, cursor_pos, click, camera_pos);
   }
 
   if (click)
