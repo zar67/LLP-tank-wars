@@ -61,7 +61,8 @@ UIElement::MenuItem SceneManager::update(InputManager* input_manager, std::array
   }
   case Screens::GAME:
   {
-    item = game_screen.update(audio_manager, input_manager->mousePos(), *input_manager->mouseClicked(), cam_pos);
+    item = game_screen.update(
+      audio_manager, input_manager->mousePos(), *input_manager->mouseClicked(), cam_pos);
     break;
   }
   case Screens::GAME_OVER:
