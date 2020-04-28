@@ -5,6 +5,7 @@
 #ifndef MYNETGAME_SHOP_H
 #define MYNETGAME_SHOP_H
 
+#include "../../Audio/AudioManager.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
 
@@ -21,8 +22,11 @@ class Shop
   Shop& operator=(const Shop& shop);  // Copy Assignment Operator
 
   bool init(ASGE::Renderer* renderer, int font_index, int player_id);
-  UIElement::MenuItem
-  update(const ASGE::Point2D& cursor_pos, std::atomic<bool>& click, std::array<int, 2> cam_pos);
+  UIElement::MenuItem update(
+    AudioManager* audio_manager,
+    const ASGE::Point2D& cursor_pos,
+    std::atomic<bool>& click,
+    std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
 
  private:

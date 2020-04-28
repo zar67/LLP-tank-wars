@@ -36,7 +36,7 @@ class SceneManager
   SceneManager()  = default;
   ~SceneManager() = default;
 
-  bool init(ASGE::Renderer* renderer, int font_index);
+  bool init(ASGE::Renderer* renderer, AudioManager* audio, int font_index);
 
   UIElement::MenuItem update(InputManager* input_manager, std::array<int, 2> cam_pos);
   void render(ASGE::Renderer* renderer);
@@ -45,9 +45,10 @@ class SceneManager
     int action_number,
     int current_player_turn,
     bool in_turn,
+    bool alive,
     Troop* troop_selected,
     const std::vector<std::vector<Troop*>>& troops,
-    const std::vector<TileData>& tile_data,
+    Map* map,
     int currency);
 
   void screenOpen(Screens screen);
@@ -67,7 +68,7 @@ class SceneManager
 
   Screens screen_open = Screens::MAIN_MENU;
 
-  AudioManager audio;
+  AudioManager* audio_manager = nullptr;
 };
 
 #endif  // MYNETGAME_SCENEMANAGER_H

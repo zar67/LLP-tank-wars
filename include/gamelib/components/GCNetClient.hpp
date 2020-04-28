@@ -51,14 +51,15 @@ class GCNetClient : public GameComponent
   void initGame();
   void reset();
 
-  std::array<float, 4> cam_starting_x = {-1280, -640, -1900, -1280};
-  std::array<float, 4> cam_starting_y = {-360, -640, -780, -1080};
+  std::array<float, 4> cam_starting_x = {-640, -1900, -640, -1900};
+  std::array<float, 4> cam_starting_y = {-360, -360, -1080, -1080};
   ASGE::Camera2D* cam                 = nullptr;  // ASGE::Camera2D(1280, 720);
   ASGE::Renderer* renderer            = nullptr;
   int font_index                      = 0;
 
   netlib::ClientConnection client;
   SceneManager scene_manager;
+  AudioManager audio_manager;
 
   bool can_start            = true;
   bool alive                = true;

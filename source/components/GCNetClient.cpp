@@ -47,7 +47,14 @@ bool GCNetClient::init(ASGE::Renderer* renderer, int font_index)
 
   map.init(ASGE::SETTINGS.window_width, ASGE::SETTINGS.window_height);
   map.generateMap(renderer);
-  return scene_manager.init(renderer, font_index);
+
+  if (!audio_manager.audioSetUp())
+  {
+    return false;
+  }
+  audio_manager.playgameMenu();
+
+  return scene_manager.init(renderer, &audio_manager, font_index);
 }
 
 bool GCNetClient::update(ASGE::GameTime time)
@@ -125,6 +132,7 @@ bool GCNetClient::updateUI()
     if (can_start)
     {
       initGame();
+      startGame();
     }
     break;
   }
@@ -250,22 +258,16 @@ void GCNetClient::render()
         time_units_spent,
         current_turn_id,
         in_turn,
+        alive,
         getTroop(tile_clicked->troop_player_id, tile_clicked->troop_id),
         troops,
-        *map.getMap(),
+        &map,
         currency);
     }
     else
     {
       scene_manager.renderGameScreen(
-        renderer,
-        time_units_spent,
-        current_turn_id,
-        in_turn,
-        nullptr,
-        troops,
-        *map.getMap(),
-        currency);
+        renderer, time_units_spent, current_turn_id, in_turn, alive, nullptr, troops, &map, currency);
     }
     input_reader->unlockTile();
   }
@@ -283,10 +285,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
   case (NetworkMessages::START_GAME):
   {
-    scene_manager.screenOpen(SceneManager::Screens::GAME);
-    input_reader->setInGame(true);
-    cam->lookAt(
-      ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
+    initGame();
     break;
   }
   case (NetworkMessages::GAME_OVER):
@@ -571,6 +570,7 @@ void GCNetClient::buyUnit(TileData* tile_clicked, TroopTypes unit_type)
   if (currency >= new_troop->getCost())
   {
     units_bought_this_turn.emplace_back(new_troop);
+    audio_manager.playbuyUnit();
 
     currency -= new_troop->getCost();
     scene_manager.gameScreen()->closeShop();
@@ -600,6 +600,8 @@ void GCNetClient::moveUnit(TileData* tile_clicked, TileData* previously_clicked)
     tile_clicked != nullptr &&
     map.tileInRange(previously_clicked->tile_id, tile_clicked->tile_id, range))
   {
+    audio_manager.playMovement();
+
     ASGE::Sprite* sprite =
       getTroop(clientIndexNumber(), previously_clicked->troop_id)->getSpriteComponent()->getSprite();
     sprite->xPos(
@@ -631,6 +633,7 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
 
   if (other_troop->getHealth() <= 0)
   {
+    audio_manager.playExplosion();
     auto it = std::find(
       troops[tile_clicked->troop_player_id].begin(),
       troops[tile_clicked->troop_player_id].end(),
@@ -639,6 +642,10 @@ void GCNetClient::attackUnit(TileData* tile_clicked, TileData* previously_clicke
 
     tile_clicked->troop_id        = -1;
     tile_clicked->troop_player_id = -1;
+  }
+  else
+  {
+    audio_manager.playShoot();
   }
 
   Types type;
@@ -693,7 +700,7 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (input_reader);
   }
-  input_reader = new InputManager(_inputs, cam, &map);
+  input_reader = new InputManager(_inputs, &audio_manager, cam, &map);
 }
 
 int GCNetClient::clientIndexNumber()
@@ -703,8 +710,10 @@ int GCNetClient::clientIndexNumber()
 
 void GCNetClient::initGame()
 {
+  map.setBaseCamps(num_connected_players);
   scene_manager.screenOpen(SceneManager::Screens::GAME);
-  startGame();
+  audio_manager.stopAudio();
+  audio_manager.playBackgroundMusic();
   input_reader->setInGame(true);
   cam->lookAt(
     ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));

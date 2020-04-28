@@ -5,6 +5,7 @@
 #ifndef MYNETGAME_LOBBY_H
 #define MYNETGAME_LOBBY_H
 
+#include "../../Audio/AudioManager.h"
 #include "../ui_elements/Button.h"
 #include "../ui_elements/UIElement.h"
 
@@ -21,7 +22,8 @@ class Lobby
   Lobby& operator=(const Lobby& lobby);  // Copy Assignment Operator
 
   bool init(ASGE::Renderer* renderer, int font_index);
-  UIElement::MenuItem update(const ASGE::Point2D& cursor_pos, bool click);
+  UIElement::MenuItem
+  update(AudioManager* audio_manager, const ASGE::Point2D& cursor_pos, bool click);
   void render(ASGE::Renderer* renderer);
 
   void setPlayerNumber(int number);

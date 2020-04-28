@@ -55,6 +55,7 @@ bool JoinScreen::init(ASGE::Renderer* renderer, int font_index)
 }
 
 UIElement::MenuItem JoinScreen::update(
+  AudioManager* audio_manager,
   const ASGE::Point2D& cursor_pos,
   bool click,
   std::atomic<bool>& key_pressed,
@@ -65,6 +66,7 @@ UIElement::MenuItem JoinScreen::update(
 
   if (start_game.pressed())
   {
+    audio_manager->playClick();
     return UIElement::MenuItem::CONNECT_TO_IP;
   }
 
