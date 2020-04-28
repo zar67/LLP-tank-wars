@@ -156,15 +156,15 @@ void Map::generateMap(ASGE::Renderer* renderer)
       }
     }
 
-    tile_ids_in_range = {-3 * map_width,
-                         -2 * map_width - 1,
-                         -2 * map_width,
-                         -2 * map_width + 1,
-                         -map_width - 2,
-                         -map_width - 1,
-                         -map_width,
-                         -map_width + 1,
-                         -map_width + 2,
+    tile_ids_in_range = {-3 * tiles_wide,
+                         -2 * tiles_wide - 1,
+                         -2 * tiles_wide,
+                         -2 * tiles_wide + 1,
+                         -tiles_wide - 2,
+                         -tiles_wide - 1,
+                         -tiles_wide,
+                         -tiles_wide + 1,
+                         -tiles_wide + 2,
                          -3,
                          -2,
                          -1,
@@ -172,15 +172,15 @@ void Map::generateMap(ASGE::Renderer* renderer)
                          1,
                          2,
                          3,
-                         map_width - 2,
-                         map_width - 1,
-                         map_width,
-                         map_width + 1,
-                         map_width + 2,
-                         2 * map_width - 1,
-                         2 * map_width,
-                         2 * map_width + 1,
-                         3 * map_width};
+                         tiles_wide - 2,
+                         tiles_wide - 1,
+                         tiles_wide,
+                         tiles_wide + 1,
+                         tiles_wide + 2,
+                         2 * tiles_wide - 1,
+                         2 * tiles_wide,
+                         2 * tiles_wide + 1,
+                         3 * tiles_wide};
   }
 
   for (TileData& tile : map)
@@ -371,7 +371,10 @@ void Map::updateVisibility(int player_id)
   std::vector<TileData*> troop_tiles;
   for (TileData& tile : map)
   {
-    tile.visible = tileInRange(tile.tile_id, base_camps.at(player_id)->tile_id, 3);
+    if (tileInRange(tile.tile_id, base_camps.at(player_id)->tile_id, 3))
+    {
+      tile.visible = true;
+    }
 
     if (tile.troop_id == -1 || tile.troop_player_id != player_id)
     {
