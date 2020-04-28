@@ -132,6 +132,7 @@ void Map::generateMap(ASGE::Renderer* renderer)
 
       if (current_tile.player_base_id != -1)
       {
+        current_tile.visible = false;
         current_tile.is_base = true;
         current_tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
         base_camps.at(current_tile.player_base_id) = &current_tile;
@@ -153,21 +154,50 @@ void Map::generateMap(ASGE::Renderer* renderer)
         sprite->setGlobalZOrder(-6);
         base_camp_sprites[current_tile.player_base_id] = sprite;
       }
-
-      ASGE::Sprite* foggy_tile = renderer->createRawSprite();
-
-      if (!foggy_tile->loadTexture(current_tile.foggy_directory))
-      {
-        Logging::log("*** FOGGY SPRITE " + current_tile.foggy_directory + " NOT LOADED ***");
-      }
-
-      foggy_tile->xPos(static_cast<float>(i * tile_width));
-      foggy_tile->yPos(static_cast<float>(j * tile_height));
-      foggy_tile->width(static_cast<float>(tile_width));
-      foggy_tile->height(static_cast<float>(tile_height));
-      foggy_tile->setGlobalZOrder(-4);
-      foggy.push_back(foggy_tile);
     }
+
+    tile_ids_in_range = {-3 * map_width,
+                         -2 * map_width - 1,
+                         -2 * map_width,
+                         -2 * map_width + 1,
+                         -map_width - 2,
+                         -map_width - 1,
+                         -map_width,
+                         -map_width + 1,
+                         -map_width + 2,
+                         -3,
+                         -2,
+                         -1,
+                         0,
+                         1,
+                         2,
+                         3,
+                         map_width - 2,
+                         map_width - 1,
+                         map_width,
+                         map_width + 1,
+                         map_width + 2,
+                         2 * map_width - 1,
+                         2 * map_width,
+                         2 * map_width + 1,
+                         3 * map_width};
+  }
+
+  for (TileData& tile : map)
+  {
+    ASGE::Sprite* foggy_tile = renderer->createRawSprite();
+
+    if (!foggy_tile->loadTexture(tile.foggy_directory))
+    {
+      Logging::log("*** FOGGY SPRITE " + tile.foggy_directory + " NOT LOADED ***");
+    }
+
+    foggy_tile->xPos(tile.sprite->xPos());
+    foggy_tile->yPos(tile.sprite->yPos());
+    foggy_tile->width(tile.sprite->width());
+    foggy_tile->height(tile.sprite->height());
+    foggy_tile->setGlobalZOrder(-4);
+    foggy.push_back(foggy_tile);
   }
 }
 
@@ -328,6 +358,7 @@ void Map::setBaseCamps(int num_players)
     {
       base_camp_sprites.at(tile.player_base_id) = nullptr;
       base_camps.at(tile.player_base_id)        = nullptr;
+      tile.visible                              = false;
       tile.is_base                              = false;
       tile.player_base_id                       = -1;
       tile.sprite->colour(ASGE::COLOURS::WHITE);
@@ -340,21 +371,24 @@ void Map::updateVisibility(int player_id)
   std::vector<TileData*> troop_tiles;
   for (TileData& tile : map)
   {
-    if (tile.troop_id != -1 && tile.troop_player_id == player_id)
-    {
-      troop_tiles.push_back(&tile);
-    }
-  }
+    tile.visible = tileInRange(tile.tile_id, base_camps.at(player_id)->tile_id, 3);
 
-  for (TileData& tile : map)
-  {
-    for (TileData* troop_tile : troop_tiles)
+    if (tile.troop_id == -1 || tile.troop_player_id != player_id)
     {
-      if (tileInRange(tile.tile_id, troop_tile->tile_id, 3))
-      {
-        tile.visible = true;
-        break;
-      }
+      continue;
+    }
+
+    setVisibleTilesInRange(tile.tile_id);
+  }
+}
+
+void Map::setVisibleTilesInRange(int tile_id)
+{
+  for (int id_diff : tile_ids_in_range)
+  {
+    if (tile_id + id_diff > 0 && tile_id + id_diff < map.size())
+    {
+      map.at(tile_id + id_diff).visible = true;
     }
   }
 }

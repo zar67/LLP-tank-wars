@@ -33,6 +33,7 @@ class Map
   bool inRangeOfBase(const TileData& _tile_data, int player_index);
   void setBaseCamps(int num_players);
   void updateVisibility(int player_id);
+  void setVisibleTilesInRange(int tile_id);
 
  private:
   void readJSON(const std::string& directory);
@@ -57,6 +58,8 @@ class Map
   std::vector<TileData*> base_camps            = {nullptr, nullptr, nullptr, nullptr};
   std::vector<ASGE::Sprite*> base_camp_sprites = {nullptr, nullptr, nullptr, nullptr};
   const float SPAWN_RANGE                      = 3.0F;
+
+  std::vector<int> tile_ids_in_range = {};
 };
 
 #endif  // MYNETGAME_MAP_H

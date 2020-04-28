@@ -182,16 +182,16 @@ bool GCNetClient::updateUI()
       *input_reader->mouseClicked(),
       input_reader->mousePos().x,
       input_reader->mousePos().y);
-    map.updateVisibility(clientIndexNumber());
 
     TileData* tile_clicked       = input_reader->tileClicked();
     TileData* previously_clicked = input_reader->previousTileClicked();
 
-    if (in_turn && tile_clicked != nullptr && time_units_spent < max_time_units)
+    if (in_turn && tile_clicked != nullptr && tile_clicked->visible && time_units_spent < max_time_units)
     {
       if (!tile_clicked->is_base && shop_unit_selected != TroopTypes::NONE)
       {
         buyUnit(tile_clicked, shop_unit_selected);
+        map.updateVisibility(clientIndexNumber());
         shop_unit_selected = TroopTypes::NONE;
       }
       else if (
@@ -203,6 +203,7 @@ bool GCNetClient::updateUI()
         tile_clicked->troop_id < 0)
       {
         moveUnit(tile_clicked, previously_clicked);
+        map.updateVisibility(clientIndexNumber());
       }
       else if (
         !tile_clicked->is_base && previously_clicked != nullptr &&
@@ -278,10 +279,7 @@ void GCNetClient::decodeMessage(const std::vector<char>& message)
   {
   case (NetworkMessages::START_GAME):
   {
-    scene_manager.screenOpen(SceneManager::Screens::GAME);
-    input_reader->setInGame(true);
-    cam->lookAt(
-      ASGE::Point2D(cam_starting_x[clientIndexNumber()], cam_starting_y[clientIndexNumber()]));
+    initGame();
     break;
   }
   case (NetworkMessages::GAME_OVER):
@@ -385,6 +383,7 @@ void GCNetClient::handleActions(const std::vector<char>& message)
         troops[tile->troop_player_id].erase(it);
       }
 
+      map.updateVisibility(clientIndexNumber());
       tile->troop_id        = -1;
       tile->troop_player_id = -1;
     }
@@ -699,6 +698,7 @@ int GCNetClient::clientIndexNumber()
 void GCNetClient::initGame()
 {
   map.setBaseCamps(num_connected_players);
+  map.updateVisibility(clientIndexNumber());
   scene_manager.screenOpen(SceneManager::Screens::GAME);
   startGame();
   input_reader->setInGame(true);
