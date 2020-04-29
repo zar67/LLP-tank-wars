@@ -4,11 +4,7 @@
 
 #include "InputManager.h"
 
-InputManager::InputManager(
-  ASGE::Input& _inputs,
-  AudioManager* audio,
-  ASGE::Camera2D* camera2D,
-  Map* game_map)
+InputManager::InputManager(ASGE::Input& _inputs, ASGE::Camera2D* camera2D, Map* game_map)
 {
   key_callback_id = _inputs.addCallbackFnc(ASGE::E_KEY, &InputManager::keyHandler, this);
 
@@ -22,9 +18,7 @@ InputManager::InputManager(
   asge_input = &_inputs;
 
   cam_ref = camera2D;
-
-  map           = game_map;
-  audio_manager = audio;
+  map     = game_map;
 }
 
 InputManager::~InputManager()
@@ -115,7 +109,6 @@ void InputManager::mouse(ASGE::SharedEventData data)
     click->action == ASGE::MOUSE::BUTTON_PRESSED && click->button == ASGE::MOUSE::MOUSE_BTN2 &&
     tile_clicked != nullptr)
   {
-    audio_manager->playDeselection();
     deselectTile();
   }
 }

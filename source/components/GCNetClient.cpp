@@ -194,11 +194,12 @@ bool GCNetClient::updateUI()
     TileData* tile_clicked       = input_reader->tileClicked();
     TileData* previously_clicked = input_reader->previousTileClicked();
 
-    if (in_turn && tile_clicked != nullptr && time_units_spent < max_time_units)
+    if (in_turn && tile_clicked != nullptr && tile_clicked->visible && time_units_spent < max_time_units)
     {
       if (!tile_clicked->is_base && shop_unit_selected != TroopTypes::NONE)
       {
         buyUnit(tile_clicked, shop_unit_selected);
+        map.updateVisibility(clientIndexNumber());
         shop_unit_selected = TroopTypes::NONE;
       }
       else if (
@@ -210,6 +211,7 @@ bool GCNetClient::updateUI()
         tile_clicked->troop_id < 0)
       {
         moveUnit(tile_clicked, previously_clicked);
+        map.updateVisibility(clientIndexNumber());
       }
       else if (
         !tile_clicked->is_base && previously_clicked != nullptr &&
@@ -251,7 +253,7 @@ void GCNetClient::render()
   if (scene_manager.screenOpen() == SceneManager::Screens::GAME)
   {
     TileData* tile_clicked = input_reader->tileClicked();
-    if (tile_clicked != nullptr && tile_clicked->troop_id != -1)
+    if (tile_clicked != nullptr && tile_clicked->troop_id != -1 && tile_clicked->visible)
     {
       scene_manager.renderGameScreen(
         renderer,
@@ -389,6 +391,7 @@ void GCNetClient::handleActions(const std::vector<char>& message)
         troops[tile->troop_player_id].erase(it);
       }
 
+      map.updateVisibility(clientIndexNumber());
       tile->troop_id        = -1;
       tile->troop_player_id = -1;
     }
@@ -700,7 +703,7 @@ void GCNetClient::addInputReader(ASGE::Input& _inputs)
   {
     delete (input_reader);
   }
-  input_reader = new InputManager(_inputs, &audio_manager, cam, &map);
+  input_reader = new InputManager(_inputs, cam, &map);
 }
 
 int GCNetClient::clientIndexNumber()
@@ -711,6 +714,7 @@ int GCNetClient::clientIndexNumber()
 void GCNetClient::initGame()
 {
   map.setBaseCamps(num_connected_players);
+  map.updateVisibility(clientIndexNumber());
   scene_manager.screenOpen(SceneManager::Screens::GAME);
   audio_manager.stopAudio();
   audio_manager.playBackgroundMusic();

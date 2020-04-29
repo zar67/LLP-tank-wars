@@ -55,6 +55,7 @@ Troop::Troop(
   ASGE::Sprite* sprite = getSpriteComponent()->getSprite();
   sprite->xPos(sprite->xPos() - sprite->width() / 2);
   sprite->yPos(sprite->yPos() - sprite->height() / 2);
+  sprite->setGlobalZOrder(-6);
 }
 
 void Troop::setTroopType(TroopTypes new_type)

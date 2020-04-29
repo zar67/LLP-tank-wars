@@ -52,7 +52,7 @@ class GCNetClient : public GameComponent
   void reset();
 
   std::array<float, 4> cam_starting_x = {-640, -1900, -640, -1900};
-  std::array<float, 4> cam_starting_y = {-360, -360, -1080, -1080};
+  std::array<float, 4> cam_starting_y = {-360, -1080, -1080, -360};
   ASGE::Camera2D* cam                 = nullptr;  // ASGE::Camera2D(1280, 720);
   ASGE::Renderer* renderer            = nullptr;
   int font_index                      = 0;
@@ -75,7 +75,7 @@ class GCNetClient : public GameComponent
   std::vector<bool> players_alive         = {true, true, true, true};
   int unit_count                          = 0;
 
-  int currency                                 = 100;
+  int currency                                 = 10;
   TroopTypes shop_unit_selected                = TroopTypes::NONE;
   std::vector<Troop*> units_bought_this_turn   = {};
   std::vector<Troop*> units_attacked_this_turn = {};

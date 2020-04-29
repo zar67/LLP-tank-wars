@@ -4,6 +4,8 @@
 
 #include "Map/Map.h"
 
+#include "Troop.h"
+
 #include <Engine/FileIO.h>
 #include <Engine/Logger.hpp>
 #include <iostream>
@@ -21,6 +23,13 @@ Map::~Map()
     sprite = nullptr;
   }
   base_camp_sprites.clear();
+
+  for (auto* sprite : foggy)
+  {
+    delete sprite;
+    sprite = nullptr;
+  }
+  foggy.clear();
 }
 
 Map& Map::operator=(const Map& map)
@@ -32,6 +41,12 @@ Map& Map::operator=(const Map& map)
       delete base_camp_sprites[i];
       base_camp_sprites[i] = map.base_camp_sprites[i];
     }
+
+    for (int i = 0; i < foggy.size(); i++)
+    {
+      delete foggy[i];
+      foggy[i] = map.foggy[i];
+    }
   }
 
   return *this;
@@ -40,7 +55,7 @@ Map& Map::operator=(const Map& map)
 void Map::init(const int screen_width, const int screen_height)
 {
   map.clear();
-  readJSON("data/MapTileTypes - Copy.json");
+  readJSON("data/MapTileTypes.json");
   this->map_width  = screen_width * 2;
   this->map_height = screen_height * 2;
 }
@@ -70,6 +85,8 @@ void Map::readJSON(const std::string& directory)
       tile_data_grass.name = json_file["grass"][i]["name"].get<std::string>();
       tile_data_grass.directory =
         "data/sprites/map/" + json_file["grass"][i]["directory"].get<std::string>();
+      tile_data_grass.foggy_directory =
+        "data/sprites/foggymap/" + json_file["grass"][i]["directory"].get<std::string>();
       // tile_data_grass.movement_speed = json_file["grass"][i]["movement_speed"].get<int>();
       grass.push_back(tile_data_grass);
 
@@ -77,6 +94,8 @@ void Map::readJSON(const std::string& directory)
       tile_data_sand.name = json_file["sand"][i]["name"].get<std::string>();
       tile_data_sand.directory =
         "data/sprites/map/" + json_file["sand"][i]["directory"].get<std::string>();
+      tile_data_sand.foggy_directory =
+        "data/sprites/foggymap/" + json_file["sand"][i]["directory"].get<std::string>();
       //  tile_data_sand.movement_speed = json_file["sand"][i]["movement_speed"].get<int>();
       sand.push_back(tile_data_sand);
     }
@@ -86,6 +105,8 @@ void Map::readJSON(const std::string& directory)
       tile_data_mix.name = json_file["mix"][j]["name"].get<std::string>();
       tile_data_mix.directory =
         "data/sprites/map/" + json_file["mix"][j]["directory"].get<std::string>();
+      tile_data_mix.foggy_directory =
+        "data/sprites/foggymap/" + json_file["mix"][j]["directory"].get<std::string>();
       //  tile_data_mix.movement_speed = json_file["mix"][j]["movement_speed"].get<int>();
       mix.push_back(tile_data_mix);
     }
@@ -94,7 +115,7 @@ void Map::readJSON(const std::string& directory)
 
 void Map::generateMap(ASGE::Renderer* renderer)
 {
-  readLevelJson("data/MAP_LAYOUT - Copy.json");
+  readLevelJson("data/MAP_LAYOUT.json");
   for (int i = 0; i < tiles_wide; ++i)
   {
     for (int j = 0; j < tiles_high; ++j)
@@ -111,6 +132,7 @@ void Map::generateMap(ASGE::Renderer* renderer)
 
       if (current_tile.player_base_id != -1)
       {
+        current_tile.visible = false;
         current_tile.is_base = true;
         current_tile.sprite->colour(ASGE::COLOURS::GREYBLACK);
         base_camps.at(current_tile.player_base_id) = &current_tile;
@@ -129,10 +151,54 @@ void Map::generateMap(ASGE::Renderer* renderer)
           Logging::log("*** BASE CAMP SPRITE NOT LOADED ***");
         }
 
-        sprite->setGlobalZOrder(-1);
+        sprite->setGlobalZOrder(-6);
         base_camp_sprites[current_tile.player_base_id] = sprite;
       }
     }
+
+    tile_ids_in_range = {
+      -3 * tiles_wide,
+      -2 * tiles_wide - 1,
+      -2 * tiles_wide,
+      -2 * tiles_wide + 1,
+      -tiles_wide - 2,
+      -tiles_wide - 1,
+      -tiles_wide,
+      -tiles_wide + 1,
+      -tiles_wide + 2,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      tiles_wide - 2,
+      tiles_wide - 1,
+      tiles_wide,
+      tiles_wide + 1,
+      tiles_wide + 2,
+      2 * tiles_wide - 1,
+      2 * tiles_wide,
+      2 * tiles_wide + 1,
+      3 * tiles_wide};
+  }
+
+  for (TileData& tile : map)
+  {
+    ASGE::Sprite* foggy_tile = renderer->createRawSprite();
+
+    if (!foggy_tile->loadTexture(tile.foggy_directory))
+    {
+      Logging::log("*** FOGGY SPRITE " + tile.foggy_directory + " NOT LOADED ***");
+    }
+
+    foggy_tile->xPos(tile.sprite->xPos());
+    foggy_tile->yPos(tile.sprite->yPos());
+    foggy_tile->width(tile.sprite->width());
+    foggy_tile->height(tile.sprite->height());
+    foggy_tile->setGlobalZOrder(-4);
+    foggy.push_back(foggy_tile);
   }
 }
 
@@ -152,18 +218,25 @@ void Map::renderMap(ASGE::Renderer* renderer)
     return;
   }
 
-  for (auto& tile : map)
+  for (int i = 0; i < map.size(); i++)
   {
-    renderer->renderSprite(*tile.sprite);
-
-    if (tile.player_base_id != -1 && base_camp_sprites[tile.player_base_id] != nullptr)
+    if (map.at(i).visible)
     {
-      renderer->renderText(
-        std::to_string(tile.base_health),
-        static_cast<int>(tile.sprite->xPos()),
-        static_cast<int>(tile.sprite->yPos() + 20),
-        ASGE::COLOURS::WHITE);
-      renderer->renderSprite(*base_camp_sprites[tile.player_base_id]);
+      renderer->renderSprite(*map.at(i).sprite);
+
+      if (map.at(i).player_base_id != -1 && base_camp_sprites[map.at(i).player_base_id] != nullptr)
+      {
+        renderer->renderText(
+          std::to_string(map.at(i).base_health),
+          static_cast<int>(map.at(i).sprite->xPos()),
+          static_cast<int>(map.at(i).sprite->yPos() + 20),
+          ASGE::COLOURS::WHITE);
+        renderer->renderSprite(*base_camp_sprites[map.at(i).player_base_id]);
+      }
+    }
+    else
+    {
+      renderer->renderSprite(*foggy.at(i));
     }
   }
 }
@@ -286,9 +359,40 @@ void Map::setBaseCamps(int num_players)
     {
       base_camp_sprites.at(tile.player_base_id) = nullptr;
       base_camps.at(tile.player_base_id)        = nullptr;
+      tile.visible                              = false;
       tile.is_base                              = false;
       tile.player_base_id                       = -1;
       tile.sprite->colour(ASGE::COLOURS::WHITE);
+    }
+  }
+}
+
+void Map::updateVisibility(int player_id)
+{
+  std::vector<TileData*> troop_tiles;
+  for (TileData& tile : map)
+  {
+    if (tileInRange(tile.tile_id, base_camps.at(player_id)->tile_id, 3))
+    {
+      tile.visible = true;
+    }
+
+    if (tile.troop_id == -1 || tile.troop_player_id != player_id)
+    {
+      continue;
+    }
+
+    setVisibleTilesInRange(tile.tile_id);
+  }
+}
+
+void Map::setVisibleTilesInRange(int tile_id)
+{
+  for (int id_diff : tile_ids_in_range)
+  {
+    if (tile_id + id_diff > 0 && tile_id + id_diff < map.size())
+    {
+      map.at(tile_id + id_diff).visible = true;
     }
   }
 }

@@ -188,8 +188,8 @@ void GameScreen::render(
       ASGE::COLOURS::BLACK);
     renderer->renderText(
       "Atk: " + std::to_string(troop_selected->getAttackDamage()),
-      35 + local_cam_pos[0] + local_cam_pos[1],
-      615,
+      35 + local_cam_pos[0],
+      615 + local_cam_pos[1],
       ASGE::COLOURS::BLACK);
   }
 }
