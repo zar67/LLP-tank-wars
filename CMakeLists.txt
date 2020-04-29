@@ -4,9 +4,9 @@ include(FeatureSummary)
 OPTION(ENABLE_DEDICATED "Console based dedicated server" OFF)
 add_feature_info("ENABLE_DEDICATED" ENABLE_DEDICATED "Provides a console based dedicated server.")
 
-set(ENABLE_JSON    OFF CACHE BOOL "Adds JSON to the Project" FORCE)
+set(ENABLE_JSON    ON CACHE BOOL "Adds JSON to the Project" FORCE)
 set(ENABLE_NETWORK ON  CACHE BOOL "Adds Network to the Project" FORCE)
-set(ENABLE_SOUND   OFF CACHE BOOL "Adds SoLoud Audio" FORCE)
+set(ENABLE_SOUND   ON CACHE BOOL "Adds SoLoud Audio" FORCE)
 
 project(MyNetGame
 VERSION 0.1
@@ -44,10 +44,6 @@ else()
     message("BUILDING SHARED APPLICATION \n")
     set(BUILD_SHARED_LIBS true)
 endif()
-
-## itch.io: enables deployment targets ##
-set(ITCHIO_USER     "")
-include(tools/itch.io)
 
 ## the game library and executable projects ##
 add_subdirectory(source)

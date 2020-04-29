@@ -3,11 +3,9 @@
 //
 
 #include "GameServer.hpp"
+
 #include <Engine/Logger.hpp>
 void DedicatedServer::run()
 {
-  while (true)
-  {
-    server.update(1.0000 / 60);
-  }
+  while (true) { server.update(1.0000 / 60); }
 }

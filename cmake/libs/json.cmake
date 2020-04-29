@@ -27,7 +27,5 @@ if( ENABLE_JSON )
                 INTERFACE
                 $<$<COMPILE_LANGUAGE:CXX>:-w -fpermissive>)
 
-        set_target_properties(jsonlib PROPERTIES CXX_CLANG_TIDY "")
-        set_target_properties(jsonlib PROPERTIES CXX_CPPCHECK "")
     endif()
 endif()

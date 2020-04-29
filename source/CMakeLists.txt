@@ -18,7 +18,24 @@ add_library(
         ${LIB_NAME} ${HEADER_LIST}
         ## add your CPP files here ##
         components/GCNetClient.cpp
-        components/GCNetServer.cpp)
+        components/GCNetServer.cpp
+        ui/ui_elements/UIElement.cpp
+        ui/ui_elements/Button.cpp
+        ui/scenes/MainMenu.cpp
+        ui/scenes/Lobby.cpp
+        ui/scenes/GameScreen.cpp
+        ui/scenes/Shop.cpp
+        ui/SceneManager.cpp
+        ui/scenes/JoinScreen.cpp
+        ui/scenes/GameOverScreen.cpp
+        ui/ui_elements/TextBox.cpp
+        InputManager.cpp
+        map/Map.cpp
+        components/TroopData.cpp
+        components/GameObject.cpp
+        components/SpriteComponent.cpp
+        Audio/AudioManager.cpp
+        Troop.cpp)
 
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIB_NAME} PROPERTIES CXX_EXTENSIONS OFF)
@@ -56,7 +73,7 @@ endif()
 
 ## enable json support if enabled ##
 if (ENABLE_JSON)
-    add_dependencies(${LIB_NAME}jsonlib)
+    add_dependencies(${LIB_NAME} jsonlib)
     target_link_libraries(${LIB_NAME} PUBLIC jsonlib)
 endif()
 

@@ -116,6 +116,7 @@ _deps
 !.idea/misc.xml
 !.idea/runConfigurations/
 !.idea/inspectionProfiles/
-
+!.idea/externalDependencies.xml
+!.idea/vcs.xml
 
 

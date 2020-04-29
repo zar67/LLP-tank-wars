@@ -3,6 +3,7 @@ set(GAME ${PROJECT_NAME})
 set(DEDICATED DedicatedServer)
 set(COMMON_TARGET CommonTarget)
 
+
 ## we're using a common target for shared properties ##
 add_library(${COMMON_TARGET} INTERFACE)
 
@@ -42,7 +43,7 @@ endif()
 if (WIN32)
     set(ICON Resources/game.rc)
 elseif (APPLE)
-    set(ICON Resources/game.icns)
+    set(ICON Resources/game.icns ../source/InputManager.cpp ../include/gamelib/InputManager.h ../include/gamelib/InputData.h ../include/gamelib/Audio/AudioManager.h)
     set_source_files_properties(
             Resources/game.icns PROPERTIES
             MAXOSX_PACKAGE_LOCATION "Resources")
@@ -55,6 +56,10 @@ add_executable(
         ASGEGame/main.cpp
         ASGEGame/ASGEGame.hpp
         ASGEGame/ASGEGame.cpp)
+
+set(GAMEDATA_FOLDER "apps/data")
+set(ITCHIO_UESR "")
+include(tools/itch.io)
 
 ## hide console unless debug build ##
 if (NOT CMAKE_BUILD_TYPE STREQUAL "Release" AND WIN32)
