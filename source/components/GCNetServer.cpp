@@ -31,26 +31,13 @@ bool GCNetServer::update(ASGE::GameTime time)
     {
     case netlib::NetworkEvent::EventType::ON_CONNECT:
     {
-      netlib::ClientInfo info = server.GetClientInfo(event.senderId);
-      player_count++;
-      if (server.GetAllClients().size() == 1)
-      {
-        server.SendMessageToAll(
-          encodeMessage(NetworkMessages::PLAYER_START_TURN, std::to_string(current_turn_id)));
-      }
+      onConnect(event);
 
-      server.SendMessageToAll(encodeMessage(
-        NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
-      Logging::log(
-        "New client " + info.name + " connected on ip: " + info.ipv4 + " - ID:[" +
-        std::to_string(info.uid) + "]\n");
       break;
     }
     case netlib::NetworkEvent::EventType::ON_DISCONNECT:
     {
-      Logging::log("Client " + std::to_string(event.senderId) + " has disconnected.\n");
-      server.SendMessageToAll(encodeMessage(
-        NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
+      onDisconnect(event);
       break;
     }
     case netlib::NetworkEvent::EventType::MESSAGE:
@@ -63,6 +50,30 @@ bool GCNetServer::update(ASGE::GameTime time)
   }
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
   return false;
+}
+
+void GCNetServer::onDisconnect(const netlib::NetworkEvent& event)
+{
+  Logging::log("Client " + std::to_string(event.senderId) + " has disconnected.\n");
+  server.SendMessageToAll(encodeMessage(
+    NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
+}
+
+void GCNetServer::onConnect(const netlib::NetworkEvent& event)
+{
+  netlib::ClientInfo info = server.GetClientInfo(event.senderId);
+  player_count++;
+  if (server.GetAllClients().size() == 1)
+  {
+    server.SendMessageToAll(
+      encodeMessage(NetworkMessages::PLAYER_START_TURN, std::to_string(current_turn_id)));
+  }
+
+  server.SendMessageToAll(encodeMessage(
+    NetworkMessages::PLAYER_NUM_CHANGED, std::to_string(server.GetAllClients().size())));
+  Logging::log(
+    "New client " + info.name + " connected on ip: " + info.ipv4 + " - ID:[" +
+    std::to_string(info.uid) + "]\n");
 }
 
 void GCNetServer::decodeMessage(const netlib::NetworkEvent& event)

@@ -18,7 +18,7 @@ Game::Game(const ASGE::GameSettings& settings, bool server) : OGLGame(settings)
   ASGE::Point2D cam_pivot;
   cam_pivot.x = 0;
   cam_pivot.y = 0;
-  cam         = new ASGE::Camera2D(cam_pivot, 1280, 720);
+  cam         = std::make_unique<ASGE::Camera2D>(cam_pivot, 1280, 720);
 
   if (!loadFont())
   {
@@ -64,10 +64,6 @@ void Game::update(const ASGE::GameTime& us)
       signalExit();
     }
   }
-  // cam->translateX(500);
-  // cam->update(us);
-
-  // key_pressed = false;
 }
 
 /// Render your game and its scenes here.

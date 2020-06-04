@@ -75,3 +75,9 @@ ASGE::Text UIElement::setupText(
 
   return text_obj;
 }
+
+ASGE::Text UIElement::setupText(const UIElement::TextSetupParams& params)
+{
+  ASGE::Text text_obj = ASGE::Text(params.renderer->getFont(params.font_index), params.text);
+  return text_obj;
+}

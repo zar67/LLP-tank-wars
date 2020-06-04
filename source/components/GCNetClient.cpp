@@ -23,7 +23,6 @@ GCNetClient::~GCNetClient()
   if (input_reader != nullptr)
   {
     input_reader->exitInputThread();
-    delete (input_reader);
     input_reader = nullptr;
   }
 
@@ -112,7 +111,7 @@ bool GCNetClient::updateUI()
 {
   std::array<int, 2> cam_pos = {
     static_cast<int>(cam->getView().x), static_cast<int>(cam->getView().y)};
-  UIElement::MenuItem item = scene_manager.update(input_reader, cam_pos);
+  UIElement::MenuItem item = scene_manager.update(input_reader.get(), cam_pos);
 
   switch (item)
   {
@@ -184,66 +183,72 @@ bool GCNetClient::updateUI()
   }
   case (UIElement::MenuItem::MAP_CLICK):
   {
-    input_reader->setClickedMap(
-      clientIndexNumber(),
-      troops[clientIndexNumber()],
-      *input_reader->mouseClicked(),
-      input_reader->mousePos().x,
-      input_reader->mousePos().y);
-
-    TileData* tile_clicked       = input_reader->tileClicked();
-    TileData* previously_clicked = input_reader->previousTileClicked();
-
-    if (in_turn && tile_clicked != nullptr && tile_clicked->visible && time_units_spent < max_time_units)
-    {
-      if (!tile_clicked->is_base && shop_unit_selected != TroopTypes::NONE)
-      {
-        buyUnit(tile_clicked, shop_unit_selected);
-        map.updateVisibility(clientIndexNumber());
-        shop_unit_selected = TroopTypes::NONE;
-      }
-      else if (
-        !tile_clicked->is_base && previously_clicked != nullptr &&
-        previously_clicked->tile_id != tile_clicked->tile_id &&
-        previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id >= 0 &&
-        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
-        tile_clicked->troop_id < 0)
-      {
-        moveUnit(tile_clicked, previously_clicked);
-        map.updateVisibility(clientIndexNumber());
-      }
-      else if (
-        !tile_clicked->is_base && previously_clicked != nullptr &&
-        previously_clicked->tile_id != tile_clicked->tile_id &&
-        previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id >= 0 &&
-        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
-        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
-        tile_clicked->troop_player_id != clientIndexNumber() && tile_clicked->troop_id >= 0)
-      {
-        attackUnit(tile_clicked, previously_clicked);
-      }
-      else if (
-        previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
-        previously_clicked->troop_player_id == clientIndexNumber() &&
-        previously_clicked->troop_id >= 0 &&
-        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
-        !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
-        tile_clicked->player_base_id != -1)
-      {
-        attackBaseCamp(tile_clicked, previously_clicked);
-      }
-    }
-
-    input_reader->unlockPreviousTile();
-    input_reader->unlockTile();
-
+    mapClick();
     break;
   }
   }
 
   return false;
+}
+
+// a map class, which handles all this data rather than the net component would
+// be a better design approach
+void GCNetClient::mapClick()
+{
+  input_reader->setClickedMap(
+    clientIndexNumber(),
+    troops[clientIndexNumber()],
+    *input_reader->mouseClicked(),
+    input_reader->mousePos().x,
+    input_reader->mousePos().y);
+
+  TileData* tile_clicked       = input_reader->tileClicked();
+  TileData* previously_clicked = input_reader->previousTileClicked();
+
+  if (in_turn && tile_clicked != nullptr && tile_clicked->visible && time_units_spent < max_time_units)
+  {
+    if (!tile_clicked->is_base && shop_unit_selected != TroopTypes::NONE)
+    {
+      buyUnit(tile_clicked, shop_unit_selected);
+      map.updateVisibility(clientIndexNumber());
+      shop_unit_selected = TroopTypes::NONE;
+    }
+    else if (
+      !tile_clicked->is_base && previously_clicked != nullptr &&
+      previously_clicked->tile_id != tile_clicked->tile_id &&
+      previously_clicked->troop_player_id == clientIndexNumber() &&
+      previously_clicked->troop_id >= 0 &&
+      !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+      tile_clicked->troop_id < 0)
+    {
+      moveUnit(tile_clicked, previously_clicked);
+      map.updateVisibility(clientIndexNumber());
+    }
+    else if (
+      !tile_clicked->is_base && previously_clicked != nullptr &&
+      previously_clicked->tile_id != tile_clicked->tile_id &&
+      previously_clicked->troop_player_id == clientIndexNumber() &&
+      previously_clicked->troop_id >= 0 &&
+      !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+      !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
+      tile_clicked->troop_player_id != clientIndexNumber() && tile_clicked->troop_id >= 0)
+    {
+      attackUnit(tile_clicked, previously_clicked);
+    }
+    else if (
+      previously_clicked != nullptr && previously_clicked->tile_id != tile_clicked->tile_id &&
+      previously_clicked->troop_player_id == clientIndexNumber() &&
+      previously_clicked->troop_id >= 0 &&
+      !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getBoughtThisTurn() &&
+      !getTroop(clientIndexNumber(), previously_clicked->troop_id)->getAttackedThisTurn() &&
+      tile_clicked->player_base_id != -1)
+    {
+      attackBaseCamp(tile_clicked, previously_clicked);
+    }
+  }
+
+  input_reader->unlockPreviousTile();
+  input_reader->unlockTile();
 }
 
 void GCNetClient::render()
@@ -345,23 +350,7 @@ void GCNetClient::handleActions(const std::vector<char>& message)
   {
   case NetworkMessages::PLAYER_MOVE:
   {
-    std::vector<std::string> data = getMessageData(message);
-    int unit_id                   = std::stoi(data[0]);
-    int current_tile_id           = std::stoi(data[1]);
-    int new_tile_id               = std::stoi(data[2]);
-    int sender_id                 = std::stoi(data[3]);
-
-    TileData* current_tile = map.getTile(current_tile_id);
-    TileData* new_tile     = map.getTile(new_tile_id);
-
-    ASGE::Sprite* sprite = getTroop(sender_id, unit_id)->getSpriteComponent()->getSprite();
-    sprite->xPos(new_tile->sprite->xPos() + new_tile->sprite->width() / 2 - sprite->width() / 2);
-    sprite->yPos(new_tile->sprite->yPos() + new_tile->sprite->height() / 2 - sprite->height() / 2);
-
-    new_tile->troop_player_id     = sender_id;
-    new_tile->troop_id            = unit_id;
-    current_tile->troop_player_id = -1;
-    current_tile->troop_id        = -1;
+    handlePlayerMove(message);
 
     break;
   }
@@ -425,6 +414,26 @@ void GCNetClient::handleActions(const std::vector<char>& message)
     break;
   }
   }
+}
+void GCNetClient::handlePlayerMove(const std::vector<char>& message)
+{
+  std::vector<std::string> data = getMessageData(message);
+  int unit_id                   = std::stoi(data[0]);
+  int current_tile_id           = std::stoi(data[1]);
+  int new_tile_id               = std::stoi(data[2]);
+  int sender_id                 = std::stoi(data[3]);
+
+  TileData* current_tile = map.getTile(current_tile_id);
+  TileData* new_tile     = map.getTile(new_tile_id);
+
+  ASGE::Sprite* sprite = getTroop(sender_id, unit_id)->getSpriteComponent()->getSprite();
+  sprite->xPos(new_tile->sprite->xPos() + new_tile->sprite->width() / 2 - sprite->width() / 2);
+  sprite->yPos(new_tile->sprite->yPos() + new_tile->sprite->height() / 2 - sprite->height() / 2);
+
+  new_tile->troop_player_id     = sender_id;
+  new_tile->troop_id            = unit_id;
+  current_tile->troop_player_id = -1;
+  current_tile->troop_id        = -1;
 }
 
 void GCNetClient::handleBaseAttack(const std::vector<char>& message)
@@ -699,11 +708,7 @@ void GCNetClient::attackBaseCamp(TileData* tile_clicked, TileData* previously_cl
 
 void GCNetClient::addInputReader(ASGE::Input& _inputs)
 {
-  if (input_reader != nullptr)
-  {
-    delete (input_reader);
-  }
-  input_reader = new InputManager(_inputs, cam, &map);
+  input_reader = std::make_unique<InputManager>(_inputs, cam, &map);
 }
 
 int GCNetClient::clientIndexNumber()

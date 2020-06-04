@@ -14,6 +14,9 @@
 #include <Engine/Camera2D.hpp>
 #include <NetLib/ClientConnection.h>
 
+// you've muddled the game code with net code. this component is really meant
+// to store network related functionality and not rendering.. but an easy
+// mistake to make
 class GCNetClient : public GameComponent
 {
  public:
@@ -53,13 +56,16 @@ class GCNetClient : public GameComponent
 
   std::array<float, 4> cam_starting_x = {-640, -1900, -640, -1900};
   std::array<float, 4> cam_starting_y = {-360, -1080, -1080, -360};
-  ASGE::Camera2D* cam                 = nullptr;  // ASGE::Camera2D(1280, 720);
-  ASGE::Renderer* renderer            = nullptr;
-  int font_index                      = 0;
+
+  int font_index = 0;
 
   netlib::ClientConnection client;
+
+  // should all be in the game and not the net client component
   SceneManager scene_manager;
   AudioManager audio_manager;
+  ASGE::Camera2D* cam      = nullptr;  // ASGE::Camera2D(1280, 720);
+  ASGE::Renderer* renderer = nullptr;
 
   bool can_start            = true;
   bool alive                = true;
@@ -71,6 +77,8 @@ class GCNetClient : public GameComponent
   int time_units_spent = 0;
   std::vector<std::vector<char>> actions;
 
+  // try not to use vectors of vectors, it will fragment memory
+  // in addition, please use unique pointers to reduce manual deallocations
   std::vector<std::vector<Troop*>> troops = {{}, {}, {}, {}};
   std::vector<bool> players_alive         = {true, true, true, true};
   int unit_count                          = 0;
@@ -81,7 +89,9 @@ class GCNetClient : public GameComponent
   std::vector<Troop*> units_attacked_this_turn = {};
 
   Map map;
-  InputManager* input_reader = nullptr;
+  std::unique_ptr<InputManager> input_reader = nullptr;
+  void mapClick();
+  void handlePlayerMove(const std::vector<char>& message);
 };
 
 #endif  // NETGAME_GCNETCLIENT_HPP

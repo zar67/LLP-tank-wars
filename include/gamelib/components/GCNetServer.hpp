@@ -39,12 +39,15 @@ class GCNetServer : public GameComponent
   std::vector<std::string> getMessageData(std::vector<char> message);
 
  private:
+  // it's unlikely the server would ever need to know about rendering.
   ASGE::Renderer* renderer = nullptr;
   netlib::ServerConnection server;
 
   ServerState server_state = ServerState::NONE;
   int current_turn_id      = 1;
   int player_count         = 0;
+  void onConnect(const netlib::NetworkEvent& event);
+  void onDisconnect(const netlib::NetworkEvent& event);
 };
 
 #endif  // NETGAME_GCNETSERVER_HPP

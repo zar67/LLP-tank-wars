@@ -42,6 +42,8 @@ bool TextBox::init(
 {
   float center_y =
     y_pos + (height / 2) + (static_cast<float>(renderer->getFont(font_index).line_height) / 4);
+
+  // use a struct instead of a long list of parameters
   text = setupText(
     renderer,
     font_index,

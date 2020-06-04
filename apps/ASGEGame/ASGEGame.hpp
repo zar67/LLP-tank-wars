@@ -30,8 +30,11 @@ class Game : public ASGE::OGLGame
 
  private:
   bool loadFont();
-  int font_index      = 0;
-  ASGE::Camera2D* cam = nullptr;
+  int font_index = 0;
+
+  // also it's leaking.... memory.. but is it even used??
+  // ASGE::Camera2D* cam = nullptr;
+  std::unique_ptr<ASGE::Camera2D> cam = nullptr;
 
   std::vector<std::unique_ptr<GameComponent>> game_components;
   int key_callback_id   = -1; /**< Key InputManager Callback ID. */

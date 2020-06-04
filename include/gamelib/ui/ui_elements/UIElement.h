@@ -44,6 +44,23 @@ class UIElement
     float width,
     float height,
     float opacity = 1);
+
+  struct TextSetupParams final
+  {
+    ASGE::Colour colour      = ASGE::COLOURS::WHEAT;
+    ASGE::Renderer* renderer = nullptr;
+    bool center_x            = true;
+    bool center_y            = true;
+    const std::string& text  = "";
+    float scale              = 1;
+    float x_pos              = 0;
+    float y_pos              = 0;
+    int font_index           = 1;
+    short z_order            = 5;
+  };
+
+  static ASGE::Text setupText(const TextSetupParams& params);
+
   static ASGE::Text setupText(
     ASGE::Renderer* renderer,
     int font_index,
