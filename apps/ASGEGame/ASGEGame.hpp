@@ -19,7 +19,7 @@
 class Game : public ASGE::OGLGame
 {
  public:
-  explicit Game(const ASGE::GameSettings& settings);
+  explicit Game(const ASGE::GameSettings& settings, bool server);
   ~Game() override = default;
 
   Game(const Game&) = delete;

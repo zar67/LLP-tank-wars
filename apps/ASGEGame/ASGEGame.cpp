@@ -6,9 +6,13 @@
 /// Initialises the game.
 /// Setup your game and initialise the core components.
 /// @param settings
-Game::Game(const ASGE::GameSettings& settings) : OGLGame(settings)
+Game::Game(const ASGE::GameSettings& settings, bool server) : OGLGame(settings)
 {
-  game_components.emplace_back(std::make_unique<GCNetServer>());
+  if (server)
+  {
+    game_components.emplace_back(std::make_unique<GCNetServer>());
+  }
+
   game_components.emplace_back(std::make_unique<GCNetClient>());
 
   ASGE::Point2D cam_pivot;

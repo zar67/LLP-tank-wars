@@ -13,7 +13,14 @@ int main(int argc, char* argv[])
   game_settings.msaa_level    = 1;
 
   Logging::INFO("Launching Game!");
-  Game game(game_settings);
+
+  bool is_server = false;
+  if (argc > 1)
+  {
+    std::string{argv[1]} == "-server" ? is_server = true : is_server = false;
+  }
+
+  Game game(game_settings, is_server);
   game.run();
 
   return 0;
